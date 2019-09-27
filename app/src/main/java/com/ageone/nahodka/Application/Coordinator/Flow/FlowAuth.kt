@@ -7,6 +7,9 @@ import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.InitModuleUI
+import com.example.ageone.Modules.Entry.EntryModel
+import com.example.ageone.Modules.Entry.EntryView
+import com.example.ageone.Modules.Entry.EntryViewModel
 
 fun FlowCoordinator.runFlowAuth() {
 
@@ -37,11 +40,41 @@ class FlowAuth: BaseFlow() {
 
     override fun start() {
         onStarted()
+        runEntryModule()
 //        runModule()
     }
 
     inner class FlowAuthModels {
 //        var modelMap = MapModel()
+
+        var modelEntry = EntryModel()
+
+    }
+
+    fun runEntryModule(){
+        val module = EntryView(InitModuleUI(
+            isBottomNavigationVisible = false,
+            isToolbarHidden = false,
+            isBackPressed = true,
+            backListener = {
+                pop()
+            }
+        ))
+
+        module.viewModel.initialize(models.modelEntry) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        module.emitEvent = { event ->
+            when(EntryViewModel.EventType.valueOf(event)){
+                EntryViewModel.EventType.OnNextPressed ->{
+
+                }
+            }
+        }
+
+        push(module)
+
     }
 
 
