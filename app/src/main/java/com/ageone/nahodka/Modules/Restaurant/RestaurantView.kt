@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -27,6 +28,14 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         viewAdapter
     }
 
+    val imageViewFAB by lazy {
+        val imageView = BaseImageView()
+        imageView.setBackgroundColor(Color.TRANSPARENT)
+        imageView.width(80)
+        imageView.height(80)
+        imageView.setImageResource(R.drawable.ic_fab)
+        imageView
+    }
 
     init {
 //        viewModel.loadRealmData()
@@ -114,7 +123,8 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 fun RestaurantView.renderUIO() {
 
     innerContent.subviews(
-        bodyTable
+        bodyTable,
+        imageViewFAB
     )
 
     bodyTable
@@ -125,6 +135,10 @@ fun RestaurantView.renderUIO() {
 
     bodyTable
         .clipToPadding = false
+
+    imageViewFAB
+        .constrainRightToRightOf(innerContent,5)
+        .constrainBottomToBottomOf(innerContent,30)
 }
 
 
