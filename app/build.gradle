@@ -14,7 +14,7 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.nahodka"
+        applicationId "com.ageone.nahodka"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
