@@ -58,9 +58,6 @@ class FlowAuth: BaseFlow() {
         var modelEntry = EntryModel()
         var modelEntrySMS = EntrySMSModel()
 
-        var modelRestaurant = RestaurantModel()
-
-
     }
 
     fun runStartModule(){
@@ -134,15 +131,6 @@ class FlowAuth: BaseFlow() {
 
     }
 
-    fun runRestaurantModule(){
-        val module = RestaurantView(InitModuleUI())
-
-        module.viewModel.initialize(models.modelEntrySMS) { module.reload() }
-
-        settingsCurrentFlow.isBottomNavigationVisible = true
-
-        push(module)
-    }
     fun BaseModule.startLoadingFlow() {
         coordinator.start()
         onDeInit?.invoke()
