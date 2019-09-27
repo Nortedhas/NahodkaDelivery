@@ -51,7 +51,7 @@ object TabBar {
         bottomNavigation.setTitleTextSize(30f,30f)
         bottomNavigation.defaultBackgroundColor = Color.parseColor("#FEFEFE")//color
         bottomNavigation.isBehaviorTranslationEnabled = true
-        bottomNavigation.accentColor = Color.parseColor("#F27D25")
+        bottomNavigation.accentColor = Color.parseColor("#09D0B8")
         bottomNavigation.inactiveColor = Color.parseColor("#AFAFB4")
         bottomNavigation.isForceTint = true
         bottomNavigation.isTranslucentNavigationEnabled = false
@@ -70,6 +70,9 @@ object TabBar {
 
     private fun createStackItem() {
         items = arrayListOf(
+            AHBottomNavigationItem("Рестораны", R.drawable.ic_restaurant),
+            AHBottomNavigationItem("Акции", R.drawable.ic_stock),
+            AHBottomNavigationItem("Профиль", R.drawable.ic_profile)
 //            AHBottomNavigationItem("", R.drawable.ic_)
 
         )

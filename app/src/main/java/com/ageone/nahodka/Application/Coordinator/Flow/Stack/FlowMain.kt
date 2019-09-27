@@ -1,8 +1,10 @@
 package com.ageone.nahodka.Application.Coordinator.Flow.Stack
 
+import android.graphics.Color
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
@@ -48,6 +50,9 @@ class FlowMain: BaseFlow() {
 
     private fun runModuleRestaurant() {
         val module = RestaurantView()
+
+        setStatusBarColor(Color.parseColor("#09D0B8"))
+
 
         module.viewModel.initialize(models.modelRestaurant) { module.reload()}
 
