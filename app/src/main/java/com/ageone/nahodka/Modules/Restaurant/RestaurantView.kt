@@ -4,12 +4,16 @@ import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import androidx.recyclerview.widget.GridLayoutManager
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.Restaurant.rows.RestaurantImageViewHolder
+import com.ageone.nahodka.Modules.Restaurant.rows.initialize
 import com.example.ageone.Modules.Restaurant.rows.RestaurantItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
 import yummypets.com.stevia.*
@@ -22,6 +26,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         val viewAdapter = Factory(this)
         viewAdapter
     }
+
 
     init {
 //        viewModel.loadRealmData()
@@ -52,11 +57,13 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RestaurantItemType = 0
+        private val RestaurantImageType = 0
+        private val RestaurantItemType = 1
 
         override fun getItemCount() = 5//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
+            0 -> RestaurantImageType
             else -> RestaurantItemType
         }
 
@@ -69,6 +76,9 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 .height(wrapContent)
 
             val holder = when (viewType) {
+                RestaurantImageType -> {
+                    RestaurantImageViewHolder(layout)
+                }
                 RestaurantItemType -> {
                     RestaurantItemViewHolder(layout)
                 }
@@ -83,6 +93,9 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
+                is RestaurantImageViewHolder -> {
+                    holder.initialize()
+                }
                 is RestaurantItemViewHolder -> {
                     holder.initialize(R.drawable.food,"Ollis Pizza",
                         "Итальянская, Мексиканская, Кавказ...",
