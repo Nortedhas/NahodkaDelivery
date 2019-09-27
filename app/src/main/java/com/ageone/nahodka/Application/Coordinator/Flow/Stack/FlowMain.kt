@@ -49,7 +49,13 @@ class FlowMain: BaseFlow() {
     }
 
     private fun runModuleRestaurant() {
-        val module = RestaurantView()
+        val module = RestaurantView(
+            InitModuleUI(
+                exitListener = {
+
+                }
+            )
+        )
 
         setStatusBarColor(Color.parseColor("#09D0B8"))
 
