@@ -14,6 +14,8 @@ import com.example.ageone.Modules.Entry.EntryViewModel
 import com.example.ageone.Modules.EntrySMS.EntrySMSModel
 import com.example.ageone.Modules.EntrySMS.EntrySMSView
 import com.example.ageone.Modules.EntrySMS.EntrySMSViewModel
+import com.example.ageone.Modules.Restaurant.RestaurantModel
+import com.example.ageone.Modules.Restaurant.RestaurantView
 import com.example.ageone.Modules.Start.StartModel
 import com.example.ageone.Modules.Start.StartView
 
@@ -55,6 +57,8 @@ class FlowAuth: BaseFlow() {
         var modelStart = StartModel()
         var modelEntry = EntryModel()
         var modelEntrySMS = EntrySMSModel()
+
+        var modelRestaurant = RestaurantModel()
 
 
     }
@@ -120,7 +124,8 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when(EntrySMSViewModel.EventType.valueOf(event)){
                 EntrySMSViewModel.EventType.OnNextPressed ->{
-                    module.startLoadingFlow()
+                    //module.startLoadingFlow()
+                    runRestaurantModule()
                 }
             }
         }
@@ -129,6 +134,15 @@ class FlowAuth: BaseFlow() {
 
     }
 
+    fun runRestaurantModule(){
+        val module = RestaurantView(InitModuleUI())
+
+        module.viewModel.initialize(models.modelEntrySMS) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = true
+
+        push(module)
+    }
     fun BaseModule.startLoadingFlow() {
         coordinator.start()
         onDeInit?.invoke()
