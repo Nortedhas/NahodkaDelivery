@@ -124,8 +124,8 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when(EntrySMSViewModel.EventType.valueOf(event)){
                 EntrySMSViewModel.EventType.OnNextPressed ->{
-                    //module.startLoadingFlow()
-                    runRestaurantModule()
+                    module.startLoadingFlow()
+
                 }
             }
         }

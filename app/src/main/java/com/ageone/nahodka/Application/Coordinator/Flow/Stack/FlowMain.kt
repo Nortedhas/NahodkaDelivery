@@ -7,6 +7,8 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
+import com.example.ageone.Modules.Restaurant.RestaurantModel
+import com.example.ageone.Modules.Restaurant.RestaurantView
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -36,11 +38,22 @@ class FlowMain: BaseFlow() {
 
     override fun start() {
         onStarted()
+        runModuleRestaurant()
 //        runModule()
     }
 
     inner class FlowMainModels {
+        var modelRestaurant = RestaurantModel()
     }
 
+    private fun runModuleRestaurant() {
+        val module = RestaurantView()
+
+        module.viewModel.initialize(models.modelRestaurant) { module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = true
+
+        push(module)
+    }
 
 }
