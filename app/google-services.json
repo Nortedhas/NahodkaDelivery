@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "593616075747",
+    "firebase_url": "https://nahodka-31f76.firebaseio.com",
+    "project_id": "nahodka-31f76",
+    "storage_bucket": "nahodka-31f76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593616075747:android:af46af06bd3414a3777ed6",
+        "android_client_info": {
+          "package_name": "com.ageone.nahodka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593616075747-0qbh1plsvvfbavsuamf5cv6jd0vhr5u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgMuCVKUJEJLuRqBtoGYb7VuewmSL1oIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593616075747-0qbh1plsvvfbavsuamf5cv6jd0vhr5u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
