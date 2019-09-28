@@ -3,11 +3,13 @@ package com.ageone.nahodka.Modules.RestaurantKitchen.rows
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import androidx.constraintlayout.solver.widgets.Rectangle
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
@@ -114,6 +116,34 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         textView
     }
 
+    val backRectangleStar by lazy {
+        val view = BaseView()
+        view.cornerRadius = 5.dp
+        view.backgroundColor = Color.parseColor("#C4FCF5")
+        view
+            .width(64)
+            .height(24)
+        view.initialize()
+        view
+    }
+
+    val imageViewStar by lazy {
+        val imageView = BaseImageView()
+        imageView.setImageResource(R.drawable.ic_star)
+        imageView.initialize()
+        imageView
+            .width(13)
+            .height(13)
+        imageView
+    }
+
+    val textViewRating by lazy {
+        val textView = BaseTextView()
+        textView.textColor = Color.parseColor("#373737")
+        textView.textSize = 12F
+        textView
+    }
+
     init {
 
         renderUI()
@@ -133,7 +163,10 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         imageViewOrder,
         textViewOrder,
         imageViewTruck,
-        textViewTruck
+        textViewTruck,
+        backRectangleStar,
+        imageViewStar,
+        textViewRating
     )
 
     imageViewPreview
@@ -180,10 +213,20 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainTopToBottomOf(imageViewOrder,6)
         .constrainLeftToRightOf(imageViewTruck, 10)
 
+    backRectangleStar
+        .constrainTopToBottomOf(textViewTruck,10)
+        .constrainLeftToLeftOf(constraintLayout,17)
 
+    imageViewStar
+        .constrainLeftToLeftOf(backRectangleStar,12)
+        .constrainTopToTopOf(backRectangleStar,5)
+
+    textViewRating
+        .constrainTopToTopOf(backRectangleStar,4)
+        .constrainLeftToRightOf(imageViewStar,6)
 }
 
-fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String) {
+fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String,rating: String) {
     imageViewPreview
         .width(width)
         .height(width * .423F)
@@ -199,4 +242,6 @@ fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:S
     textViewOrder.text = "Заказ от $orderPrice руб."
 
     textViewTruck.text = "Доставка: $deliveryPrice"
+
+    textViewRating.text = rating
 }
