@@ -172,6 +172,14 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         textView
     }
 
+    val textViewReview by lazy {
+        val textView = BaseTextView()
+        textView.textColor = Color.parseColor("#01A18D")
+        textView.textSize = 12F
+        textView.text = "Посмотреть отзывы"
+        textView
+    }
+
     init {
 
         renderUI()
@@ -197,7 +205,8 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         textViewRating,
         backRectangleComment,
         imageViewComment,
-        textViewComment
+        textViewComment,
+        textViewReview
     )
 
     imageViewPreview
@@ -267,6 +276,10 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
     textViewComment
         .constrainLeftToRightOf(imageViewComment,6)
         .constrainTopToTopOf(backRectangleComment,4)
+
+    textViewReview
+        .constrainBottomToBottomOf(backRectangleComment)
+        .constrainRightToRightOf(constraintLayout,16)
 }
 
 fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String,rating: String, commentCount: String) {
