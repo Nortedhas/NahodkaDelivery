@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
+import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
@@ -33,6 +34,13 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView
     }
 
+    val textViewCheck by lazy {
+        val textView = BaseTextView()
+        textView.textSize = 14F
+        textView.textColor = Color.WHITE
+        textView
+    }
+
     init {
 
         renderUI()
@@ -43,7 +51,8 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
 fun RestaurantKitchenPreviewViewHolder.renderUI() {
     constraintLayout.subviews(
         imageViewPreview,
-        imageViewWallet
+        imageViewWallet,
+        textViewCheck
     )
 
     imageViewPreview
@@ -53,12 +62,18 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
     imageViewWallet
         .constrainBottomToBottomOf(imageViewPreview,20)
         .constrainLeftToLeftOf(imageViewPreview,20)
+
+    textViewCheck
+        .constrainLeftToRightOf(imageViewWallet,10)
+        .constrainBottomToBottomOf(imageViewPreview,20)
 }
 
-fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int) {
+fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, check: String) {
     imageViewPreview
         .width(width)
         .height(width * .423F)
 
     addImageFromGlide(imageViewPreview,image)
+
+    textViewCheck.text = "Средний чек: $check руб."
 }
