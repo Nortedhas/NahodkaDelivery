@@ -95,7 +95,8 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "00:00 - 23:50",
                         "800",
                         "бесплатно",
-                        "4.0")
+                        "4.0",
+                        "18")
                 }
 
             }

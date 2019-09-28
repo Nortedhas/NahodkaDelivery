@@ -144,6 +144,34 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         textView
     }
 
+    val backRectangleComment by lazy {
+        val view = BaseView()
+        view.cornerRadius = 5.dp
+        view.backgroundColor = Color.parseColor("#C4FCF5")
+        view
+            .width(64)
+            .height(24)
+        view.initialize()
+        view
+    }
+
+    val imageViewComment by lazy {
+        val imageView = BaseImageView()
+        imageView.setImageResource(R.drawable.ic_comment)
+        imageView.initialize()
+        imageView
+            .width(13)
+            .height(13)
+        imageView
+    }
+
+    val textViewComment by lazy {
+        val textView = BaseTextView()
+        textView.textColor = Color.parseColor("#373737")
+        textView.textSize = 12F
+        textView
+    }
+
     init {
 
         renderUI()
@@ -166,7 +194,10 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         textViewTruck,
         backRectangleStar,
         imageViewStar,
-        textViewRating
+        textViewRating,
+        backRectangleComment,
+        imageViewComment,
+        textViewComment
     )
 
     imageViewPreview
@@ -224,9 +255,21 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
     textViewRating
         .constrainTopToTopOf(backRectangleStar,4)
         .constrainLeftToRightOf(imageViewStar,6)
+
+    backRectangleComment
+        .constrainTopToBottomOf(textViewTruck,10)
+        .constrainLeftToRightOf(backRectangleStar,14)
+
+    imageViewComment
+        .constrainLeftToLeftOf(backRectangleComment,12)
+        .constrainTopToTopOf(backRectangleComment,6)
+
+    textViewComment
+        .constrainLeftToRightOf(imageViewComment,6)
+        .constrainTopToTopOf(backRectangleComment,4)
 }
 
-fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String,rating: String) {
+fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String,rating: String, commentCount: String) {
     imageViewPreview
         .width(width)
         .height(width * .423F)
@@ -244,4 +287,6 @@ fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:S
     textViewTruck.text = "Доставка: $deliveryPrice"
 
     textViewRating.text = rating
+
+    textViewComment.text = commentCount
 }
