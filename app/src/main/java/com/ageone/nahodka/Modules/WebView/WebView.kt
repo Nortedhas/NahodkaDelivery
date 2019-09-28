@@ -18,7 +18,7 @@ class WebView(initModuleUI: InitModuleUI = InitModuleUI(), url: String) : BaseMo
     }
 
     init {
-        setBackgroundResource(R.drawable.base_background)
+        setBackgroundResource(R.drawable.back_white)
         toolbar.title = "Оплата"
         renderToolbar()
 

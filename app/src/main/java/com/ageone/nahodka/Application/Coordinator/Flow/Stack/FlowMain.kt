@@ -71,7 +71,17 @@ class FlowMain: BaseFlow() {
     }
 
     private fun runModuleRestaurantKitchen(){
-        val module = RestaurantKitchenView()
+        val module = RestaurantKitchenView(
+            InitModuleUI(
+                isBackPressed = true,
+                backListener = {
+                    pop()
+                },
+                exitListener = {
+
+                }
+            )
+        )
 
         setStatusBarColor(Color.parseColor("#09D0B8"))
 

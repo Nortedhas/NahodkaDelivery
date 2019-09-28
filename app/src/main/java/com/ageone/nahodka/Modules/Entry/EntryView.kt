@@ -3,6 +3,7 @@ package com.example.ageone.Modules.Entry
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -13,10 +14,7 @@ import com.example.ageone.Modules.Entry.rows.EntryButtonViewHolder
 import com.example.ageone.Modules.Entry.rows.EntryEditTextViewHolder
 import com.example.ageone.Modules.Entry.rows.EntryTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
-import yummypets.com.stevia.height
-import yummypets.com.stevia.matchParent
-import yummypets.com.stevia.width
-import yummypets.com.stevia.wrapContent
+import yummypets.com.stevia.*
 
 class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -132,7 +130,18 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
 fun EntryView.renderUIO() {
 
-    renderBodyTable()
+    innerContent.subviews(
+        bodyTable
+    )
+
+    bodyTable
+        .fillHorizontally()
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false
 
 }
 

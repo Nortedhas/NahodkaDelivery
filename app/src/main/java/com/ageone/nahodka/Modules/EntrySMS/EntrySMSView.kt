@@ -3,6 +3,7 @@ package com.example.ageone.Modules.EntrySMS
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -139,7 +140,18 @@ fun EntrySMSView.renderUIO() {
         .fillHorizontally(22)
         .constrainTopToTopOf(innerContent,5)
 
-    renderBodyTable()
+    innerContent.subviews(
+        bodyTable
+    )
+
+    bodyTable
+        .fillHorizontally()
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false
 }
 
 
