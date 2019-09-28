@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Modules.RestaurantKitchen.rows
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.R
@@ -29,8 +30,8 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setImageResource(R.drawable.ic_wallet)
         imageView.initialize()
         imageView
-            .width(18)
-            .height(18)
+            .width(15)
+            .height(15)
         imageView
     }
 
@@ -47,8 +48,8 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setImageResource(R.drawable.ic_clock)
         imageView.initialize()
         imageView
-            .width(18)
-            .height(18)
+            .width(15)
+            .height(15)
         imageView
     }
 
@@ -57,6 +58,25 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         textView.textSize = 14F
         textView.textColor = Color.WHITE
         textView
+    }
+
+    val textViewName by lazy {
+        val textView = BaseTextView()
+        textView.textSize = 28F
+        textView.textColor = Color.WHITE
+        textView.typeface = Typeface.DEFAULT_BOLD
+        textView
+    }
+
+    val imageViewInfo by lazy {
+        val imageView = BaseImageView()
+        imageView.setBackgroundColor(Color.TRANSPARENT)
+        imageView.setImageResource(R.drawable.ic_info)
+        imageView.initialize()
+        imageView
+            .width(27)
+            .height(27)
+        imageView
     }
 
     init {
@@ -69,36 +89,45 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
 fun RestaurantKitchenPreviewViewHolder.renderUI() {
     constraintLayout.subviews(
         imageViewPreview,
+        textViewName,
         imageViewClock,
         textViewTimeDelivery,
         imageViewWallet,
-        textViewCheck
+        textViewCheck,
+        imageViewInfo
     )
 
     imageViewPreview
         .constrainTopToTopOf(constraintLayout)
         .fillHorizontally()
 
+    textViewName
+        .constrainBottomToBottomOf(imageViewPreview,8)
+        .constrainLeftToLeftOf(imageViewPreview,23)
 
     imageViewClock
-        .constrainBottomToBottomOf(imageViewPreview,20)
-        .constrainLeftToLeftOf(imageViewPreview,20)
+        .constrainBottomToTopOf(textViewName,6)
+        .constrainLeftToLeftOf(imageViewPreview,23)
 
     textViewTimeDelivery
-        .constrainBottomToBottomOf(imageViewPreview,20)
+        .constrainBottomToTopOf(textViewName,6)
         .constrainLeftToRightOf(imageViewClock,10)
 
     imageViewWallet
-        .constrainBottomToTopOf(imageViewClock,10)
-        .constrainLeftToLeftOf(imageViewPreview,20)
+        .constrainBottomToTopOf(imageViewClock,6)
+        .constrainLeftToLeftOf(imageViewPreview,23)
 
     textViewCheck
-        .constrainBottomToTopOf(textViewTimeDelivery,10)
+        .constrainBottomToTopOf(textViewTimeDelivery,6)
         .constrainLeftToRightOf(imageViewWallet,10)
+
+    imageViewInfo
+        .constrainBottomToBottomOf(imageViewPreview,12)
+        .constrainRightToRightOf(imageViewPreview,20)
 
 }
 
-fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, check: String, time: String) {
+fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String) {
     imageViewPreview
         .width(width)
         .height(width * .423F)
@@ -108,4 +137,6 @@ fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, check:
     textViewCheck.text = "Средний чек: $check руб."
 
     textViewTimeDelivery.text = "Время доставки: $time"
+
+    textViewName.text = name
 }
