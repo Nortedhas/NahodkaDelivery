@@ -79,6 +79,17 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView
     }
 
+    val imageViewOrder by lazy {
+        val imageView = BaseImageView()
+        imageView.setBackgroundColor(Color.TRANSPARENT)
+        imageView.setImageResource(R.drawable.ic_order)
+        imageView.initialize()
+        imageView
+            .width(15)
+            .height(15)
+        imageView
+    }
+
     init {
 
         renderUI()
@@ -94,7 +105,8 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         textViewTimeDelivery,
         imageViewWallet,
         textViewCheck,
-        imageViewInfo
+        imageViewInfo,
+        imageViewOrder
     )
 
     imageViewPreview
@@ -124,6 +136,10 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
     imageViewInfo
         .constrainBottomToBottomOf(imageViewPreview,12)
         .constrainRightToRightOf(imageViewPreview,20)
+
+    imageViewOrder
+        .constrainTopToBottomOf(imageViewPreview,12)
+        .constrainLeftToLeftOf(constraintLayout,23)
 
 }
 
