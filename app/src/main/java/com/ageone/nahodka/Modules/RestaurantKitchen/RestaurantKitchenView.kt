@@ -93,7 +93,8 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "Ollis Pizza",
                         "600",
                         "00:00 - 23:50",
-                        "800")
+                        "800",
+                        "бесплатно")
                 }
 
             }
