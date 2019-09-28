@@ -90,6 +90,12 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView
     }
 
+    val textViewOrder by lazy {
+        val textView = BaseTextView()
+        textView.textSize = 12F
+        textView.textColor = Color.parseColor("#373737")
+        textView
+    }
     init {
 
         renderUI()
@@ -106,7 +112,8 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         imageViewWallet,
         textViewCheck,
         imageViewInfo,
-        imageViewOrder
+        imageViewOrder,
+        textViewOrder
     )
 
     imageViewPreview
@@ -141,9 +148,13 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainTopToBottomOf(imageViewPreview,12)
         .constrainLeftToLeftOf(constraintLayout,23)
 
+    textViewOrder
+        .constrainTopToBottomOf(imageViewPreview,12)
+        .constrainLeftToRightOf(imageViewOrder, 10)
+
 }
 
-fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String) {
+fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String) {
     imageViewPreview
         .width(width)
         .height(width * .423F)
@@ -155,4 +166,6 @@ fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:S
     textViewTimeDelivery.text = "Время доставки: $time"
 
     textViewName.text = name
+
+    textViewOrder.text = "Заказ от $orderPrice руб."
 }
