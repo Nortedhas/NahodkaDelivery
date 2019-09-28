@@ -9,6 +9,8 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
+import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenView
 import com.example.ageone.Modules.Restaurant.RestaurantModel
 import com.example.ageone.Modules.Restaurant.RestaurantView
 
@@ -46,13 +48,14 @@ class FlowMain: BaseFlow() {
 
     inner class FlowMainModels {
         var modelRestaurant = RestaurantModel()
+        var modelRestaurantKitchen = RestaurantKitchenModel()
     }
 
     private fun runModuleRestaurant() {
         val module = RestaurantView(
             InitModuleUI(
                 exitListener = {
-
+                    runModuleRestaurantKitchen()
                 }
             )
         )
@@ -67,4 +70,15 @@ class FlowMain: BaseFlow() {
         push(module)
     }
 
+    private fun runModuleRestaurantKitchen(){
+        val module = RestaurantKitchenView()
+
+        setStatusBarColor(Color.parseColor("#09D0B8"))
+
+        module.viewModel.initialize(models.modelRestaurantKitchen) {module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = true
+
+        push(module)
+    }
 }
