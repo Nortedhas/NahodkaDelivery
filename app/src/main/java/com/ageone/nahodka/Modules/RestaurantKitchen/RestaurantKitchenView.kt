@@ -12,10 +12,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.RestaurantKitchen.rows.RestaurantKitchenCardViewHolder
-import com.ageone.nahodka.Modules.RestaurantKitchen.rows.RestaurantKitchenPreviewViewHolder
-import com.ageone.nahodka.Modules.RestaurantKitchen.rows.RestaurantKitchenTextViewHolder
-import com.ageone.nahodka.Modules.RestaurantKitchen.rows.initialize
+import com.ageone.nahodka.Modules.RestaurantKitchen.rows.*
 import yummypets.com.stevia.*
 
 
@@ -61,13 +58,16 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
         private val RestaurantKitchenTextType = 1
 
-        private val RestaurantKitchenCardType = 2
+        private val RestaurantKitchenFastfoodType = 2
+
+        private val RestaurantKitchenCardType = 3
 
         override fun getItemCount() = 6//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> RestaurantKitchenPreviewType
             1 -> RestaurantKitchenTextType
+            2 -> RestaurantKitchenFastfoodType
             else -> RestaurantKitchenCardType
         }
 
@@ -85,6 +85,9 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 RestaurantKitchenTextType -> {
                     RestaurantKitchenTextViewHolder(layout)
+                }
+                RestaurantKitchenFastfoodType -> {
+                    RestaurantKitchenFastfoodViewHolder(layout)
                 }
                 RestaurantKitchenCardType -> {
                     RestaurantKitchenCardViewHolder(layout)
@@ -114,6 +117,9 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 is RestaurantKitchenTextViewHolder -> {
                     holder.initialize()
+                }
+                is RestaurantKitchenFastfoodViewHolder -> {
+                    holder.initialize("Пицца")
                 }
                 is RestaurantKitchenCardViewHolder -> {
                     holder.initialize(
