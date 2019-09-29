@@ -12,7 +12,9 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
+import com.ageone.nahodka.Modules.RestaurantKitchen.rows.RestaurantKitchenCardViewHolder
 import com.ageone.nahodka.Modules.RestaurantKitchen.rows.RestaurantKitchenPreviewViewHolder
+import com.ageone.nahodka.Modules.RestaurantKitchen.rows.RestaurantKitchenTextViewHolder
 import com.ageone.nahodka.Modules.RestaurantKitchen.rows.initialize
 import yummypets.com.stevia.*
 
@@ -57,11 +59,16 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
         private val RestaurantKitchenPreviewType = 0
 
-        override fun getItemCount() = 1//viewModel.realmData.size
+        private val RestaurantKitchenTextType = 1
+
+        private val RestaurantKitchenCardType = 2
+
+        override fun getItemCount() = 6//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> RestaurantKitchenPreviewType
-            else -> -1
+            1 -> RestaurantKitchenTextType
+            else -> RestaurantKitchenCardType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -75,6 +82,12 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
             val holder = when (viewType) {
                 RestaurantKitchenPreviewType -> {
                     RestaurantKitchenPreviewViewHolder(layout)
+                }
+                RestaurantKitchenTextType -> {
+                    RestaurantKitchenTextViewHolder(layout)
+                }
+                RestaurantKitchenCardType -> {
+                    RestaurantKitchenCardViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -98,6 +111,14 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "бесплатно",
                         "4.0",
                         "18")
+                }
+                is RestaurantKitchenTextViewHolder -> {
+                    holder.initialize()
+                }
+                is RestaurantKitchenCardViewHolder -> {
+                    holder.initialize(
+                        utils.variable.displayWidth,
+                        R.drawable.food)
                 }
 
             }
