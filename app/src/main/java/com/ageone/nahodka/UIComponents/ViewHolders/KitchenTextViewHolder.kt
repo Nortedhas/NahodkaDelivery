@@ -54,8 +54,8 @@ fun KitchenTextViewHolder.renderUI() {
     )
 
     back
-        .constrainTopToTopOf(constraintLayout,10)
-        .constrainLeftToLeftOf(constraintLayout,17)
+        .constrainTopToTopOf(constraintLayout,17)
+        .constrainLeftToLeftOf(constraintLayout,13)
 
     textViewKitchen
         .constrainCenterYToCenterYOf(back)
