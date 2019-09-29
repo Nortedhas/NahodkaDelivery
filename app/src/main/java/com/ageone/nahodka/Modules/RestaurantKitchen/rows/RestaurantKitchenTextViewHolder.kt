@@ -29,6 +29,7 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     var kitchenList = listOf("Пицца", "Бургеры", "Роллы", "Супы", "Напитки","Пицца", "Бургеры", "Роллы", "Супы", "Напитки")
+    var checkList =   listOf(true,false,false,false,false,false,false,false,false,false)
 
     init {
         recyclerViewHolder.adapter = viewAdapter
@@ -60,13 +61,14 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
         override fun onBindViewHolder(holder: KitchenTextViewHolder, position: Int) {
 
             var kitchen = kitchenList[position]
+            var check = checkList[position]
 
-            holder.initialize(kitchen)
+            holder.initialize(kitchen,check)
 
-            if(position == 0){
+            /*if(position == 0){
                 holder.textViewKitchen
                     .constrainLeftToLeftOf(holder.constraintLayout,10)
-            }
+            }*/
         }
 
     }
