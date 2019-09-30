@@ -7,7 +7,7 @@ class RestaurantViewModel : InterfaceViewModel{
     var model = RestaurantModel()
 
     enum class EventType {
-
+        OnRestaurantPressed
     }
 
     /*var realmData = listOf<>()

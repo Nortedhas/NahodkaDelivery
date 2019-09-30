@@ -11,8 +11,10 @@ import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenView
+import com.ageone.nahodka.R
 import com.example.ageone.Modules.Restaurant.RestaurantModel
 import com.example.ageone.Modules.Restaurant.RestaurantView
+import com.example.ageone.Modules.Restaurant.RestaurantViewModel
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -32,6 +34,8 @@ fun FlowCoordinator.runFlowMain() {
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }
+
+    setStatusBarColor(Color.parseColor("#09D0B8"))
 
 //    flow?.start()
 }
@@ -54,19 +58,28 @@ class FlowMain: BaseFlow() {
     private fun runModuleRestaurant() {
         val module = RestaurantView(
             InitModuleUI(
+                exitIcon = R.drawable.ic_shoping_kart,
                 exitListener = {
-                    runModuleRestaurantKitchen()
+
                 }
             )
         )
 
-        setStatusBarColor(Color.parseColor("#09D0B8"))
 
 
         module.viewModel.initialize(models.modelRestaurant) { module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
+        module.emitEvent = {event ->
+            models.modelRestaurant = module.viewModel.model
+
+            when(RestaurantViewModel.EventType.valueOf(event)) {
+                RestaurantViewModel.EventType.OnRestaurantPressed -> {
+                    runModuleRestaurantKitchen()
+                }
+            }
+        }
         push(module)
     }
 
@@ -74,6 +87,7 @@ class FlowMain: BaseFlow() {
         val module = RestaurantKitchenView(
             InitModuleUI(
                 isBackPressed = true,
+                exitIcon = R.drawable.ic_shoping_kart,
                 backListener = {
                     pop()
                 },

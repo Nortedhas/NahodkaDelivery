@@ -110,6 +110,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                         "Итальянская, Мексиканская, Кавказ...",
                         "Заказ от 600 руб.", R.drawable.ic_star,"4.0",
                         utils.variable.displayWidth.toFloat())
+
+                    holder.constraintLayout.setOnClickListener {
+                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnRestaurantPressed.toString())
+                    }
                 }
 
             }

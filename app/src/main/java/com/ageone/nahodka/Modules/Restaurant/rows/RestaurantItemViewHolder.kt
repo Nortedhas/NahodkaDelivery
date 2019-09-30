@@ -49,8 +49,8 @@ class RestaurantItemViewHolder(val constraintLayout: ConstraintLayout) :
     val imageViewStar by lazy {
         val imageView = BaseImageView()
         imageView.backgroundColor = Color.TRANSPARENT
-        imageView.scaleX = 2.7F
-        imageView.scaleY = 2.7F
+        imageView.scaleX = 1.5F
+        imageView.scaleY = 1.5F
         imageView
     }
 
