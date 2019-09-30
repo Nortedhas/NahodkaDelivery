@@ -29,7 +29,7 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Ollias Pizza"
         toolbar.textColor = Color.WHITE

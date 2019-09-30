@@ -20,7 +20,6 @@ class EntryButtonViewHolder(val constraintLayout: ConstraintLayout) :
         button.textSize = 20F
         button.width = 40
         button.cornerRadius = 0
-
         button
     }
 

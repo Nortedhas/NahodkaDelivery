@@ -11,6 +11,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
+import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlideWithGradient
 import yummypets.com.stevia.*
 
 class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout) :
@@ -20,7 +21,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         val imageView = BaseImageView()
         imageView.gradient = Color.BLACK
         imageView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        //imageView.gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,intArrayOf(Color.TRANSPARENT,Color.BLACK))
         imageView.setBackgroundColor(Color.GRAY)
         imageView.initialize()
         imageView
@@ -283,23 +283,17 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
 }
 
 fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String,rating: String, commentCount: String) {
+    addImageFromGlideWithGradient(imageViewPreview, image, Color.TRANSPARENT, Color.argb(0x88, 0,0,0))
+
     imageViewPreview
         .width(width)
         .height(width * .423F)
 
-    addImageFromGlide(imageViewPreview,image)
-
     textViewCheck.text = "Средний чек: $check руб."
-
     textViewTimeDelivery.text = "Время доставки: $time"
-
     textViewName.text = name
-
     textViewOrder.text = "Заказ от $orderPrice руб."
-
     textViewTruck.text = "Доставка: $deliveryPrice"
-
     textViewRating.text = rating
-
     textViewComment.text = commentCount
 }
