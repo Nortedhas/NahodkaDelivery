@@ -43,7 +43,6 @@ class FlowMain: BaseFlow() {
     override fun start() {
         onStarted()
         runModuleRestaurant()
-//        runModule()
     }
 
     inner class FlowMainModels {

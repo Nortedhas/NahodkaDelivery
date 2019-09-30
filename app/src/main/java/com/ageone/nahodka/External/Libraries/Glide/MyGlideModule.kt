@@ -20,37 +20,37 @@ import yummypets.com.stevia.dp
 @GlideModule
 class MyGlideModule : AppGlideModule()
 
-fun addImageFromGlide(image: ImageView, uri: String) {
+fun addImageFromGlide(image: ImageView, uri: String, cornerRadius: Int = 8) {
     val placeholder = createDownloadPlaceholder()
 
     GlideApp
         .with(image)
         .load(uri)
-        .transform(CenterCrop(), RoundedCorners(8.dp))
+        .transform(CenterCrop(), RoundedCorners(cornerRadius.dp))
         .placeholder(placeholder)
         .into(image)
 
 }
 
-fun addImageFromGlide(image: ImageView, uri: Int) {
+fun addImageFromGlide(image: ImageView, uri: Int, cornerRadius: Int = 8) {
     val placeholder = createDownloadPlaceholder()
 
     GlideApp
         .with(image)
         .load(uri)
-        .transform(CenterCrop(), RoundedCorners(8.dp))
+        .transform(CenterCrop(), RoundedCorners(cornerRadius.dp))
         .placeholder(placeholder)
         .into(image)
 
 }
 
-fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String) {
+fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String, cornerRadius: Int = 8) {
     val placeholder = createDownloadPlaceholder()
 
     GlideApp
         .with(image)
         .load(uri)
-        .transform(CenterCrop(), RoundedCorners(8.dp))
+        .transform(CenterCrop(), RoundedCorners(cornerRadius.dp))
         .placeholder(placeholder)
         .into(object : ViewTarget<ImageView, Drawable>(image) {
             override fun onLoadStarted(placeholder: Drawable?) {
