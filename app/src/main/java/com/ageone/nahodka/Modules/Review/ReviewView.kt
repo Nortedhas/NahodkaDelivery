@@ -3,6 +3,7 @@ package com.ageone.nahodka.Modules.Review
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -10,6 +11,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
+import com.ageone.nahodka.Modules.Review.rows.ReviewCommentViewHolder
 import com.ageone.nahodka.Modules.Review.rows.ReviewTextViewHolder
 import com.ageone.nahodka.Modules.Review.rows.initialize
 import yummypets.com.stevia.*
@@ -53,12 +55,13 @@ class ReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val ReviewTextType = 0
+        private val ReviewCommentType = 1
 
-        override fun getItemCount() = 1//viewModel.realmData.size
+        override fun getItemCount() = 6//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> ReviewTextType
-            else -> -1
+            else -> ReviewCommentType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -72,6 +75,9 @@ class ReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             val holder = when (viewType) {
                 ReviewTextType -> {
                     ReviewTextViewHolder(layout)
+                }
+                ReviewCommentType -> {
+                    ReviewCommentViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -87,6 +93,9 @@ class ReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is ReviewTextViewHolder -> {
                     holder.initialize("Ollis Pizza", "4.0", "2")
                 }
+                is ReviewCommentViewHolder -> {
+                    holder.initialize("Анастасия", "4.0", "7 мая 2019", "Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан")
+                }
 
             }
 
@@ -97,8 +106,8 @@ class ReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 }
 
 fun ReviewView.renderUIO() {
-
     renderBodyTable()
 }
+
 
 
