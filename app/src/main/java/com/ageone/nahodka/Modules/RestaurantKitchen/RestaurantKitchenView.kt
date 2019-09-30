@@ -120,6 +120,8 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 is RestaurantKitchenFastfoodViewHolder -> {
                     holder.initialize("Пицца")
+
+                    holder.constraintLayout.setOnClickListener {  }
                 }
                 is RestaurantKitchenCardViewHolder -> {
                     holder.initialize(

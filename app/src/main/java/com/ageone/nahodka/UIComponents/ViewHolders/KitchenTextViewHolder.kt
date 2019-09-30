@@ -17,6 +17,8 @@ class KitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
     val uncheckColor = Color.WHITE
     val checkColor = Color.parseColor("#FFEF9D")
 
+    val isChecked = false
+
     val back by lazy {
         val view = BaseView()
         view.cornerRadius = 10.dp
@@ -39,6 +41,17 @@ class KitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         renderUI()
     }
+
+
+    fun setBack() {
+        if (isChecked) {
+            back.backgroundColor = uncheckColor
+        } else {
+            back.backgroundColor = checkColor
+        }
+        back.initialize()
+    }
+
 
 
 }

@@ -60,19 +60,19 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         override fun onBindViewHolder(holder: KitchenTextViewHolder, position: Int) {
 
-            var kitchen = kitchenList[position]
+           // var kitchen = kitchenList[position]
 
-            var check:Boolean
-
-            if(position == 0) {
-                check = true
-            }else{
-                check=false
+            val food = if(position - 1 < kitchenList.size) kitchenList[position] else ""
+            holder.initialize(food,position == selectedFood)
+            holder.constraintLayout.setOnClickListener {
+                selectedFood = position
+                notifyDataSetChanged()
             }
-            holder.initialize(kitchen,check)
         }
 
     }
+
+    private var selectedFood = 0
 
 }
 

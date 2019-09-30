@@ -1,7 +1,10 @@
 package com.ageone.nahodka.Modules.RestaurantKitchen.rows
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import androidx.constraintlayout.solver.widgets.Rectangle
 import androidx.constraintlayout.widget.ConstraintLayout
