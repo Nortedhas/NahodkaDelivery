@@ -5,7 +5,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
-import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlideWithoutCorner
 import yummypets.com.stevia.*
 
 class RestaurantImageItemViewHolder(val constraintLayout: ConstraintLayout) :
@@ -44,5 +43,5 @@ fun RestaurantImageItemViewHolder.initialize(width: Int, image: Int) {
         .width(width)
         .height(width*.402F)
 
-    addImageFromGlideWithoutCorner(imageViewFood,image)
+    addImageFromGlide(imageViewFood,image)
 }

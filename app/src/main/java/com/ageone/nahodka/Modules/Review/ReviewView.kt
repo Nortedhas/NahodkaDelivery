@@ -106,8 +106,18 @@ class ReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 }
 
 fun ReviewView.renderUIO() {
-    renderBodyTable()
-}
+    innerContent.subviews(
+        bodyTable
+    )
+
+    bodyTable
+        .fillHorizontally()
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false}
 
 
 

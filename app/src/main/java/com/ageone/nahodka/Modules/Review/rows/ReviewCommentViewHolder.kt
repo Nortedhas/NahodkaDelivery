@@ -85,7 +85,7 @@ fun ReviewCommentViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,15)
 
     textViewRating
-        .constrainTopToTopOf(separator,15)
+        .constrainTopToBottomOf(separator,15)
         .constrainLeftToRightOf(textViewName,5)
 
     imageViewStar
