@@ -14,6 +14,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
+import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlideWithoutCorner
 import yummypets.com.stevia.*
 
 class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout) :
@@ -290,7 +291,7 @@ fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:S
         .width(width)
         .height(width * .423F)
 
-    addImageFromGlide(imageViewPreview,image)
+    addImageFromGlideWithoutCorner(imageViewPreview,image)
 
     textViewCheck.text = "Средний чек: $check руб."
 

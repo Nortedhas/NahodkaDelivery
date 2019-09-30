@@ -44,6 +44,29 @@ fun addImageFromGlide(image: ImageView, uri: Int) {
 
 }
 
+fun addImageFromGlideWithoutCorner(image: ImageView, uri: Int) {
+    val placeholder = createDownloadPlaceholder()
+
+    GlideApp
+        .with(image)
+        .load(uri)
+        .transform(CenterCrop())
+        .placeholder(placeholder)
+        .into(image)
+
+}
+fun addImageFromGlideWithoutCorner(image: ImageView, uri: String) {
+    val placeholder = createDownloadPlaceholder()
+
+    GlideApp
+        .with(image)
+        .load(uri)
+        .transform(CenterCrop())
+        .placeholder(placeholder)
+        .into(image)
+
+}
+
 fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String) {
     val placeholder = createDownloadPlaceholder()
 
