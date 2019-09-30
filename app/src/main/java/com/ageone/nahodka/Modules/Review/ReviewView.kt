@@ -98,6 +98,9 @@ class ReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 }
                 is ReviewCommentViewHolder -> {
                     holder.initialize("Анастасия", "4.0", "7 мая 2019", "Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан")
+                    holder.constraintLayout.setOnClickListener {
+                        rootModule.emitEvent?.invoke(ReviewViewModel.EventType.OnItemPressed.toString())
+                    }
                 }
 
             }

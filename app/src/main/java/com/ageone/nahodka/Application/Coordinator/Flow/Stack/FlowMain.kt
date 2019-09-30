@@ -12,6 +12,8 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewViewModel
+import com.ageone.nahodka.Modules.Info.InfoModel
+import com.ageone.nahodka.Modules.Info.InfoView
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenView
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenViewModel
@@ -63,6 +65,7 @@ class FlowMain: BaseFlow() {
         var modelRestaurantKitchen = RestaurantKitchenModel()
         var modelReview = ReviewModel()
         var moduleClientReview = ClientReviewModel()
+        var moduleInfo = InfoModel()
     }
 
     private fun runModuleRestaurant() {
@@ -142,8 +145,11 @@ class FlowMain: BaseFlow() {
                 ReviewViewModel.EventType.OnCommentPressed -> {
                     runModuleClientReview()
                 }
-            }
+                ReviewViewModel.EventType.OnItemPressed -> {
+                        runModuleInfo()
 
+                }
+            }
         }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
@@ -162,6 +168,23 @@ class FlowMain: BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleClientReview) {module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
+    private fun runModuleInfo(){
+        val module = InfoView(
+            InitModuleUI(
+                isBackPressed = true,
+                backListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleInfo) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
