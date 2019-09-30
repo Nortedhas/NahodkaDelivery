@@ -28,16 +28,6 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         viewAdapter
     }
 
-    val smsTextView by lazy {
-        val textView = BaseTextView()
-        textView.textColor = Color.parseColor("#089988")
-        textView.textSize = 11F
-        textView.setBackgroundColor(Color.TRANSPARENT)
-        textView.text = "CМС Код"
-
-        textView
-    }
-
     init {
 //        viewModel.loadRealmData()
 

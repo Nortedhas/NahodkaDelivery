@@ -1,15 +1,15 @@
-package com.ageone.nahodka.Modules.Review
+package com.ageone.nahodka.Modules.ClientReview
 
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class ReviewViewModel : InterfaceViewModel {
-    var model = ReviewModel()
+class ClientReviewViewModel : InterfaceViewModel {
+    var model = ClientReviewModel()
 
     enum class EventType {
 
-        OnCommentPressed
+        OnSendPressed
     }
 
     /*var realmData = listOf<>()
@@ -18,13 +18,13 @@ class ReviewViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ReviewModel) {
+        if (recievedModel is ClientReviewModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ReviewModel : InterfaceModel {
+class ClientReviewModel : InterfaceModel {
 
 }
