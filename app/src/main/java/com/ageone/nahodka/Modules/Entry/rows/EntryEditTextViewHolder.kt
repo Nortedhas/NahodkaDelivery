@@ -29,25 +29,6 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
 
-    val nameTextView by lazy {
-        val textView = BaseTextView()
-        textView.textColor = Color.parseColor("#089988")
-        textView.textSize = 16F
-        textView.setBackgroundColor(Color.TRANSPARENT)
-
-        textView
-
-    }
-
-    val phoneEditText by lazy {
-        val editText = BaseEditText()
-        editText.setBackgroundColor(Color.TRANSPARENT)
-        editText.textSize = 20F
-
-
-        editText
-    }
-
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
 
@@ -80,14 +61,9 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun EntryEditTextViewHolder.renderUI() {
     constraintLayout.subviews(
-        phoneTextView,
         textInputL
 
     )
-
-    phoneTextView
-        .fillHorizontally(20)
-        .constrainTopToTopOf(constraintLayout,5)
 
      textInputL
          .constrainTopToBottomOf(phoneTextView)
@@ -95,8 +71,9 @@ fun EntryEditTextViewHolder.renderUI() {
 
 }
 
-fun EntryEditTextViewHolder.initialize(text : String, type: InputEditTextType) {
-    phoneTextView.text = text
+fun EntryEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
+
+    textInputL.hint = hint
     textInputL.defineType(type)
 
 }

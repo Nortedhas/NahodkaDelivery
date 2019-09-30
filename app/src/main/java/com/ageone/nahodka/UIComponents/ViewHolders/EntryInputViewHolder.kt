@@ -31,6 +31,7 @@ class EntryInputViewHolder(val constraintLayout: ConstraintLayout) :
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 5F.dp
+            editText.hint = "СМС код"
         }
         textInput
     }
@@ -51,7 +52,6 @@ fun EntryInputViewHolder.renderUI() {
     textInputL
         .constrainTopToTopOf(constraintLayout,20)
         .fillHorizontally(12)
-
 
 }
 

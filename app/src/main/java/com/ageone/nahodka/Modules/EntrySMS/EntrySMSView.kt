@@ -133,12 +133,9 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 fun EntrySMSView.renderUIO() {
 
     innerContent.subviews(
-        smsTextView
+        //smsTextView
     )
 
-    smsTextView
-        .fillHorizontally(22)
-        .constrainTopToTopOf(innerContent,5)
 
     innerContent.subviews(
         bodyTable

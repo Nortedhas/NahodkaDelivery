@@ -51,12 +51,12 @@ fun EntryTextViewHolder.initialize() {
 
     val spannableContent = SpannableString(text + declaration)
     spannableContent.setSpan(
-        ForegroundColorSpan(Color.parseColor("#000000")),
+        ForegroundColorSpan(Color.parseColor("#007aff")),
         text.length,  text.length + declaration.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
 
-    spannableContent.setSpan(
+   /* spannableContent.setSpan(
         UnderlineSpan(),
-        text.length,  text.length + declaration.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        text.length,  text.length + declaration.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)*/
 
     textView.text = spannableContent
 }

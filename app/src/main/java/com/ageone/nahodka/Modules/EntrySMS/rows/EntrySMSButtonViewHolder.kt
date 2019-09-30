@@ -17,7 +17,7 @@ class EntrySMSButtonViewHolder(val constraintLayout: ConstraintLayout) :
         button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
         button.textSize = 20F
         button.setTextColor(Color.WHITE)
-        button.width = 40
+        button.height(56)
         button.cornerRadius = 0
 
         button
