@@ -11,6 +11,9 @@ import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenView
+import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenViewModel
+import com.ageone.nahodka.Modules.Review.ReviewModel
+import com.ageone.nahodka.Modules.Review.ReviewView
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Restaurant.RestaurantModel
 import com.example.ageone.Modules.Restaurant.RestaurantView
@@ -20,7 +23,10 @@ fun FlowCoordinator.runFlowMain() {
 
     var flow: FlowMain? = FlowMain()
 
+
     flow?.let{ flow ->
+        setStatusBarColor(Color.parseColor("#09D0B8"))
+
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
@@ -35,7 +41,6 @@ fun FlowCoordinator.runFlowMain() {
         flow = null
     }
 
-    setStatusBarColor(Color.parseColor("#09D0B8"))
 
 //    flow?.start()
 }
@@ -53,6 +58,7 @@ class FlowMain: BaseFlow() {
     inner class FlowMainModels {
         var modelRestaurant = RestaurantModel()
         var modelRestaurantKitchen = RestaurantKitchenModel()
+        var modelReview = ReviewModel()
     }
 
     private fun runModuleRestaurant() {
@@ -97,11 +103,37 @@ class FlowMain: BaseFlow() {
             )
         )
 
-        setStatusBarColor(Color.parseColor("#09D0B8"))
+//        setStatusBarColor(Color.parseColor("#09D0B8"))
 
         module.viewModel.initialize(models.modelRestaurantKitchen) {module.reload()}
 
+        module.emitEvent = { event ->
+            models.modelRestaurantKitchen = module.viewModel.model
+
+            when(RestaurantKitchenViewModel.EventType.valueOf(event)) {
+                RestaurantKitchenViewModel.EventType.OnReviewPressed -> {
+                    runModuleReview()
+                }
+            }
+        }
         settingsCurrentFlow.isBottomNavigationVisible = true
+
+        push(module)
+    }
+
+    private fun runModuleReview(){
+        val module = ReviewView(
+            InitModuleUI(
+            isBackPressed = true,
+                backListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.modelReview) { module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
 
         push(module)
     }

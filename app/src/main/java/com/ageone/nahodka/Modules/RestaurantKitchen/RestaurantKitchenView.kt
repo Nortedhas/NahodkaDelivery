@@ -114,6 +114,10 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "бесплатно",
                         "4.0",
                         "18")
+                    holder.textViewReview.setOnClickListener {
+                        rootModule.emitEvent?.invoke(RestaurantKitchenViewModel.EventType.OnReviewPressed.toString())
+
+                    }
                 }
                 is RestaurantKitchenTextViewHolder -> {
                     holder.initialize()
