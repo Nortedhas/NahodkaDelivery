@@ -124,7 +124,10 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 is RestaurantKitchenCardViewHolder -> {
                     holder.initialize(
                         utils.variable.displayWidth,
-                        R.drawable.food)
+                        R.drawable.food,
+                        "Пицца классическая",
+                        "450",
+                        "Лучший кофе на дороге, отхлебнёшь, протянешь ноги.")
                 }
 
             }
