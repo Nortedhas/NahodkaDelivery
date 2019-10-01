@@ -1,15 +1,14 @@
-package com.ageone.nahodka.Modules.Profile
+package com.ageone.nahodka.Modules.Contact
 
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class ProfileViewModel : InterfaceViewModel {
-    var model = ProfileModel()
+class ContactViewModel : InterfaceViewModel {
+    var model = ContactModel()
 
     enum class EventType {
-        OnMyOrderPressed,
-        OnContactPressed
+
     }
 
     /*var realmData = listOf<>()
@@ -18,13 +17,13 @@ class ProfileViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ProfileModel) {
+        if (recievedModel is ContactModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ProfileModel : InterfaceModel {
+class ContactModel : InterfaceModel {
 
 }

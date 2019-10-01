@@ -9,6 +9,8 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.Contact.ContactModel
+import com.ageone.nahodka.Modules.Contact.ContactView
 import com.ageone.nahodka.Modules.MyOrder.MyOrderModel
 import com.ageone.nahodka.Modules.MyOrder.MyOrderView
 import com.ageone.nahodka.Modules.Profile.ProfileModel
@@ -53,6 +55,7 @@ class FlowProfile : BaseFlow() {
     inner class FlowProfileModels {
         var modelProfileTest = ProfileModel()
         var moduleMyOrder = MyOrderModel()
+        var moduleContact= ContactModel()
     }
 
     fun runModuleProfile() {
@@ -66,6 +69,9 @@ class FlowProfile : BaseFlow() {
             when (ProfileViewModel.EventType.valueOf(event)) {
                 ProfileViewModel.EventType.OnMyOrderPressed -> {
                     runModuleMyOrder()
+                }
+                ProfileViewModel.EventType.OnContactPressed -> {
+                    runModuleContact()
                 }
             }
         }
@@ -90,5 +96,21 @@ class FlowProfile : BaseFlow() {
 
     }
 
+    fun runModuleContact(){
+        val module = ContactView(
+            InitModuleUI(
+                isBackPressed = true,
+                backListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleContact) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
 
 }

@@ -106,6 +106,9 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                         }
                         3 -> {
                             holder.initialize(R.drawable.ic_share,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
+                            holder.constraintLayout.setOnClickListener {
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnContactPressed.toString())
+                            }
                         }
                     }
                 }
