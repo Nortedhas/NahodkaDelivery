@@ -7,7 +7,9 @@ import android.widget.RatingBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
@@ -41,6 +43,16 @@ class ClientReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
         val ratingBar = RatingBar(currentActivity)
         ratingBar.numStars = 5
         ratingBar
+    }
+
+    val imageViewRating by lazy {
+        val imageView = BaseImageView()
+        imageView.setImageResource(R.drawable.pic_stars)
+        imageView
+            .width(120)
+            .height(20)
+        imageView.initialize()
+        imageView
     }
 
     val textInputL by lazy {
@@ -88,7 +100,7 @@ fun ClientReviewTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewEstimate,
         textViewName,
-        ratingBar,
+        imageViewRating,
         textInputL,
         buttonSend
     )
@@ -101,12 +113,12 @@ fun ClientReviewTextViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewEstimate, 20)
         .constrainLeftToLeftOf(constraintLayout,15)
 
-    ratingBar
+    imageViewRating
         .constrainTopToBottomOf(textViewName, 15)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     textInputL
-        .constrainTopToBottomOf(ratingBar,17)
+        .constrainTopToBottomOf(imageViewRating,17)
         .fillHorizontally(16)
 
     buttonSend

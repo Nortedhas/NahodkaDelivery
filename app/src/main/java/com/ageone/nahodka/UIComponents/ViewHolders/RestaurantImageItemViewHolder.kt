@@ -43,5 +43,5 @@ fun RestaurantImageItemViewHolder.initialize(width: Int, image: Int) {
         .width(width)
         .height(width*.402F)
 
-    addImageFromGlide(imageViewFood,image)
+    addImageFromGlide(imageViewFood,image,1)
 }

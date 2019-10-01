@@ -11,6 +11,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
+import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlideWithShadow
 import yummypets.com.stevia.*
 
 class RestaurantKitchenCardViewHolder(val constraintLayout: ConstraintLayout) :
@@ -142,5 +143,5 @@ fun RestaurantKitchenCardViewHolder.initialize(width: Int, image: Int, dishName:
 
     textViewDescription.text = dishDescription
 
-    addImageFromGlide(imageViewCard,image)
+    addImageFromGlide(imageViewCard,image,8)
 }
