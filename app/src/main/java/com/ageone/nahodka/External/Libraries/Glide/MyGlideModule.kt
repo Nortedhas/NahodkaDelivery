@@ -26,24 +26,43 @@ class MyGlideModule : AppGlideModule()
 fun addImageFromGlide(image: ImageView, uri: String, cornerRadius: Int = 8) {
     val placeholder = createDownloadPlaceholder()
 
-    GlideApp
-        .with(image)
-        .load(uri)
-        .transform(CenterCrop(), RoundedCorners(cornerRadius.dp))
-        .placeholder(placeholder)
-        .into(image)
+    if (cornerRadius == 0) {
+        GlideApp
+            .with(image)
+            .load(uri)
+            .centerCrop()
+            .placeholder(placeholder)
+            .into(image)
+    } else {
+        GlideApp
+            .with(image)
+            .load(uri)
+            .transform(CenterCrop(), RoundedCorners(cornerRadius.dp))
+            .placeholder(placeholder)
+            .into(image)
+    }
+
 
 }
 
 fun addImageFromGlide(image: ImageView, uri: Int, cornerRadius: Int = 8) {
     val placeholder = createDownloadPlaceholder()
 
-    GlideApp
-        .with(image)
-        .load(uri)
-        .transform(CenterCrop(), RoundedCorners(cornerRadius.dp))
-        .placeholder(placeholder)
-        .into(image)
+    if (cornerRadius == 0) {
+        GlideApp
+            .with(image)
+            .load(uri)
+            .centerCrop()
+            .placeholder(placeholder)
+            .into(image)
+    } else {
+        GlideApp
+            .with(image)
+            .load(uri)
+            .transform(CenterCrop(), RoundedCorners(cornerRadius.dp))
+            .placeholder(placeholder)
+            .into(image)
+    }
 
 }
 
@@ -67,7 +86,6 @@ fun addImageFromGlideWithGradient(image: ImageView, uri: Int, colorFirst: Int, c
                     gradientDrawable
                 ))
             }
-
             override fun onLoadCleared(@Nullable placeholder: Drawable?) {}
 
         }
