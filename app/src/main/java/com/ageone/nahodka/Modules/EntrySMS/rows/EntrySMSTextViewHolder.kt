@@ -2,13 +2,21 @@ package com.example.ageone.Modules.EntrySMS.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Gravity
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateMargins
+import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
+import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
+import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
 class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
@@ -24,6 +32,42 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
+    val textInputL by lazy {
+        val textInput = BaseTextInputLayout()
+
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.marginStart = (-2).dp
+        params.updateMargins(left = (-2).dp)
+        textInput.layoutParams = params
+
+
+        textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
+        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
+        textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
+
+        textInput.editText?.let { editText ->
+            editText.textColor = Color.parseColor("#000000")
+            editText.textSize = 5F.dp
+            editText.hint = "СМС код"
+        }
+        textInput
+    }
+
+    val nextButton by lazy {
+        val button = BaseButton()
+        button.setBackgroundColor(Color.parseColor("#09D0B8"))
+        button.text = "Далее"
+        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
+        button.textSize = 20F
+        button.setTextColor(Color.WHITE)
+        button.height(56)
+        button.cornerRadius = 0
+
+        button
+    }
 
     init {
 
@@ -36,15 +80,28 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun EntrySMSTextViewHolder.renderUI() {
     constraintLayout.subviews(
-        textView
+        textInputL,
+        textView,
+        nextButton
+
     )
 
-    textView
-        .constrainTopToTopOf(constraintLayout, 16)
+    textInputL
+        .constrainTopToTopOf(constraintLayout,20)
         .fillHorizontally(16)
+    textView
+        .constrainTopToBottomOf(textInputL, 16)
+        .fillHorizontally(16)
+    nextButton
+        .constrainBottomToBottomOf(constraintLayout,112)
+        .fillHorizontally()
 }
 
-fun EntrySMSTextViewHolder.initialize(text: String) {
+fun EntrySMSTextViewHolder.initialize(text: String,hint: String, type: InputEditTextType) {
+
+    textInputL.hint = hint
+    textInputL.defineType(type)
+
     val spannableContent = SpannableString(text + "0:39")
     spannableContent.setSpan(
         ForegroundColorSpan(Color.parseColor("#707ABA")),

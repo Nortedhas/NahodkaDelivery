@@ -55,14 +55,12 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
         private val EntryEditTextViewHolderType = 0
         private val EntryTextViewHolderType = 1
-        private val EntryButtonViewHolderType = 2
 
-        override fun getItemCount() = 4//viewModel.realmData.size
+        override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0,1 -> EntryEditTextViewHolderType
             2 -> EntryTextViewHolderType
-            3 -> EntryButtonViewHolderType
             else -> -1
         }
 
@@ -72,7 +70,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
             layout
                 .width(matchParent)
-                .height(wrapContent)
+                .height(matchParent)
 
             val holder = when (viewType) {
                 EntryEditTextViewHolderType -> {
@@ -81,10 +79,6 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                 EntryTextViewHolderType -> {
                     EntryTextViewHolder(layout)
                 }
-                EntryButtonViewHolderType -> {
-                    EntryButtonViewHolder(layout)
-                }
-
                 else -> {
                     BaseViewHolder(layout)
                 }
@@ -111,14 +105,10 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
                 is EntryTextViewHolder -> {
                     holder.initialize()
-                }
-                is EntryButtonViewHolder -> {
-                    holder.initialize()
                     holder.nextButton.setOnClickListener {
                         rootModule.emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
                     }
                 }
-
 
             }
 

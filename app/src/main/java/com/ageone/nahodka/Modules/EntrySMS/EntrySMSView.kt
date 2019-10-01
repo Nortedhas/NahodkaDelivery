@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -56,16 +57,13 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationSMSInputType = 0
-        private val RegistrationSMSTextType = 1
-        private val RegistrationSMSButtonType = 2
+        private val RegistrationSMSTextType = 0
 
         override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RegistrationSMSInputType
-            1 -> RegistrationSMSTextType
-            2 -> RegistrationSMSButtonType
+            0 -> RegistrationSMSTextType
+
             else -> -1
         }
 
@@ -75,17 +73,11 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
             layout
                 .width(matchParent)
-                .height(wrapContent)
+                .height(utils.variable.displayHeight)
 
             val holder = when (viewType) {
-                RegistrationSMSInputType -> {
-                    EntryInputViewHolder(layout)
-                }
                 RegistrationSMSTextType -> {
                     EntrySMSTextViewHolder(layout)
-                }
-                RegistrationSMSButtonType -> {
-                    EntrySMSButtonViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -98,20 +90,13 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is EntryInputViewHolder ->{
-                    holder.initialize("", InputEditTextType.NUMERIC)
-                }
                 is EntrySMSTextViewHolder -> {
-                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ")
-                }
-                is EntrySMSButtonViewHolder ->{
-                    holder.initialize()
+                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.PHONE)
                     holder.nextButton.setOnClickListener{
                         user.isAuthorized = true
                         rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())
                     }
                 }
-
             }
 
         }

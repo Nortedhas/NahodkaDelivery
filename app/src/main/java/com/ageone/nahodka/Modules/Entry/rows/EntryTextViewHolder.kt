@@ -2,12 +2,14 @@ package com.example.ageone.Modules.Entry.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
@@ -26,6 +28,18 @@ class EntryTextViewHolder(val constraintLayout: ConstraintLayout) :
         textViewLogin
     }
 
+    val nextButton by lazy {
+        val button = BaseButton()
+        button.setBackgroundColor(Color.parseColor("#09D0B8"))
+        button.text = "Далее"
+        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
+        button.setTextColor(Color.WHITE)
+        button.textSize = 20F
+        button.height(56)
+        button.cornerRadius = 0
+        button
+    }
+
     init {
         renderUI()
     }
@@ -36,13 +50,18 @@ fun EntryTextViewHolder.renderUI() {
     constraintLayout.setBackgroundColor(Color.WHITE)
 
     constraintLayout.subviews(
-        textView
+        textView,
+        nextButton
     )
 
     textView
         .constrainTopToTopOf(constraintLayout, 40)
         .constrainLeftToLeftOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout)
+
+    nextButton
+        .fillHorizontally()
+        .constrainBottomToBottomOf(constraintLayout)
 }
 
 fun EntryTextViewHolder.initialize() {
