@@ -100,6 +100,9 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                         }
                         2 -> {
                             holder.initialize(R.drawable.ic_order_profile,"Мои заказы", "Здесь Вы сможете отслеживать статус своего заказа и просматривать прошлые")
+                            holder.constraintLayout.setOnClickListener {
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnMyOrderPressed.toString())
+                            }
                         }
                         3 -> {
                             holder.initialize(R.drawable.ic_share,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
