@@ -86,7 +86,6 @@ fun addImageFromGlideWithGradient(image: ImageView, uri: Int, colorFirst: Int, c
                     gradientDrawable
                 ))
             }
-
             override fun onLoadCleared(@Nullable placeholder: Drawable?) {}
 
         }
