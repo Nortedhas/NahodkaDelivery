@@ -68,10 +68,11 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun StockCardViewHolder.renderUI() {
     constraintLayout.subviews(
-        viewBack,
+        viewBack.subviews(
         imageViewCard,
         textViewName,
         textViewDescription
+        )
     )
 
     viewBack

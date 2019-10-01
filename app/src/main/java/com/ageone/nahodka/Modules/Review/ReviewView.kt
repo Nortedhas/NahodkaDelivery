@@ -89,17 +89,32 @@ class ReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var isStarPressed = false
             when (holder) {
                 is ReviewTextViewHolder -> {
-                    holder.initialize("Ollis Pizza", "4.0", "2")
+                    holder.initialize("Ollis Pizza", "4.0", itemCount)
+                    holder.imageViewStar.setOnClickListener {
+                        if(!isStarPressed) {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
+                            isStarPressed = true
+                        }else {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
+                            isStarPressed = false
+                        }                    }
                     holder.imageViewComment.setOnClickListener {
                         rootModule.emitEvent?.invoke(ReviewViewModel.EventType.OnCommentPressed.toString())
                     }
                 }
                 is ReviewCommentViewHolder -> {
                     holder.initialize("Анастасия", "4.0", "7 мая 2019", "Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан")
-                    holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(ReviewViewModel.EventType.OnItemPressed.toString())
+                    holder.imageViewStar.setOnClickListener {
+                        if(!isStarPressed) {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
+                            isStarPressed = true
+                        }else {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
+                            isStarPressed = false
+                        }
                     }
                 }
 

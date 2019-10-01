@@ -100,7 +100,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
+            var isStarPressed = false
             when (holder) {
                 is RestaurantImageViewHolder -> {
                     holder.initialize()
@@ -110,6 +110,16 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                         "Итальянская, Мексиканская, Кавказ...",
                         "Заказ от 600 руб.", R.drawable.ic_star,"4.0",
                         utils.variable.displayWidth.toFloat())
+
+                    holder.imageViewStar.setOnClickListener {
+                        if(!isStarPressed) {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
+                            isStarPressed = true
+                        }else {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
+                            isStarPressed = false
+                        }
+                    }
 
                     holder.constraintLayout.setOnClickListener {
                         rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnRestaurantPressed.toString())

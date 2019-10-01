@@ -8,6 +8,7 @@ class RestaurantKitchenViewModel : InterfaceViewModel {
     var model = RestaurantKitchenModel()
 
     enum class EventType {
+        OnInfoPressed,
         OnReviewPressed
     }
 

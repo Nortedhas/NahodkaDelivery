@@ -87,7 +87,7 @@ fun EntrySMSTextViewHolder.initialize(text: String,hint: String, type: InputEdit
 
     val spannableContent = SpannableString(text + "0:39")
     spannableContent.setSpan(
-        ForegroundColorSpan(Color.parseColor("#707ABA")),
+        ForegroundColorSpan(Color.parseColor("#8E8E8E")),
         text.length,  text.length + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
     textView.text = spannableContent
 }

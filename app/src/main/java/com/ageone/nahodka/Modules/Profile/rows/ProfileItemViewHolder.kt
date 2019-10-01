@@ -74,7 +74,8 @@ fun ProfileItemViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewProfile,15)
 
     imageViewNext
-        .constrainTopToTopOf(constraintLayout,25)
+        .constrainCenterYToCenterYOf(constraintLayout)
+        //.constrainTopToTopOf(constraintLayout,25)
         .constrainRightToRightOf(constraintLayout,20)
 
 }
