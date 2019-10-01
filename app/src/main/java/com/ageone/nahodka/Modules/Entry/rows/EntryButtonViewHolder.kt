@@ -3,6 +3,7 @@ package com.example.ageone.Modules.Entry.rows
 import android.graphics.Color
 import android.text.InputType
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import yummypets.com.stevia.constrainTopToTopOf
@@ -36,7 +37,7 @@ fun EntryButtonViewHolder.renderUI() {
 
     nextButton
         .fillHorizontally()
-        .constrainTopToTopOf(constraintLayout,40)
+        .constrainBottomToBottomOf(constraintLayout,utils.variable.displayHeight-56)
 
 }
 

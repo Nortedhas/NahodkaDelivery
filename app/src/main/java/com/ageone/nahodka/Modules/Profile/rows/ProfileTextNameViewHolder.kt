@@ -2,6 +2,7 @@ package com.ageone.nahodka.Modules.Profile.rows
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView

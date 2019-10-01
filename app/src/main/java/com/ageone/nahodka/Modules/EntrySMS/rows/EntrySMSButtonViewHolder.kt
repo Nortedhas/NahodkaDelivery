@@ -3,6 +3,7 @@ package com.example.ageone.Modules.EntrySMS.rows
 import android.graphics.Color
 import android.text.InputType
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import yummypets.com.stevia.*
@@ -36,7 +37,7 @@ fun EntrySMSButtonViewHolder.renderUI() {
 
     nextButton
         .fillHorizontally()
-        .constrainTopToTopOf(constraintLayout,160)
+        .constrainTopToTopOf(constraintLayout, utils.variable.displayHeight-56)
 
 }
 

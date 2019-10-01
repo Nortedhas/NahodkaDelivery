@@ -11,6 +11,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
+import com.ageone.nahodka.Modules.Profile.rows.ProfileItemViewHolder
 import com.ageone.nahodka.Modules.Profile.rows.ProfileTextNameViewHolder
 import com.ageone.nahodka.Modules.Profile.rows.initialize
 import yummypets.com.stevia.*
@@ -54,12 +55,13 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val ProfileTextNameType = 0
+        private val ProfileItemType  = 1
 
-        override fun getItemCount() = 1//viewModel.realmData.size
+        override fun getItemCount() = 4//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> ProfileTextNameType
-            else -> -1
+            else -> ProfileItemType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -74,6 +76,9 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 ProfileTextNameType -> {
                     ProfileTextNameViewHolder(layout)
                 }
+                ProfileItemType -> {
+                    ProfileItemViewHolder(layout)
+                }
                 else -> {
                     BaseViewHolder(layout)
                 }
@@ -87,6 +92,19 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
             when (holder) {
                 is ProfileTextNameViewHolder -> {
                     holder.initialize("Матвей", "+7 (999) 888-33-44")
+                }
+                is ProfileItemViewHolder -> {
+                    when(position) {
+                        1 -> {
+                            holder.initialize(R.drawable.ic_address,"Адрес доставки", "Заполните адрес доставки и оформляйте заказ еще быстрее")
+                        }
+                        2 -> {
+                            holder.initialize(R.drawable.ic_order_profile,"Мои заказы", "Здесь Вы сможете отслеживать статус своего заказа и просматривать прошлые")
+                        }
+                        3 -> {
+                            holder.initialize(R.drawable.ic_address,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
+                        }
+                    }
                 }
 
             }
