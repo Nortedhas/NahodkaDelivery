@@ -56,19 +56,6 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
         textInput
     }
 
-    val nextButton by lazy {
-        val button = BaseButton()
-        button.setBackgroundColor(Color.parseColor("#09D0B8"))
-        button.text = "Далее"
-        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
-        button.textSize = 20F
-        button.setTextColor(Color.WHITE)
-        button.height(56)
-        button.cornerRadius = 0
-
-        button
-    }
-
     init {
 
         renderUI()
@@ -81,8 +68,7 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
 fun EntrySMSTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL,
-        textView,
-        nextButton
+        textView
 
     )
 
@@ -92,9 +78,6 @@ fun EntrySMSTextViewHolder.renderUI() {
     textView
         .constrainTopToBottomOf(textInputL, 16)
         .fillHorizontally(16)
-    nextButton
-        .constrainBottomToBottomOf(constraintLayout,112)
-        .fillHorizontally()
 }
 
 fun EntrySMSTextViewHolder.initialize(text: String,hint: String, type: InputEditTextType) {

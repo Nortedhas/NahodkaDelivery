@@ -65,4 +65,5 @@ fun KitchenTextViewHolder.initialize(kitchen: String, isChecked: Boolean) {
     textViewKitchen.text = kitchen
     back.backgroundColor = if (isChecked) checkColor else uncheckColor
     back.initialize()
+
 }

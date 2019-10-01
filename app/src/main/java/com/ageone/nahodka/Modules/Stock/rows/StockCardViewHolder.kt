@@ -22,6 +22,14 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout) :
         imageView
     }
 
+    val viewBack by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.parseColor("#FFEB85")
+        view.cornerRadius = 8.dp
+        view.initialize()
+        view
+    }
+
     val rectangleMiddle by lazy {
         val view = BaseView()
         view.backgroundColor = Color.parseColor("#FFEB85")
@@ -60,43 +68,36 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun StockCardViewHolder.renderUI() {
     constraintLayout.subviews(
+        viewBack,
         imageViewCard,
-        rectangleMiddle,
-        rectangleDown,
         textViewName,
         textViewDescription
     )
 
-    imageViewCard
+    viewBack
         .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(32)
-        .width(utils.variable.displayWidth - 32)
 
-    rectangleMiddle
-        .constrainTopToTopOf(imageViewCard, 120)
+    imageViewCard
+        .constrainTopToTopOf(viewBack)
         .fillHorizontally(32)
-        .width(utils.variable.displayWidth - 32)
-        .height(80)
+
 
     textViewName
-        .constrainTopToTopOf(rectangleMiddle,8)
-        .constrainLeftToLeftOf(rectangleMiddle,12)
+        .constrainTopToBottomOf(imageViewCard,8)
+        .constrainLeftToLeftOf(viewBack,12)
 
     textViewDescription
         .constrainTopToBottomOf(textViewName,5)
-        .constrainLeftToLeftOf(rectangleMiddle,12)
-
-    rectangleDown
-        .constrainTopToBottomOf(textViewDescription,10)
-        .fillHorizontally(32)
-        .width(utils.variable.displayWidth - 32)
-        .height(25)
-
-
+        .constrainLeftToLeftOf(viewBack,12)
 
 }
 
 fun StockCardViewHolder.initialize(width: Int, image: Int, name: String, description: String) {
+
+    viewBack
+        .width(width -32)
+        .height(width * .525F)
 
     imageViewCard
         .width(width - 32)
@@ -106,6 +107,6 @@ fun StockCardViewHolder.initialize(width: Int, image: Int, name: String, descrip
 
     textViewDescription.text = description
 
-    addImageFromGlide(imageViewCard,image,8)
+    addImageFromGlide(imageViewCard,image,0)
 
 }
