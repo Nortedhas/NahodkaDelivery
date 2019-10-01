@@ -1,9 +1,11 @@
 package com.example.ageone.Modules.Entry
 
 import android.graphics.Color
+import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -23,6 +25,21 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
+    }
+
+    val nextButton by lazy {
+        val button = BaseButton()
+        button.setBackgroundColor(Color.parseColor("#09D0B8"))
+        button.text = "Далее"
+        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
+        button.setTextColor(Color.WHITE)
+        button.textSize = 20F
+        button.height(56)
+        button.cornerRadius = 0
+        button.setOnClickListener {
+            emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
+        }
+        button
     }
 
     init {
@@ -70,7 +87,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
             layout
                 .width(matchParent)
-                .height(matchParent)
+                .height(wrapContent)
 
             val holder = when (viewType) {
                 EntryEditTextViewHolderType -> {
@@ -105,9 +122,6 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
                 is EntryTextViewHolder -> {
                     holder.initialize()
-                    holder.nextButton.setOnClickListener {
-                        rootModule.emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
-                    }
                 }
 
             }
@@ -121,7 +135,8 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 fun EntryView.renderUIO() {
 
     innerContent.subviews(
-        bodyTable
+        bodyTable,
+        nextButton
     )
 
     bodyTable
@@ -132,6 +147,11 @@ fun EntryView.renderUIO() {
 
     bodyTable
         .clipToPadding = false
+
+    nextButton
+        .constrainBottomToBottomOf(innerContent)
+        .fillHorizontally()
+
 
 }
 

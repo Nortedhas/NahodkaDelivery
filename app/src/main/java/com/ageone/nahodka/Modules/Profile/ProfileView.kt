@@ -102,7 +102,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                             holder.initialize(R.drawable.ic_order_profile,"Мои заказы", "Здесь Вы сможете отслеживать статус своего заказа и просматривать прошлые")
                         }
                         3 -> {
-                            holder.initialize(R.drawable.ic_address,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
+                            holder.initialize(R.drawable.ic_share,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
                         }
                     }
                 }

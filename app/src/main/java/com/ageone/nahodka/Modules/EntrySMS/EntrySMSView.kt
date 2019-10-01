@@ -1,10 +1,12 @@
 package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
+import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -18,6 +20,7 @@ import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import com.ageone.nahodka.R
+import com.example.ageone.Modules.Entry.EntryViewModel
 import yummypets.com.stevia.*
 
 class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -27,6 +30,22 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
+    }
+
+    val nextButton by lazy {
+        val button = BaseButton()
+        button.setBackgroundColor(Color.parseColor("#09D0B8"))
+        button.text = "Далее"
+        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
+        button.setTextColor(Color.WHITE)
+        button.textSize = 20F
+        button.height(56)
+        button.cornerRadius = 0
+        button.setOnClickListener {
+            user.isAuthorized = true
+            emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
+        }
+        button
     }
 
     init {
@@ -73,7 +92,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
             layout
                 .width(matchParent)
-                .height(utils.variable.displayHeight)
+                .height(wrapContent)
 
             val holder = when (viewType) {
                 RegistrationSMSTextType -> {
@@ -92,10 +111,6 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
             when (holder) {
                 is EntrySMSTextViewHolder -> {
                     holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.PHONE)
-                    holder.nextButton.setOnClickListener{
-                        user.isAuthorized = true
-                        rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())
-                    }
                 }
             }
 
@@ -108,12 +123,8 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 fun EntrySMSView.renderUIO() {
 
     innerContent.subviews(
-        //smsTextView
-    )
-
-
-    innerContent.subviews(
-        bodyTable
+        bodyTable,
+        nextButton
     )
 
     bodyTable
@@ -124,6 +135,10 @@ fun EntrySMSView.renderUIO() {
 
     bodyTable
         .clipToPadding = false
+
+    nextButton
+        .constrainBottomToBottomOf(innerContent)
+        .fillHorizontally()
 }
 
 

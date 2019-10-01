@@ -28,17 +28,7 @@ class EntryTextViewHolder(val constraintLayout: ConstraintLayout) :
         textViewLogin
     }
 
-    val nextButton by lazy {
-        val button = BaseButton()
-        button.setBackgroundColor(Color.parseColor("#09D0B8"))
-        button.text = "Далее"
-        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
-        button.setTextColor(Color.WHITE)
-        button.textSize = 20F
-        button.height(56)
-        button.cornerRadius = 0
-        button
-    }
+
 
     init {
         renderUI()
@@ -50,8 +40,7 @@ fun EntryTextViewHolder.renderUI() {
     constraintLayout.setBackgroundColor(Color.WHITE)
 
     constraintLayout.subviews(
-        textView,
-        nextButton
+        textView
     )
 
     textView
@@ -59,9 +48,6 @@ fun EntryTextViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout)
 
-    nextButton
-        .fillHorizontally()
-        .constrainBottomToBottomOf(constraintLayout)
 }
 
 fun EntryTextViewHolder.initialize() {
