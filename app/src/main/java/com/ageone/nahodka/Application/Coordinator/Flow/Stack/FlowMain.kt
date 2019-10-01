@@ -11,7 +11,6 @@ import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
-import com.ageone.nahodka.Modules.ClientReview.ClientReviewViewModel
 import com.ageone.nahodka.Modules.Info.InfoModel
 import com.ageone.nahodka.Modules.Info.InfoView
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
@@ -37,6 +36,8 @@ fun FlowCoordinator.runFlowMain() {
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
+
+        flow.colorStatusBar = Color.parseColor("#21D5BF")
 
         flows.add(flow)
     }
