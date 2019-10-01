@@ -14,6 +14,7 @@ fun FlowCoordinator.createStackFlows(startFlow: Int) {
     Timber.i("Bottom create stack flows")
 
     runFlowMain()
+    runFlowStock()
 
     Stack.flows[startFlow].start()
 }
