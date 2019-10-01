@@ -8,27 +8,16 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
-class KitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout), View.OnClickListener {
-    override fun onClick(p0: View?) {
-
-    }
-
+class KitchenTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
     val uncheckColor = Color.WHITE
     val checkColor = Color.parseColor("#FFEF9D")
-
-    val isChecked = false
 
     val back by lazy {
         val view = BaseView()
         view.cornerRadius = 10.dp
-        view.height(25)
-        view.width(70)
         view.initialize()
         view
     }
-
-   // var isChecked = false
 
     val textViewKitchen by lazy {
         val textView = BaseTextView()
@@ -41,19 +30,6 @@ class KitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         renderUI()
     }
-
-
-    fun setBack() {
-        if (isChecked) {
-            back.backgroundColor = uncheckColor
-        } else {
-            back.backgroundColor = checkColor
-        }
-        back.initialize()
-    }
-
-
-
 }
 
 fun KitchenTextViewHolder.renderUI() {
@@ -62,17 +38,25 @@ fun KitchenTextViewHolder.renderUI() {
         .height(50)
 
     constraintLayout.subviews(
-        back,
-        textViewKitchen
+        back.subviews(
+            textViewKitchen
+        )
     )
 
     back
+        .height(25)
+//        .width(70)
         .constrainTopToTopOf(constraintLayout,17)
         .constrainLeftToLeftOf(constraintLayout,13)
 
     textViewKitchen
-        .constrainCenterYToCenterYOf(back)
-        .constrainCenterXToCenterXOf(back)
+//        .fillParent(4)
+        .constrainRightToRightOf(back, 4)
+        .constrainLeftToLeftOf(back, 4)
+        .constrainTopToTopOf(back, 4)
+        .constrainBottomToBottomOf(back, 4)
+        /*.constrainCenterYToCenterYOf(back)
+        .constrainCenterXToCenterXOf(back)*/
 
 }
 

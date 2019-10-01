@@ -13,12 +13,14 @@ import com.ageone.nahodka.UIComponents.ViewHolders.KitchenTextViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 
 import yummypets.com.stevia.*
+import android.util.TypedValue
+import com.ageone.nahodka.External.Base.RecyclerView.HorizontalSpacesItemDecoration
+
 
 class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-
-    val recyclerViewHolder by lazy {
+    val recyclerViewKitchen by lazy {
         val recyclerView = BaseRecyclerView()
         recyclerView
     }
@@ -28,20 +30,32 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
         viewAdapter
     }
 
-    var kitchenList = listOf("Пицца", "Бургеры", "Роллы", "Супы", "Напитки","Пицца", "Бургеры", "Роллы", "Супы", "Напитки")
-    var checkList =   listOf(true,false,false,false,false,false,false,false,false,false)
+    var kitchenList = listOf(
+        "Пицца",
+        "Бургеры",
+        "Роллы",
+        "Супы",
+        "Напитки",
+        "Пицца",
+        "Бургеры",
+        "Роллы",
+        "Супы",
+        "Напитки")
 
     init {
-        recyclerViewHolder.adapter = viewAdapter
-        recyclerViewHolder.layoutManager =
+        recyclerViewKitchen.adapter = viewAdapter
+        recyclerViewKitchen.layoutManager =
             LinearLayoutManager(
                 currentActivity,
                 LinearLayoutManager.HORIZONTAL, false)
 
-        recyclerViewHolder.overScrollMode = View.OVER_SCROLL_NEVER
+        recyclerViewKitchen.overScrollMode = View.OVER_SCROLL_NEVER
+
+        val space = 8.dp
+        recyclerViewKitchen.addItemDecoration(HorizontalSpacesItemDecoration(space))
 
         val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(recyclerViewHolder)
+        snapHelper.attachToRecyclerView(recyclerViewKitchen)
 
         renderUI()
     }
@@ -62,8 +76,9 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
 
            // var kitchen = kitchenList[position]
 
-            val food = if(position - 1 < kitchenList.size) kitchenList[position] else ""
+            val food = if (position - 1 < kitchenList.size) kitchenList[position] else ""
             holder.initialize(food,position == selectedFood)
+
             holder.constraintLayout.setOnClickListener {
                 selectedFood = position
                 notifyDataSetChanged()
@@ -78,9 +93,9 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun RestaurantKitchenTextViewHolder.renderUI() {
     constraintLayout.subviews(
-        recyclerViewHolder
+        recyclerViewKitchen
     )
-    recyclerViewHolder
+    recyclerViewKitchen
         .fillHorizontally()
         .constrainTopToTopOf(constraintLayout)
 
