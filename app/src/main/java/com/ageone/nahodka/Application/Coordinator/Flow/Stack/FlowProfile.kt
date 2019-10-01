@@ -81,7 +81,8 @@ class FlowProfile : BaseFlow() {
     fun runModuleMyOrder(){
         val module = MyOrderView(
             InitModuleUI(
-            isBackPressed = true,
+                isBottomNavigationVisible = false,
+                isBackPressed = true,
                 backListener = {
                     pop()
                 }
@@ -99,6 +100,7 @@ class FlowProfile : BaseFlow() {
     fun runModuleContact(){
         val module = ContactView(
             InitModuleUI(
+                isBottomNavigationVisible = false,
                 isBackPressed = true,
                 backListener = {
                     pop()
