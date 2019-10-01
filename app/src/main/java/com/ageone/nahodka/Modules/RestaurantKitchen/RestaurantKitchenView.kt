@@ -126,7 +126,7 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         if(!isStarPressed) {
                             holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
                             isStarPressed = true
-                        }else {
+                        } else {
                             holder.imageViewStar.setImageResource(R.drawable.ic_star)
                             isStarPressed = false
                         }

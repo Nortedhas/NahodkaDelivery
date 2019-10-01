@@ -13,6 +13,7 @@ import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.ClientReview.rows.ClientReviewTextViewHolder
 import com.ageone.nahodka.Modules.ClientReview.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -55,6 +56,8 @@ class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
         private val ClientReviewTextType = 0
 
+        var isRatingPressed = false
+
         override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
@@ -87,6 +90,88 @@ class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             when (holder) {
                 is ClientReviewTextViewHolder -> {
                     holder.initialize("Ollis Pizza", "Оставьте комментарий", InputEditTextType.TEXT)
+
+
+                        holder.imageViewRating1.setOnClickListener {
+                            when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                isRatingPressed = true
+                            }
+                                true -> {
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+                    holder.imageViewRating2.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+                    holder.imageViewRating3.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+                    holder.imageViewRating4.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+                    holder.imageViewRating5.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star_fill)
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
                 }
 
             }

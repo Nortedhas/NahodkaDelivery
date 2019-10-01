@@ -30,21 +30,6 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout) :
         view
     }
 
-    val rectangleMiddle by lazy {
-        val view = BaseView()
-        view.backgroundColor = Color.parseColor("#FFEB85")
-        view.initialize()
-        view
-    }
-
-    val rectangleDown by lazy {
-        val view = BaseView()
-        view.backgroundColor = Color.parseColor("#FFEB85")
-        view.cornerRadius = 18.dp
-        view.initialize()
-        view
-    }
-
     val textViewName by lazy {
         val textView = BaseTextView()
         textView.textSize = 18F
@@ -67,17 +52,23 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout) :
 }
 
 fun StockCardViewHolder.renderUI() {
+
     constraintLayout.subviews(
-        viewBack.subviews(
+
+    viewBack.subviews(
         imageViewCard,
         textViewName,
         textViewDescription
         )
+
     )
 
     viewBack
         .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(32)
+
+
+
 
     imageViewCard
         .constrainTopToTopOf(viewBack)
@@ -97,12 +88,12 @@ fun StockCardViewHolder.renderUI() {
 fun StockCardViewHolder.initialize(width: Int, image: Int, name: String, description: String) {
 
     viewBack
-        .width(width -32)
-        .height(width * .525F)
+        .width(width-32)
+        .height(width * .659F)
 
     imageViewCard
         .width(width - 32)
-        .height(width * .325F)
+        .height(width * .44F)
 
     textViewName.text = name
 

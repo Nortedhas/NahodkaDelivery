@@ -90,6 +90,7 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                         R.drawable.food,
                         "Ollis Pizza",
                         "Скидка 30% на пасту")
+
                 }
 
             }
