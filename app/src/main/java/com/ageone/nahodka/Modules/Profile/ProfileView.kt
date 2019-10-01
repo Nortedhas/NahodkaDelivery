@@ -3,7 +3,8 @@ package com.ageone.nahodka.Modules.Profile
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.nahodka.Application.R
+import androidx.core.view.updatePadding
+import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -26,9 +27,11 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)//TODO: set background
 
-        toolbar.title = ""
+        toolbar.title = "Профиль"
+        toolbar.textColor = Color.WHITE
+        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
         renderToolbar()
 
@@ -83,7 +86,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is ProfileTextNameViewHolder -> {
-                    holder.initialize()
+                    holder.initialize("Матвей", "+7 (999) 888-33-44")
                 }
 
             }
@@ -95,8 +98,18 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 }
 
 fun ProfileView.renderUIO() {
+    innerContent.subviews(
+        bodyTable
+    )
 
-    renderBodyTable()
+    bodyTable
+        .fillHorizontally()
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false
 }
 
 

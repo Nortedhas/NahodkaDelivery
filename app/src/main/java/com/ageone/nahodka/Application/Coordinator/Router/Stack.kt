@@ -15,6 +15,7 @@ fun FlowCoordinator.createStackFlows(startFlow: Int) {
 
     runFlowMain()
     runFlowStock()
+    runFlowProfile()
 
     Stack.flows[startFlow].start()
 }

@@ -5,23 +5,20 @@ import android.graphics.Color
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
-import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Stock.StockModel
-import com.ageone.nahodka.Modules.Stock.StockView
-import com.ageone.nahodka.Modules.Stock.StockViewModel
-import com.ageone.nahodka.R
+import com.ageone.nahodka.Modules.Profile.ProfileModel
+import com.ageone.nahodka.Modules.Profile.ProfileView
+import com.ageone.nahodka.Modules.Profile.ProfileViewModel
 import com.example.ageone.*
-fun FlowCoordinator.runFlowStock() {
 
-    var flow: FlowStock? = FlowStock()
+fun FlowCoordinator.runFlowProfile() {
+
+    var flow: FlowProfile? = FlowProfile()
 
     flow?.let { flow ->
-        setStatusBarColor(Color.parseColor("#09D0B8"))
-
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
@@ -42,36 +39,28 @@ fun FlowCoordinator.runFlowStock() {
 
 }
 
-class FlowStock : BaseFlow() {
+class FlowProfile : BaseFlow() {
 
-    private var models = FlowStockModels()
+    private var models = FlowProfileModels()
 
     override fun start() {
         onStarted()
-        runModuleStockText()
+        runModuleProfile()
     }
 
-    inner class FlowStockModels {
-        var modelStockText = StockModel()
+    inner class FlowProfileModels {
+        var modelProfileTest = ProfileModel()
     }
 
-    fun runModuleStockText() {
-        val module = StockView(
-            InitModuleUI(
-                exitIcon = R.drawable.ic_shoping_kart,
-                exitListener = {
+    fun runModuleProfile() {
+        val module = ProfileView()
 
-                }
-
-            )
-        )
-
-        module.viewModel.initialize(models.modelStockText) { module.reload() }
+        module.viewModel.initialize(models.modelProfileTest) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            when (StockViewModel.EventType.valueOf(event)) {
+            when (ProfileViewModel.EventType.valueOf(event)) {
 
             }
         }

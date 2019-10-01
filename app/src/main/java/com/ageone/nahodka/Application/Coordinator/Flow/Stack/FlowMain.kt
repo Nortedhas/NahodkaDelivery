@@ -30,7 +30,6 @@ fun FlowCoordinator.runFlowMain() {
 
 
     flow?.let{ flow ->
-        setStatusBarColor(Color.parseColor("#09D0B8"))
 
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
