@@ -57,6 +57,7 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(recyclerViewKitchen)
 
+
         renderUI()
     }
 
