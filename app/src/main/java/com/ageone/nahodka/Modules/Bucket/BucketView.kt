@@ -11,9 +11,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Bucket.rows.BucketItemViewHolder
-import com.ageone.nahodka.Modules.Bucket.rows.BucketRecyclerViewHolder
-import com.ageone.nahodka.Modules.Bucket.rows.initialize
+import com.ageone.nahodka.Modules.Bucket.rows.*
 import yummypets.com.stevia.*
 
 class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -55,11 +53,15 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val BucketRecyclerType = 0
+        private val BucketAppliancesType = 1
+        private val BucketBottomType = 2
 
-        override fun getItemCount() = 1//viewModel.realmData.size
+        override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> BucketRecyclerType
+            1 -> BucketAppliancesType
+            2 -> BucketBottomType
             else -> -1
         }
 
@@ -75,6 +77,12 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 BucketRecyclerType -> {
                     BucketRecyclerViewHolder(layout)
                 }
+                BucketAppliancesType -> {
+                    BucketAppliancesViewHolder(layout)
+                }
+                BucketBottomType -> {
+                    BucketBottomViewHolder(layout)
+                }
                 else -> {
                     BaseViewHolder(layout)
                 }
@@ -86,8 +94,23 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is BucketRecyclerViewHolder-> {
+                is BucketRecyclerViewHolder -> {
                     holder.initialize()
+                }
+                is BucketAppliancesViewHolder -> {
+                    holder.imageViewPlus.setOnClickListener {
+                        holder.appliancesCount++
+                        notifyDataSetChanged()
+                    }
+                    holder.imageViewMinus.setOnClickListener {
+                        holder.appliancesCount--
+                        notifyDataSetChanged()
+                    }
+
+                    holder.initialize()
+                }
+                is BucketBottomViewHolder -> {
+                    holder.initialize(162)
                 }
 
             }

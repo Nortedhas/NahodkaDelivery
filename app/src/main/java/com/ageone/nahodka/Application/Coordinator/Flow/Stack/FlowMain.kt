@@ -76,7 +76,7 @@ class FlowMain: BaseFlow() {
             InitModuleUI(
                 exitIcon = R.drawable.ic_shoping_kart,
                 exitListener = {
-
+                    runModuleBucket()
                 }
             )
         )
@@ -103,10 +103,10 @@ class FlowMain: BaseFlow() {
         val module = RestaurantKitchenView(
             InitModuleUI(
                 isBackPressed = true,
-                exitIcon = R.drawable.ic_shoping_kart,
                 backListener = {
                     pop()
                 },
+                exitIcon = R.drawable.ic_shoping_kart,
                 exitListener = {
                     runModuleBucket()
                 }

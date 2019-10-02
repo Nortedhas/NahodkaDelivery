@@ -10,11 +10,13 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.Bucket.BucketModel
+import com.ageone.nahodka.Modules.Bucket.BucketView
 import com.ageone.nahodka.Modules.Stock.StockModel
 import com.ageone.nahodka.Modules.Stock.StockView
 import com.ageone.nahodka.Modules.Stock.StockViewModel
 import com.ageone.nahodka.R
-import com.example.ageone.*
+
 fun FlowCoordinator.runFlowStock() {
 
     var flow: FlowStock? = FlowStock()
@@ -52,7 +54,8 @@ class FlowStock : BaseFlow() {
     }
 
     inner class FlowStockModels {
-        var modelStockText = StockModel()
+        var moduleStockText = StockModel()
+        var moduleBucket = BucketModel()
     }
 
     fun runModuleStockText() {
@@ -60,13 +63,13 @@ class FlowStock : BaseFlow() {
             InitModuleUI(
                 exitIcon = R.drawable.ic_shoping_kart,
                 exitListener = {
-
+                    runModuleBucket()
                 }
 
             )
         )
 
-        module.viewModel.initialize(models.modelStockText) { module.reload() }
+        module.viewModel.initialize(models.moduleStockText) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
@@ -75,6 +78,24 @@ class FlowStock : BaseFlow() {
 
             }
         }
+        push(module)
+    }
+
+    private fun runModuleBucket() {
+        val module = BucketView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                exitIcon = R.drawable.ic_cross,
+                exitListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleBucket) {module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
         push(module)
     }
 }

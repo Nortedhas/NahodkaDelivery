@@ -9,6 +9,8 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.Bucket.BucketModel
+import com.ageone.nahodka.Modules.Bucket.BucketView
 import com.ageone.nahodka.Modules.Contact.ContactModel
 import com.ageone.nahodka.Modules.Contact.ContactView
 import com.ageone.nahodka.Modules.MyOrder.MyOrderModel
@@ -16,6 +18,7 @@ import com.ageone.nahodka.Modules.MyOrder.MyOrderView
 import com.ageone.nahodka.Modules.Profile.ProfileModel
 import com.ageone.nahodka.Modules.Profile.ProfileView
 import com.ageone.nahodka.Modules.Profile.ProfileViewModel
+import com.ageone.nahodka.R
 import com.example.ageone.*
 
 fun FlowCoordinator.runFlowProfile() {
@@ -56,10 +59,17 @@ class FlowProfile : BaseFlow() {
         var modelProfileTest = ProfileModel()
         var moduleMyOrder = MyOrderModel()
         var moduleContact= ContactModel()
+        var moduleBucket = BucketModel()
     }
 
     fun runModuleProfile() {
-        val module = ProfileView()
+        val module = ProfileView(InitModuleUI(
+            exitIcon = R.drawable.ic_shoping_kart,
+            exitListener = {
+                runModuleBucket()
+            }
+        )
+        )
 
         module.viewModel.initialize(models.modelProfileTest) { module.reload() }
 
@@ -109,6 +119,24 @@ class FlowProfile : BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleContact) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
+    private fun runModuleBucket() {
+        val module = BucketView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                exitIcon = R.drawable.ic_cross,
+                exitListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleBucket) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
