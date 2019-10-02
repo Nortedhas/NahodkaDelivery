@@ -107,7 +107,6 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
             when (holder) {
                 is RestaurantKitchenPreviewViewHolder -> {
                     holder.initialize(
-                        utils.variable.displayWidth,
                         R.drawable.food,
                         "Ollis Pizza",
                         "600",
@@ -142,7 +141,6 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 is RestaurantKitchenCardViewHolder -> {
                     holder.initialize(
-                        utils.variable.displayWidth,
                         R.drawable.food,
                         "Пицца классическая",
                         "450",

@@ -28,7 +28,7 @@ class BucketRecyclerViewHolder(val constraintLayout: ConstraintLayout) :
         viewAdapter
     }
 
-    var dishImage = listOf(R.drawable.dish1, R.drawable.dish2, R.drawable.dish3)
+    var dishImage = listOf(R.drawable.dish1, R.drawable.dish2, R.drawable.dish3, R.drawable.dish1, R.drawable.dish2, R.drawable.dish3)
 
     init {
 
@@ -64,8 +64,10 @@ class BucketRecyclerViewHolder(val constraintLayout: ConstraintLayout) :
                 notifyDataSetChanged()
             }
             holder.imageViewMinus.setOnClickListener {
+                if(holder.count > 0) {
                     holder.count--
                     notifyDataSetChanged()
+                }
             }
 
             holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)

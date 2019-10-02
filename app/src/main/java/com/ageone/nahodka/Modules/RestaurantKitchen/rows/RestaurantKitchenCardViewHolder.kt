@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.graphics.Typeface
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginBottom
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
+import com.ageone.nahodka.External.Base.ImageView.setOnlyTopRoundedCorners
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
@@ -17,27 +19,23 @@ import yummypets.com.stevia.*
 class RestaurantKitchenCardViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    val imageViewCard by lazy {
+    val viewBack by lazy {
+        val view = BaseView()
+        view.cornerRadius = 8.dp
+        view.backgroundColor = Color.parseColor("#FFFFFF")
+        view.initialize()
+        view.elevation = 5F.dp
+        view
+    }
+
+    val imageViewPhoto by lazy {
         val imageView = BaseImageView()
+//        imageView.cornerRadius = 0.dp
         imageView.backgroundColor = Color.GRAY
-        imageView.cornerRadius = 18.dp
         imageView.initialize()
+        imageView.setOnlyTopRoundedCorners(8F.dp)
+       // imageView.elevation = 5F.dp
         imageView
-    }
-
-    val rectangleMiddle by lazy {
-        val view = BaseView()
-        view.backgroundColor = Color.parseColor("#f2f2f2")
-        view.initialize()
-        view
-    }
-
-    val rectangleDown by lazy {
-        val view = BaseView()
-        view.backgroundColor = Color.parseColor("#f2f2f2")
-        view.cornerRadius = 18.dp
-        view.initialize()
-        view
     }
 
     val buttonAdd by lazy {
@@ -87,56 +85,50 @@ fun RestaurantKitchenCardViewHolder.renderUI() {
 
 
     constraintLayout.subviews(
-        imageViewCard,
+        viewBack.subviews(
+        imageViewPhoto,
         buttonAdd,
-        rectangleMiddle,
-        rectangleDown,
         textViewName,
         textViewPrice,
         textViewDescription
+        )
     )
 
-
-    imageViewCard
+    viewBack
         .constrainTopToTopOf(constraintLayout,16)
-        .fillHorizontally(32)
+        .constrainBottomToBottomOf(constraintLayout,5)
+        .fillHorizontally(16)
+
+    imageViewPhoto
+        .constrainTopToTopOf(viewBack)
+        .constrainRightToRightOf(viewBack)
+        .constrainLeftToLeftOf(viewBack)
+        .height(utils.tools.getActualSizeFromDes(149))
         .width(utils.variable.displayWidth - 32)
 
-
-    rectangleMiddle
-        .constrainTopToTopOf(imageViewCard, 120)
-        .fillHorizontally(32)
-        .width(utils.variable.displayWidth - 32)
-        .height(100)
     buttonAdd
-        .constrainRightToRightOf(imageViewCard,12)
-        .constrainBottomToTopOf(rectangleMiddle,12)
+        .constrainRightToRightOf(imageViewPhoto,12)
+        .constrainBottomToBottomOf(imageViewPhoto,12)
 
 
     textViewName
-        .constrainTopToTopOf(rectangleMiddle,8)
-        .constrainLeftToLeftOf(rectangleMiddle,12)
+        .constrainTopToBottomOf(imageViewPhoto,8)
+        .constrainLeftToLeftOf(viewBack, 16)
 
     textViewPrice
-        .constrainTopToTopOf(rectangleMiddle,8)
-        .constrainRightToRightOf(rectangleMiddle,12)
+        .constrainCenterYToCenterYOf(textViewName)
+        .constrainRightToRightOf(viewBack,16)
 
     textViewDescription
-        .constrainTopToBottomOf(textViewName,5)
-        .fillHorizontally(30)
+        .fillHorizontally()
+        .constrainTopToBottomOf(textViewName, 4)
+        .constrainRightToRightOf(viewBack, 16)
+        .constrainLeftToLeftOf(viewBack, 16)
+        .constrainBottomToBottomOf(viewBack, 16)
 
-
-    rectangleDown
-        .constrainTopToTopOf(textViewDescription,50)
-        .fillHorizontally(32)
-        .width(utils.variable.displayWidth - 32)
-        .height(20)
 }
 
-fun RestaurantKitchenCardViewHolder.initialize(width: Int, image: Int, dishName: String, dishPrice: String, dishDescription: String) {
-    imageViewCard
-        .width(width - 32)
-        .height(width * .325F)
+fun RestaurantKitchenCardViewHolder.initialize(image: Int, dishName: String, dishPrice: String, dishDescription: String) {
 
     textViewName.text = dishName
 
@@ -144,5 +136,5 @@ fun RestaurantKitchenCardViewHolder.initialize(width: Int, image: Int, dishName:
 
     textViewDescription.text = dishDescription
 
-    addImageFromGlide(imageViewCard,image,8)
+    addImageFromGlide(imageViewPhoto,image,0)
 }

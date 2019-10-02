@@ -31,6 +31,7 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         toolbar.title = "Корзина"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         toolbar.textColor = Color.WHITE
+        toolbar.iconExitSize = 18
 
         renderToolbar()
 
@@ -103,8 +104,10 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         notifyDataSetChanged()
                     }
                     holder.imageViewMinus.setOnClickListener {
-                        holder.appliancesCount--
-                        notifyDataSetChanged()
+                        if(holder.appliancesCount > 0) {
+                            holder.appliancesCount--
+                            notifyDataSetChanged()
+                        }
                     }
 
                     holder.initialize()

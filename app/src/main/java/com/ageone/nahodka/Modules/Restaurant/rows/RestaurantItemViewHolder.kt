@@ -98,7 +98,7 @@ fun RestaurantItemViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,16)
 
     imageViewStar
-        .constrainTopToBottomOf(imageViewRestaurant,15)
+        .constrainCenterYToCenterYOf(textViewRating)
         .constrainRightToLeftOf(textViewRating,10)
 
     textViewRating

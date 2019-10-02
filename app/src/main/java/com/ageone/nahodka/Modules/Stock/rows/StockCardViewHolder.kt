@@ -73,6 +73,8 @@ fun StockCardViewHolder.renderUI() {
             textViewDescription
         )
     )
+    constraintLayout
+        .elevation = 5F.dp
 
     viewBack
         .fillHorizontally(16)
@@ -100,7 +102,7 @@ fun StockCardViewHolder.renderUI() {
 
 }
 
-fun StockCardViewHolder.initialize(width: Int, image: Int, name: String, description: String) {
+fun StockCardViewHolder.initialize(image: Int, name: String, description: String) {
 
     textViewName.text = name
     textViewDescription.text = description

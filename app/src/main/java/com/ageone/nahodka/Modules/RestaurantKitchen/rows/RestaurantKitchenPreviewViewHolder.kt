@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import androidx.constraintlayout.solver.widgets.Rectangle
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -212,6 +213,8 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
     imageViewPreview
         .constrainTopToTopOf(constraintLayout)
         .fillHorizontally()
+        .width(utils.variable.displayWidth)
+        .height(utils.variable.displayWidth * .423F)
 
     textViewName
         .constrainBottomToBottomOf(imageViewPreview,8)
@@ -282,12 +285,9 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 }
 
-fun RestaurantKitchenPreviewViewHolder.initialize(width: Int, image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String,rating: String, commentCount: String) {
-    addImageFromGlideWithGradient(imageViewPreview, image, Color.TRANSPARENT, Color.argb(0x88, 0,0,0))
+fun RestaurantKitchenPreviewViewHolder.initialize(image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String,rating: String, commentCount: String) {
 
-    imageViewPreview
-        .width(width)
-        .height(width * .423F)
+    addImageFromGlideWithGradient(imageViewPreview, image, Color.TRANSPARENT, Color.argb(0x88, 0,0,0))
 
     textViewCheck.text = "Средний чек: $check руб."
     textViewTimeDelivery.text = "Время доставки: $time"
