@@ -96,16 +96,16 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 is ProfileItemViewHolder -> {
                     when(position) {
                         1 -> {
-                            holder.initialize(R.drawable.ic_address,"Адрес доставки", "Заполните адрес доставки и оформляйте заказ еще быстрее")
+                            holder.initialize(20,27,R.drawable.ic_address,"Адрес доставки", "Заполните адрес доставки и оформляйте заказ еще быстрее")
                         }
                         2 -> {
-                            holder.initialize(R.drawable.ic_order_profile,"Мои заказы", "Здесь Вы сможете отслеживать статус своего заказа и просматривать прошлые")
+                            holder.initialize(20,27,R.drawable.ic_order_profile,"Мои заказы", "Здесь Вы сможете отслеживать статус своего заказа и просматривать прошлые")
                             holder.constraintLayout.setOnClickListener {
                                 rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnMyOrderPressed.toString())
                             }
                         }
                         3 -> {
-                            holder.initialize(R.drawable.ic_share,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
+                            holder.initialize(20,20,R.drawable.ic_share,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
                             holder.constraintLayout.setOnClickListener {
                                 rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnContactPressed.toString())
                             }

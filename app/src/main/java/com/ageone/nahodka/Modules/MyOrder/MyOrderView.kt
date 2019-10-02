@@ -96,7 +96,7 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
             when (holder) {
                 is MyOrderEmptyViewHolder -> {
                     setBackgroundColor(Color.parseColor("#eeece8"))
-                    holder.initialize("У Вас пока ещё нет \nсозданных заказов", R.drawable.dribbble,utils.variable.displayWidth)
+                    holder.initialize("У Вас пока ещё нет \nсозданных заказов", R.drawable.dribbble)
                 }
 
                 is MyOrderTextViewHolder -> {

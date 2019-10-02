@@ -86,7 +86,6 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
             when (holder) {
                 is StockCardViewHolder -> {
                     holder.initialize(
-                        utils.variable.displayWidth,
                         R.drawable.food,
                         "Ollis Pizza",
                         "Скидка 30% на пасту")

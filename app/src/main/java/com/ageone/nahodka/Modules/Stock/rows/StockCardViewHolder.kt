@@ -85,15 +85,15 @@ fun StockCardViewHolder.renderUI() {
 
 }
 
-fun StockCardViewHolder.initialize(width: Int, image: Int, name: String, description: String) {
+fun StockCardViewHolder.initialize( image: Int, name: String, description: String) {
 
     viewBack
-        .width(width-32)
-        .height(width * .659F)
+        .width(utils.variable.displayWidth-32)
+        .height(utils.variable.displayWidth * .659F)
 
     imageViewCard
-        .width(width - 32)
-        .height(width * .44F)
+        .width(utils.variable.displayWidth-32)
+        .height(utils.variable.displayWidth * .44F)
 
     textViewName.text = name
 

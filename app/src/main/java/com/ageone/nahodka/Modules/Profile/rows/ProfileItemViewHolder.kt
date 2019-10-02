@@ -15,9 +15,7 @@ class ProfileItemViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewProfile by lazy {
         val imageView = BaseImageView()
-        imageView
-            .width(20)
-            .height(27)
+
         imageView.initialize()
         imageView
     }
@@ -78,7 +76,10 @@ fun ProfileItemViewHolder.renderUI() {
 
 }
 
-fun ProfileItemViewHolder.initialize(image: Int, text: String, description: String) {
+fun ProfileItemViewHolder.initialize(width: Int, height: Int,image: Int, text: String, description: String) {
+    imageViewProfile
+        .width(width)
+        .height(height)
     addImageFromGlide(imageViewProfile,image,1)
     textViewProfile.text = text
     textViewProfileDescription.text = description

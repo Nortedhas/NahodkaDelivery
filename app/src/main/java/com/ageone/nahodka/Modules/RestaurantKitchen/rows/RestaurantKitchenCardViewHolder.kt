@@ -123,7 +123,8 @@ fun RestaurantKitchenCardViewHolder.renderUI() {
 
     textViewDescription
         .constrainTopToBottomOf(textViewName,5)
-        .constrainLeftToLeftOf(rectangleMiddle,12)
+        .fillHorizontally(30)
+
 
     rectangleDown
         .constrainTopToTopOf(textViewDescription,50)

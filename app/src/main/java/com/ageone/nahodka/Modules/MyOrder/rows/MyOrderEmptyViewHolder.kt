@@ -38,7 +38,7 @@ fun MyOrderEmptyViewHolder.renderUI() {
         textViewEmpty
     )
 
-    constraintLayout.height(utils.variable.displayHeight)
+    //constraintLayout.height(utils.variable.displayHeight)
 
     textViewEmpty
         .constrainTopToTopOf(constraintLayout,utils.variable.displayWidth / 3)
@@ -50,11 +50,11 @@ fun MyOrderEmptyViewHolder.renderUI() {
 
 }
 
-fun MyOrderEmptyViewHolder.initialize(text: String, image: Int,width: Int) {
+fun MyOrderEmptyViewHolder.initialize(text: String, image: Int) {
 
     imageViewTurtle
-        .width(width - 20)
-        .height(width * .75F)
+        .width(utils.variable.displayWidth - 20)
+        .height(utils.variable.displayWidth * .75F)
 
     textViewEmpty.text = text
     addImageFromGlide(imageViewTurtle,image,0)
