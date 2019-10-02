@@ -9,6 +9,8 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.Bucket.BucketModel
+import com.ageone.nahodka.Modules.Bucket.BucketView
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
 import com.ageone.nahodka.Modules.Info.InfoModel
@@ -66,6 +68,7 @@ class FlowMain: BaseFlow() {
         var modelReview = ReviewModel()
         var moduleClientReview = ClientReviewModel()
         var moduleInfo = InfoModel()
+        var moduleBucket = BucketModel()
     }
 
     private fun runModuleRestaurant() {
@@ -105,7 +108,7 @@ class FlowMain: BaseFlow() {
                     pop()
                 },
                 exitListener = {
-
+                    runModuleBucket()
                 }
             )
         )
@@ -184,6 +187,24 @@ class FlowMain: BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleInfo) {module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
+    private fun runModuleBucket() {
+        val module = BucketView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                exitIcon = R.drawable.ic_cross,
+                exitListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleBucket) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

@@ -92,6 +92,7 @@ class MyOrderTextViewHolder(val constraintLayout: ConstraintLayout) :
             parent: ViewGroup,
             viewType: Int
         ): MyOrderTextItemViewHolder {
+
             val layout = ConstraintLayout(parent.context)
             layout.width(matchParent)
                   .height(wrapContent)

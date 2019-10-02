@@ -1,23 +1,24 @@
-package com.ageone.nahodka.Modules.MyOrder
+package com.ageone.nahodka.Modules.Bucket
 
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.MyOrder.rows.MyOrderEmptyViewHolder
-import com.ageone.nahodka.Modules.MyOrder.rows.MyOrderTextViewHolder
-import com.ageone.nahodka.Modules.MyOrder.rows.initialize
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.RxBus.RxEvent
+import com.ageone.nahodka.Modules.Bucket.rows.BucketItemViewHolder
+import com.ageone.nahodka.Modules.Bucket.rows.BucketRecyclerViewHolder
+import com.ageone.nahodka.Modules.Bucket.rows.initialize
 import yummypets.com.stevia.*
 
-class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = MyOrderViewModel()
+    val viewModel = BucketViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -27,10 +28,9 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     init {
 //        viewModel.loadRealmData()
 
-
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
-        toolbar.title = "Мои заказы"
+        toolbar.title = "Корзина"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         toolbar.textColor = Color.WHITE
 
@@ -54,18 +54,14 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val MyOrderEmptyType = 0
-
-        private val MyOrderTextType = 1
+        private val BucketRecyclerType = 0
 
         override fun getItemCount() = 1//viewModel.realmData.size
 
-        override fun getItemViewType(position: Int): Int =
-          when(itemCount){
-              1 ->MyOrderEmptyType
-              else -> MyOrderTextType
-          }
-
+        override fun getItemViewType(position: Int): Int = when (position) {
+            0 -> BucketRecyclerType
+            else -> -1
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
@@ -76,11 +72,8 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                MyOrderEmptyType -> {
-                    MyOrderEmptyViewHolder(layout)
-                }
-                MyOrderTextType -> {
-                    MyOrderTextViewHolder(layout)
+                BucketRecyclerType -> {
+                    BucketRecyclerViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -92,15 +85,9 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-
             when (holder) {
-                is MyOrderEmptyViewHolder -> {
-                    setBackgroundColor(Color.parseColor("#eeece8"))
-                    holder.initialize("У Вас пока ещё нет \nсозданных заказов", R.drawable.dribbble)
-                }
-
-                is MyOrderTextViewHolder -> {
-                    holder.initialize("24.02.19", "Находка", "ул. Темирязевская, д 155, кв. 210", "Tokio City", "1536.00")
+                is BucketRecyclerViewHolder-> {
+                    holder.initialize()
                 }
 
             }
@@ -111,7 +98,7 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
 }
 
-fun MyOrderView.renderUIO() {
+fun BucketView.renderUIO() {
 
     innerContent.subviews(
         bodyTable
