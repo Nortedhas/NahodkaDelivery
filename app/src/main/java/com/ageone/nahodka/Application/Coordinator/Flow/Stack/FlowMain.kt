@@ -119,6 +119,9 @@ class FlowMain: BaseFlow() {
                 RestaurantKitchenViewModel.EventType.OnReviewPressed -> {
                     runModuleReview()
                 }
+                RestaurantKitchenViewModel.EventType.OnInfoPressed -> {
+                    runModuleInfo()
+                }
             }
         }
         settingsCurrentFlow.isBottomNavigationVisible = true
@@ -144,10 +147,6 @@ class FlowMain: BaseFlow() {
             when(ReviewViewModel.EventType.valueOf(event)) {
                 ReviewViewModel.EventType.OnCommentPressed -> {
                     runModuleClientReview()
-                }
-                ReviewViewModel.EventType.OnItemPressed -> {
-                        runModuleInfo()
-
                 }
             }
         }

@@ -1,23 +1,21 @@
-package com.ageone.nahodka.Modules.Stock
+package com.ageone.nahodka.Modules.MyOrder
 
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.nahodka.Application.utils
+import androidx.core.view.updatePadding
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Stock.rows.StockCardViewHolder
-import com.ageone.nahodka.Modules.Stock.rows.initialize
+import com.ageone.nahodka.Modules.MyOrder.rows.MyOrderTextViewHolder
+import com.ageone.nahodka.Modules.MyOrder.rows.initialize
 import yummypets.com.stevia.*
 
-class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = StockViewModel()
+    val viewModel = MyOrderViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -29,9 +27,9 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
-        toolbar.title = "Акции"
-        toolbar.textColor = Color.WHITE
+        toolbar.title = "Мои заказы"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
+        toolbar.textColor = Color.WHITE
 
         renderToolbar()
 
@@ -53,12 +51,13 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val StockCardType = 0
+        private val MyOrderTextType = 0
 
-        override fun getItemCount() = 6//viewModel.realmData.size
+        override fun getItemCount() = 5//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            else -> StockCardType
+
+            else -> MyOrderTextType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -70,8 +69,8 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                StockCardType -> {
-                    StockCardViewHolder(layout)
+                MyOrderTextType -> {
+                    MyOrderTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -84,13 +83,8 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is StockCardViewHolder -> {
-                    holder.initialize(
-                        utils.variable.displayWidth,
-                        R.drawable.food,
-                        "Ollis Pizza",
-                        "Скидка 30% на пасту")
-
+                is MyOrderTextViewHolder -> {
+                    holder.initialize("24.02.19", "Находка", "ул. Темирязевская, д 155, кв. 210", "Tokio City", "1536.00")
                 }
 
             }
@@ -101,9 +95,19 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
 }
 
-fun StockView.renderUIO() {
+fun MyOrderView.renderUIO() {
 
-    renderBodyTable()
-}
+    innerContent.subviews(
+        bodyTable
+    )
+
+    bodyTable
+        .fillHorizontally()
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false}
 
 

@@ -14,7 +14,6 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
-import com.ageone.nahodka.External.Base.View.BaseView
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
@@ -45,12 +44,48 @@ class ClientReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
         ratingBar
     }
 
-    val imageViewRating by lazy {
+    val imageViewRating1 by lazy {
         val imageView = BaseImageView()
-        imageView.setImageResource(R.drawable.pic_stars)
+        imageView.setImageResource(R.drawable.ic_star)
         imageView
-            .width(120)
-            .height(20)
+            .width(18)
+            .height(18)
+        imageView.initialize()
+        imageView
+    }
+    val imageViewRating2 by lazy {
+        val imageView = BaseImageView()
+        imageView.setImageResource(R.drawable.ic_star)
+        imageView
+            .width(18)
+            .height(18)
+        imageView.initialize()
+        imageView
+    }
+    val imageViewRating3 by lazy {
+        val imageView = BaseImageView()
+        imageView.setImageResource(R.drawable.ic_star)
+        imageView
+            .width(18)
+            .height(18)
+        imageView.initialize()
+        imageView
+    }
+    val imageViewRating4 by lazy {
+        val imageView = BaseImageView()
+        imageView.setImageResource(R.drawable.ic_star)
+        imageView
+            .width(18)
+            .height(18)
+        imageView.initialize()
+        imageView
+    }
+    val imageViewRating5 by lazy {
+        val imageView = BaseImageView()
+        imageView.setImageResource(R.drawable.ic_star)
+        imageView
+            .width(18)
+            .height(18)
         imageView.initialize()
         imageView
     }
@@ -100,7 +135,11 @@ fun ClientReviewTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewEstimate,
         textViewName,
-        imageViewRating,
+        imageViewRating1,
+        imageViewRating2,
+        imageViewRating3,
+        imageViewRating4,
+        imageViewRating5,
         textInputL,
         buttonSend
     )
@@ -113,12 +152,25 @@ fun ClientReviewTextViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewEstimate, 20)
         .constrainLeftToLeftOf(constraintLayout,15)
 
-    imageViewRating
+    imageViewRating1
         .constrainTopToBottomOf(textViewName, 15)
         .constrainLeftToLeftOf(constraintLayout,15)
 
+    imageViewRating2
+        .constrainCenterYToCenterYOf(imageViewRating1)
+        .constrainLeftToRightOf(imageViewRating1,15)
+    imageViewRating3
+        .constrainCenterYToCenterYOf(imageViewRating2)
+        .constrainLeftToRightOf(imageViewRating2,15)
+    imageViewRating4
+        .constrainCenterYToCenterYOf(imageViewRating3)
+        .constrainLeftToRightOf(imageViewRating3,15)
+    imageViewRating5
+        .constrainCenterYToCenterYOf(imageViewRating4)
+        .constrainLeftToRightOf(imageViewRating4,15)
+
     textInputL
-        .constrainTopToBottomOf(imageViewRating,17)
+        .constrainTopToBottomOf(imageViewRating1,17)
         .fillHorizontally(16)
 
     buttonSend

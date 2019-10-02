@@ -102,6 +102,8 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var isStarPressed = false
+
             when (holder) {
                 is RestaurantKitchenPreviewViewHolder -> {
                     holder.initialize(
@@ -114,9 +116,20 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "бесплатно",
                         "4.0",
                         "18")
+                    holder.imageViewInfo.setOnClickListener {
+                        rootModule.emitEvent?.invoke(RestaurantKitchenViewModel.EventType.OnInfoPressed.toString())
+                    }
                     holder.textViewReview.setOnClickListener {
                         rootModule.emitEvent?.invoke(RestaurantKitchenViewModel.EventType.OnReviewPressed.toString())
-
+                    }
+                    holder.imageViewStar.setOnClickListener {
+                        if(!isStarPressed) {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
+                            isStarPressed = true
+                        } else {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
+                            isStarPressed = false
+                        }
                     }
                 }
                 is RestaurantKitchenTextViewHolder -> {

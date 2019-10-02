@@ -1,9 +1,12 @@
-package com.ageone.nahodka.Modules.Stock
+package com.ageone.nahodka.Modules.Contact
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.nahodka.Application.utils
+import androidx.core.content.ContextCompat.startActivity
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -11,13 +14,13 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Stock.rows.StockCardViewHolder
-import com.ageone.nahodka.Modules.Stock.rows.initialize
+import com.ageone.nahodka.Modules.Contact.rows.ContactTextViewHolder
+import com.ageone.nahodka.Modules.Contact.rows.initialize
 import yummypets.com.stevia.*
 
-class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class ContactView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = StockViewModel()
+    val viewModel = ContactViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -29,9 +32,9 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
-        toolbar.title = "Акции"
-        toolbar.textColor = Color.WHITE
+        toolbar.title = "Связаться с нами"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
+        toolbar.textColor = Color.WHITE
 
         renderToolbar()
 
@@ -53,12 +56,13 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val StockCardType = 0
+        private val ContactTextType = 0
 
-        override fun getItemCount() = 6//viewModel.realmData.size
+        override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            else -> StockCardType
+            0 -> ContactTextType
+            else -> -1
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -70,8 +74,8 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                StockCardType -> {
-                    StockCardViewHolder(layout)
+                ContactTextType -> {
+                    ContactTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -84,13 +88,12 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is StockCardViewHolder -> {
-                    holder.initialize(
-                        utils.variable.displayWidth,
-                        R.drawable.food,
-                        "Ollis Pizza",
-                        "Скидка 30% на пасту")
-
+                is ContactTextViewHolder -> {
+                    holder.initialize("+7 899 99 999 99")
+                    holder.textViewNumber.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:+7 899 99 999 99"))
+                        startActivity(context,intent,null)
+                    }
                 }
 
             }
@@ -101,7 +104,7 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
 }
 
-fun StockView.renderUIO() {
+fun ContactView.renderUIO() {
 
     renderBodyTable()
 }

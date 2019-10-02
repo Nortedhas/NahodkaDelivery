@@ -51,7 +51,6 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 5F.dp
-            editText.hint = "СМС код"
         }
         textInput
     }
@@ -87,7 +86,7 @@ fun EntrySMSTextViewHolder.initialize(text: String,hint: String, type: InputEdit
 
     val spannableContent = SpannableString(text + "0:39")
     spannableContent.setSpan(
-        ForegroundColorSpan(Color.parseColor("#707ABA")),
+        ForegroundColorSpan(Color.parseColor("#8E8E8E")),
         text.length,  text.length + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
     textView.text = spannableContent
 }

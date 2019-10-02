@@ -218,7 +218,7 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToLeftOf(imageViewPreview,23)
 
     imageViewClock
-        .constrainBottomToTopOf(textViewName,4)
+        .constrainCenterYToCenterYOf(textViewTimeDelivery)
         .constrainLeftToLeftOf(imageViewPreview,23)
 
     textViewTimeDelivery
@@ -226,7 +226,7 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewClock,10)
 
     imageViewWallet
-        .constrainBottomToTopOf(imageViewClock,6)
+        .constrainCenterYToCenterYOf(textViewCheck)
         .constrainLeftToLeftOf(imageViewPreview,23)
 
     textViewCheck

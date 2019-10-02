@@ -9,6 +9,10 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.Contact.ContactModel
+import com.ageone.nahodka.Modules.Contact.ContactView
+import com.ageone.nahodka.Modules.MyOrder.MyOrderModel
+import com.ageone.nahodka.Modules.MyOrder.MyOrderView
 import com.ageone.nahodka.Modules.Profile.ProfileModel
 import com.ageone.nahodka.Modules.Profile.ProfileView
 import com.ageone.nahodka.Modules.Profile.ProfileViewModel
@@ -50,6 +54,8 @@ class FlowProfile : BaseFlow() {
 
     inner class FlowProfileModels {
         var modelProfileTest = ProfileModel()
+        var moduleMyOrder = MyOrderModel()
+        var moduleContact= ContactModel()
     }
 
     fun runModuleProfile() {
@@ -61,9 +67,52 @@ class FlowProfile : BaseFlow() {
 
         module.emitEvent = { event ->
             when (ProfileViewModel.EventType.valueOf(event)) {
-
+                ProfileViewModel.EventType.OnMyOrderPressed -> {
+                    runModuleMyOrder()
+                }
+                ProfileViewModel.EventType.OnContactPressed -> {
+                    runModuleContact()
+                }
             }
         }
         push(module)
     }
+
+    fun runModuleMyOrder(){
+        val module = MyOrderView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                isBackPressed = true,
+                backListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleMyOrder) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+
+    }
+
+    fun runModuleContact(){
+        val module = ContactView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                isBackPressed = true,
+                backListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleContact) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
 }

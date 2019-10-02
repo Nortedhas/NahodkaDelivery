@@ -1,15 +1,14 @@
-package com.ageone.nahodka.Modules.RestaurantKitchen
+package com.ageone.nahodka.Modules.Contact
 
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class RestaurantKitchenViewModel : InterfaceViewModel {
-    var model = RestaurantKitchenModel()
+class ContactViewModel : InterfaceViewModel {
+    var model = ContactModel()
 
     enum class EventType {
-        OnInfoPressed,
-        OnReviewPressed
+
     }
 
     /*var realmData = listOf<>()
@@ -18,13 +17,13 @@ class RestaurantKitchenViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is RestaurantKitchenModel) {
+        if (recievedModel is ContactModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class RestaurantKitchenModel : InterfaceModel {
+class ContactModel : InterfaceModel {
 
 }

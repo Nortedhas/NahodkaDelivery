@@ -10,7 +10,7 @@ class ReviewViewModel : InterfaceViewModel {
     enum class EventType {
 
         OnCommentPressed,
-        OnItemPressed
+        OnStarPresse
     }
 
     /*var realmData = listOf<>()

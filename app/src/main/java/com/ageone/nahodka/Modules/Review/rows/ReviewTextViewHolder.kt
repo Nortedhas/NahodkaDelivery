@@ -107,9 +107,9 @@ fun ReviewTextViewHolder.renderUI() {
 
 }
 
-fun ReviewTextViewHolder.initialize(name: String, rating: String, commentCount: String) {
+fun ReviewTextViewHolder.initialize(name: String, rating: String, commentCount: Int) {
 
     textViewName.text = name
     textViewRating.text = rating
-    textViewComment.text = "Комментарии ($commentCount)"
+    textViewComment.text = "Комментарии (${commentCount.toString()})"
 }
