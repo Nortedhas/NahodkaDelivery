@@ -122,6 +122,8 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
 fun EntrySMSView.renderUIO() {
 
+    innerContent.fitsSystemWindows = true
+
     innerContent.subviews(
         bodyTable,
         nextButton

@@ -27,7 +27,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         viewAdapter
     }
 
-    val nextButton by lazy {
+    val nextButton by lazy { //TODO: переместить UI
         val button = BaseButton()
         button.setBackgroundColor(Color.parseColor("#09D0B8"))
         button.text = "Далее"
@@ -133,6 +133,8 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 }
 
 fun EntryView.renderUIO() {
+
+    innerContent.fitsSystemWindows = true
 
     innerContent.subviews(
         bodyTable,
