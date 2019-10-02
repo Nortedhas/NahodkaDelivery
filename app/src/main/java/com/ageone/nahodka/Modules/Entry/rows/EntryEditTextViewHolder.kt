@@ -2,7 +2,10 @@ package com.example.ageone.Modules.Entry.rows
 
 import android.graphics.Color
 import android.text.InputType
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import com.ageone.nahodka.Application.utils
@@ -50,7 +53,14 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 5F.dp
-        }
+
+            editText.setOnKeyListener { v, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    v.clearFocus()
+                }
+                true
+            }
+            }
         textInput
     }
 

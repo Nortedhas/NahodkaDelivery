@@ -2,48 +2,61 @@ package com.ageone.nahodka.Modules.Stock.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
+import com.ageone.nahodka.External.Base.ImageView.setOnlyTopRoundedCorners
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
+import timber.log.Timber
 import yummypets.com.stevia.*
 
-class StockCardViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
-
-    val imageViewCard by lazy {
-        val imageView = BaseImageView()
-        imageView.backgroundColor = Color.GRAY
-        imageView.cornerRadius = 18.dp
-        imageView.initialize()
-        imageView
-    }
+class StockCardViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
 
     val viewBack by lazy {
         val view = BaseView()
-        view.backgroundColor = Color.parseColor("#FFEB85")
         view.cornerRadius = 8.dp
+        view.backgroundColor = Color.parseColor("#FFEB85")
         view.initialize()
+//        view.elevation = 5F.dp
         view
     }
 
+    val imageViewPhoto by lazy {
+        val imageView = BaseImageView()
+//        imageView.cornerRadius = 0.dp
+        imageView.backgroundColor = Color.GRAY
+        imageView.initialize()
+        imageView.setOnlyTopRoundedCorners(8F.dp)
+    // 	imageView.elevation = 5F.dp
+        imageView
+    }
+    
     val textViewName by lazy {
         val textView = BaseTextView()
+        textView.gravity = Gravity.START
+        textView.typeface = Typeface.DEFAULT_BOLD
         textView.textSize = 18F
         textView.textColor = Color.BLACK
-        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.setBackgroundColor(Color.TRANSPARENT)
+    // 	textView.elevation = 5F.dp
+        textView
+    }
+    
+    val textViewDescription by lazy {
+        val textView = BaseTextView()
+        textView.gravity = Gravity.START
+        textView.typeface = Typeface.DEFAULT
+        textView.textSize = 14F
+        textView.textColor = Color.BLACK
+        textView.setBackgroundColor(Color.TRANSPARENT)
+    // 	textView.elevation = 5F.dp
         textView
     }
 
-    val textViewDescription by lazy {
-        val textView = BaseTextView()
-        textView.textSize = 14F
-        textView.textColor = Color.parseColor("#373737")
-        textView
-    }
     init {
 
         renderUI()
@@ -54,51 +67,43 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout) :
 fun StockCardViewHolder.renderUI() {
 
     constraintLayout.subviews(
-
-    viewBack.subviews(
-        imageViewCard,
-        textViewName,
-        textViewDescription
+        viewBack.subviews(
+            imageViewPhoto,
+            textViewName,
+            textViewDescription
         )
-
     )
 
     viewBack
-        .constrainTopToTopOf(constraintLayout,16)
-        .fillHorizontally(32)
+        .fillHorizontally(16)
+        .constrainTopToTopOf(constraintLayout, 16)
 
-
-
-
-    imageViewCard
+    imageViewPhoto
         .constrainTopToTopOf(viewBack)
-        .fillHorizontally(32)
-
+        .constrainRightToRightOf(viewBack)
+        .constrainLeftToLeftOf(viewBack)
+        .height(utils.tools.getActualSizeFromDes(149))
+        .width(utils.variable.displayWidth - 32)
 
     textViewName
-        .constrainTopToBottomOf(imageViewCard,8)
-        .constrainLeftToLeftOf(viewBack,12)
+        .fillHorizontally()
+        .constrainTopToBottomOf(imageViewPhoto, 8)
+        .constrainRightToRightOf(viewBack, 16)
+        .constrainLeftToLeftOf(viewBack, 16)
 
     textViewDescription
-        .constrainTopToBottomOf(textViewName,5)
-        .constrainLeftToLeftOf(viewBack,12)
+        .fillHorizontally()
+        .constrainTopToBottomOf(textViewName, 4)
+        .constrainRightToRightOf(viewBack, 16)
+        .constrainLeftToLeftOf(viewBack, 16)
+        .constrainBottomToBottomOf(viewBack, 16)
 
 }
 
-fun StockCardViewHolder.initialize( image: Int, name: String, description: String) {
-
-    viewBack
-        .width(utils.variable.displayWidth-32)
-        .height(utils.variable.displayWidth * .659F)
-
-    imageViewCard
-        .width(utils.variable.displayWidth-32)
-        .height(utils.variable.displayWidth * .44F)
+fun StockCardViewHolder.initialize(width: Int, image: Int, name: String, description: String) {
 
     textViewName.text = name
-
     textViewDescription.text = description
-
-    addImageFromGlide(imageViewCard,image,0)
+    addImageFromGlide(imageViewPhoto, image, 0)
 
 }
