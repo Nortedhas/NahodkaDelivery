@@ -22,6 +22,8 @@ import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import com.ageone.nahodka.R
+import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
+import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import com.example.ageone.Modules.Entry.EntryViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -84,13 +86,14 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationSMSTextType = 0
+        private val RegistrationSMSInputTextType = 0
+        private val RegistrationSMSTextType = 1
 
         override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RegistrationSMSTextType
-
+            0 -> RegistrationSMSInputTextType
+            1 -> RegistrationSMSTextType
             else -> -1
         }
 
@@ -103,6 +106,9 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                 .height(wrapContent)
 
             val holder = when (viewType) {
+                RegistrationSMSInputTextType -> {
+                    InputViewHolder(layout)
+                }
                 RegistrationSMSTextType -> {
                     EntrySMSTextViewHolder(layout)
                 }
@@ -118,32 +124,26 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
             var time = 20
             when (holder) {
+                is InputViewHolder -> {
+                    holder.initialize("СМС код", InputEditTextType.NUMERIC)
+                }
                 is EntrySMSTextViewHolder -> {
 
                     val timer = object: CountDownTimer(20000, 1000) {
                         override fun onTick(millisUntilFinished: Long) {
                             time--
                             Timber.i(time.toString() + ": AH")
+                            holder.initialize(time)
                         }
 
                         override fun onFinish() {
+                            rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())
                             Timber.i("Finish")
                         }
 
                     }
                     timer.start()
 
-//                    for( i in 0..10) {
-//                         Handler().postDelayed({
-//                             Timber.i(time.toString() + ": AH")
-//                             time--
-//
-//                             Timber.i(time.toString() + ": HA")
-//                            }, 1000)
-//
-//                        Timber.i(time.toString() + ": AHA")
-//                    }
-                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.NUMERIC,time)
                 }
             }
 
