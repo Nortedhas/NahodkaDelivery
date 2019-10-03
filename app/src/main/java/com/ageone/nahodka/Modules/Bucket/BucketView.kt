@@ -114,6 +114,9 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 }
                 is BucketBottomViewHolder -> {
                     holder.initialize(162)
+                    holder.buttonCheckout.setOnClickListener {
+                        rootModule.emitEvent?.invoke(BucketViewModel.EventType.OnCheckPressed.toString())
+                    }
                 }
 
             }
