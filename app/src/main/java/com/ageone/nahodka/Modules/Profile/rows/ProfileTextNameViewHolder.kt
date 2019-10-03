@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Modules.Profile.rows
 
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -16,6 +17,7 @@ class ProfileTextNameViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.textSize = 20F
         textView.textColor = Color.parseColor("#242839")
+        textView.typeface = Typeface.DEFAULT_BOLD
         textView
     }
 
@@ -36,7 +38,7 @@ class ProfileTextNameViewHolder(val constraintLayout: ConstraintLayout) :
 
     val separatorUp by lazy {
         val view = BaseView()
-        view.height(2)
+        view.height(1)
         view.backgroundColor = Color.parseColor("#D9D9D9")
         view.initialize()
         view

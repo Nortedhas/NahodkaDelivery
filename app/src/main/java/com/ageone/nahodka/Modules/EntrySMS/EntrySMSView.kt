@@ -134,10 +134,12 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                             time--
                             Timber.i(time.toString() + ": AH")
                             holder.initialize(time)
+                            if(time == 0){
+                                rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())
+                            }
                         }
 
                         override fun onFinish() {
-                            rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())
                             Timber.i("Finish")
                         }
 
