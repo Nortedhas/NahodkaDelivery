@@ -1,17 +1,18 @@
-package com.ageone.nahodka.UIComponents.ViewHolders
+package com.ageone.nahodka.Modules.CheckoutOrder.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-
-class InputViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
+class CheckoutOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+    BaseViewHolder(constraintLayout) {
 
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
@@ -43,17 +44,20 @@ class InputViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
 
 }
 
-fun InputViewHolder.renderUI() {
+fun CheckoutOrderEditTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL
     )
-
     textInputL
-        .constrainTopToTopOf(constraintLayout, 16)
-        .fillHorizontally(18)
+        .constrainTopToTopOf(constraintLayout)
+        .constrainLeftToLeftOf(constraintLayout, 16)
+        .width(utils.tools.getActualSizeFromDes(71))
+        .height(utils.variable.displayWidth * .136F)
+
 }
 
-fun InputViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun CheckoutOrderEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
     textInputL.hint = hint
     textInputL.defineType(type)
+
 }

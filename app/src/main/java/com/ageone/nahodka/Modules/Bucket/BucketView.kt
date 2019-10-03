@@ -31,6 +31,7 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         toolbar.title = "Корзина"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         toolbar.textColor = Color.WHITE
+        toolbar.iconExitSize = 18
 
         renderToolbar()
 
@@ -55,15 +56,17 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         private val BucketRecyclerType = 0
         private val BucketAppliancesType = 1
         private val BucketBottomType = 2
+        private val BucketEmptyType = 3
 
-        override fun getItemCount() = 3//viewModel.realmData.size
+        override fun getItemCount() = 1//viewModel.realmData.size
 
-        override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> BucketRecyclerType
-            1 -> BucketAppliancesType
-            2 -> BucketBottomType
-            else -> -1
-        }
+        override fun getItemViewType(position: Int): Int =
+            when(itemCount){
+                1 -> BucketEmptyType
+                else -> {
+                    BucketAppliancesType
+                }
+            }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
@@ -82,6 +85,9 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 }
                 BucketBottomType -> {
                     BucketBottomViewHolder(layout)
+                }
+                BucketEmptyType -> {
+                    BucketEmptyViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -103,14 +109,23 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         notifyDataSetChanged()
                     }
                     holder.imageViewMinus.setOnClickListener {
-                        holder.appliancesCount--
-                        notifyDataSetChanged()
+                        if(holder.appliancesCount > 0) {
+                            holder.appliancesCount--
+                            notifyDataSetChanged()
+                        }
                     }
 
                     holder.initialize()
                 }
                 is BucketBottomViewHolder -> {
                     holder.initialize(162)
+                    holder.buttonCheckout.setOnClickListener {
+                        rootModule.emitEvent?.invoke(BucketViewModel.EventType.OnCheckPressed.toString())
+                    }
+                }
+                is BucketEmptyViewHolder -> {
+                    setBackgroundColor(Color.parseColor("#eeece8"))
+                    holder.initialize(R.drawable.dribbble)
                 }
 
             }

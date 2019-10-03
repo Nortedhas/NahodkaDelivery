@@ -73,6 +73,8 @@ fun StockCardViewHolder.renderUI() {
             textViewDescription
         )
     )
+    constraintLayout
+        .elevation = 5F.dp
 
     viewBack
         .fillHorizontally(16)
