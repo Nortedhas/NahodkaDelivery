@@ -79,12 +79,12 @@ fun EntrySMSTextViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun EntrySMSTextViewHolder.initialize(text: String,hint: String, type: InputEditTextType) {
+fun EntrySMSTextViewHolder.initialize(text: String,hint: String, type: InputEditTextType,time: Int) {
 
     textInputL.hint = hint
     textInputL.defineType(type)
 
-    val spannableContent = SpannableString(text + "0:39")
+    val spannableContent = SpannableString(text + "0:${time.toString()}")
     spannableContent.setSpan(
         ForegroundColorSpan(Color.parseColor("#8E8E8E")),
         text.length,  text.length + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)

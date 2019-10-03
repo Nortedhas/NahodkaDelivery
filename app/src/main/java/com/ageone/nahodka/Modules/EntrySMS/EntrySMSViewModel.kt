@@ -8,7 +8,8 @@ class EntrySMSViewModel : InterfaceViewModel {
     var model = EntrySMSModel()
 
     enum class EventType {
-        OnNextPressed
+        OnNextPressed,
+        Timeout
     }
 
     /*var realmData = listOf<>()

@@ -1,6 +1,8 @@
 package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
+import android.os.CountDownTimer
+import android.os.Handler
 import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +23,13 @@ import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.EntryViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import yummypets.com.stevia.*
+import java.util.*
+import kotlin.concurrent.schedule
 
 class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -108,9 +116,34 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var time = 20
             when (holder) {
                 is EntrySMSTextViewHolder -> {
-                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.NUMERIC)
+
+                    val timer = object: CountDownTimer(20000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            time--
+                            Timber.i(time.toString() + ": AH")
+                        }
+
+                        override fun onFinish() {
+                            Timber.i("Finish")
+                        }
+
+                    }
+                    timer.start()
+
+//                    for( i in 0..10) {
+//                         Handler().postDelayed({
+//                             Timber.i(time.toString() + ": AH")
+//                             time--
+//
+//                             Timber.i(time.toString() + ": HA")
+//                            }, 1000)
+//
+//                        Timber.i(time.toString() + ": AHA")
+//                    }
+                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.NUMERIC,time)
                 }
             }
 

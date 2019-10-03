@@ -122,7 +122,9 @@ class FlowAuth: BaseFlow() {
             when(EntrySMSViewModel.EventType.valueOf(event)){
                 EntrySMSViewModel.EventType.OnNextPressed ->{
                     module.startLoadingFlow()
-
+                }
+                EntrySMSViewModel.EventType.Timeout -> {
+                    pop()
                 }
             }
         }
