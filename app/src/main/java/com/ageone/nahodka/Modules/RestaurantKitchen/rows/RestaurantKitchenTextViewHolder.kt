@@ -23,6 +23,20 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
+    var kitchenList = listOf(
+        "Пицца",
+        "Бургеры",
+        "Роллы",
+        "Супы",
+        "Напитки",
+        "Пицца",
+        "Бургеры",
+        "Роллы",
+        "Супы",
+        "Напитки")
+
+    private var selectedFood = 0
+
     val recyclerViewKitchen by lazy {
         val recyclerView = BaseRecyclerView()
         recyclerView
@@ -38,21 +52,11 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView.textSize = 18F
         textView.typeface = Typeface.DEFAULT_BOLD
         textView.textColor = Color.parseColor("#373737")
+        textView.text = kitchenList[0]
         textView.initialize()
         textView
     }
 
-    var kitchenList = listOf(
-        "Пицца",
-        "Бургеры",
-        "Роллы",
-        "Супы",
-        "Напитки",
-        "Пицца",
-        "Бургеры",
-        "Роллы",
-        "Супы",
-        "Напитки")
 
     init {
         recyclerViewKitchen.adapter = viewAdapter
@@ -87,8 +91,6 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         override fun onBindViewHolder(holder: KitchenTextViewHolder, position: Int) {
 
-           // var kitchen = kitchenList[position]
-
             val food = if (position - 1 < kitchenList.size) kitchenList[position] else ""
             holder.initialize(food,position == selectedFood)
 
@@ -98,11 +100,7 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
                 notifyDataSetChanged()
             }
         }
-
     }
-
-    private var selectedFood = 0
-
 }
 
 fun RestaurantKitchenTextViewHolder.renderUI() {
@@ -117,7 +115,6 @@ fun RestaurantKitchenTextViewHolder.renderUI() {
     textViewFastFood
         .constrainTopToBottomOf(recyclerViewKitchen,16)
         .constrainLeftToLeftOf(constraintLayout,17)
-
 
 }
 
