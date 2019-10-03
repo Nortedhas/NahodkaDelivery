@@ -1,6 +1,7 @@
 package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
+import android.os.Handler
 import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +22,13 @@ import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.EntryViewModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import yummypets.com.stevia.*
+import java.util.*
+import kotlin.concurrent.schedule
 
 class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -108,9 +115,16 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var time = 10
+            var iEach = 10
             when (holder) {
                 is EntrySMSTextViewHolder -> {
-                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.NUMERIC)
+                    for( i in 10 downTo 0) {
+                         Handler().postDelayed({
+                             time--
+                            }, 1000)
+                    }
+                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.NUMERIC,time)
                 }
             }
 

@@ -1,5 +1,7 @@
 package com.ageone.nahodka.Modules.RestaurantKitchen.rows
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +17,7 @@ import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 import android.util.TypedValue
 import com.ageone.nahodka.External.Base.RecyclerView.HorizontalSpacesItemDecoration
+import com.ageone.nahodka.External.Base.TextView.BaseTextView
 
 
 class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
@@ -28,6 +31,15 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
     val viewAdapter by lazy {
         val viewAdapter = Factory()
         viewAdapter
+    }
+
+    val textViewFastFood by lazy {
+        val textView = BaseTextView()
+        textView.textSize = 18F
+        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.textColor = Color.parseColor("#373737")
+        textView.initialize()
+        textView
     }
 
     var kitchenList = listOf(
@@ -81,6 +93,7 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
             holder.initialize(food,position == selectedFood)
 
             holder.constraintLayout.setOnClickListener {
+                textViewFastFood.text = holder.textViewKitchen.text.toString()
                 selectedFood = position
                 notifyDataSetChanged()
             }
@@ -94,11 +107,16 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun RestaurantKitchenTextViewHolder.renderUI() {
     constraintLayout.subviews(
-        recyclerViewKitchen
+        recyclerViewKitchen,
+        textViewFastFood
     )
     recyclerViewKitchen
         .fillHorizontally()
         .constrainTopToTopOf(constraintLayout)
+
+    textViewFastFood
+        .constrainTopToBottomOf(recyclerViewKitchen,16)
+        .constrainLeftToLeftOf(constraintLayout,17)
 
 
 }

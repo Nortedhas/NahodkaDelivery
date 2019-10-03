@@ -50,7 +50,7 @@ fun InputViewHolder.renderUI() {
 
     textInputL
         .constrainTopToTopOf(constraintLayout, 16)
-        .fillHorizontally(18)
+        .fillHorizontally(16)
 }
 
 fun InputViewHolder.initialize(hint: String, type: InputEditTextType) {

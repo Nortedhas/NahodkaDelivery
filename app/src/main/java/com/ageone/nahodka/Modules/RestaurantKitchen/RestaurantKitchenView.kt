@@ -13,6 +13,7 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.RestaurantKitchen.rows.*
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 
@@ -58,8 +59,6 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
         private val RestaurantKitchenTextType = 1
 
-        private val RestaurantKitchenFastfoodType = 2
-
         private val RestaurantKitchenCardType = 3
 
         override fun getItemCount() = 6//viewModel.realmData.size
@@ -67,7 +66,6 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> RestaurantKitchenPreviewType
             1 -> RestaurantKitchenTextType
-            2 -> RestaurantKitchenFastfoodType
             else -> RestaurantKitchenCardType
         }
 
@@ -85,9 +83,6 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 RestaurantKitchenTextType -> {
                     RestaurantKitchenTextViewHolder(layout)
-                }
-                RestaurantKitchenFastfoodType -> {
-                    RestaurantKitchenFastfoodViewHolder(layout)
                 }
                 RestaurantKitchenCardType -> {
                     RestaurantKitchenCardViewHolder(layout)
@@ -133,11 +128,7 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 is RestaurantKitchenTextViewHolder -> {
                     holder.initialize()
-                }
-                is RestaurantKitchenFastfoodViewHolder -> {
-                    holder.initialize("Пицца")
 
-                    holder.constraintLayout.setOnClickListener {  }
                 }
                 is RestaurantKitchenCardViewHolder -> {
                     holder.initialize(
