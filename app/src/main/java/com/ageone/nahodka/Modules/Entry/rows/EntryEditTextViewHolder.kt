@@ -28,7 +28,6 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView.textColor = Color.parseColor("#089988")
         textView.textSize = 16F
         textView.setBackgroundColor(Color.TRANSPARENT)
-
         textView
 
     }

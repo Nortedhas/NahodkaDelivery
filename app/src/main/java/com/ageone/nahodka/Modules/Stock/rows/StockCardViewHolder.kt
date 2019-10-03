@@ -100,7 +100,7 @@ fun StockCardViewHolder.renderUI() {
 
 }
 
-fun StockCardViewHolder.initialize(width: Int, image: Int, name: String, description: String) {
+fun StockCardViewHolder.initialize(image: Int, name: String, description: String) {
 
     textViewName.text = name
     textViewDescription.text = description

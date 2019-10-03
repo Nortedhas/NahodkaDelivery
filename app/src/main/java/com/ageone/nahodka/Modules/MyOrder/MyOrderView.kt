@@ -27,7 +27,6 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     init {
 //        viewModel.loadRealmData()
 
-
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "Мои заказы"
@@ -61,8 +60,8 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
-          when(itemCount){
-              1 ->MyOrderEmptyType
+          when (itemCount) {
+              1 -> MyOrderEmptyType
               else -> MyOrderTextType
           }
 
@@ -91,7 +90,6 @@ class MyOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
 
             when (holder) {
                 is MyOrderEmptyViewHolder -> {

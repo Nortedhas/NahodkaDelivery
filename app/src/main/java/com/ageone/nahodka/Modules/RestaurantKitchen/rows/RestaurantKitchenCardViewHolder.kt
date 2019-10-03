@@ -42,9 +42,6 @@ class RestaurantKitchenCardViewHolder(val constraintLayout: ConstraintLayout) :
 
     val buttonAdd by lazy {
         val imageView = BaseImageView()
-        imageView
-            .width(24)
-            .height(24)
         imageView.setImageResource(R.drawable.ic_add)
         imageView.initialize()
         imageView
@@ -108,9 +105,12 @@ fun RestaurantKitchenCardViewHolder.renderUI() {
         .fillHorizontally(32)
         .width(utils.variable.displayWidth - 32)
         .height(100)
+
     buttonAdd
         .constrainRightToRightOf(imageViewCard,12)
         .constrainBottomToTopOf(rectangleMiddle,12)
+        .width(24)
+        .height(24)
 
 
     textViewName
