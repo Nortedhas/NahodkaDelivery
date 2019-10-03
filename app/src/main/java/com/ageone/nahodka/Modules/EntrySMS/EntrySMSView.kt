@@ -1,6 +1,7 @@
 package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
+import android.os.CountDownTimer
 import android.os.Handler
 import android.text.InputType
 import android.view.ViewGroup
@@ -115,15 +116,33 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-            var time = 10
-            var iEach = 10
+            var time = 20
             when (holder) {
                 is EntrySMSTextViewHolder -> {
-                    for( i in 10 downTo 0) {
-                         Handler().postDelayed({
-                             time--
-                            }, 1000)
+
+                    val timer = object: CountDownTimer(20000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            time--
+                            Timber.i(time.toString() + ": AH")
+                        }
+
+                        override fun onFinish() {
+                            Timber.i("Finish")
+                        }
+
                     }
+                    timer.start()
+
+//                    for( i in 0..10) {
+//                         Handler().postDelayed({
+//                             Timber.i(time.toString() + ": AH")
+//                             time--
+//
+//                             Timber.i(time.toString() + ": HA")
+//                            }, 1000)
+//
+//                        Timber.i(time.toString() + ": AHA")
+//                    }
                     holder.initialize("Если Вы не получили смс, запросить код повторно можно через ", "СМС код", InputEditTextType.NUMERIC,time)
                 }
             }
