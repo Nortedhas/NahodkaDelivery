@@ -116,15 +116,15 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
-                          /*  holder.constraintLayout.setOnClickListener {
+                            holder.textInputL.setOnClickListener {
                                 nextButton.visibility = View.VISIBLE
-                            }*/
+                            }
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-                           /* holder.constraintLayout.setOnClickListener {
+                            holder.textInputL.setOnClickListener{
                                 nextButton.visibility = View.VISIBLE
-                            }*/
+                            }
                         }
                     }
                 }
