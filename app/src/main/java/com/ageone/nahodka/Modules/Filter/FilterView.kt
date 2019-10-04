@@ -89,7 +89,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         var isPressed = false
 
                         holder.initialize("ближайшие")
-                        holder.radioButtonFilter.setOnClickListener {
+                        holder.itemView.setOnClickListener {
                         if(!isPressed) {
                             holder.radioButtonFilter.setImageResource(R.drawable.ic_dot_inactive)
                             isPressed = true
@@ -103,7 +103,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
                         holder.initialize("цена от минимальной")
 
-                        holder.radioButtonFilter.setOnClickListener {
+                        holder.itemView.setOnClickListener{
                             if (!isPressed) {
                                 holder.radioButtonFilter.setImageResource(R.drawable.ic_dot_inactive)
                                 isPressed = true
