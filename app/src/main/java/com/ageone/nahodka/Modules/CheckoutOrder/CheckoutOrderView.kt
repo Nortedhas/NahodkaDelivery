@@ -38,8 +38,8 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (position) {
-                     0 -> 4
-                     in 1..4 -> 1
+                    0 -> 4
+                    in 1..4 -> 1
                     else -> 4
                 }
             }
@@ -136,6 +136,9 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
                 }
                 is CheckoutOrderPhoneViewHolder -> {
                     holder.initialize("Телефон", "Комментарий к заказу")
+                    holder.editTextComment.setOnClickListener{
+                        rootModule.emitEvent?.invoke(CheckoutOrderViewModel.EventType.OnCommentPressed.toString())
+                    }
                 }
                 is CheckoutBottomViewHolder -> {
                     holder.initialize(162,50, "Способ оплаты")

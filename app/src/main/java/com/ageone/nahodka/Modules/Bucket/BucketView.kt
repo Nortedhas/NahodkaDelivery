@@ -12,11 +12,15 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Bucket.rows.*
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = BucketViewModel()
+
+    var dishImage = listOf(R.drawable.dish1, R.drawable.dish2, R.drawable.dish3, R.drawable.dish1, R.drawable.dish2, R.drawable.dish3)
+
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -58,16 +62,16 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         private val BucketBottomType = 2
         private val BucketEmptyType = 3
 
-        override fun getItemCount() = 4//1 //viewModel.realmData.size
+        override fun getItemCount() = dishImage.size +3 //viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
             if(itemCount == 1) {
                 BucketEmptyType
             } else {
                 when (position) {
-                    1 -> BucketRecyclerType
-                    2 -> BucketAppliancesType
-                    3 -> BucketBottomType
+                    in 1..dishImage.size -> BucketRecyclerType
+                    dishImage.size + 1-> BucketAppliancesType
+                    dishImage.size + 2 -> BucketBottomType
                     else -> -1
                 }
             }
@@ -83,7 +87,7 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
             val holder = when (viewType) {
                 BucketRecyclerType -> {
-                    BucketRecyclerViewHolder(layout)
+                    BucketItemViewHolder(layout)
                 }
                 BucketAppliancesType -> {
                     BucketAppliancesViewHolder(layout)
@@ -105,8 +109,14 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is BucketRecyclerViewHolder -> {
-                    holder.initialize()
+                is BucketItemViewHolder -> {
+                    var dish = dishImage[position-1]
+                    holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
+                    holder.imageViewPlus.setOnClickListener {
+                        holder.count++
+                        Timber.i(holder.count.toString()+"~~~~~")
+                        notifyDataSetChanged()
+                    }
                 }
                 is BucketAppliancesViewHolder -> {
                     holder.imageViewPlus.setOnClickListener {

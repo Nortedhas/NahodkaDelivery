@@ -8,7 +8,7 @@ class CheckoutOrderViewModel : InterfaceViewModel {
     var model = CheckoutOrderModel()
 
     enum class EventType {
-
+        OnCommentPressed
     }
 
     /*var realmData = listOf<>()

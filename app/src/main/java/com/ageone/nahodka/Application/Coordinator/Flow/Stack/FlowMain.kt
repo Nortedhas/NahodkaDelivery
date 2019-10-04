@@ -4,9 +4,10 @@ import android.graphics.Color
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
-import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
+import com.ageone.nahodka.Application.Coordinator.Flow.Regular.Application.Coordinator.Flow.Stack.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
+import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Bucket.BucketModel
@@ -16,6 +17,8 @@ import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderModel
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderView
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
+import com.ageone.nahodka.Modules.Filter.FilterModel
+import com.ageone.nahodka.Modules.Filter.FilterView
 import com.ageone.nahodka.Modules.Info.InfoModel
 import com.ageone.nahodka.Modules.Info.InfoView
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
@@ -73,6 +76,7 @@ class FlowMain: BaseFlow() {
         var moduleInfo = InfoModel()
         var moduleBucket = BucketModel()
         var moduleCheckout = CheckoutOrderModel()
+        var moduleFilter = FilterModel()
     }
 
     private fun runModuleRestaurant() {
@@ -80,7 +84,7 @@ class FlowMain: BaseFlow() {
             InitModuleUI(
                 exitIcon = R.drawable.ic_shoping_kart,
                 exitListener = {
-                    runModuleBucket()
+                    coordinator.runFlowBucket(this)
                 }
             )
         )
@@ -98,6 +102,9 @@ class FlowMain: BaseFlow() {
                 RestaurantViewModel.EventType.OnRestaurantPressed -> {
                     runModuleRestaurantKitchen()
                 }
+                RestaurantViewModel.EventType.OnFilterPressed -> {
+                    runModuleFilter()
+                }
             }
         }
         push(module)
@@ -112,7 +119,7 @@ class FlowMain: BaseFlow() {
                 },
                 exitIcon = R.drawable.ic_shoping_kart,
                 exitListener = {
-                    runModuleBucket()
+                    coordinator.runFlowBucket(this)
                 }
             )
         )
@@ -197,32 +204,6 @@ class FlowMain: BaseFlow() {
         push(module)
     }
 
-    private fun runModuleBucket() {
-        val module = BucketView(
-            InitModuleUI(
-                isBottomNavigationVisible = false,
-                exitIcon = R.drawable.ic_cross,
-                exitListener = {
-                    pop()
-                }
-            )
-        )
-
-        module.viewModel.initialize(models.moduleBucket) {module.reload()}
-
-        module.emitEvent = { event ->
-            when(BucketViewModel.EventType.valueOf(event)){
-                BucketViewModel.EventType.OnCheckPressed -> {
-                    runModuleCheckout()
-                }
-            }
-        }
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
-        push(module)
-    }
-
     private fun runModuleCheckout(){
         val module = CheckoutOrderView( InitModuleUI(
             isBottomNavigationVisible = false,
@@ -234,6 +215,23 @@ class FlowMain: BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleCheckout) { module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
+    private fun runModuleFilter(){
+        val module = FilterView( InitModuleUI(
+            isBottomNavigationVisible = false,
+            isBackPressed = true,
+            backListener = {
+                pop()
+            }
+        )
+        )
+
+        module.viewModel.initialize(models.moduleFilter) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

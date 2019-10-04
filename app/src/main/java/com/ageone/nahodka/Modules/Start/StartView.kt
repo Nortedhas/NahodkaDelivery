@@ -58,7 +58,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
         startDiscribeTextView
             .fillHorizontally()
-            .constrainTopToBottomOf(startNameTextView,20)
+            .constrainTopToBottomOf(startNameTextView,16)
 
     }
 

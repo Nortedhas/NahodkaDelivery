@@ -5,9 +5,11 @@ import android.graphics.Color
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.Regular.Application.Coordinator.Flow.Stack.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
+import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Bucket.BucketModel
@@ -55,7 +57,6 @@ class FlowStock : BaseFlow() {
 
     inner class FlowStockModels {
         var moduleStockText = StockModel()
-        var moduleBucket = BucketModel()
     }
 
     fun runModuleStockText() {
@@ -63,7 +64,7 @@ class FlowStock : BaseFlow() {
             InitModuleUI(
                 exitIcon = R.drawable.ic_shoping_kart,
                 exitListener = {
-                    runModuleBucket()
+                    coordinator.runFlowBucket(this)
                 }
 
             )
@@ -81,21 +82,4 @@ class FlowStock : BaseFlow() {
         push(module)
     }
 
-    private fun runModuleBucket() {
-        val module = BucketView(
-            InitModuleUI(
-                isBottomNavigationVisible = false,
-                exitIcon = R.drawable.ic_cross,
-                exitListener = {
-                    pop()
-                }
-            )
-        )
-
-        module.viewModel.initialize(models.moduleBucket) {module.reload()}
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
-        push(module)
-    }
 }

@@ -32,29 +32,6 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-    val textInputL by lazy {
-        val textInput = BaseTextInputLayout()
-
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        params.marginStart = (-2).dp
-        params.updateMargins(left = (-2).dp)
-        textInput.layoutParams = params
-
-
-        textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
-        textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
-
-        textInput.editText?.let { editText ->
-            editText.textColor = Color.parseColor("#000000")
-            editText.textSize = 5F.dp
-        }
-        textInput
-    }
-
     init {
 
         renderUI()
@@ -66,27 +43,16 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun EntrySMSTextViewHolder.renderUI() {
     constraintLayout.subviews(
-        textInputL,
         textView
-
     )
 
-    textInputL
-        .constrainTopToTopOf(constraintLayout,20)
-        .fillHorizontally(16)
     textView
-        .constrainTopToBottomOf(textInputL, 16)
+        .constrainTopToTopOf(constraintLayout, 16)
         .fillHorizontally(16)
 }
 
-fun EntrySMSTextViewHolder.initialize(text: String,hint: String, type: InputEditTextType,time: Int) {
+fun EntrySMSTextViewHolder.initialize(time: Int) {
 
-    textInputL.hint = hint
-    textInputL.defineType(type)
+    textView.text = "Если Вы не получили смс, запросить код повторно можно через 0:$time"
 
-    val spannableContent = SpannableString(text + "0:${time.toString()}")
-    spannableContent.setSpan(
-        ForegroundColorSpan(Color.parseColor("#8E8E8E")),
-        text.length,  text.length + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-    textView.text = spannableContent
 }

@@ -24,7 +24,7 @@ class RestaurantKitchenCardViewHolder(val constraintLayout: ConstraintLayout) :
         view.cornerRadius = 8.dp
         view.backgroundColor = Color.parseColor("#FFFFFF")
         view.initialize()
-        view.elevation = 5F.dp
+        view.elevation = 2F.dp
         view
     }
 

@@ -182,7 +182,7 @@ fun CheckoutBottomViewHolder.renderUI() {
 
 }
 
-fun CheckoutBottomViewHolder.initialize(amountPrice: Int, deliveryPrice: Int,hint: String) {
+fun CheckoutBottomViewHolder.initialize(amountPrice: Int, deliveryPrice: Int, hint: String) {
 
     editTextPay.hint = hint
 
