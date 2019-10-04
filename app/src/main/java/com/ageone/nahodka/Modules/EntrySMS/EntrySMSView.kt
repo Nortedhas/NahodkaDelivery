@@ -144,7 +144,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                             holder.initialize(timeInString)
                             if(time == 0&& isNext){
                                 Timber.i(isNext.toString())
-                                rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())
+                                rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.Timeout.toString())
                             }
                         }
 

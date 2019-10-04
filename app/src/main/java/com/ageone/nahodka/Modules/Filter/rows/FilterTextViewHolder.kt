@@ -1,7 +1,9 @@
 package com.ageone.nahodka.Modules.Filter.rows
 
 import android.graphics.Color
+import android.widget.CheckBox
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RadioButton.BaseRadioButton
 import com.ageone.nahodka.R
@@ -17,16 +19,23 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView.textSize = 15F
         textView.textColor = Color.parseColor("#242839")
         textView.backgroundColor = Color.TRANSPARENT
-        textView.text = "цена от минимальной"
+        textView.text = "ближайшие"
         textView
     }
 
+
+    val check by lazy {
+        val check = BaseRadioButton()
+        check.setButtonBottom()
+        check.setBackgroundColor(Color.parseColor("#09D0B8"))
+        check
+    }
     val textViewFilterAround by lazy {
         val textView = BaseTextView()
         textView.textSize = 15F
         textView.textColor = Color.parseColor("#242839")
         textView.backgroundColor = Color.TRANSPARENT
-        textView.text = "ближайшие"
+        textView.text = "цена от минимальной"
         textView
     }
 
@@ -60,18 +69,20 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
 fun FilterTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewFilterPrice,
-        radioButtonFilterPrice,
+        check,
+        //radioButtonFilterPrice,
         textViewFilterAround,
         radioButtonFilterAround
     )
 
     textViewFilterPrice
-        .constrainTopToTopOf(constraintLayout,16)
+        .constrainTopToTopOf(constraintLayout,24)
         .constrainLeftToLeftOf(constraintLayout,16)
 
-    radioButtonFilterPrice
+ //   radioButtonFilterPrice
+   check
         .constrainCenterYToCenterYOf(textViewFilterPrice)
-        .constrainRightToRightOf(constraintLayout, 16)
+        .constrainRightToRightOf(constraintLayout, 8)
 
     textViewFilterAround
         .constrainTopToBottomOf(textViewFilterPrice,16)

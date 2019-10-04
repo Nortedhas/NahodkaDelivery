@@ -30,7 +30,7 @@ fun MyOrderTextItemViewHolder.renderUI() {
 
     textViewFood
         .constrainTopToTopOf(constraintLayout,10)
-        .constrainTopToTopOf(constraintLayout,15)
+        .constrainTopToTopOf(constraintLayout,13)
 
 
 }

@@ -99,6 +99,8 @@ fun ReviewCommentViewHolder.renderUI() {
     textViewComment
         .constrainTopToBottomOf(textViewName,12)
         .constrainLeftToLeftOf(constraintLayout,15)
+        .width(utils.tools.getActualSizeFromDes(246))
+       // .constrainRightToLeftOf(textViewDate,32)
 
 
 }

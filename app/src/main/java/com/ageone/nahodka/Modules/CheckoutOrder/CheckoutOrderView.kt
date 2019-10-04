@@ -12,10 +12,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.CheckoutBottomViewHolder
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.CheckoutOrderEditTextViewHolder
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.CheckoutOrderPhoneViewHolder
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.initialize
+import com.ageone.nahodka.Modules.CheckoutOrder.rows.*
 import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
@@ -103,7 +100,7 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
 
             val holder = when (viewType) {
                 ChekckoutOrderEditTextType -> {
-                    InputViewHolder(layout)
+                    CheckoutOrderAddressViewHolder(layout)
                 }
                 CheckoutOrderHouseType -> {
                     CheckoutOrderEditTextViewHolder(layout)
@@ -125,7 +122,7 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is InputViewHolder -> {
+                is CheckoutOrderAddressViewHolder -> {
                     holder.initialize("Адрес доставки", InputEditTextType.TEXT)
                 }
                 is CheckoutOrderEditTextViewHolder -> {

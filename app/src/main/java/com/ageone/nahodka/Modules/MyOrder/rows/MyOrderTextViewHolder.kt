@@ -71,7 +71,7 @@ class MyOrderTextViewHolder(val constraintLayout: ConstraintLayout) :
         view
     }
 
-    var dishList = listOf("Сушими с лосося 3шт.", "Удон с курицей 2шт.","Сушими с лосося 3шт.", "Удон с курицей 2шт.")
+    var dishList = listOf("Сушими с лосося 3 шт.", "Удон с курицей 2 шт.","Сушими с лосося 3 шт.", "Удон с курицей 2 шт.")
 
     init {
 
@@ -123,7 +123,7 @@ fun MyOrderTextViewHolder.renderUI() {
     )
 
     textViewOrderDate
-        .constrainTopToTopOf(constraintLayout,20)
+        .constrainTopToTopOf(constraintLayout,24)
         .constrainLeftToLeftOf(constraintLayout,20)
 
     textViewCity

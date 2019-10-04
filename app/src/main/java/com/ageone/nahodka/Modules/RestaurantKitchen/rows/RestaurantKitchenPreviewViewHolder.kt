@@ -217,7 +217,7 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .height(utils.variable.displayWidth * .423F)
 
     textViewName
-        .constrainBottomToBottomOf(imageViewPreview,8)
+        .constrainBottomToBottomOf(imageViewPreview,12)
         .constrainLeftToLeftOf(imageViewPreview,23)
 
     imageViewClock
@@ -225,7 +225,7 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToLeftOf(imageViewPreview,23)
 
     textViewTimeDelivery
-        .constrainBottomToTopOf(textViewName,6)
+        .constrainBottomToTopOf(textViewName,2)
         .constrainLeftToRightOf(imageViewClock,10)
 
     imageViewWallet
@@ -233,7 +233,7 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToLeftOf(imageViewPreview,23)
 
     textViewCheck
-        .constrainBottomToTopOf(textViewTimeDelivery,6)
+        .constrainBottomToTopOf(textViewTimeDelivery,4)
         .constrainLeftToRightOf(imageViewWallet,10)
 
     imageViewInfo
@@ -241,7 +241,7 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainRightToRightOf(imageViewPreview,20)
 
     imageViewOrder
-        .constrainTopToBottomOf(imageViewPreview,12)
+        .constrainTopToBottomOf(imageViewPreview,8)
         .constrainLeftToLeftOf(constraintLayout,17)
 
     textViewOrder
@@ -249,11 +249,11 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewOrder, 10)
 
     imageViewTruck
-        .constrainTopToBottomOf(imageViewOrder,6)
+        .constrainTopToBottomOf(imageViewOrder,8)
         .constrainLeftToLeftOf(constraintLayout,17)
 
     textViewTruck
-        .constrainTopToBottomOf(imageViewOrder,6)
+        .constrainTopToBottomOf(imageViewOrder,8)
         .constrainLeftToRightOf(imageViewTruck, 10)
 
     backRectangleStar

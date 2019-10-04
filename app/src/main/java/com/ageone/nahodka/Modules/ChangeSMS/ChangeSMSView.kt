@@ -1,12 +1,13 @@
-package com.ageone.nahodka.Modules.Change
+package com.ageone.nahodka.Modules.ChangeSMS
 
 import android.graphics.Color
+import android.os.CountDownTimer
 import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
-import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.R
+import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -14,21 +15,26 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Change.rows.ChangeEditTextViewHolder
-import com.ageone.nahodka.Modules.Change.rows.initialize
-import com.example.ageone.Modules.Entry.EntryViewModel
+import com.ageone.nahodka.Models.User.user
+import com.ageone.nahodka.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
+import com.ageone.nahodka.Modules.ChangeSMS.rows.initialize
+import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
+import com.ageone.nahodka.UIComponents.ViewHolders.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
-class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = ChangeViewModel()
+    val viewModel = ChangeSMSViewModel()
+
+    var isNext = true
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
 
-    val nextButton by lazy { //TODO: переместить UI
+    val nextButton by lazy {
         val button = BaseButton()
         button.setBackgroundColor(Color.parseColor("#09D0B8"))
         button.text = "Далее"
@@ -38,9 +44,10 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         button.height(56)
         button.cornerRadius = 0
         button.setOnClickListener {
-            emitEvent?.invoke(ChangeViewModel.EventType.OnNextPressed.toString())
+            user.isAuthorized = true
+            isNext = false
+            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
         }
-        //   button.visibility = View.GONE
         button
     }
 
@@ -49,11 +56,8 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
-
-        toolbar.title = "Смена имени"
-        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
-        toolbar.textColor = Color.WHITE
-
+        toolbar.title = "СМС код"
+        toolbar.textColor = Color.BLACK
 
         renderToolbar()
 
@@ -75,12 +79,14 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val ChangeEditTextType = 0
+        private val ChangeSMSEditTextType = 0
+        private val ChangeSMSTextType = 1
 
-        override fun getItemCount() = 2//viewModel.realmData.size
+        override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0, 1 -> ChangeEditTextType
+            0 -> ChangeSMSEditTextType
+            1 -> ChangeSMSTextType
             else -> -1
         }
 
@@ -93,8 +99,11 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                ChangeEditTextType -> {
-                    ChangeEditTextViewHolder(layout)
+                ChangeSMSEditTextType -> {
+                    InputViewHolder(layout)
+                }
+                ChangeSMSTextType -> {
+                    ChangeSMSTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -106,18 +115,35 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var time = 60
+            var timeInString = ""
+
             when (holder) {
-                is ChangeEditTextViewHolder -> {
-                    when (position % 2) {
-                        0 -> {
-                            holder.initialize("Номер телефона", InputEditTextType.PHONE)
+                is InputViewHolder -> {
+                    holder.initialize("СМС код", InputEditTextType.PHONE)
+                }
+                is ChangeSMSTextViewHolder -> {
+                    val timer = object: CountDownTimer(60000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
 
+                            time--
+                            if(time >= 10) timeInString ="$time" else timeInString ="0$time"
+
+                            Timber.i(time.toString() + ": AH")
+
+                            holder.initialize(timeInString)
+                            if(time == 0&& isNext){
+                                Timber.i(isNext.toString())
+                                rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.Timeout.toString())
+                            }
                         }
-                        1 -> {
-                            holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
+
+                        override fun onFinish() {
+                            Timber.i("Finish")
                         }
+
                     }
-
+                    timer.start()
                 }
 
             }
@@ -125,9 +151,11 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         }
 
     }
+
 }
 
-fun ChangeView.renderUIO() {
+fun ChangeSMSView.renderUIO() {
+
     innerContent.fitsSystemWindows = true
 
     innerContent.subviews(
@@ -147,7 +175,6 @@ fun ChangeView.renderUIO() {
     nextButton
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
-
 }
 
 

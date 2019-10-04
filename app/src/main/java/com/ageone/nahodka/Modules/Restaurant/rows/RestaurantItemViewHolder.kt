@@ -83,7 +83,7 @@ fun RestaurantItemViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(16)
         .width(utils.variable.displayWidth - 32)
-        .height((utils.variable.displayWidth - 32) * .352F)
+        .height((utils.variable.displayWidth - 32) * .38F)
 
     textViewName
         .constrainTopToBottomOf(imageViewRestaurant,10)
