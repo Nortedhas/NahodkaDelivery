@@ -125,7 +125,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-            var time = 20
+            var time = 60
             var timeInString = ""
             when (holder) {
                 is InputViewHolder -> {
@@ -133,7 +133,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                 }
                 is EntrySMSTextViewHolder -> {
 
-                    val timer = object: CountDownTimer(20000, 1000) {
+                    val timer = object: CountDownTimer(60000, 1000) {
                         override fun onTick(millisUntilFinished: Long) {
 
                             time--
