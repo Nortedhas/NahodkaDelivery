@@ -58,7 +58,7 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         private val BucketBottomType = 2
         private val BucketEmptyType = 3
 
-        override fun getItemCount() = 1 //viewModel.realmData.size
+        override fun getItemCount() = 4//1 //viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
             if(itemCount == 1) {

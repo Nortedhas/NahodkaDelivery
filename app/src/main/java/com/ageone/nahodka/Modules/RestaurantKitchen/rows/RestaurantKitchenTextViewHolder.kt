@@ -24,16 +24,17 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     var kitchenList = listOf(
+        "Фастфуд",
         "Пицца",
-        "Бургеры",
-        "Роллы",
-        "Супы",
-        "Напитки",
-        "Пицца",
-        "Бургеры",
-        "Роллы",
-        "Супы",
-        "Напитки")
+        "Суши",
+        "Китайская",
+        "Европейская",
+        "Грузинская",
+        "Русская",
+        "Узбекская",
+        "Шаурма",
+        "Кондитерские изделия"
+    )
 
     private var selectedFood = 0
 
