@@ -36,7 +36,7 @@ class BucketBottomViewHolder(val constraintLayout: ConstraintLayout) :
         button.cornerRadius = 8.dp
         button.backgroundColor = Color.parseColor("#21D5BF")
         button
-            .height(46)
+            .height(utils.tools.getActualSizeFromDes(46))
             .width(utils.variable.displayWidth - 15)
         button.initialize()
         button

@@ -121,11 +121,11 @@ class FlowAuth: BaseFlow() {
 
         module.emitEvent = { event ->
             when(EntrySMSViewModel.EventType.valueOf(event)){
-                EntrySMSViewModel.EventType.OnNextPressed ->{
+                EntrySMSViewModel.EventType.OnNextPressed -> {
                     module.startLoadingFlow()
                 }
                 EntrySMSViewModel.EventType.Timeout -> {
-                    router.onBackPressed()
+                    runEntryModule()
                 }
             }
         }

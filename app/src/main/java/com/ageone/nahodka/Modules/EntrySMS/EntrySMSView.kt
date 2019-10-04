@@ -16,6 +16,8 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
+import com.ageone.nahodka.Modules.EntrySMS.rows.EntrySMSEditTextViewHolder
+import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
 import com.example.ageone.Modules.EntrySMS.rows.EntrySMSButtonViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
@@ -110,7 +112,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
             val holder = when (viewType) {
                 RegistrationSMSInputTextType -> {
-                    InputViewHolder(layout)
+                    EntrySMSEditTextViewHolder(layout)
                 }
                 RegistrationSMSTextType -> {
                     EntrySMSTextViewHolder(layout)
@@ -128,7 +130,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
             var time = 60
             var timeInString = ""
             when (holder) {
-                is InputViewHolder -> {
+                is EntrySMSEditTextViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
                 }
                 is EntrySMSTextViewHolder -> {
@@ -166,7 +168,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
 fun EntrySMSView.renderUIO() {
 
-    innerContent.fitsSystemWindows = true
+    //innerContent.fitsSystemWindows = true
 
     innerContent.subviews(
         bodyTable,

@@ -16,7 +16,6 @@ import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Change.rows.ChangeEditTextViewHolder
 import com.ageone.nahodka.Modules.Change.rows.initialize
-import com.example.ageone.Modules.Entry.EntryViewModel
 import yummypets.com.stevia.*
 
 class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {

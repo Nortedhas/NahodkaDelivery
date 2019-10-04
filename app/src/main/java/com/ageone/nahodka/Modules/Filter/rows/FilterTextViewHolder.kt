@@ -2,6 +2,7 @@ package com.ageone.nahodka.Modules.Filter.rows
 
 import android.graphics.Color
 import android.widget.CheckBox
+import android.widget.RadioButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -23,13 +24,6 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-
-    val check by lazy {
-        val check = BaseRadioButton()
-        check.setButtonBottom()
-        check.setBackgroundColor(Color.parseColor("#09D0B8"))
-        check
-    }
     val textViewFilterAround by lazy {
         val textView = BaseTextView()
         textView.textSize = 15F
@@ -69,8 +63,7 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
 fun FilterTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewFilterPrice,
-        check,
-        //radioButtonFilterPrice,
+        radioButtonFilterPrice,
         textViewFilterAround,
         radioButtonFilterAround
     )
@@ -79,10 +72,10 @@ fun FilterTextViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout,24)
         .constrainLeftToLeftOf(constraintLayout,16)
 
- //   radioButtonFilterPrice
-   check
+
+    radioButtonFilterPrice
         .constrainCenterYToCenterYOf(textViewFilterPrice)
-        .constrainRightToRightOf(constraintLayout, 8)
+        .constrainRightToRightOf(constraintLayout, 16)
 
     textViewFilterAround
         .constrainTopToBottomOf(textViewFilterPrice,16)
