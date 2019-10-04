@@ -132,6 +132,10 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
                     val hint = hintList[position-1]
                     val type = typeList[position-1]
 
+                    when(position) {
+                         4   -> holder.textInputL.constrainLeftToLeftOf(holder.constraintLayout,8)
+
+                    }
                     holder.initialize(hint,type)
                 }
                 is CheckoutOrderPhoneViewHolder -> {

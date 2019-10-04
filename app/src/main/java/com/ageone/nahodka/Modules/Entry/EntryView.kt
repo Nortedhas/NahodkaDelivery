@@ -42,7 +42,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         button.setOnClickListener {
             emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
         }
-            button.visibility = View.GONE
+         //   button.visibility = View.GONE
         button
     }
 
@@ -116,15 +116,15 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
-                            holder.constraintLayout.setOnClickListener {
+                          /*  holder.constraintLayout.setOnClickListener {
                                 nextButton.visibility = View.VISIBLE
-                            }
+                            }*/
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-                            holder.constraintLayout.setOnClickListener {
+                           /* holder.constraintLayout.setOnClickListener {
                                 nextButton.visibility = View.VISIBLE
-                            }
+                            }*/
                         }
                     }
                 }

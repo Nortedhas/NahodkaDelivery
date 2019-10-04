@@ -133,8 +133,8 @@ fun BucketItemViewHolder.renderUI() {
 fun BucketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, restaurant: String, price: Int) {
 
     imageViewDish
-        .width(131)
-        .height(100)
+        .width(utils.tools.getActualSizeFromDes(132))
+        .height(utils.tools.getActualSizeFromDes(101))
 
     addImageFromGlide(imageViewDish,image,0)
 
