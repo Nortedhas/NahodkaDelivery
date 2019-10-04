@@ -30,6 +30,8 @@ class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = ""
+        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
+
 
         renderToolbar()
 
@@ -84,7 +86,7 @@ class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is CommentEditTextViewHolder -> {
-                    holder.initialize("Комментарий к зазказу", InputEditTextType.TEXT)
+                    holder.initialize("Комментарий к заказу", InputEditTextType.TEXT)
                 }
 
             }

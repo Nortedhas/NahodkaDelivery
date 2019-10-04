@@ -136,6 +136,9 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
                 }
                 is CheckoutOrderPhoneViewHolder -> {
                     holder.initialize("Телефон", "Комментарий к заказу")
+                    holder.editTextComment.setOnClickListener{
+                        rootModule.emitEvent?.invoke(CheckoutOrderViewModel.EventType.OnCommentPressed.toString())
+                    }
                 }
                 is CheckoutBottomViewHolder -> {
                     holder.initialize(162,50, "Способ оплаты")

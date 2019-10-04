@@ -14,6 +14,7 @@ import com.ageone.nahodka.Modules.Bucket.BucketView
 import com.ageone.nahodka.Modules.Bucket.BucketViewModel
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderModel
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderView
+import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderViewModel
 import com.ageone.nahodka.Modules.Comment.CommentModel
 import com.ageone.nahodka.Modules.Comment.CommentView
 import com.ageone.nahodka.R
@@ -99,6 +100,14 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         )
 
         module.viewModel.initialize(models.modelCheckout) { module.reload()}
+
+        module.emitEvent = {event ->
+            when(CheckoutOrderViewModel.EventType.valueOf(event)) {
+                CheckoutOrderViewModel.EventType.OnCommentPressed -> {
+                    runModuleComment()
+                }
+            }
+        }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
