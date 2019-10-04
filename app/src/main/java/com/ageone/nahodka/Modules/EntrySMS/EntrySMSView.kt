@@ -126,6 +126,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             var time = 20
+            var timeInString = ""
             when (holder) {
                 is InputViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
@@ -134,10 +135,13 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
                     val timer = object: CountDownTimer(20000, 1000) {
                         override fun onTick(millisUntilFinished: Long) {
+
                             time--
+                            if(time >= 10) timeInString ="$time" else timeInString ="0$time"
 
                             Timber.i(time.toString() + ": AH")
-                            holder.initialize(time)
+
+                            holder.initialize(timeInString)
                             if(time == 0&& isNext){
                                 Timber.i(isNext.toString())
                                 rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())

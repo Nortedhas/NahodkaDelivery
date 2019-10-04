@@ -92,6 +92,9 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
             when (holder) {
                 is ProfileTextNameViewHolder -> {
                     holder.initialize("Матвей", "+7 (999) 888-33-44")
+                    holder.textViewChange.setOnClickListener {
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnChangePressed.toString())
+                    }
                 }
                 is ProfileItemViewHolder -> {
                     when(position) {

@@ -53,12 +53,11 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val FilterTextType = 0
-
-        override fun getItemCount() = 2//viewModel.realmData.size
+        override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            in 0..1 -> FilterTextType
-            else -> -1
+
+            else -> FilterTextType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -85,33 +84,17 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
             when (holder) {
                 is FilterTextViewHolder -> {
-                    if(position%2==1) {
-                        var isPressed = false
 
-                        holder.initialize("ближайшие")
-                        holder.itemView.setOnClickListener {
-                        if(!isPressed) {
-                            holder.radioButtonFilter.setImageResource(R.drawable.ic_dot_inactive)
-                            isPressed = true
-                        }else {
-                            holder.radioButtonFilter.setImageResource(R.drawable.ic_dot_active)
-                            isPressed = false
-                        }
-                        }
-                    } else {
-                        var isPressed = false
+                    holder.initialize()
+                    holder.radioButtonFilterPrice.setOnClickListener {
+                        holder.radioButtonFilterPrice.setImageResource(R.drawable.ic_dot_active)
+                        holder.radioButtonFilterAround.setImageResource(R.drawable.ic_dot_inactive)
+                    }
 
-                        holder.initialize("цена от минимальной")
+                    holder.radioButtonFilterAround.setOnClickListener {
+                            holder.radioButtonFilterPrice.setImageResource(R.drawable.ic_dot_inactive)
+                            holder.radioButtonFilterAround.setImageResource(R.drawable.ic_dot_active)
 
-                        holder.itemView.setOnClickListener{
-                            if (!isPressed) {
-                                holder.radioButtonFilter.setImageResource(R.drawable.ic_dot_inactive)
-                                isPressed = true
-                            } else {
-                                holder.radioButtonFilter.setImageResource(R.drawable.ic_dot_active)
-                                isPressed = false
-                            }
-                        }
                     }
                 }
 
@@ -120,7 +103,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         }
 
     }
-
 }
 
 fun FilterView.renderUIO() {

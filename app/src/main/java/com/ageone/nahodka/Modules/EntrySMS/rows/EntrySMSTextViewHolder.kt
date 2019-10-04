@@ -51,7 +51,7 @@ fun EntrySMSTextViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun EntrySMSTextViewHolder.initialize(time: Int) {
+fun EntrySMSTextViewHolder.initialize(time: String) {
 
     textView.text = "Если Вы не получили смс, запросить код повторно можно через 0:$time"
 

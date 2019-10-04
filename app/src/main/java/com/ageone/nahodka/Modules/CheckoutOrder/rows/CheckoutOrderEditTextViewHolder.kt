@@ -51,7 +51,7 @@ fun CheckoutOrderEditTextViewHolder.renderUI() {
     textInputL
         .constrainTopToTopOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout, 16)
-        .width(utils.tools.getActualSizeFromDes(64))
+        .width((utils.variable.displayWidth - 96) /4)
         .height(utils.variable.displayWidth * .136F)
 
 }
