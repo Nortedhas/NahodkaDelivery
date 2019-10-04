@@ -59,7 +59,7 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
 
         renderToolbar()
 
-        bodyTable.layoutManager = layoutManager
+        //bodyTable.layoutManager = layoutManager
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
@@ -83,13 +83,13 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
         private val CheckoutOrderPhoneType = 2
         private val CheckoutOrderBottomType = 3
 
-        override fun getItemCount() = 7//viewModel.realmData.size
+        override fun getItemCount() = 4//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> ChekckoutOrderEditTextType
-            in 1..4 -> CheckoutOrderHouseType
-            5 -> CheckoutOrderPhoneType
-            6 -> CheckoutOrderBottomType
+            1 -> CheckoutOrderHouseType
+            2 -> CheckoutOrderPhoneType
+            3 -> CheckoutOrderBottomType
             else -> -1
         }
 
@@ -129,14 +129,10 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
                     holder.initialize("Адрес доставки", InputEditTextType.TEXT)
                 }
                 is CheckoutOrderEditTextViewHolder -> {
-                    val hint = hintList[position-1]
-                    val type = typeList[position-1]
+                   /* val hint = hintList[position-1]
+                    val type = typeList[position-1]*/
 
-                    when(position) {
-                         4   -> holder.textInputL.constrainLeftToLeftOf(holder.constraintLayout,8)
-
-                    }
-                    holder.initialize(hint,type)
+                    holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
                 }
                 is CheckoutOrderPhoneViewHolder -> {
                     holder.initialize("Телефон", "Комментарий к заказу")
