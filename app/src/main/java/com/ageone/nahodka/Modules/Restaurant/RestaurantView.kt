@@ -34,6 +34,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         imageView.width(80)
         imageView.height(80)
         imageView.setImageResource(R.drawable.ic_fab)
+        imageView.initialize()
+        imageView.setOnClickListener {
+            emitEvent?.invoke(RestaurantViewModel.EventType.OnFilterPressed.toString())
+        }
         imageView
     }
 

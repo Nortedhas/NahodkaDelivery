@@ -12,6 +12,7 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Bucket.rows.*
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -111,6 +112,11 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is BucketItemViewHolder -> {
                     var dish = dishImage[position-1]
                     holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
+                    holder.imageViewPlus.setOnClickListener {
+                        holder.count++
+                        Timber.i(holder.count.toString()+"~~~~~")
+                        notifyDataSetChanged()
+                    }
                 }
                 is BucketAppliancesViewHolder -> {
                     holder.imageViewPlus.setOnClickListener {

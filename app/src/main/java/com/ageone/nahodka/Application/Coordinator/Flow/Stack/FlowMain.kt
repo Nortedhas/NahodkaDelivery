@@ -16,6 +16,8 @@ import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderModel
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderView
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
+import com.ageone.nahodka.Modules.Filter.FilterModel
+import com.ageone.nahodka.Modules.Filter.FilterView
 import com.ageone.nahodka.Modules.Info.InfoModel
 import com.ageone.nahodka.Modules.Info.InfoView
 import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
@@ -73,6 +75,7 @@ class FlowMain: BaseFlow() {
         var moduleInfo = InfoModel()
         var moduleBucket = BucketModel()
         var moduleCheckout = CheckoutOrderModel()
+        var moduleFilter = FilterModel()
     }
 
     private fun runModuleRestaurant() {
@@ -97,6 +100,9 @@ class FlowMain: BaseFlow() {
             when(RestaurantViewModel.EventType.valueOf(event)) {
                 RestaurantViewModel.EventType.OnRestaurantPressed -> {
                     runModuleRestaurantKitchen()
+                }
+                RestaurantViewModel.EventType.OnFilterPressed -> {
+                    runModuleFilter()
                 }
             }
         }
@@ -234,6 +240,23 @@ class FlowMain: BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleCheckout) { module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
+    private fun runModuleFilter(){
+        val module = FilterView( InitModuleUI(
+            isBottomNavigationVisible = false,
+            isBackPressed = true,
+            backListener = {
+                pop()
+            }
+        )
+        )
+
+        module.viewModel.initialize(models.moduleFilter) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

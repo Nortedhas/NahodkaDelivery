@@ -1,14 +1,14 @@
-package com.example.ageone.Modules.Restaurant
+package com.ageone.nahodka.Modules.Filter
 
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class RestaurantViewModel : InterfaceViewModel{
-    var model = RestaurantModel()
+class FilterViewModel : InterfaceViewModel {
+    var model = FilterModel()
 
     enum class EventType {
-        OnRestaurantPressed,
-        OnFilterPressed
+
     }
 
     /*var realmData = listOf<>()
@@ -17,13 +17,13 @@ class RestaurantViewModel : InterfaceViewModel{
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is RestaurantModel) {
+        if (recievedModel is FilterModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class RestaurantModel : InterfaceModel {
+class FilterModel : InterfaceModel {
 
 }
