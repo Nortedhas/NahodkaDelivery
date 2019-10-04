@@ -142,6 +142,9 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
                 }
                 is CheckoutBottomViewHolder -> {
                     holder.initialize(162,50, "Способ оплаты")
+                    holder.buttonCheckout.setOnClickListener {
+                        rootModule.emitEvent?.invoke(CheckoutOrderViewModel.EventType.OnCheckPressed.toString())
+                    }
                 }
 
             }

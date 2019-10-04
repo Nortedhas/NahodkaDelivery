@@ -37,6 +37,8 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
     val viewModel = EntrySMSViewModel()
 
+    var isNext = true
+
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -53,6 +55,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         button.cornerRadius = 0
         button.setOnClickListener {
             user.isAuthorized = true
+            isNext = false
             emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
         }
         button
@@ -132,9 +135,11 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                     val timer = object: CountDownTimer(20000, 1000) {
                         override fun onTick(millisUntilFinished: Long) {
                             time--
+
                             Timber.i(time.toString() + ": AH")
                             holder.initialize(time)
-                            if(time == 0){
+                            if(time == 0&& isNext){
+                                Timber.i(isNext.toString())
                                 rootModule.emitEvent?.invoke(EntrySMSViewModel.EventType.OnNextPressed.toString())
                             }
                         }

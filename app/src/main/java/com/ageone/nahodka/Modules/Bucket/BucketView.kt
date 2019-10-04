@@ -69,9 +69,9 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 BucketEmptyType
             } else {
                 when (position) {
-                    in 1..dishImage.size -> BucketRecyclerType
-                    dishImage.size + 1-> BucketAppliancesType
-                    dishImage.size + 2 -> BucketBottomType
+                    in 0..dishImage.size -1 -> BucketRecyclerType
+                    dishImage.size -> BucketAppliancesType
+                    dishImage.size + 1 -> BucketBottomType
                     else -> -1
                 }
             }
@@ -110,7 +110,7 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
             when (holder) {
                 is BucketItemViewHolder -> {
-                    var dish = dishImage[position-1]
+                    var dish = dishImage[position]
                     holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
                     holder.imageViewPlus.setOnClickListener {
                         holder.count++

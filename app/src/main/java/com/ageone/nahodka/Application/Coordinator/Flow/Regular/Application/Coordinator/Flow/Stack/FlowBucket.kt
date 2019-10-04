@@ -17,6 +17,7 @@ import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderView
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderViewModel
 import com.ageone.nahodka.Modules.Comment.CommentModel
 import com.ageone.nahodka.Modules.Comment.CommentView
+import com.ageone.nahodka.Modules.WebView
 import com.ageone.nahodka.R
 
 fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
@@ -106,6 +107,9 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
                 CheckoutOrderViewModel.EventType.OnCommentPressed -> {
                     runModuleComment()
                 }
+                CheckoutOrderViewModel.EventType.OnCheckPressed -> {
+                    runModuleWebView("")
+                }
             }
         }
 
@@ -130,4 +134,21 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
 
         push(module)
     }
+
+    fun runModuleWebView(url: String) {
+        val module = WebView(InitModuleUI(
+            isBottomNavigationVisible = false,
+            isBackPressed = true,
+            backListener = {
+                pop()
+            }
+        ),url)
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+
+
+        push(module)
+    }
+
 }
