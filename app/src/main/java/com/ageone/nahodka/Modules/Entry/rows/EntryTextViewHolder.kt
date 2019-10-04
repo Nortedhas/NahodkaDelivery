@@ -44,7 +44,7 @@ fun EntryTextViewHolder.renderUI() {
     )
 
     textView
-        .constrainTopToTopOf(constraintLayout, 40)
+        .constrainTopToTopOf(constraintLayout, 16)
         .fillHorizontally(16)
         .gravity = Gravity.START
 

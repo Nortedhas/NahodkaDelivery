@@ -18,7 +18,7 @@
         <activity
                 android:name="com.ageone.nahodka.Application.AppActivity"
                 android:theme="@style/AppTheme.Launcher"
-                android:windowSoftInputMode="adjustResize"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

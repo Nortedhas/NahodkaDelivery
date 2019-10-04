@@ -13,6 +13,8 @@ import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Bucket.BucketModel
 import com.ageone.nahodka.Modules.Bucket.BucketView
+import com.ageone.nahodka.Modules.Change.ChangeModel
+import com.ageone.nahodka.Modules.Change.ChangeView
 import com.ageone.nahodka.Modules.Contact.ContactModel
 import com.ageone.nahodka.Modules.Contact.ContactView
 import com.ageone.nahodka.Modules.MyOrder.MyOrderModel
@@ -61,6 +63,7 @@ class FlowProfile : BaseFlow() {
         var modelProfileTest = ProfileModel()
         var moduleMyOrder = MyOrderModel()
         var moduleContact= ContactModel()
+        var moduleChange = ChangeModel()
     }
 
     fun runModuleProfile() {
@@ -83,6 +86,9 @@ class FlowProfile : BaseFlow() {
                 }
                 ProfileViewModel.EventType.OnContactPressed -> {
                     runModuleContact()
+                }
+                ProfileViewModel.EventType.OnChangePressed -> {
+                    runModuleChangeName()
                 }
             }
         }
@@ -120,6 +126,24 @@ class FlowProfile : BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleContact) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
+    fun runModuleChangeName(){
+        val module = ChangeView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                isBackPressed = true,
+                backListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleChange) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

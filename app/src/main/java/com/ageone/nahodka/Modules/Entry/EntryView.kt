@@ -2,9 +2,12 @@ package com.example.ageone.Modules.Entry
 
 import android.graphics.Color
 import android.text.InputType
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.AppActivity
+import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -39,6 +42,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         button.setOnClickListener {
             emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
         }
+            button.visibility = View.GONE
         button
     }
 
@@ -112,10 +116,15 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
+                            holder.constraintLayout.setOnClickListener {
+                                nextButton.visibility = View.VISIBLE
+                            }
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-
+                            holder.constraintLayout.setOnClickListener {
+                                nextButton.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }

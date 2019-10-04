@@ -124,7 +124,7 @@ class FlowAuth: BaseFlow() {
                     module.startLoadingFlow()
                 }
                 EntrySMSViewModel.EventType.Timeout -> {
-                    pop()
+                    runEntryModule()
                 }
             }
         }

@@ -54,12 +54,12 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 5F.dp
 
-            editText.setOnKeyListener { v, keyCode, event ->
+            /*editText.setOnKeyListener { v, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     v.clearFocus()
                 }
                 true
-            }
+            }*/
             }
         textInput
     }
