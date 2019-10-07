@@ -90,11 +90,11 @@ fun RestaurantItemViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewKitchen
-        .constrainTopToTopOf(textViewName,30)
+        .constrainTopToBottomOf(textViewName,4)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewDelivery
-        .constrainTopToTopOf(textViewKitchen,20)
+        .constrainTopToBottomOf(textViewKitchen,4)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     imageViewStar

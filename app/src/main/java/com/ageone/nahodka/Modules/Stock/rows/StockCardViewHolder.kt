@@ -78,7 +78,7 @@ fun StockCardViewHolder.renderUI() {
 
     viewBack
         .fillHorizontally(16)
-        .constrainTopToTopOf(constraintLayout, 16)
+        .constrainTopToTopOf(constraintLayout, 18)
 
     imageViewPhoto
         .constrainTopToTopOf(viewBack)

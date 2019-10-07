@@ -65,7 +65,7 @@ class MyOrderTextViewHolder(val constraintLayout: ConstraintLayout) :
 
     val separatop by lazy {
         val view = BaseView()
-        view.height(2)
+        view.height(1)
         view.backgroundColor = Color.parseColor("#D9D9D9")
         view.initialize()
         view

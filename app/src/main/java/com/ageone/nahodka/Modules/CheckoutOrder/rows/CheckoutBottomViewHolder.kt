@@ -148,7 +148,7 @@ fun CheckoutBottomViewHolder.renderUI() {
         .height(utils.variable.displayWidth * .136F)
 
     textViewAmount
-        .constrainTopToBottomOf(editTextPay,16)
+        .constrainTopToBottomOf(editTextPay,10)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewAmountPrice
@@ -157,7 +157,7 @@ fun CheckoutBottomViewHolder.renderUI() {
 
 
     textViewDelivery
-        .constrainTopToBottomOf(textViewAmount,12)
+        .constrainTopToBottomOf(textViewAmount,6)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewDeliveryPrice
@@ -165,7 +165,7 @@ fun CheckoutBottomViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 
     textViewTotal
-        .constrainTopToBottomOf(textViewDelivery,12)
+        .constrainTopToBottomOf(textViewDelivery,6)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewTotalPrice
@@ -173,7 +173,7 @@ fun CheckoutBottomViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 
     buttonCheckout
-        .constrainTopToBottomOf(textViewTotal,25)
+        .constrainTopToBottomOf(textViewTotal,28)
         .fillHorizontally(15)
 
     textViewCheckout

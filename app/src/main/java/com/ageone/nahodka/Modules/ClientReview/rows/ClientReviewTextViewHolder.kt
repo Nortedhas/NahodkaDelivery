@@ -170,11 +170,11 @@ fun ClientReviewTextViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewRating4,15)
 
     textInputL
-        .constrainTopToBottomOf(imageViewRating1,17)
+        .constrainTopToBottomOf(imageViewRating1,18)
         .fillHorizontally(16)
 
     buttonSend
-        .constrainTopToBottomOf(textInputL,23)
+        .constrainTopToBottomOf(textInputL,28)
         .fillHorizontally(16)
 
 }

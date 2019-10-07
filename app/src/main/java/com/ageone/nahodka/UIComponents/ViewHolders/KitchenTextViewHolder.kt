@@ -22,6 +22,7 @@ class KitchenTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHol
     val textViewKitchen by lazy {
         val textView = BaseTextView()
         textView.textSize = 14F
+        textView.textColor = Color.BLACK
         textView.initialize()
         textView
     }

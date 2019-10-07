@@ -16,7 +16,7 @@ class BucketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
 
     val separatorTop by lazy {
         val view = BaseView()
-        view.height(2)
+        view.height(1)
         view.backgroundColor = Color.parseColor("#D9D9D9")
         view.initialize()
         view
@@ -60,7 +60,7 @@ class BucketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
 
     val separatorBottom by lazy {
         val view = BaseView()
-        view.height(2)
+        view.height(1)
         view.backgroundColor = Color.parseColor("#D9D9D9")
         view.initialize()
         view

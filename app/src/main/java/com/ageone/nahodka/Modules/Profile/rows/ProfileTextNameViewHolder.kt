@@ -69,19 +69,20 @@ fun ProfileTextNameViewHolder.renderUI() {
     )
 
     textViewName
-        .constrainTopToTopOf(constraintLayout,15)
+        .constrainTopToTopOf(constraintLayout,18)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     textViewPhone
-        .constrainTopToBottomOf(textViewName,8)
+        .constrainTopToBottomOf(textViewName,6)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     textViewChange
-        .constrainTopToTopOf(constraintLayout,20)
+        .constrainCenterYToCenterYOf(constraintLayout)
+        //.constrainTopToTopOf(constraintLayout,20)
         .constrainRightToRightOf(constraintLayout,15)
 
     separatorUp
-        .constrainTopToBottomOf(textViewPhone,10)
+        .constrainTopToBottomOf(textViewPhone,12)
         .fillHorizontally()
 
     separatorDown

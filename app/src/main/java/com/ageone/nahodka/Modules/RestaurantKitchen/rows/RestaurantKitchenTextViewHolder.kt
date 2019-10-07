@@ -52,7 +52,7 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.textSize = 18F
         textView.typeface = Typeface.DEFAULT_BOLD
-        textView.textColor = Color.parseColor("#373737")
+        textView.textColor = Color.BLACK
         textView.text = kitchenList[0]
         textView.initialize()
         textView

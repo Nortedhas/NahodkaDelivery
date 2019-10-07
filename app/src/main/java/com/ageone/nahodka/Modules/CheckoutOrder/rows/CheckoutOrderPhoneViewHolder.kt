@@ -98,13 +98,13 @@ fun CheckoutOrderPhoneViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout)
         .fillHorizontally(16)
     imageViewComment
-        .constrainTopToBottomOf(editTextPhone,30)
+        .constrainTopToBottomOf(editTextPhone,28)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     editTextComment
         .constrainTopToBottomOf(editTextPhone)
         .constrainRightToRightOf(constraintLayout,16)
-        .width(utils.tools.getActualSizeFromDes(304) - 8)
+        .width(utils.tools.getActualSizeFromDes(304))
         //.height(utils.variable.displayWidth * 0.32F)
 
 
