@@ -116,8 +116,6 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                     holder.imageViewPlus.setOnClickListener {
                         count++
                         holder.textViewCount.text = "Количество порций: ${count.toString()}"
-                       /* Timber.i(holder.count.toString()+"~~~~~")
-                        notifyDataSetChanged()*/
                     }
                     holder.imageViewMinus.setOnClickListener {
                         if(count>0){
