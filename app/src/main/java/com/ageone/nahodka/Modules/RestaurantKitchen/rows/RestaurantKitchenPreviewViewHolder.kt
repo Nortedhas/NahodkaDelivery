@@ -105,8 +105,8 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setImageResource(R.drawable.ic_truck)
         imageView.initialize()
         imageView
-            .width(14)
-            .height(14)
+            .width(18)
+            .height(18)
         imageView
     }
 

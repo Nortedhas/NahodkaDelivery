@@ -94,12 +94,12 @@ fun ReviewTextViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewStar,5)
 
     textViewComment
-        .constrainTopToBottomOf(imageViewStar,20)
+        .constrainTopToBottomOf(imageViewStar,30)
         .constrainLeftToLeftOf(constraintLayout,15)
         .constrainBottomToBottomOf(constraintLayout,20)
 
     imageViewComment
-        .constrainBottomToTopOf(textViewEstimate,3)
+        .constrainBottomToTopOf(textViewEstimate,1)
         .constrainCenterXToCenterXOf(textViewEstimate)
 
     textViewEstimate
