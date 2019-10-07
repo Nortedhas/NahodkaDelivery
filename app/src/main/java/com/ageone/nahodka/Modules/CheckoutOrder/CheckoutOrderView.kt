@@ -12,10 +12,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.CheckoutBottomViewHolder
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.CheckoutOrderEditTextViewHolder
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.CheckoutOrderPhoneViewHolder
-import com.ageone.nahodka.Modules.CheckoutOrder.rows.initialize
+import com.ageone.nahodka.Modules.CheckoutOrder.rows.*
 import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
@@ -59,7 +56,7 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
 
         renderToolbar()
 
-        bodyTable.layoutManager = layoutManager
+        //bodyTable.layoutManager = layoutManager
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
@@ -83,13 +80,13 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
         private val CheckoutOrderPhoneType = 2
         private val CheckoutOrderBottomType = 3
 
-        override fun getItemCount() = 7//viewModel.realmData.size
+        override fun getItemCount() = 4//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> ChekckoutOrderEditTextType
-            in 1..4 -> CheckoutOrderHouseType
-            5 -> CheckoutOrderPhoneType
-            6 -> CheckoutOrderBottomType
+            1 -> CheckoutOrderHouseType
+            2 -> CheckoutOrderPhoneType
+            3 -> CheckoutOrderBottomType
             else -> -1
         }
 
@@ -103,7 +100,7 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
 
             val holder = when (viewType) {
                 ChekckoutOrderEditTextType -> {
-                    InputViewHolder(layout)
+                    CheckoutOrderAddressViewHolder(layout)
                 }
                 CheckoutOrderHouseType -> {
                     CheckoutOrderEditTextViewHolder(layout)
@@ -125,18 +122,14 @@ class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModul
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is InputViewHolder -> {
+                is CheckoutOrderAddressViewHolder -> {
                     holder.initialize("Адрес доставки", InputEditTextType.TEXT)
                 }
                 is CheckoutOrderEditTextViewHolder -> {
-                    val hint = hintList[position-1]
-                    val type = typeList[position-1]
+                   /* val hint = hintList[position-1]
+                    val type = typeList[position-1]*/
 
-                    when(position) {
-                         4   -> holder.textInputL.constrainLeftToLeftOf(holder.constraintLayout,8)
-
-                    }
-                    holder.initialize(hint,type)
+                    holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
                 }
                 is CheckoutOrderPhoneViewHolder -> {
                     holder.initialize("Телефон", "Комментарий к заказу")

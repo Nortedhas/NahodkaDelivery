@@ -49,7 +49,7 @@ fun InputViewHolder.renderUI() {
     )
 
     textInputL
-        .constrainTopToTopOf(constraintLayout, 16)
+        .constrainTopToTopOf(constraintLayout)
         .fillHorizontally(16)
 }
 

@@ -1,37 +1,17 @@
-package com.example.ageone.Modules.Entry.rows
+package com.ageone.nahodka.Modules.EntrySMS.rows
 
 import android.graphics.Color
-import android.text.InputType
-import android.view.KeyEvent
-import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
-import com.ageone.nahodka.Application.utils
-import com.ageone.nahodka.External.Base.Button.BaseButton
-import com.ageone.nahodka.External.Base.EditText.BaseEditText
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
-import com.ageone.nahodka.External.Base.TextView.BaseTextView
-
 import com.google.android.material.textfield.TextInputLayout
-
 import yummypets.com.stevia.*
 
-class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+class EntrySMSEditTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
-
-    val phoneTextView by lazy {
-        val textView = BaseTextView()
-        textView.textColor = Color.parseColor("#089988")
-        textView.textSize = 16F
-        textView.setBackgroundColor(Color.TRANSPARENT)
-        textView
-
-    }
-
 
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
@@ -59,7 +39,7 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
                 }
                 true
             }*/
-            }
+        }
         textInput
     }
 
@@ -70,19 +50,18 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun EntryEditTextViewHolder.renderUI() {
+fun EntrySMSEditTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL
-
     )
 
-     textInputL
-         .constrainTopToBottomOf(phoneTextView)
-         .fillHorizontally(16)
+    textInputL
+        .constrainTopToTopOf(constraintLayout,16)
+        .fillHorizontally(16)
 
 }
 
-fun EntryEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun EntrySMSEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
 
     textInputL.hint = hint
     textInputL.defineType(type)

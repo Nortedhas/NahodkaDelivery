@@ -9,12 +9,17 @@ import com.ageone.nahodka.Application.Coordinator.Flow.Regular.Application.Coord
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.coordinator
+import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Bucket.BucketModel
 import com.ageone.nahodka.Modules.Bucket.BucketView
 import com.ageone.nahodka.Modules.Change.ChangeModel
 import com.ageone.nahodka.Modules.Change.ChangeView
+import com.ageone.nahodka.Modules.Change.ChangeViewModel
+import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSModel
+import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSView
+import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSViewModel
 import com.ageone.nahodka.Modules.Contact.ContactModel
 import com.ageone.nahodka.Modules.Contact.ContactView
 import com.ageone.nahodka.Modules.MyOrder.MyOrderModel
@@ -64,6 +69,7 @@ class FlowProfile : BaseFlow() {
         var moduleMyOrder = MyOrderModel()
         var moduleContact= ContactModel()
         var moduleChange = ChangeModel()
+        var moduleChangeSMS = ChangeSMSModel()
     }
 
     fun runModuleProfile() {
@@ -144,6 +150,42 @@ class FlowProfile : BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleChange) { module.reload() }
+
+        module.emitEvent = {event ->
+            when(ChangeViewModel.EventType.valueOf(event)){
+                ChangeViewModel.EventType.OnNextPressed -> {
+                    runModuleChangeSMS()
+                }
+            }
+        }
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
+    }
+
+    fun runModuleChangeSMS(){
+        val module = ChangeSMSView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                isBackPressed = true,
+                backListener = {
+                    pop()
+                }
+            )
+        )
+
+        module.viewModel.initialize(models.moduleChangeSMS) { module.reload() }
+
+        module.emitEvent = {event ->
+            when(ChangeSMSViewModel.EventType.valueOf(event)){
+                ChangeSMSViewModel.EventType.OnNextPressed -> {
+                    runModuleProfile()
+                }
+                ChangeSMSViewModel.EventType.Timeout -> {
+                    router.onBackPressed()
+                }
+            }
+        }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

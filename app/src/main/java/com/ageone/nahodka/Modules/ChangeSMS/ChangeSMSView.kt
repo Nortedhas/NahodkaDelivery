@@ -1,44 +1,31 @@
-package com.example.ageone.Modules.EntrySMS
+package com.ageone.nahodka.Modules.ChangeSMS
 
 import android.graphics.Color
 import android.os.CountDownTimer
-import android.os.Handler
 import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
-import com.ageone.nahodka.Application.router
-import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
-import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Models.User.user
-import com.ageone.nahodka.Modules.EntrySMS.rows.EntrySMSEditTextViewHolder
-import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
-import com.example.ageone.Modules.EntrySMS.rows.EntrySMSButtonViewHolder
-import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
-import com.example.ageone.Modules.EntrySMS.rows.initialize
-import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
-import com.example.ageone.UIComponents.ViewHolders.initialize
-import com.ageone.nahodka.R
+import com.ageone.nahodka.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
+import com.ageone.nahodka.Modules.ChangeSMS.rows.initialize
 import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
-import com.example.ageone.Modules.Entry.EntryViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import yummypets.com.stevia.*
-import java.util.*
-import kotlin.concurrent.schedule
 
-class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = EntrySMSViewModel()
+    val viewModel = ChangeSMSViewModel()
 
     var isNext = true
 
@@ -59,7 +46,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         button.setOnClickListener {
             user.isAuthorized = true
             isNext = false
-            emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
+            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
         }
         button
     }
@@ -92,14 +79,14 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationSMSInputTextType = 0
-        private val RegistrationSMSTextType = 1
+        private val ChangeSMSEditTextType = 0
+        private val ChangeSMSTextType = 1
 
         override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RegistrationSMSInputTextType
-            1 -> RegistrationSMSTextType
+            0 -> ChangeSMSEditTextType
+            1 -> ChangeSMSTextType
             else -> -1
         }
 
@@ -112,11 +99,11 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                RegistrationSMSInputTextType -> {
-                    EntrySMSEditTextViewHolder(layout)
+                ChangeSMSEditTextType -> {
+                    InputViewHolder(layout)
                 }
-                RegistrationSMSTextType -> {
-                    EntrySMSTextViewHolder(layout)
+                ChangeSMSTextType -> {
+                    ChangeSMSTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -130,16 +117,35 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
             var time = 60
             var timeInString = ""
-            when (holder) {
-                is EntrySMSEditTextViewHolder -> {
-                    holder.initialize("СМС код", InputEditTextType.NUMERIC)
-                }
-                is EntrySMSTextViewHolder -> {
-                    holder.initialize {
-                        router.onBackPressed()
-                    }
 
+            when (holder) {
+                is InputViewHolder -> {
+                    holder.initialize("СМС код", InputEditTextType.PHONE)
                 }
+                is ChangeSMSTextViewHolder -> {
+                    val timer = object: CountDownTimer(60000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+
+                            time--
+                            if(time >= 10) timeInString ="$time" else timeInString ="0$time"
+
+                            Timber.i(time.toString() + ": AH")
+
+                            holder.initialize(timeInString)
+                            if(time == 0&& isNext){
+                                Timber.i(isNext.toString())
+                                rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.Timeout.toString())
+                            }
+                        }
+
+                        override fun onFinish() {
+                            Timber.i("Finish")
+                        }
+
+                    }
+                    timer.start()
+                }
+
             }
 
         }
@@ -148,9 +154,9 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
 }
 
-fun EntrySMSView.renderUIO() {
+fun ChangeSMSView.renderUIO() {
 
-    //innerContent.fitsSystemWindows = true
+    innerContent.fitsSystemWindows = true
 
     innerContent.subviews(
         bodyTable,

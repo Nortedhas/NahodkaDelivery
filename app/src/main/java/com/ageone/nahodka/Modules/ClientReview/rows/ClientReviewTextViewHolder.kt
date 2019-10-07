@@ -145,11 +145,11 @@ fun ClientReviewTextViewHolder.renderUI() {
     )
 
     textViewEstimate
-        .constrainTopToTopOf(constraintLayout,20)
+        .constrainTopToTopOf(constraintLayout,26)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     textViewName
-        .constrainTopToBottomOf(textViewEstimate, 20)
+        .constrainTopToBottomOf(textViewEstimate, 26)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     imageViewRating1

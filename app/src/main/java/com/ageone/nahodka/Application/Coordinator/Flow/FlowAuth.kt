@@ -5,6 +5,7 @@ import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.coordinator
+import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.InitModuleUI
@@ -120,7 +121,7 @@ class FlowAuth: BaseFlow() {
 
         module.emitEvent = { event ->
             when(EntrySMSViewModel.EventType.valueOf(event)){
-                EntrySMSViewModel.EventType.OnNextPressed ->{
+                EntrySMSViewModel.EventType.OnNextPressed -> {
                     module.startLoadingFlow()
                 }
                 EntrySMSViewModel.EventType.Timeout -> {

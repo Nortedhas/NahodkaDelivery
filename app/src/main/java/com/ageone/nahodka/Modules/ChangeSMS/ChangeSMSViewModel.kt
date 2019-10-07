@@ -1,14 +1,16 @@
-package com.ageone.nahodka.Modules.Change
+package com.ageone.nahodka.Modules.ChangeSMS
 
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class ChangeViewModel : InterfaceViewModel {
-    var model = ChangeModel()
+class ChangeSMSViewModel : InterfaceViewModel {
+    var model = ChangeSMSModel()
 
     enum class EventType {
-        OnNextPressed
+
+        OnNextPressed,
+        Timeout
     }
 
     /*var realmData = listOf<>()
@@ -17,13 +19,13 @@ class ChangeViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ChangeModel) {
+        if (recievedModel is ChangeSMSModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ChangeModel : InterfaceModel {
+class ChangeSMSModel : InterfaceModel {
 
 }

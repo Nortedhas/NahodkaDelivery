@@ -77,7 +77,7 @@ fun ReviewCommentViewHolder.renderUI() {
     )
 
     separator
-        .constrainTopToTopOf(constraintLayout,10)
+        .constrainTopToTopOf(constraintLayout,6)
         .fillHorizontally()
 
     textViewName
@@ -89,7 +89,8 @@ fun ReviewCommentViewHolder.renderUI() {
         .constrainLeftToRightOf(textViewName,5)
 
     imageViewStar
-        .constrainTopToTopOf(separator,15)
+        .constrainCenterYToCenterYOf(textViewRating)
+        //.constrainTopToTopOf(separator,15)
         .constrainLeftToRightOf(textViewRating,5)
 
     textViewDate
@@ -99,6 +100,8 @@ fun ReviewCommentViewHolder.renderUI() {
     textViewComment
         .constrainTopToBottomOf(textViewName,12)
         .constrainLeftToLeftOf(constraintLayout,15)
+        .width(utils.tools.getActualSizeFromDes(246))
+       // .constrainRightToLeftOf(textViewDate,32)
 
 
 }

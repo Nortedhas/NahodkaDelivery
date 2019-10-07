@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Change.rows
+package com.ageone.nahodka.Modules.CheckoutOrder.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
@@ -8,13 +8,15 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
+
 import yummypets.com.stevia.*
 
-class ChangeEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+class CheckoutOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    val editTextName by lazy {
-        val editText = BaseTextInputLayout()
+
+    val editTextAddress by lazy {
+        val textInput = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -22,20 +24,20 @@ class ChangeEditTextViewHolder(val constraintLayout: ConstraintLayout) :
         )
         params.marginStart = (-2).dp
         params.updateMargins(left = (-2).dp)
-        editText.layoutParams = params
+        textInput.layoutParams = params
 
 
-        editText.boxStrokeColor = Color.parseColor("#C1C1C1")
-        editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
-        editText.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
+        textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
+        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
+        textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
 
-        editText.editText?.let { editText ->
-            editText.textColor = Color.parseColor("#000000")
+        textInput.editText?.let { editText ->
+            editText.textColor = Color.parseColor("#333333")
             editText.textSize = 5F.dp
-
         }
-        editText
+        textInput
     }
+
 
     init {
 
@@ -44,20 +46,21 @@ class ChangeEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun ChangeEditTextViewHolder.renderUI() {
+fun CheckoutOrderAddressViewHolder.renderUI() {
     constraintLayout.subviews(
-        editTextName
+        editTextAddress
     )
 
-    editTextName
-        .constrainTopToTopOf(constraintLayout)
+    editTextAddress
+        .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(16)
 
 
 }
 
-fun ChangeEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
-    editTextName.hint = hint
-    editTextName.defineType(type)
+fun CheckoutOrderAddressViewHolder.initialize(hint: String, type: InputEditTextType) {
+
+    editTextAddress.hint = hint
+    editTextAddress.defineType(type)
 
 }

@@ -1,8 +1,11 @@
 package com.ageone.nahodka.Modules.Change
 
 import android.graphics.Color
+import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
+import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -22,6 +25,22 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
+    }
+
+    val nextButton by lazy { //TODO: переместить UI
+        val button = BaseButton()
+        button.setBackgroundColor(Color.parseColor("#09D0B8"))
+        button.text = "Далее"
+        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
+        button.setTextColor(Color.WHITE)
+        button.textSize = 20F
+        button.height(56)
+        button.cornerRadius = 0
+        button.setOnClickListener {
+            emitEvent?.invoke(ChangeViewModel.EventType.OnNextPressed.toString())
+        }
+        //   button.visibility = View.GONE
+        button
     }
 
     init {
@@ -108,8 +127,26 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 }
 
 fun ChangeView.renderUIO() {
+    innerContent.fitsSystemWindows = true
 
-    renderBodyTable()
+    innerContent.subviews(
+        bodyTable,
+        nextButton
+    )
+
+    bodyTable
+        .fillHorizontally()
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false
+
+    nextButton
+        .constrainBottomToBottomOf(innerContent)
+        .fillHorizontally()
+
 }
 
 

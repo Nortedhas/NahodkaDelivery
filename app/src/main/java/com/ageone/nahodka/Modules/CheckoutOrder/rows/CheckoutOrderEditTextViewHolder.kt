@@ -14,7 +14,76 @@ import yummypets.com.stevia.*
 class CheckoutOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    val textInputL by lazy {
+    val textInputOffice by lazy {
+        val textInput = BaseTextInputLayout()
+
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.marginStart = (-2).dp
+        params.updateMargins(left = (-2).dp)
+        textInput.layoutParams = params
+
+
+        textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
+        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
+        textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+
+        textInput.editText?.let { editText ->
+            editText.textColor = Color.parseColor("#333333")
+            editText.textSize = 5F.dp
+        }
+        textInput
+    }
+
+    val textInputHome by lazy {
+        val textInput = BaseTextInputLayout()
+
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.marginStart = (-2).dp
+        params.updateMargins(left = (-2).dp)
+        textInput.layoutParams = params
+
+
+        textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
+        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
+        textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+
+        textInput.editText?.let { editText ->
+            editText.textColor = Color.parseColor("#333333")
+            editText.textSize = 5F.dp
+        }
+        textInput
+    }
+
+    val textInputPorch by lazy {
+        val textInput = BaseTextInputLayout()
+
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.marginStart = (-2).dp
+        params.updateMargins(left = (-2).dp)
+        textInput.layoutParams = params
+
+
+        textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
+        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
+        textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+
+        textInput.editText?.let { editText ->
+            editText.textColor = Color.parseColor("#333333")
+            editText.textSize = 5F.dp
+        }
+        textInput
+    }
+
+    val textInputFloor by lazy {
         val textInput = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -46,18 +115,44 @@ class CheckoutOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun CheckoutOrderEditTextViewHolder.renderUI() {
     constraintLayout.subviews(
-        textInputL
+        textInputOffice,
+        textInputHome,
+        textInputPorch,
+        textInputFloor
     )
-    textInputL
+
+    textInputOffice
         .constrainTopToTopOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout, 16)
         .width((utils.variable.displayWidth - 96) /4)
         .height(utils.variable.displayWidth * .136F)
 
+    textInputHome
+        .constrainTopToTopOf(constraintLayout)
+        .constrainLeftToRightOf(textInputOffice, 16)
+        .width((utils.variable.displayWidth - 96) /4)
+        .height(utils.variable.displayWidth * .136F)
+
+    textInputPorch
+        .constrainTopToTopOf(constraintLayout)
+        .constrainLeftToRightOf(textInputHome, 16)
+        .width((utils.variable.displayWidth - 96) /4)
+        .height(utils.variable.displayWidth * .136F)
+
+
+    textInputFloor
+        .constrainTopToTopOf(constraintLayout)
+        .constrainRightToRightOf(constraintLayout, 16)
+        .width((utils.variable.displayWidth - 96) /4)
+        .height(utils.variable.displayWidth * .136F)
+
 }
 
-fun CheckoutOrderEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
-    textInputL.hint = hint
-    textInputL.defineType(type)
+
+fun CheckoutOrderEditTextViewHolder.initialize(hintOffice: String, hintHome: String,hintPorch: String,hintFloor: String) {
+    textInputOffice.hint = hintOffice
+    textInputHome.hint = hintHome
+    textInputPorch.hint = hintPorch
+    textInputFloor.hint = hintFloor
 
 }

@@ -146,6 +146,7 @@ class FlowMain: BaseFlow() {
     private fun runModuleReview(){
         val module = ReviewView(
             InitModuleUI(
+                isBottomNavigationVisible = false,
             isBackPressed = true,
                 backListener = {
                     pop()
@@ -173,6 +174,7 @@ class FlowMain: BaseFlow() {
     private fun runModuleClientReview(){
         val module = ClientReviewView(
             InitModuleUI(
+                isBottomNavigationVisible = false,
                 isBackPressed = true,
                 backListener = {
                     pop()
@@ -190,6 +192,7 @@ class FlowMain: BaseFlow() {
     private fun runModuleInfo(){
         val module = InfoView(
             InitModuleUI(
+                isBottomNavigationVisible = false,
                 isBackPressed = true,
                 backListener = {
                     pop()
@@ -198,23 +201,6 @@ class FlowMain: BaseFlow() {
         )
 
         module.viewModel.initialize(models.moduleInfo) {module.reload()}
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
-        push(module)
-    }
-
-    private fun runModuleCheckout(){
-        val module = CheckoutOrderView( InitModuleUI(
-            isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
-        )
-        )
-
-        module.viewModel.initialize(models.moduleCheckout) { module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

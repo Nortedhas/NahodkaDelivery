@@ -53,26 +53,27 @@ class ProfileItemViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun ProfileItemViewHolder.renderUI() {
     constraintLayout.subviews(
-        imageViewProfile,
         textViewProfile,
+        imageViewProfile,
         textViewProfileDescription,
         imageViewNext
     )
 
-    imageViewProfile
-        .constrainLeftToLeftOf(constraintLayout,15)
-        .constrainCenterYToCenterYOf(textViewProfile)
     textViewProfile
-        .constrainTopToTopOf(constraintLayout,20)
-        .constrainLeftToRightOf(imageViewProfile,15)
+        .constrainTopToTopOf(constraintLayout,24)
+        .constrainLeftToRightOf(imageViewProfile,16)
+    imageViewProfile
+        .constrainLeftToLeftOf(constraintLayout,16)
+        .constrainTopToTopOf(textViewProfile,3)
 
     textViewProfileDescription
         .constrainTopToBottomOf(textViewProfile,5)
-        .constrainLeftToRightOf(imageViewProfile,15)
+        .constrainLeftToRightOf(imageViewProfile,16)
+        .width(utils.tools.getActualSizeFromDes(276))
 
     imageViewNext
-        .constrainCenterYToCenterYOf(constraintLayout)
-        .constrainRightToRightOf(constraintLayout,20)
+        .constrainTopToBottomOf(textViewProfile,4)
+        .constrainRightToRightOf(constraintLayout,30)
 
 }
 

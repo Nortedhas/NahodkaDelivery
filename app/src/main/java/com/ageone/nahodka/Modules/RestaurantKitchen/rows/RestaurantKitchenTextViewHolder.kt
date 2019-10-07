@@ -114,7 +114,7 @@ fun RestaurantKitchenTextViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout)
 
     textViewFastFood
-        .constrainTopToBottomOf(recyclerViewKitchen,16)
+        .constrainTopToBottomOf(recyclerViewKitchen,10)
         .constrainLeftToLeftOf(constraintLayout,17)
 
 }

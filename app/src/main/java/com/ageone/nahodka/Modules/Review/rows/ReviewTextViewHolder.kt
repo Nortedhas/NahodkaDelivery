@@ -85,7 +85,8 @@ fun ReviewTextViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,15)
 
     imageViewStar
-        .constrainTopToBottomOf(textViewName,12)
+        .constrainCenterYToCenterYOf(textViewRating)
+        //.constrainTopToBottomOf(textViewName,12)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     textViewRating
