@@ -12,6 +12,7 @@ import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Filter.rows.FilterTextViewHolder
 import com.ageone.nahodka.Modules.Filter.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -86,12 +87,21 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is FilterTextViewHolder -> {
                     holder.initialize()
 
+                    holder.checkPrice.setOnClickListener {
+                        holder.checkAround.isChecked= false
+
+                        holder.checkPrice.isChecked = true
+
+                    }
+
+                    holder.checkAround.setOnClickListener {
+                        holder.checkPrice.isChecked = false
+
+                        holder.checkAround.isChecked = true
+                    }
                 }
-
             }
-
         }
-
     }
 }
 
