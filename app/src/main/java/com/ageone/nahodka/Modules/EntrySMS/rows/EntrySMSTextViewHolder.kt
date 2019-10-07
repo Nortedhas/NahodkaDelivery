@@ -17,6 +17,8 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.ageone.nahodka.Models.User.user
+import com.example.ageone.Modules.Entry.EntryViewModel
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 import java.text.SimpleDateFormat
@@ -36,6 +38,23 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
+    /*val nextButton by lazy {
+        val button = BaseButton()
+        button.setBackgroundColor(Color.parseColor("#09D0B8"))
+        button.text = "Далее"
+        button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
+        button.setTextColor(Color.WHITE)
+        button.textSize = 20F
+        button.height(56)
+        button.cornerRadius = 0
+        /*button.setOnClickListener {
+            user.isAuthorized = true
+            isNext = false
+            emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
+        }*/
+        button
+    }*/
+
     var timeBeforeRedirect = 60000L
     val time = SimpleDateFormat("mm:ss")
 
@@ -53,11 +72,16 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
 fun EntrySMSTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textView
+        //nextButton
     )
 
     textView
         .constrainTopToTopOf(constraintLayout, 16)
         .fillHorizontally(16)
+
+    /*nextButton
+        .constrainBottomToTopOf(textView,16)
+        .fillHorizontally()*/
 }
 
 fun EntrySMSTextViewHolder.initialize(complition: (()->(Unit))) {
