@@ -108,14 +108,22 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var count = 0
             when (holder) {
                 is BucketItemViewHolder -> {
                     var dish = dishImage[position]
                     holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
                     holder.imageViewPlus.setOnClickListener {
-                        holder.count++
-                        Timber.i(holder.count.toString()+"~~~~~")
-                        notifyDataSetChanged()
+                        count++
+                        holder.textViewCount.text = "Количество порций: ${count.toString()}"
+                       /* Timber.i(holder.count.toString()+"~~~~~")
+                        notifyDataSetChanged()*/
+                    }
+                    holder.imageViewMinus.setOnClickListener {
+                        if(count>0){
+                            count--
+                            holder.textViewCount.text = "Количество порций: ${count.toString()}"
+                        }
                     }
                 }
                 is BucketAppliancesViewHolder -> {
