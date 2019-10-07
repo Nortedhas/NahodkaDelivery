@@ -84,18 +84,8 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
             when (holder) {
                 is FilterTextViewHolder -> {
-
                     holder.initialize()
-                    holder.radioButtonFilterPrice.setOnClickListener {
-                        holder.radioButtonFilterPrice.setImageResource(R.drawable.ic_dot_active)
-                        holder.radioButtonFilterAround.setImageResource(R.drawable.ic_dot_inactive)
-                    }
 
-                    holder.radioButtonFilterAround.setOnClickListener {
-                            holder.radioButtonFilterPrice.setImageResource(R.drawable.ic_dot_inactive)
-                            holder.radioButtonFilterAround.setImageResource(R.drawable.ic_dot_active)
-
-                    }
                 }
 
             }

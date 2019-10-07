@@ -44,26 +44,6 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
         checkBox
     }
 
-    val radioButtonFilterPrice by lazy {
-        val imageView = BaseImageView()
-        imageView
-            .width(14)
-            .height(14)
-        imageView.setImageResource(R.drawable.ic_dot_inactive)
-        imageView.initialize()
-        imageView
-    }
-
-    val radioButtonFilterAround by lazy {
-        val imageView = BaseImageView()
-        imageView
-            .width(14)
-            .height(14)
-        imageView.setImageResource(R.drawable.ic_dot_inactive)
-        imageView.initialize()
-        imageView
-    }
-
     init {
 
         renderUI()
@@ -74,22 +54,16 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
 fun FilterTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewFilterPrice,
-        //checkPrice,
-        radioButtonFilterPrice,
+        checkPrice,
         textViewFilterAround,
-        //checkAround
-        radioButtonFilterAround
+        checkAround
     )
 
     textViewFilterPrice
         .constrainTopToTopOf(constraintLayout,24)
         .constrainLeftToLeftOf(constraintLayout,16)
 
-    /*checkPrice
-        .constrainCenterYToCenterYOf(textViewFilterPrice)
-        .constrainRightToRightOf(constraintLayout, 16)*/
-
-    radioButtonFilterPrice
+    checkPrice
         .constrainCenterYToCenterYOf(textViewFilterPrice)
         .constrainRightToRightOf(constraintLayout, 16)
 
@@ -97,12 +71,9 @@ fun FilterTextViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewFilterPrice,16)
         .constrainLeftToLeftOf(constraintLayout, 16)
 
-    radioButtonFilterAround
-    //checkAround
+    checkAround
         .constrainCenterYToCenterYOf(textViewFilterAround)
         .constrainRightToRightOf(constraintLayout, 16)
-
-
 
 }
 
