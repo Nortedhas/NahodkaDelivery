@@ -38,54 +38,33 @@ class ClientReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-    val ratingBar by lazy {
-        val ratingBar = RatingBar(currentActivity)
-        ratingBar.numStars = 5
-        ratingBar
-    }
-
     val imageViewRating1 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
-        imageView
-            .width(18)
-            .height(18)
         imageView.initialize()
         imageView
     }
     val imageViewRating2 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
-        imageView
-            .width(18)
-            .height(18)
         imageView.initialize()
         imageView
     }
     val imageViewRating3 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
-        imageView
-            .width(18)
-            .height(18)
         imageView.initialize()
         imageView
     }
     val imageViewRating4 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
-        imageView
-            .width(18)
-            .height(18)
         imageView.initialize()
         imageView
     }
     val imageViewRating5 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
-        imageView
-            .width(18)
-            .height(18)
         imageView.initialize()
         imageView
     }
@@ -153,19 +132,29 @@ fun ClientReviewTextViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,15)
 
     imageViewRating1
+        .width(18)
+        .height(18)
         .constrainTopToBottomOf(textViewName, 15)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     imageViewRating2
+        .width(18)
+        .height(18)
         .constrainCenterYToCenterYOf(imageViewRating1)
         .constrainLeftToRightOf(imageViewRating1,15)
     imageViewRating3
+        .width(18)
+        .height(18)
         .constrainCenterYToCenterYOf(imageViewRating2)
         .constrainLeftToRightOf(imageViewRating2,15)
     imageViewRating4
+        .width(18)
+        .height(18)
         .constrainCenterYToCenterYOf(imageViewRating3)
         .constrainLeftToRightOf(imageViewRating3,15)
     imageViewRating5
+        .width(18)
+        .height(18)
         .constrainCenterYToCenterYOf(imageViewRating4)
         .constrainLeftToRightOf(imageViewRating4,15)
 

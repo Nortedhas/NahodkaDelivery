@@ -3,7 +3,6 @@ package com.ageone.nahodka.Modules.Profile.rows
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
@@ -78,7 +77,6 @@ fun ProfileTextNameViewHolder.renderUI() {
 
     textViewChange
         .constrainCenterYToCenterYOf(constraintLayout)
-        //.constrainTopToTopOf(constraintLayout,20)
         .constrainRightToRightOf(constraintLayout,15)
 
     separatorUp

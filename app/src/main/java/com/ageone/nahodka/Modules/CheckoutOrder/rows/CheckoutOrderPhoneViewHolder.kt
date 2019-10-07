@@ -44,9 +44,6 @@ class CheckoutOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
     val imageViewComment by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_comment_to_order)
-        imageView
-            .width(19)
-            .height(19)
         imageView.backgroundColor = Color.WHITE
         imageView.initialize()
         imageView
@@ -98,6 +95,8 @@ fun CheckoutOrderPhoneViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout)
         .fillHorizontally(16)
     imageViewComment
+        .width(19)
+        .height(19)
         .constrainTopToBottomOf(editTextPhone,28)
         .constrainLeftToLeftOf(constraintLayout,16)
 

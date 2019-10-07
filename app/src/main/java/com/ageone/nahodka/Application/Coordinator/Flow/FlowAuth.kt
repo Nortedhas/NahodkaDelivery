@@ -5,7 +5,6 @@ import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.coordinator
-import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.InitModuleUI
@@ -15,8 +14,6 @@ import com.example.ageone.Modules.Entry.EntryViewModel
 import com.example.ageone.Modules.EntrySMS.EntrySMSModel
 import com.example.ageone.Modules.EntrySMS.EntrySMSView
 import com.example.ageone.Modules.EntrySMS.EntrySMSViewModel
-import com.example.ageone.Modules.Restaurant.RestaurantModel
-import com.example.ageone.Modules.Restaurant.RestaurantView
 import com.example.ageone.Modules.Start.StartModel
 import com.example.ageone.Modules.Start.StartView
 

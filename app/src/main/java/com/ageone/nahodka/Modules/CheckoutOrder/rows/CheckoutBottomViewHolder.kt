@@ -106,9 +106,6 @@ class CheckoutBottomViewHolder(val constraintLayout: ConstraintLayout) :
         val button = BaseView()
         button.cornerRadius = 8.dp
         button.backgroundColor = Color.parseColor("#21D5BF")
-        button
-            .height(utils.tools.getActualSizeFromDes(46))
-            .width(utils.variable.displayWidth - 15)
         button.initialize()
         button
     }
@@ -173,6 +170,8 @@ fun CheckoutBottomViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 
     buttonCheckout
+        .height(utils.tools.getActualSizeFromDes(46))
+        .width(utils.variable.displayWidth - 15)
         .constrainTopToBottomOf(textViewTotal,28)
         .fillHorizontally(15)
 

@@ -13,7 +13,6 @@ import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.ClientReview.rows.ClientReviewTextViewHolder
 import com.ageone.nahodka.Modules.ClientReview.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -163,11 +162,6 @@ class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                                 isRatingPressed = true
                             }
                             true -> {
-                               /* holder.imageViewRating1.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating2.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)*/
                                 isRatingPressed = false
                             }
                         }

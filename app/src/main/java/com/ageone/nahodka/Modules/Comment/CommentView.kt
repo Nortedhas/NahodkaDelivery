@@ -7,7 +7,6 @@ import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
@@ -86,7 +85,7 @@ class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is CommentEditTextViewHolder -> {
-                    holder.initialize("Комментарий к заказу", InputEditTextType.TEXT)
+                    holder.initialize("Комментарий к заказу")
                 }
 
             }

@@ -37,8 +37,6 @@ class ProfileItemViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewNext by lazy {
         val imageView = BaseImageView()
-            .width(10)
-            .height(15)
         imageView.setImageResource(R.drawable.ic_back_profile)
         imageView.initialize()
         imageView
@@ -72,6 +70,8 @@ fun ProfileItemViewHolder.renderUI() {
         .width(utils.tools.getActualSizeFromDes(276))
 
     imageViewNext
+        .width(10)
+        .height(15)
         .constrainTopToBottomOf(textViewProfile,4)
         .constrainRightToRightOf(constraintLayout,30)
 

@@ -24,9 +24,6 @@ class ReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
     val imageViewStar by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
-        imageView
-            .width(22)
-            .height(22)
         imageView.initialize()
         imageView
     }
@@ -49,9 +46,6 @@ class ReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
     val imageViewComment by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_comment_button)
-        imageView
-            .height(60)
-            .width(60)
         imageView.initialize()
         imageView
     }
@@ -85,8 +79,9 @@ fun ReviewTextViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,15)
 
     imageViewStar
+        .width(22)
+        .height(22)
         .constrainCenterYToCenterYOf(textViewRating)
-        //.constrainTopToBottomOf(textViewName,12)
         .constrainLeftToLeftOf(constraintLayout,15)
 
     textViewRating
@@ -99,6 +94,8 @@ fun ReviewTextViewHolder.renderUI() {
         .constrainBottomToBottomOf(constraintLayout,20)
 
     imageViewComment
+        .height(60)
+        .width(60)
         .constrainBottomToTopOf(textViewEstimate,1)
         .constrainCenterXToCenterXOf(textViewEstimate)
 

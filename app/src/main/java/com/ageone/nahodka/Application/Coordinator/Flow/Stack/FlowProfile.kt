@@ -12,8 +12,6 @@ import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Bucket.BucketModel
-import com.ageone.nahodka.Modules.Bucket.BucketView
 import com.ageone.nahodka.Modules.Change.ChangeModel
 import com.ageone.nahodka.Modules.Change.ChangeView
 import com.ageone.nahodka.Modules.Change.ChangeViewModel
@@ -28,7 +26,6 @@ import com.ageone.nahodka.Modules.Profile.ProfileModel
 import com.ageone.nahodka.Modules.Profile.ProfileView
 import com.ageone.nahodka.Modules.Profile.ProfileViewModel
 import com.ageone.nahodka.R
-import com.example.ageone.*
 
 fun FlowCoordinator.runFlowProfile() {
 

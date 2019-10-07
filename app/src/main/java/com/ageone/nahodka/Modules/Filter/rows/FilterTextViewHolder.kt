@@ -1,14 +1,8 @@
 package com.ageone.nahodka.Modules.Filter.rows
 
 import android.graphics.Color
-import android.widget.CheckBox
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RadioButton.BaseRadioButton
-import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*

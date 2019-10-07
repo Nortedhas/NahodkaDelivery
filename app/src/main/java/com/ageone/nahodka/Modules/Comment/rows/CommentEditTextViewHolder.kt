@@ -24,11 +24,10 @@ class CommentEditTextViewHolder(val constraintLayout: ConstraintLayout) :
         params.updateMargins(left = (-2).dp)
         editText.layoutParams = params
 
-
         editText.boxStrokeColor = Color.parseColor("#D7D7D7")
         editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
-
+        editText.defineType(InputEditTextType.TEXT)
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 5F.dp
@@ -54,8 +53,7 @@ fun CommentEditTextViewHolder.renderUI() {
 
 }
 
-fun CommentEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun CommentEditTextViewHolder.initialize(hint: String) {
     editTextComment.hint = hint
-    editTextComment.defineType(type)
 
 }

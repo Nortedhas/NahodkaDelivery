@@ -2,38 +2,25 @@ package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
 import android.os.CountDownTimer
-import android.os.Handler
 import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
-import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.EntrySMS.rows.EntrySMSEditTextViewHolder
 import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
-import com.example.ageone.Modules.EntrySMS.rows.EntrySMSButtonViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
-import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
-import com.example.ageone.UIComponents.ViewHolders.initialize
 import com.ageone.nahodka.R
-import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
-import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import com.example.ageone.Modules.Entry.EntryViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import yummypets.com.stevia.*
-import java.util.*
-import kotlin.concurrent.schedule
 
 class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -53,7 +40,6 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
-        button.height(56)
         button.cornerRadius = 0
         button.setOnClickListener {
             user.isAuthorized = true
@@ -185,6 +171,7 @@ fun EntrySMSView.renderUIO() {
         .clipToPadding = false
 
     nextButton
+        .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
 }
