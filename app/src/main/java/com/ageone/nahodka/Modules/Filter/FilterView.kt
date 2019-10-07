@@ -83,21 +83,38 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var isPressedPrice = false
+            var isPressedAround = false
             when (holder) {
                 is FilterTextViewHolder -> {
                     holder.initialize()
 
                     holder.checkPrice.setOnClickListener {
-                        holder.checkAround.isChecked= false
-
+                        holder.checkAround.isChecked = false
                         holder.checkPrice.isChecked = true
+                        isPressedAround = false
 
+                        if(isPressedPrice){
+                            holder.checkPrice.isChecked = false
+                            isPressedPrice = false
+                        }else if(!isPressedPrice) {
+                            isPressedPrice = true
+                        }
                     }
 
                     holder.checkAround.setOnClickListener {
                         holder.checkPrice.isChecked = false
-
                         holder.checkAround.isChecked = true
+                        isPressedPrice = false
+
+                        if(isPressedAround){
+                            holder.checkAround.isChecked = false
+                            isPressedAround = false
+                        }else if(!isPressedAround){
+
+                        isPressedAround = true
+
+                        }
                     }
                 }
             }
