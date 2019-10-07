@@ -60,9 +60,6 @@ class BucketItemViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewMinus by lazy {
         val imageView = BaseImageView()
-        imageView
-            .width(24)
-            .height(24)
         imageView.setImageResource(R.drawable.ic_minus)
         imageView.initialize()
         imageView
@@ -70,9 +67,6 @@ class BucketItemViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewPlus by lazy {
         val imageView = BaseImageView()
-        imageView
-            .width(24)
-            .height(24)
         imageView.setImageResource(R.drawable.ic_add)
         imageView.initialize()
         imageView
@@ -122,10 +116,14 @@ fun BucketItemViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewDish,8)
 
     imageViewPlus
+        .width(24)
+        .height(24)
         .constrainBottomToBottomOf(imageViewDish)
         .constrainRightToRightOf(constraintLayout,15)
 
     imageViewMinus
+        .width(24)
+        .height(24)
         .constrainBottomToBottomOf(imageViewDish)
         .constrainRightToLeftOf(imageViewPlus,10)
 }
@@ -141,7 +139,7 @@ fun BucketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, r
     textViewDishName.text = dishName
     textViewWeight.text = "${weight.toString()} г"
     textViewRestaurant.text = restaurant
-    textViewCount.text = "Количество: ${count.toString()} порция"
+    textViewCount.text = "Количество порций: ${count.toString()}"
     textViewPrice.text = "${price.toString()} руб."
 
 }

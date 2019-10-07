@@ -13,6 +13,7 @@ class MyOrderTextItemViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.textSize = 14F
         textView.textColor = Color.parseColor("#979797")
+        textView.backgroundColor = Color.TRANSPARENT
         textView
     }
 
@@ -30,8 +31,6 @@ fun MyOrderTextItemViewHolder.renderUI() {
 
     textViewFood
         .constrainTopToTopOf(constraintLayout,6)
-        //.constrainTopToTopOf(constraintLayout,13)
-
 
 }
 

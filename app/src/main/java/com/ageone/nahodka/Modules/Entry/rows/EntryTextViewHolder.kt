@@ -2,14 +2,11 @@ package com.example.ageone.Modules.Entry.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.InputType
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.text.style.UnderlineSpan
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
@@ -58,10 +55,6 @@ fun EntryTextViewHolder.initialize() {
     spannableContent.setSpan(
         ForegroundColorSpan(Color.parseColor("#007aff")),
         text.length,  text.length + declaration.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-
-   /* spannableContent.setSpan(
-        UnderlineSpan(),
-        text.length,  text.length + declaration.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)*/
 
     textView.text = spannableContent
 }

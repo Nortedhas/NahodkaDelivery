@@ -5,10 +5,27 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatRadioButton
-import com.ageone.nahodka.R
+import androidx.core.widget.TintableCompoundButton
 import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.R
+
 
 class BaseRadioButton: AppCompatRadioButton(currentActivity) {
+
+    var colors: IntArray? = null //uncheckedColor, checkedColor
+
+    fun initialize() {
+        colors?.let { colors ->
+            val colorStateList = ColorStateList(
+                arrayOf(
+                    intArrayOf(-android.R.attr.state_checked), // unchecked
+                    intArrayOf(android.R.attr.state_checked)  // checked
+                ),
+                colors
+            )
+            (this as TintableCompoundButton).supportButtonTintList = colorStateList
+        }
+    }
 
     fun setButtonBottom(){
         buttonDrawable = null

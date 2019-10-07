@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
-import com.ageone.nahodka.Application.AppActivity
-import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -15,7 +13,6 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.R
-import com.example.ageone.Modules.Entry.rows.EntryButtonViewHolder
 import com.example.ageone.Modules.Entry.rows.EntryEditTextViewHolder
 import com.example.ageone.Modules.Entry.rows.EntryTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
@@ -37,7 +34,6 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
-        button.height(56)
         button.cornerRadius = 0
         button.setOnClickListener {
             emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
@@ -160,6 +156,7 @@ fun EntryView.renderUIO() {
         .clipToPadding = false
 
     nextButton
+        .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
 

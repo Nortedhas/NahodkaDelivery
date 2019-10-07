@@ -41,7 +41,6 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
-        button.height(56)
         button.cornerRadius = 0
         button.setOnClickListener {
             user.isAuthorized = true
@@ -173,6 +172,7 @@ fun ChangeSMSView.renderUIO() {
         .clipToPadding = false
 
     nextButton
+        .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
 }

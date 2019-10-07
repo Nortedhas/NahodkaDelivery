@@ -1,20 +1,13 @@
 package com.ageone.nahodka.Modules.Filter.rows
 
 import android.graphics.Color
-import android.widget.CheckBox
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RadioButton.BaseRadioButton
-import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
+class FilterTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
 
     val textViewFilterPrice by lazy {
         val textView = BaseTextView()
@@ -36,32 +29,16 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
 
     val checkPrice by lazy{
         val checkBox = BaseRadioButton()
+        checkBox.colors = intArrayOf(Color.GRAY, Color.parseColor("#09D0B8"))
+        checkBox.initialize()
         checkBox
     }
 
     val checkAround by lazy{
         val checkBox = BaseRadioButton()
+        checkBox.colors = intArrayOf(Color.GRAY, Color.parseColor("#09D0B8"))
+        checkBox.initialize()
         checkBox
-    }
-
-    val radioButtonFilterPrice by lazy {
-        val imageView = BaseImageView()
-        imageView
-            .width(14)
-            .height(14)
-        imageView.setImageResource(R.drawable.ic_dot_inactive)
-        imageView.initialize()
-        imageView
-    }
-
-    val radioButtonFilterAround by lazy {
-        val imageView = BaseImageView()
-        imageView
-            .width(14)
-            .height(14)
-        imageView.setImageResource(R.drawable.ic_dot_inactive)
-        imageView.initialize()
-        imageView
     }
 
     init {
@@ -74,22 +51,16 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout) :
 fun FilterTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewFilterPrice,
-        //checkPrice,
-        radioButtonFilterPrice,
+        checkPrice,
         textViewFilterAround,
-        //checkAround
-        radioButtonFilterAround
+        checkAround
     )
 
     textViewFilterPrice
         .constrainTopToTopOf(constraintLayout,24)
         .constrainLeftToLeftOf(constraintLayout,16)
 
-    /*checkPrice
-        .constrainCenterYToCenterYOf(textViewFilterPrice)
-        .constrainRightToRightOf(constraintLayout, 16)*/
-
-    radioButtonFilterPrice
+    checkPrice
         .constrainCenterYToCenterYOf(textViewFilterPrice)
         .constrainRightToRightOf(constraintLayout, 16)
 
@@ -97,12 +68,9 @@ fun FilterTextViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewFilterPrice,16)
         .constrainLeftToLeftOf(constraintLayout, 16)
 
-    radioButtonFilterAround
-    //checkAround
+    checkAround
         .constrainCenterYToCenterYOf(textViewFilterAround)
         .constrainRightToRightOf(constraintLayout, 16)
-
-
 
 }
 

@@ -12,8 +12,6 @@ import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Bucket.BucketModel
-import com.ageone.nahodka.Modules.Bucket.BucketView
 import com.ageone.nahodka.Modules.Stock.StockModel
 import com.ageone.nahodka.Modules.Stock.StockView
 import com.ageone.nahodka.Modules.Stock.StockViewModel

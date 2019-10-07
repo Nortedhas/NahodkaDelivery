@@ -19,7 +19,6 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.EntrySMS.rows.EntrySMSEditTextViewHolder
 import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
-import com.example.ageone.Modules.EntrySMS.rows.EntrySMSButtonViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
@@ -128,8 +127,6 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-            var time = 60
-            var timeInString = ""
             when (holder) {
                 is EntrySMSEditTextViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)

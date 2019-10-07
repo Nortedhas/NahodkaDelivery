@@ -2,9 +2,7 @@ package com.ageone.nahodka.Modules.RestaurantKitchen.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginBottom
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -13,7 +11,6 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
-import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlideWithShadow
 import yummypets.com.stevia.*
 
 class RestaurantKitchenCardViewHolder(val constraintLayout: ConstraintLayout) :
@@ -30,11 +27,9 @@ class RestaurantKitchenCardViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewPhoto by lazy {
         val imageView = BaseImageView()
-//        imageView.cornerRadius = 0.dp
         imageView.backgroundColor = Color.GRAY
         imageView.initialize()
         imageView.setOnlyTopRoundedCorners(8F.dp)
-       // imageView.elevation = 5F.dp
         imageView
     }
 
