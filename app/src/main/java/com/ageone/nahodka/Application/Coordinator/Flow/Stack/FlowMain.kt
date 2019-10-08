@@ -113,7 +113,7 @@ class FlowMain: BaseFlow() {
                 isBackPressed = true,
                 firstIcon = Icon(
                     icon = R.drawable.ic_shoping_kart,
-                    size = 30,
+                    size = 35,
                     listener = {
                         coordinator.runFlowBucket(this)
                     }
