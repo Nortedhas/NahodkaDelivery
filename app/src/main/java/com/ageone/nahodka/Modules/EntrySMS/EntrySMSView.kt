@@ -136,39 +136,6 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
             when (holder) {
                 is EntrySMSEditTextViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
-
-                   /* holder.onStartEditText = {
-
-                            Timber.i("On start editText")
-                        var rect = Rect()
-
-                        var height: Float = innerContent.rootView.height.toFloat()
-
-                        innerContent.getWindowVisibleDisplayFrame(rect)
-
-                        var heightDiffInPixels = height - rect.height()
-
-                        var heightFromUtils = utils.variable.displayHeight
-
-                        var coff = heightDiffInPixels / height
-
-                        var heightInDp = (coff * heightFromUtils) .toInt()
-
-                       /* Timber.i("Coff : $coff")
-                        Timber.i("Height from utils : $heightFromUtils")
-                        Timber.i("Height : $height")
-                        Timber.i("Different : $heightDiffInPixels")
-                        Timber.i("Actual DifferentHieght in pixels toDP : $heightInDp")*/
-
-                        nextButton.constrainBottomToBottomOf(innerContent, heightInDp - 56)
-
-                    }
-
-
-                    holder.onEndEditText = {
-                        Timber.i("On end editText")
-                        //nextButton.constrainBottomToBottomOf(innerContent)
-                    }*/
                 }
                 is EntrySMSTextViewHolder -> {
                     holder.initialize {

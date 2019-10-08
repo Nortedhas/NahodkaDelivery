@@ -6,8 +6,10 @@ import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -53,6 +55,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
     init {
 //        viewModel.loadRealmData()
 
+        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "СМС код"
@@ -123,27 +126,9 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.initialize("СМС код", InputEditTextType.PHONE)
                 }
                 is ChangeSMSTextViewHolder -> {
-                    val timer = object: CountDownTimer(60000, 1000) {
-                        override fun onTick(millisUntilFinished: Long) {
-
-                            time--
-                            if(time >= 10) timeInString ="$time" else timeInString ="0$time"
-
-                            Timber.i(time.toString() + ": AH")
-
-                            holder.initialize(timeInString)
-                            if(time == 0&& isNext){
-                                Timber.i(isNext.toString())
-                                rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.Timeout.toString())
-                            }
-                        }
-
-                        override fun onFinish() {
-                            Timber.i("Finish")
-                        }
-
+                    holder.initialize {
+                        router.onBackPressed()
                     }
-                    timer.start()
                 }
 
             }

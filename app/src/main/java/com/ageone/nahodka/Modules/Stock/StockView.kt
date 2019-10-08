@@ -24,6 +24,7 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         viewAdapter
     }
 
+    var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
     init {
 //        viewModel.loadRealmData()
 
@@ -83,10 +84,11 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var food = foodList[position]
             when (holder) {
                 is StockCardViewHolder -> {
                     holder.initialize(
-                        R.drawable.food,
+                        food,
                         "Ollis Pizza",
                         "Скидка 30% на пасту")
 

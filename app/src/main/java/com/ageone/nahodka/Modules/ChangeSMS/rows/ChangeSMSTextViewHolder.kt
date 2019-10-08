@@ -4,9 +4,14 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.example.ageone.Modules.EntrySMS.rows.renderUI
 import yummypets.com.stevia.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.concurrent.schedule
 
 class ChangeSMSTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
@@ -21,9 +26,19 @@ class ChangeSMSTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-    init {
+    var timeBeforeRedirect = 60000L
+    val time = SimpleDateFormat("mm:ss")
 
+    val timer = Timer()
+
+    init {
         renderUI()
+    }
+
+    fun setTime(timeBeforeRedirect: Long) {
+        textView.text = "Если Вы не получили смс, запросить код повторно можно через ${time.format(
+            Date(timeBeforeRedirect)
+        )}"
     }
 
 }
@@ -40,7 +55,17 @@ fun ChangeSMSTextViewHolder.renderUI() {
 
 }
 
-fun ChangeSMSTextViewHolder.initialize(time: String) {
-    textView.text = "Если Вы не получили смс, запросить код повторно можно через 0:$time"
+fun ChangeSMSTextViewHolder.initialize(complition: (()->(Unit))) {
 
+    timer.schedule(1000, 1000){
+        timeBeforeRedirect-=1000L
+        currentActivity?.runOnUiThread {
+            if (timeBeforeRedirect == 0L) {
+                timer.cancel()
+                complition.invoke()
+            } else {
+                setTime(timeBeforeRedirect)
+            }
+        }
+    }
 }
