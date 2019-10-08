@@ -1,6 +1,5 @@
 package com.ageone.nahodka.External.Base.Toolbar
 
-import android.R.attr.*
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Rect
@@ -20,7 +19,6 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
-import java.lang.Math.abs
 
 
 class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout): Toolbar(currentActivity) {

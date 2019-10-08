@@ -13,6 +13,8 @@ import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
+import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -59,38 +61,8 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
     init {
 //        viewModel.loadRealmData
 
-        innerContent.viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
-            override fun onGlobalLayout() {
-                Timber.i("Layout change")
-
-                var rect = Rect()
-
-                var height: Float = innerContent.rootView.height.toFloat()
-
-                innerContent.getWindowVisibleDisplayFrame(rect)
-
-                var heightDiffInPixels = height - rect.height()
-
-                var heightFromUtils = utils.variable.displayHeight
-
-                var coff = heightDiffInPixels / height
-
-                var heightInDp = (coff * heightFromUtils) .toInt()
-
-                Timber.i("Coff : $coff")
-                Timber.i("Height from utils : $heightFromUtils")
-                Timber.i("Height : $height")
-                Timber.i("Different : $heightDiffInPixels")
-                Timber.i("Actual DifferentHieght in pixels toDP : $heightInDp")
-
-                if(heightInDp>100){
-                    nextButton.constrainBottomToBottomOf(innerContent, heightInDp - 56)
-                } else {
-                    nextButton.constrainBottomToBottomOf(innerContent)
-                }
-            }
-        })
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        innerContent.setButtonAboveKeyboard(nextButton)
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "СМС код"
         toolbar.textColor = Color.BLACK
