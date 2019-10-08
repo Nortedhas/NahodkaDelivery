@@ -2,10 +2,8 @@ package com.ageone.nahodka.Modules.Bucket.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.InputType
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.utils
-import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
@@ -35,9 +33,6 @@ class BucketBottomViewHolder(val constraintLayout: ConstraintLayout) :
         val button = BaseView()
         button.cornerRadius = 8.dp
         button.backgroundColor = Color.parseColor("#21D5BF")
-        button
-            .height(utils.tools.getActualSizeFromDes(46))
-            .width(utils.variable.displayWidth - 15)
         button.initialize()
         button
     }
@@ -74,6 +69,8 @@ fun BucketBottomViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,15)
 
     buttonCheckout
+        .height(utils.tools.getActualSizeFromDes(46))
+        .width(utils.variable.displayWidth - 15)
         .constrainTopToBottomOf(textViewTotal,20)
         .fillHorizontally(15)
 

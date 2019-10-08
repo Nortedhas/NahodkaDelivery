@@ -15,7 +15,6 @@ class ReviewCommentViewHolder(val constraintLayout: ConstraintLayout) :
 
     val separator by lazy {
         val view = BaseView()
-        view.height(2)
         view.backgroundColor = Color.parseColor("#D9D9D9")
         view.initialize()
         view
@@ -38,9 +37,6 @@ class ReviewCommentViewHolder(val constraintLayout: ConstraintLayout) :
     val imageViewStar by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
-        imageView
-            .width(15)
-            .height(15)
         imageView.initialize()
         imageView
     }
@@ -77,7 +73,8 @@ fun ReviewCommentViewHolder.renderUI() {
     )
 
     separator
-        .constrainTopToTopOf(constraintLayout,6)
+        .height(1)
+        .constrainTopToTopOf(constraintLayout,4)
         .fillHorizontally()
 
     textViewName
@@ -89,8 +86,9 @@ fun ReviewCommentViewHolder.renderUI() {
         .constrainLeftToRightOf(textViewName,5)
 
     imageViewStar
+        .width(15)
+        .height(15)
         .constrainCenterYToCenterYOf(textViewRating)
-        //.constrainTopToTopOf(separator,15)
         .constrainLeftToRightOf(textViewRating,5)
 
     textViewDate
@@ -100,8 +98,8 @@ fun ReviewCommentViewHolder.renderUI() {
     textViewComment
         .constrainTopToBottomOf(textViewName,12)
         .constrainLeftToLeftOf(constraintLayout,15)
+        .constrainBottomToBottomOf(constraintLayout,11)
         .width(utils.tools.getActualSizeFromDes(246))
-       // .constrainRightToLeftOf(textViewDate,32)
 
 
 }

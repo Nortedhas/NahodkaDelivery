@@ -8,7 +8,6 @@ import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
-import com.ageone.nahodka.Modules.MyOrder.rows.MyOrderEmptyViewHolder
 import yummypets.com.stevia.*
 
 class BucketEmptyViewHolder(val constraintLayout: ConstraintLayout) :

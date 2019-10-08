@@ -13,9 +13,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseRecyclerView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.KitchenTextViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
-
 import yummypets.com.stevia.*
-import android.util.TypedValue
 import com.ageone.nahodka.External.Base.RecyclerView.HorizontalSpacesItemDecoration
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 
@@ -52,7 +50,7 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.textSize = 18F
         textView.typeface = Typeface.DEFAULT_BOLD
-        textView.textColor = Color.parseColor("#373737")
+        textView.textColor = Color.BLACK
         textView.text = kitchenList[0]
         textView.initialize()
         textView

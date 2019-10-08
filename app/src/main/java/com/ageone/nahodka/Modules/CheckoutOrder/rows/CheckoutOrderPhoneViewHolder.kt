@@ -36,7 +36,7 @@ class CheckoutOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 7F.dp
             editText.maxLines = 1
         }
         editText
@@ -44,9 +44,6 @@ class CheckoutOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
     val imageViewComment by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_comment_to_order)
-        imageView
-            .width(19)
-            .height(19)
         imageView.backgroundColor = Color.WHITE
         imageView.initialize()
         imageView
@@ -98,13 +95,15 @@ fun CheckoutOrderPhoneViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout)
         .fillHorizontally(16)
     imageViewComment
-        .constrainTopToBottomOf(editTextPhone,30)
+        .width(19)
+        .height(19)
+        .constrainTopToBottomOf(editTextPhone,28)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     editTextComment
         .constrainTopToBottomOf(editTextPhone)
         .constrainRightToRightOf(constraintLayout,16)
-        .width(utils.tools.getActualSizeFromDes(304) - 8)
+        .width(utils.tools.getActualSizeFromDes(304))
         //.height(utils.variable.displayWidth * 0.32F)
 
 

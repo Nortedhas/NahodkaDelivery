@@ -17,6 +17,8 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.ageone.nahodka.Models.User.user
+import com.example.ageone.Modules.Entry.EntryViewModel
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 import java.text.SimpleDateFormat

@@ -1,40 +1,34 @@
 package com.example.ageone.Modules.EntrySMS
 
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
-import android.os.CountDownTimer
-import android.os.Handler
+import android.graphics.Rect
 import android.text.InputType
+import android.view.KeyEvent
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
+import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
-import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.EntrySMS.rows.EntrySMSEditTextViewHolder
 import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
-import com.example.ageone.Modules.EntrySMS.rows.EntrySMSButtonViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
-import com.example.ageone.UIComponents.ViewHolders.EntryInputViewHolder
-import com.example.ageone.UIComponents.ViewHolders.initialize
 import com.ageone.nahodka.R
-import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
-import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import com.example.ageone.Modules.Entry.EntryViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import yummypets.com.stevia.*
-import java.util.*
-import kotlin.concurrent.schedule
 
 class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -65,9 +59,10 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
     }
 
     init {
-//        viewModel.loadRealmData()
+//        viewModel.loadRealmData
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        innerContent.setButtonAboveKeyboard(nextButton)
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "СМС код"
         toolbar.textColor = Color.BLACK
@@ -75,7 +70,13 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
+
+      //  var window = bodyTable
+
+
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
+
 
 
         renderUIO()
@@ -111,6 +112,10 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                 .width(matchParent)
                 .height(wrapContent)
 
+            var window = layout
+
+
+
             val holder = when (viewType) {
                 RegistrationSMSInputTextType -> {
                     EntrySMSEditTextViewHolder(layout)
@@ -128,17 +133,47 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-            var time = 60
-            var timeInString = ""
             when (holder) {
                 is EntrySMSEditTextViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
+
+                   /* holder.onStartEditText = {
+
+                            Timber.i("On start editText")
+                        var rect = Rect()
+
+                        var height: Float = innerContent.rootView.height.toFloat()
+
+                        innerContent.getWindowVisibleDisplayFrame(rect)
+
+                        var heightDiffInPixels = height - rect.height()
+
+                        var heightFromUtils = utils.variable.displayHeight
+
+                        var coff = heightDiffInPixels / height
+
+                        var heightInDp = (coff * heightFromUtils) .toInt()
+
+                       /* Timber.i("Coff : $coff")
+                        Timber.i("Height from utils : $heightFromUtils")
+                        Timber.i("Height : $height")
+                        Timber.i("Different : $heightDiffInPixels")
+                        Timber.i("Actual DifferentHieght in pixels toDP : $heightInDp")*/
+
+                        nextButton.constrainBottomToBottomOf(innerContent, heightInDp - 56)
+
+                    }
+
+
+                    holder.onEndEditText = {
+                        Timber.i("On end editText")
+                        //nextButton.constrainBottomToBottomOf(innerContent)
+                    }*/
                 }
                 is EntrySMSTextViewHolder -> {
                     holder.initialize {
                         router.onBackPressed()
                     }
-
                 }
             }
 
@@ -146,16 +181,21 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
     }
 
+
 }
+
+
 
 fun EntrySMSView.renderUIO() {
 
     //innerContent.fitsSystemWindows = true
 
+
     innerContent.subviews(
         bodyTable,
         nextButton
     )
+
 
     bodyTable
         .fillHorizontally()

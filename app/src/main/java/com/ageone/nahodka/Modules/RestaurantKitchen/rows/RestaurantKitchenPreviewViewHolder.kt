@@ -33,9 +33,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setImageResource(R.drawable.ic_wallet)
         imageView.initialize()
         imageView
-            .width(15)
-            .height(15)
-        imageView
     }
 
     val textViewCheck by lazy {
@@ -50,9 +47,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setBackgroundColor(Color.TRANSPARENT)
         imageView.setImageResource(R.drawable.ic_clock)
         imageView.initialize()
-        imageView
-            .width(15)
-            .height(15)
         imageView
     }
 
@@ -77,9 +71,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setImageResource(R.drawable.ic_info)
         imageView.initialize()
         imageView
-            .width(27)
-            .height(27)
-        imageView
     }
 
     val imageViewOrder by lazy {
@@ -87,9 +78,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setBackgroundColor(Color.TRANSPARENT)
         imageView.setImageResource(R.drawable.ic_order)
         imageView.initialize()
-        imageView
-            .width(14)
-            .height(14)
         imageView
     }
 
@@ -105,9 +93,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         imageView.setImageResource(R.drawable.ic_truck)
         imageView.initialize()
         imageView
-            .width(14)
-            .height(14)
-        imageView
     }
 
     val textViewTruck by lazy {
@@ -121,9 +106,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         val view = BaseView()
         view.cornerRadius = 5.dp
         view.backgroundColor = Color.parseColor("#C4FCF5")
-        view
-            .width(64)
-            .height(24)
         view.initialize()
         view
     }
@@ -132,9 +114,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
         imageView.initialize()
-        imageView
-            .width(13)
-            .height(13)
         imageView
     }
 
@@ -149,9 +128,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         val view = BaseView()
         view.cornerRadius = 5.dp
         view.backgroundColor = Color.parseColor("#C4FCF5")
-        view
-            .width(64)
-            .height(24)
         view.initialize()
         view
     }
@@ -160,9 +136,6 @@ class RestaurantKitchenPreviewViewHolder(val constraintLayout: ConstraintLayout)
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_comment)
         imageView.initialize()
-        imageView
-            .width(13)
-            .height(13)
         imageView
     }
 
@@ -221,6 +194,8 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToLeftOf(imageViewPreview,23)
 
     imageViewClock
+        .width(15)
+        .height(15)
         .constrainCenterYToCenterYOf(textViewTimeDelivery)
         .constrainLeftToLeftOf(imageViewPreview,23)
 
@@ -229,6 +204,8 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewClock,10)
 
     imageViewWallet
+        .width(15)
+        .height(15)
         .constrainCenterYToCenterYOf(textViewCheck)
         .constrainLeftToLeftOf(imageViewPreview,23)
 
@@ -237,32 +214,40 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewWallet,10)
 
     imageViewInfo
-        .constrainBottomToBottomOf(imageViewPreview,12)
+        .width(27)
+        .height(27)
+        .constrainCenterYToCenterYOf(textViewName)
         .constrainRightToRightOf(imageViewPreview,20)
 
     imageViewOrder
+        .width(14)
+        .height(14)
         .constrainCenterYToCenterYOf(textViewOrder)
-        //.constrainTopToBottomOf(imageViewPreview,8)
-        .constrainLeftToLeftOf(constraintLayout,16)
+        .constrainLeftToLeftOf(constraintLayout,23)
 
     textViewOrder
         .constrainTopToBottomOf(imageViewPreview,12)
         .constrainLeftToRightOf(imageViewOrder, 10)
 
     imageViewTruck
+        .width(18)
+        .height(18)
         .constrainCenterYToCenterYOf(textViewTruck)
-       // .constrainTopToBottomOf(imageViewOrder,8)
-        .constrainLeftToLeftOf(constraintLayout,17)
+        .constrainLeftToLeftOf(constraintLayout,23)
 
     textViewTruck
         .constrainTopToBottomOf(imageViewOrder,8)
         .constrainLeftToRightOf(imageViewTruck, 10)
 
     backRectangleStar
+        .width(64)
+        .height(24)
         .constrainTopToBottomOf(textViewTruck,10)
         .constrainLeftToLeftOf(constraintLayout,17)
 
     imageViewStar
+        .width(13)
+        .height(13)
         .constrainLeftToLeftOf(backRectangleStar,12)
         .constrainTopToTopOf(backRectangleStar,5)
 
@@ -271,10 +256,14 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewStar,6)
 
     backRectangleComment
+        .width(64)
+        .height(24)
         .constrainTopToBottomOf(textViewTruck,10)
         .constrainLeftToRightOf(backRectangleStar,14)
 
     imageViewComment
+        .width(13)
+        .height(13)
         .constrainLeftToLeftOf(backRectangleComment,12)
         .constrainTopToTopOf(backRectangleComment,6)
 

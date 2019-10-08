@@ -16,7 +16,6 @@ class BucketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
 
     val separatorTop by lazy {
         val view = BaseView()
-        view.height(2)
         view.backgroundColor = Color.parseColor("#D9D9D9")
         view.initialize()
         view
@@ -39,19 +38,13 @@ class BucketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewMinus by lazy {
         val imageView = BaseImageView()
-        imageView
-            .width(24)
-            .height(24)
-        imageView.setImageResource(R.drawable.ic_minus)
+                imageView.setImageResource(R.drawable.ic_minus)
         imageView.initialize()
         imageView
     }
 
     val imageViewPlus by lazy {
         val imageView = BaseImageView()
-        imageView
-            .width(24)
-            .height(24)
         imageView.setImageResource(R.drawable.ic_add)
         imageView.initialize()
         imageView
@@ -60,7 +53,6 @@ class BucketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
 
     val separatorBottom by lazy {
         val view = BaseView()
-        view.height(2)
         view.backgroundColor = Color.parseColor("#D9D9D9")
         view.initialize()
         view
@@ -84,6 +76,7 @@ fun BucketAppliancesViewHolder.renderUI() {
     )
 
     separatorTop
+        .height(1)
         .constrainTopToTopOf(constraintLayout,25)
         .fillHorizontally()
 
@@ -92,10 +85,14 @@ fun BucketAppliancesViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,15)
 
     imageViewPlus
+        .width(24)
+        .height(24)
         .constrainCenterYToCenterYOf(textViewAppliances)
         .constrainRightToRightOf(constraintLayout,15)
 
     imageViewMinus
+        .width(24)
+        .height(24)
         .constrainCenterYToCenterYOf(textViewAppliances)
         .constrainRightToLeftOf(imageViewPlus,10)
 
@@ -104,6 +101,7 @@ fun BucketAppliancesViewHolder.renderUI() {
         .constrainRightToLeftOf(imageViewMinus,10)
 
     separatorBottom
+        .height(1)
         .constrainTopToBottomOf(textViewAppliances,25)
         .fillHorizontally()
 

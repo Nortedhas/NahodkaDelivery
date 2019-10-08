@@ -37,8 +37,6 @@ class ProfileItemViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewNext by lazy {
         val imageView = BaseImageView()
-            .width(10)
-            .height(15)
         imageView.setImageResource(R.drawable.ic_back_profile)
         imageView.initialize()
         imageView
@@ -65,6 +63,8 @@ fun ProfileItemViewHolder.renderUI() {
     imageViewProfile
         .constrainLeftToLeftOf(constraintLayout,16)
         .constrainTopToTopOf(textViewProfile,3)
+        .width(25)
+        .height(25)
 
     textViewProfileDescription
         .constrainTopToBottomOf(textViewProfile,5)
@@ -72,15 +72,15 @@ fun ProfileItemViewHolder.renderUI() {
         .width(utils.tools.getActualSizeFromDes(276))
 
     imageViewNext
+        .width(10)
+        .height(15)
         .constrainTopToBottomOf(textViewProfile,4)
         .constrainRightToRightOf(constraintLayout,30)
 
 }
 
-fun ProfileItemViewHolder.initialize(width: Int, height: Int,image: Int, text: String, description: String) {
-    imageViewProfile
-        .width(width)
-        .height(height)
+fun ProfileItemViewHolder.initialize(image: Int, text: String, description: String) {
+
     addImageFromGlide(imageViewProfile,image,1)
     textViewProfile.text = text
     textViewProfileDescription.text = description

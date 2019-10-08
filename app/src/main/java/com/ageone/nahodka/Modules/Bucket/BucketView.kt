@@ -9,10 +9,7 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Bucket.rows.*
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -35,7 +32,6 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         toolbar.title = "Корзина"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         toolbar.textColor = Color.WHITE
-        toolbar.iconExitSize = 18
 
         renderToolbar()
 
@@ -108,14 +104,20 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var count = 0
             when (holder) {
                 is BucketItemViewHolder -> {
                     var dish = dishImage[position]
                     holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
                     holder.imageViewPlus.setOnClickListener {
-                        holder.count++
-                        Timber.i(holder.count.toString()+"~~~~~")
-                        notifyDataSetChanged()
+                        count++
+                        holder.textViewCount.text = "Количество порций: ${count.toString()}"
+                    }
+                    holder.imageViewMinus.setOnClickListener {
+                        if(count>0){
+                            count--
+                            holder.textViewCount.text = "Количество порций: ${count.toString()}"
+                        }
                     }
                 }
                 is BucketAppliancesViewHolder -> {

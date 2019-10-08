@@ -41,7 +41,6 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
-        button.height(56)
         button.cornerRadius = 0
         button.setOnClickListener {
             user.isAuthorized = true
@@ -57,7 +56,8 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "СМС код"
-        toolbar.textColor = Color.BLACK
+        toolbar.textColor = Color.WHITE
+        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
         renderToolbar()
 
@@ -173,6 +173,7 @@ fun ChangeSMSView.renderUIO() {
         .clipToPadding = false
 
     nextButton
+        .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
 }

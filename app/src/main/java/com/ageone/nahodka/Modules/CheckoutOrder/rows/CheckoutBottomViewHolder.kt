@@ -40,7 +40,7 @@ class CheckoutBottomViewHolder(val constraintLayout: ConstraintLayout) :
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 7F.dp
             editText.maxLines = 1
         }
 
@@ -106,9 +106,6 @@ class CheckoutBottomViewHolder(val constraintLayout: ConstraintLayout) :
         val button = BaseView()
         button.cornerRadius = 8.dp
         button.backgroundColor = Color.parseColor("#21D5BF")
-        button
-            .height(utils.tools.getActualSizeFromDes(46))
-            .width(utils.variable.displayWidth - 15)
         button.initialize()
         button
     }
@@ -148,7 +145,7 @@ fun CheckoutBottomViewHolder.renderUI() {
         .height(utils.variable.displayWidth * .136F)
 
     textViewAmount
-        .constrainTopToBottomOf(editTextPay,16)
+        .constrainTopToBottomOf(editTextPay,10)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewAmountPrice
@@ -157,7 +154,7 @@ fun CheckoutBottomViewHolder.renderUI() {
 
 
     textViewDelivery
-        .constrainTopToBottomOf(textViewAmount,12)
+        .constrainTopToBottomOf(textViewAmount,6)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewDeliveryPrice
@@ -165,7 +162,7 @@ fun CheckoutBottomViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 
     textViewTotal
-        .constrainTopToBottomOf(textViewDelivery,12)
+        .constrainTopToBottomOf(textViewDelivery,6)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewTotalPrice
@@ -173,7 +170,9 @@ fun CheckoutBottomViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 
     buttonCheckout
-        .constrainTopToBottomOf(textViewTotal,25)
+        .height(utils.tools.getActualSizeFromDes(46))
+        .width(utils.variable.displayWidth - 15)
+        .constrainTopToBottomOf(textViewTotal,28)
         .fillHorizontally(15)
 
     textViewCheckout

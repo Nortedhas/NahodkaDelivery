@@ -1,7 +1,6 @@
 package com.ageone.nahodka.Modules.CheckoutOrder
 
 import android.graphics.Color
-import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,8 +12,6 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.CheckoutOrder.rows.*
-import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
-import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
 class CheckoutOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {

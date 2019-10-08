@@ -2,7 +2,6 @@ package com.example.ageone.Modules.Restaurant.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -20,7 +19,6 @@ class RestaurantItemViewHolder(val constraintLayout: ConstraintLayout) :
         imageView.cornerRadius = 12.dp
         imageView.backgroundColor = Color.GRAY
         imageView.initialize()
-    // 	imageView.elevation = 5F.dp
         imageView
     }
 
@@ -49,9 +47,6 @@ class RestaurantItemViewHolder(val constraintLayout: ConstraintLayout) :
     val imageViewStar by lazy {
         val imageView = BaseImageView()
         imageView.backgroundColor = Color.TRANSPARENT
-        imageView
-            .width(16)
-            .height(16)
         imageView
     }
 
@@ -90,14 +85,16 @@ fun RestaurantItemViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewKitchen
-        .constrainTopToTopOf(textViewName,30)
+        .constrainTopToBottomOf(textViewName,4)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewDelivery
-        .constrainTopToTopOf(textViewKitchen,20)
+        .constrainTopToBottomOf(textViewKitchen,4)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     imageViewStar
+        .width(16)
+        .height(16)
         .constrainCenterYToCenterYOf(textViewRating)
         .constrainRightToLeftOf(textViewRating,10)
 

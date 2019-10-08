@@ -8,6 +8,7 @@ class StockViewModel : InterfaceViewModel {
     var model = StockModel()
 
     enum class EventType {
+        OnStockPressed
 
     }
 

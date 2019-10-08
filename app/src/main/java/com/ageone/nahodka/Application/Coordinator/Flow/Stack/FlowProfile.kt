@@ -11,6 +11,7 @@ import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Change.ChangeModel
 import com.ageone.nahodka.Modules.Change.ChangeView
@@ -71,10 +72,12 @@ class FlowProfile : BaseFlow() {
 
     fun runModuleProfile() {
         val module = ProfileView(InitModuleUI(
-            exitIcon = R.drawable.ic_shoping_kart,
-            exitListener = {
-                coordinator.runFlowBucket(this)
-            }
+            firstIcon = Icon(
+                icon = R.drawable.ic_shoping_kart,
+                listener = {
+                    coordinator.runFlowBucket(this)
+                }
+            )
         )
         )
 
@@ -102,10 +105,7 @@ class FlowProfile : BaseFlow() {
         val module = MyOrderView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -121,10 +121,7 @@ class FlowProfile : BaseFlow() {
         val module = ContactView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -139,10 +136,7 @@ class FlowProfile : BaseFlow() {
         val module = ChangeView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -164,10 +158,7 @@ class FlowProfile : BaseFlow() {
         val module = ChangeSMSView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 

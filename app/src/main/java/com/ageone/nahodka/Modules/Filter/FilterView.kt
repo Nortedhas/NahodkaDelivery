@@ -12,6 +12,7 @@ import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Filter.rows.FilterTextViewHolder
 import com.ageone.nahodka.Modules.Filter.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -82,26 +83,42 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
+            var isPressedPrice = false
+            var isPressedAround = false
             when (holder) {
                 is FilterTextViewHolder -> {
-
                     holder.initialize()
-                    holder.radioButtonFilterPrice.setOnClickListener {
-                        holder.radioButtonFilterPrice.setImageResource(R.drawable.ic_dot_active)
-                        holder.radioButtonFilterAround.setImageResource(R.drawable.ic_dot_inactive)
+
+                    holder.checkPrice.setOnClickListener {
+                        holder.checkAround.isChecked = false
+                        holder.checkPrice.isChecked = true
+                        isPressedAround = false
+
+                        if(isPressedPrice){
+                            holder.checkPrice.isChecked = false
+                            isPressedPrice = false
+                        }else if(!isPressedPrice) {
+                            isPressedPrice = true
+                        }
                     }
 
-                    holder.radioButtonFilterAround.setOnClickListener {
-                            holder.radioButtonFilterPrice.setImageResource(R.drawable.ic_dot_inactive)
-                            holder.radioButtonFilterAround.setImageResource(R.drawable.ic_dot_active)
+                    holder.checkAround.setOnClickListener {
+                        holder.checkPrice.isChecked = false
+                        holder.checkAround.isChecked = true
+                        isPressedPrice = false
 
+                        if(isPressedAround){
+                            holder.checkAround.isChecked = false
+                            isPressedAround = false
+                        }else if(!isPressedAround){
+
+                        isPressedAround = true
+
+                        }
                     }
                 }
-
             }
-
         }
-
     }
 }
 

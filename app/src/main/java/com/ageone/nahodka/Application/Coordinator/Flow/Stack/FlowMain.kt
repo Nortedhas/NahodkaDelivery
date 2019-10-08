@@ -4,14 +4,13 @@ import android.graphics.Color
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
-import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
+import com.ageone.nahodka.Application.Coordinator.Flow.Regular.Application.Coordinator.Flow.Stack.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Bucket.BucketModel
-import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
 import com.ageone.nahodka.Modules.Filter.FilterModel
@@ -71,22 +70,20 @@ class FlowMain: BaseFlow() {
         var modelReview = ReviewModel()
         var moduleClientReview = ClientReviewModel()
         var moduleInfo = InfoModel()
-        var moduleBucket = BucketModel()
-        var moduleCheckout = CheckoutOrderModel()
         var moduleFilter = FilterModel()
     }
 
     private fun runModuleRestaurant() {
         val module = RestaurantView(
             InitModuleUI(
-                exitIcon = R.drawable.ic_shoping_kart,
-                exitListener = {
-                    coordinator.runFlowBucket(this)
-                }
+                firstIcon = Icon(
+                    icon = R.drawable.ic_shoping_kart,
+                    listener = {
+                        coordinator.runFlowBucket(this)
+                    }
+                )
             )
         )
-
-
 
         module.viewModel.initialize(models.modelRestaurant) { module.reload()}
 
@@ -102,22 +99,25 @@ class FlowMain: BaseFlow() {
                 RestaurantViewModel.EventType.OnFilterPressed -> {
                     runModuleFilter()
                 }
+                RestaurantViewModel.EventType.OnBannerPressed -> {
+                    runModuleRestaurantKitchen()
+                }
             }
         }
         push(module)
     }
 
-    private fun runModuleRestaurantKitchen(){
+    fun runModuleRestaurantKitchen(){
         val module = RestaurantKitchenView(
             InitModuleUI(
                 isBackPressed = true,
-                backListener = {
-                    pop()
-                },
-                exitIcon = R.drawable.ic_shoping_kart,
-                exitListener = {
-                    coordinator.runFlowBucket(this)
-                }
+                firstIcon = Icon(
+                    icon = R.drawable.ic_shoping_kart,
+                    size = 35,
+                    listener = {
+                        coordinator.runFlowBucket(this)
+                    }
+                )
             )
         )
 
@@ -144,10 +144,7 @@ class FlowMain: BaseFlow() {
         val module = ReviewView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-            isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -172,10 +169,7 @@ class FlowMain: BaseFlow() {
         val module = ClientReviewView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -190,10 +184,7 @@ class FlowMain: BaseFlow() {
         val module = InfoView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -205,14 +196,11 @@ class FlowMain: BaseFlow() {
     }
 
     private fun runModuleFilter(){
-        val module = FilterView( InitModuleUI(
+        val module = FilterView(
+            InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
-        )
-        )
+            isBackPressed = true
+        ))
 
         module.viewModel.initialize(models.moduleFilter) {module.reload()}
 

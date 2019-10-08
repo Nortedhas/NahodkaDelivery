@@ -30,7 +30,7 @@ class EntryInputViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
-            editText.textSize = 5F.dp
+            editText.textSize = 7F.dp
             editText.hint = "СМС код"
         }
         textInput

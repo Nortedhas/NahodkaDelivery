@@ -11,7 +11,6 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class StockCardViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
@@ -21,17 +20,14 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolde
         view.cornerRadius = 8.dp
         view.backgroundColor = Color.parseColor("#FFEB85")
         view.initialize()
-//        view.elevation = 5F.dp
         view
     }
 
     val imageViewPhoto by lazy {
         val imageView = BaseImageView()
-//        imageView.cornerRadius = 0.dp
         imageView.backgroundColor = Color.GRAY
         imageView.initialize()
         imageView.setOnlyTopRoundedCorners(8F.dp)
-    // 	imageView.elevation = 5F.dp
         imageView
     }
     
@@ -42,7 +38,6 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolde
         textView.textSize = 18F
         textView.textColor = Color.BLACK
         textView.setBackgroundColor(Color.TRANSPARENT)
-    // 	textView.elevation = 5F.dp
         textView
     }
     
@@ -53,7 +48,6 @@ class StockCardViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolde
         textView.textSize = 14F
         textView.textColor = Color.BLACK
         textView.setBackgroundColor(Color.TRANSPARENT)
-    // 	textView.elevation = 5F.dp
         textView
     }
 
@@ -78,7 +72,7 @@ fun StockCardViewHolder.renderUI() {
 
     viewBack
         .fillHorizontally(16)
-        .constrainTopToTopOf(constraintLayout, 16)
+        .constrainTopToTopOf(constraintLayout, 18)
 
     imageViewPhoto
         .constrainTopToTopOf(viewBack)
