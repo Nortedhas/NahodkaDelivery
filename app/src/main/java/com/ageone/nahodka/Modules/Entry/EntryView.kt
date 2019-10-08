@@ -1,6 +1,7 @@
 package com.example.ageone.Modules.Entry
 
 import android.graphics.Color
+import android.os.Build
 import android.text.InputType
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
     init {
 //        viewModel.loadRealmData()
+
 
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 

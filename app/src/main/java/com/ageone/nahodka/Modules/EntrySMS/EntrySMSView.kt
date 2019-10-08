@@ -5,11 +5,11 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Rect
 import android.text.InputType
-import android.util.DisplayMetrics
+import android.view.KeyEvent
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
-import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
@@ -24,11 +24,9 @@ import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
 import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
-import com.bumptech.glide.load.engine.Resource
 import com.example.ageone.Modules.Entry.EntryViewModel
 import timber.log.Timber
 import yummypets.com.stevia.*
-import java.math.BigDecimal
 
 class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -59,8 +57,39 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
     }
 
     init {
-//        viewModel.loadRealmData()
+//        viewModel.loadRealmData
 
+        innerContent.viewTreeObserver.addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                Timber.i("Layout change")
+
+                var rect = Rect()
+
+                var height: Float = innerContent.rootView.height.toFloat()
+
+                innerContent.getWindowVisibleDisplayFrame(rect)
+
+                var heightDiffInPixels = height - rect.height()
+
+                var heightFromUtils = utils.variable.displayHeight
+
+                var coff = heightDiffInPixels / height
+
+                var heightInDp = (coff * heightFromUtils) .toInt()
+
+                Timber.i("Coff : $coff")
+                Timber.i("Height from utils : $heightFromUtils")
+                Timber.i("Height : $height")
+                Timber.i("Different : $heightDiffInPixels")
+                Timber.i("Actual DifferentHieght in pixels toDP : $heightInDp")
+
+                if(heightInDp>100){
+                    nextButton.constrainBottomToBottomOf(innerContent, heightInDp - 56)
+                } else {
+                    nextButton.constrainBottomToBottomOf(innerContent)
+                }
+            }
+        })
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "СМС код"
@@ -135,8 +164,10 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
             when (holder) {
                 is EntrySMSEditTextViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
-                    holder.constraintLayout.setOnClickListener {
 
+                   /* holder.onStartEditText = {
+
+                            Timber.i("On start editText")
                         var rect = Rect()
 
                         var height: Float = innerContent.rootView.height.toFloat()
@@ -151,16 +182,21 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
                         var heightInDp = (coff * heightFromUtils) .toInt()
 
-                        Timber.i("Coff : $coff")
+                       /* Timber.i("Coff : $coff")
                         Timber.i("Height from utils : $heightFromUtils")
                         Timber.i("Height : $height")
                         Timber.i("Different : $heightDiffInPixels")
-                        Timber.i("Actual DifferentHieght in pixels toDP : $heightInDp")
+                        Timber.i("Actual DifferentHieght in pixels toDP : $heightInDp")*/
 
                         nextButton.constrainBottomToBottomOf(innerContent, heightInDp - 56)
 
                     }
 
+
+                    holder.onEndEditText = {
+                        Timber.i("On end editText")
+                        //nextButton.constrainBottomToBottomOf(innerContent)
+                    }*/
                 }
                 is EntrySMSTextViewHolder -> {
                     holder.initialize {
@@ -173,12 +209,10 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
     }
 
-}
-fun pxToDp(px: Float, context: Context): Float {
-    return px / (context.resources.displayMetrics.density).toFloat()
+
 }
 
-fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+
 
 fun EntrySMSView.renderUIO() {
 
