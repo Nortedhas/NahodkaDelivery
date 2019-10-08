@@ -139,7 +139,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
                         var rect = Rect()
 
-                        var height = innerContent.rootView.height
+                        var height: Float = innerContent.rootView.height.toFloat()
 
                         innerContent.getWindowVisibleDisplayFrame(rect)
 
@@ -147,16 +147,10 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
                         var heightFromUtils = utils.variable.displayHeight
 
-                        var coffInString: String = String.format("%4f", (heightDiffInPixels.toFloat() / height.toFloat()))
-
-                        coffInString.replace(",",".")
-
-                        var coff = coffInString.toFloat()
+                        var coff = heightDiffInPixels / height
 
                         var heightInDp = (coff * heightFromUtils) .toInt()
 
-
-                        Timber.i("Coff in String: $coffInString")
                         Timber.i("Coff : $coff")
                         Timber.i("Height from utils : $heightFromUtils")
                         Timber.i("Height : $height")
