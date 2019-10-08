@@ -56,7 +56,8 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "СМС код"
-        toolbar.textColor = Color.BLACK
+        toolbar.textColor = Color.WHITE
+        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
         renderToolbar()
 

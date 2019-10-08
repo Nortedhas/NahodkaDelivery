@@ -33,7 +33,7 @@ class CheckoutOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 7F.dp
         }
         textInput
     }

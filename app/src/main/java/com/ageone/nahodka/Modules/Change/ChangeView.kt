@@ -50,8 +50,8 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
 
         toolbar.title = "Смена имени"
-        toolbar.setBackgroundColor(Color.WHITE)
-        toolbar.textColor = Color.BLACK
+        toolbar.textColor = Color.WHITE
+        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
 
         renderToolbar()
