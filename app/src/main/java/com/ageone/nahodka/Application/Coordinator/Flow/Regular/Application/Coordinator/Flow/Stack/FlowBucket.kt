@@ -8,6 +8,7 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Bucket.BucketModel
 import com.ageone.nahodka.Modules.Bucket.BucketView
@@ -68,10 +69,13 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         val module = BucketView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                exitIcon = R.drawable.ic_cross,
-                exitListener = {
-                    router.onBackPressed()
-                }
+                firstIcon = Icon(
+                    icon = R.drawable.ic_cross,
+                    size = 23,
+                    listener = {
+                        router.onBackPressed()
+                    }
+                )
             )
         )
 
@@ -93,10 +97,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
     private fun runModuleCheckout(){
         val module = CheckoutOrderView( InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         )
         )
 
@@ -121,10 +122,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
     private fun runModuleComment(){
         val module = CommentView( InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         )
         )
 
@@ -138,10 +136,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
     fun runModuleWebView(url: String) {
         val module = WebView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ),url)
 
         settingsCurrentFlow.isBottomNavigationVisible = false

@@ -11,6 +11,7 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
 import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
@@ -74,10 +75,12 @@ class FlowStock : BaseFlow() {
     fun runModuleStockText() {
         val module = StockView(
             InitModuleUI(
-                exitIcon = R.drawable.ic_shoping_kart,
-                exitListener = {
-                    coordinator.runFlowBucket(this)
-                }
+                firstIcon = Icon(
+                    icon = R.drawable.ic_shoping_kart,
+                    listener = {
+                        coordinator.runFlowBucket(this)
+                    }
+                )
 
             )
         )
@@ -100,13 +103,12 @@ class FlowStock : BaseFlow() {
         val module = RestaurantKitchenView(
             InitModuleUI(
                 isBackPressed = true,
-                backListener = {
-                    pop()
-                },
-                exitIcon = R.drawable.ic_shoping_kart,
-                exitListener = {
-                    coordinator.runFlowBucket(this)
-                }
+                firstIcon = Icon(
+                    icon = R. drawable.ic_shoping_kart,
+                    listener = {
+                        coordinator.runFlowBucket(this)
+                    }
+                )
             )
         )
 
@@ -133,10 +135,7 @@ class FlowStock : BaseFlow() {
         val module = ReviewView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -161,10 +160,7 @@ class FlowStock : BaseFlow() {
         val module = ClientReviewView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 
@@ -179,10 +175,7 @@ class FlowStock : BaseFlow() {
         val module = InfoView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
+                isBackPressed = true
             )
         )
 

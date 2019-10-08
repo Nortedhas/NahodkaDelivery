@@ -79,10 +79,7 @@ class FlowAuth: BaseFlow() {
         val module = EntryView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
 
         module.viewModel.initialize(models.modelEntry) { module.reload() }
@@ -106,10 +103,7 @@ class FlowAuth: BaseFlow() {
         val module = EntrySMSView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
 
         module.viewModel.initialize(models.modelEntrySMS) { module.reload() }

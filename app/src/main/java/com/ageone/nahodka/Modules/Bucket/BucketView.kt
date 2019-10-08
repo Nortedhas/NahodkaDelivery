@@ -9,10 +9,7 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Bucket.rows.*
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -35,7 +32,6 @@ class BucketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         toolbar.title = "Корзина"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         toolbar.textColor = Color.WHITE
-        toolbar.iconExitSize = 18
 
         renderToolbar()
 

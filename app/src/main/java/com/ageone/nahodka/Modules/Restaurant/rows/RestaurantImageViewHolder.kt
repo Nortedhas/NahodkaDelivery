@@ -33,9 +33,9 @@ class RestaurantImageViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     var list = listOf(
-        R.drawable.food,
-        R.drawable.food1,
-        R.drawable.food2)
+        R.drawable.pic_sales1,
+        R.drawable.pic_sales2
+        )
 
     var foodList = listOf(list.last()) + list + listOf(list.first())
 
