@@ -216,14 +216,14 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
     imageViewInfo
         .width(27)
         .height(27)
-        .constrainBottomToBottomOf(imageViewPreview,12)
+        .constrainCenterYToCenterYOf(textViewName)
         .constrainRightToRightOf(imageViewPreview,20)
 
     imageViewOrder
         .width(14)
         .height(14)
         .constrainCenterYToCenterYOf(textViewOrder)
-        .constrainLeftToLeftOf(constraintLayout,16)
+        .constrainLeftToLeftOf(constraintLayout,23)
 
     textViewOrder
         .constrainTopToBottomOf(imageViewPreview,12)
@@ -233,7 +233,7 @@ fun RestaurantKitchenPreviewViewHolder.renderUI() {
         .width(18)
         .height(18)
         .constrainCenterYToCenterYOf(textViewTruck)
-        .constrainLeftToLeftOf(constraintLayout,17)
+        .constrainLeftToLeftOf(constraintLayout,23)
 
     textViewTruck
         .constrainTopToBottomOf(imageViewOrder,8)

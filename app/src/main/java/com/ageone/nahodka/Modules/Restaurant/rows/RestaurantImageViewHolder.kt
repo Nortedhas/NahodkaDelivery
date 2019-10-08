@@ -1,5 +1,6 @@
 package com.ageone.nahodka.Modules.Restaurant.rows
 
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +38,9 @@ class RestaurantImageViewHolder(val constraintLayout: ConstraintLayout) :
         R.drawable.food2)
 
     var foodList = listOf(list.last()) + list + listOf(list.first())
+
+    var onTap: ((Int) -> (Unit))? = null
+
 
     init {
 
@@ -98,6 +102,15 @@ class RestaurantImageViewHolder(val constraintLayout: ConstraintLayout) :
             val food = foodList[position]
 
             holder.initialize(utils.variable.displayWidth,food)
+
+            holder.constraintLayout.setOnClickListener {
+
+                holder.constraintLayout.setOnClickListener {
+                    onTap?.invoke(position)
+                }
+
+            }
+
 
             if(position == 0) {
                 holder.imageViewFood

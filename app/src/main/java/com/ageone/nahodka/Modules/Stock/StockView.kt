@@ -90,6 +90,10 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                         "Ollis Pizza",
                         "Скидка 30% на пасту")
 
+                    holder.constraintLayout.setOnClickListener {
+                        rootModule.emitEvent?.invoke(StockViewModel.EventType.OnStockPressed.toString())
+                    }
+
                 }
 
             }

@@ -8,7 +8,8 @@ class RestaurantViewModel : InterfaceViewModel{
 
     enum class EventType {
         OnRestaurantPressed,
-        OnFilterPressed
+        OnFilterPressed,
+        OnBannerPressed
     }
 
     /*var realmData = listOf<>()

@@ -63,6 +63,8 @@ fun ProfileItemViewHolder.renderUI() {
     imageViewProfile
         .constrainLeftToLeftOf(constraintLayout,16)
         .constrainTopToTopOf(textViewProfile,3)
+        .width(25)
+        .height(25)
 
     textViewProfileDescription
         .constrainTopToBottomOf(textViewProfile,5)
@@ -77,10 +79,8 @@ fun ProfileItemViewHolder.renderUI() {
 
 }
 
-fun ProfileItemViewHolder.initialize(width: Int, height: Int,image: Int, text: String, description: String) {
-    imageViewProfile
-        .width(width)
-        .height(height)
+fun ProfileItemViewHolder.initialize(image: Int, text: String, description: String) {
+
     addImageFromGlide(imageViewProfile,image,1)
     textViewProfile.text = text
     textViewProfileDescription.text = description

@@ -71,8 +71,6 @@ class FlowMain: BaseFlow() {
         var modelReview = ReviewModel()
         var moduleClientReview = ClientReviewModel()
         var moduleInfo = InfoModel()
-        var moduleBucket = BucketModel()
-        var moduleCheckout = CheckoutOrderModel()
         var moduleFilter = FilterModel()
     }
 
@@ -85,8 +83,6 @@ class FlowMain: BaseFlow() {
                 }
             )
         )
-
-
 
         module.viewModel.initialize(models.modelRestaurant) { module.reload()}
 
@@ -102,12 +98,15 @@ class FlowMain: BaseFlow() {
                 RestaurantViewModel.EventType.OnFilterPressed -> {
                     runModuleFilter()
                 }
+                RestaurantViewModel.EventType.OnBannerPressed -> {
+                    runModuleRestaurantKitchen()
+                }
             }
         }
         push(module)
     }
 
-    private fun runModuleRestaurantKitchen(){
+    fun runModuleRestaurantKitchen(){
         val module = RestaurantKitchenView(
             InitModuleUI(
                 isBackPressed = true,

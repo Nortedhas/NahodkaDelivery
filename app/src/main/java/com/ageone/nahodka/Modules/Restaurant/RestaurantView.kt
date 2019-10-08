@@ -1,10 +1,14 @@
 package com.example.ageone.Modules.Restaurant
 
 import android.graphics.Color
+import android.view.MotionEvent
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.get
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.utils
@@ -17,6 +21,7 @@ import com.ageone.nahodka.Modules.Restaurant.rows.RestaurantImageViewHolder
 import com.ageone.nahodka.Modules.Restaurant.rows.initialize
 import com.example.ageone.Modules.Restaurant.rows.RestaurantItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -108,6 +113,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
             when (holder) {
                 is RestaurantImageViewHolder -> {
                     holder.initialize()
+
+                    holder.onTap = { position ->
+                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnBannerPressed.toString())
+                    }
                 }
                 is RestaurantItemViewHolder -> {
                     holder.initialize(R.drawable.food,"Ollis Pizza",
