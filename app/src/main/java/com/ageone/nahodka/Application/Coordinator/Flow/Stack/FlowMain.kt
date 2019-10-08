@@ -4,7 +4,7 @@ import android.graphics.Color
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
-import com.ageone.nahodka.Application.Coordinator.Flow.Regular.Application.Coordinator.Flow.Stack.runFlowBucket
+import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.Application.coordinator
