@@ -135,7 +135,6 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
             when (holder) {
                 is EntrySMSEditTextViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
-
                     holder.constraintLayout.setOnClickListener {
 
                         var rect = Rect()
@@ -149,15 +148,20 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                         var heightFromUtils = utils.variable.displayHeight
 
                         var coffInString: String = String.format("%4f", (heightDiffInPixels.toFloat() / height.toFloat()))
-                        var coff: Float = coffInString.toFloat()
+
+                        coffInString.replace(",",".")
+
+                        var coff = coffInString.toFloat()
 
                         var heightInDp = (coff * heightFromUtils) .toInt()
 
+
+                        Timber.i("Coff in String: $coffInString")
                         Timber.i("Coff : $coff")
                         Timber.i("Height from utils : $heightFromUtils")
                         Timber.i("Height : $height")
                         Timber.i("Different : $heightDiffInPixels")
-                        Timber.i("Actual DifferentHieght in pexils toDP : $heightInDp")
+                        Timber.i("Actual DifferentHieght in pixels toDP : $heightInDp")
 
                         nextButton.constrainBottomToBottomOf(innerContent, heightInDp - 56)
 
