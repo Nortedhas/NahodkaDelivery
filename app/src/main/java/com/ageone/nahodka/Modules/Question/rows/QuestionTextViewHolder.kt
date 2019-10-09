@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Contact.rows
+package com.ageone.nahodka.Modules.Question.rows
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -6,7 +6,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class ContactTextViewHolder(val constraintLayout: ConstraintLayout) :
+class QuestionTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textViewContact by lazy {
@@ -30,7 +30,7 @@ class ContactTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun ContactTextViewHolder.renderUI() {
+fun QuestionTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewContact,
         textViewNumber
@@ -46,7 +46,7 @@ fun ContactTextViewHolder.renderUI() {
 
 }
 
-fun ContactTextViewHolder.initialize(number: String) {
+fun QuestionTextViewHolder.initialize(number: String) {
 
     textViewNumber.text = number
 }

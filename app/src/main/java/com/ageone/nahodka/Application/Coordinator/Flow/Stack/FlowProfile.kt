@@ -19,8 +19,8 @@ import com.ageone.nahodka.Modules.Change.ChangeViewModel
 import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSModel
 import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSView
 import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSViewModel
-import com.ageone.nahodka.Modules.Contact.ContactModel
-import com.ageone.nahodka.Modules.Contact.ContactView
+import com.ageone.nahodka.Modules.Question.QuestionModel
+import com.ageone.nahodka.Modules.Question.QuestionView
 import com.ageone.nahodka.Modules.ProfileOrderList.ProfileListModel
 import com.ageone.nahodka.Modules.ProfileOrderList.ProfileListView
 import com.ageone.nahodka.Modules.Profile.ProfileModel
@@ -65,7 +65,7 @@ class FlowProfile : BaseFlow() {
     inner class FlowProfileModels {
         var modelProfileTest = ProfileModel()
         var moduleMyOrder = ProfileListModel()
-        var moduleContact= ContactModel()
+        var moduleContact= QuestionModel()
         var moduleChange = ChangeModel()
         var moduleChangeSMS = ChangeSMSModel()
     }
@@ -118,7 +118,7 @@ class FlowProfile : BaseFlow() {
     }
 
     fun runModuleContact(){
-        val module = ContactView(
+        val module = QuestionView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
                 isBackPressed = true

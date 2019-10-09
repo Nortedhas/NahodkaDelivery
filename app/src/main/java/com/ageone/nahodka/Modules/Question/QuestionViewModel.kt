@@ -1,11 +1,10 @@
-package com.ageone.nahodka.Modules.Contact
+package com.ageone.nahodka.Modules.Question
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class ContactViewModel : InterfaceViewModel {
-    var model = ContactModel()
+class QuestionViewModel : InterfaceViewModel {
+    var model = QuestionModel()
 
     enum class EventType {
 
@@ -17,13 +16,13 @@ class ContactViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ContactModel) {
+        if (recievedModel is QuestionModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ContactModel : InterfaceModel {
+class QuestionModel : InterfaceModel {
 
 }
