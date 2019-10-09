@@ -1,11 +1,10 @@
-package com.ageone.nahodka.Modules.MyOrder
+package com.ageone.nahodka.Modules.ProfileOrderList
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class MyOrderViewModel : InterfaceViewModel {
-    var model = MyOrderModel()
+class ProfileListViewModel : InterfaceViewModel {
+    var model = ProfileListModel()
 
     enum class EventType {
 
@@ -17,13 +16,13 @@ class MyOrderViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is MyOrderModel) {
+        if (recievedModel is ProfileListModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class MyOrderModel : InterfaceModel {
+class ProfileListModel : InterfaceModel {
 
 }

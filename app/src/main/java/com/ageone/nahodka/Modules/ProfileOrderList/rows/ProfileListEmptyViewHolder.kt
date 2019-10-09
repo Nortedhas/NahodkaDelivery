@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.MyOrder.rows
+package com.ageone.nahodka.Modules.ProfileOrderList.rows
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,7 +9,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
-class MyOrderEmptyViewHolder(val constraintLayout: ConstraintLayout) :
+class ProfileListEmptyViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textViewEmpty by lazy {
@@ -32,7 +32,7 @@ class MyOrderEmptyViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun MyOrderEmptyViewHolder.renderUI() {
+fun ProfileListEmptyViewHolder.renderUI() {
     constraintLayout.subviews(
         imageViewTurtle,
         textViewEmpty
@@ -51,7 +51,7 @@ fun MyOrderEmptyViewHolder.renderUI() {
 
 }
 
-fun MyOrderEmptyViewHolder.initialize(text: String, image: Int) {
+fun ProfileListEmptyViewHolder.initialize(text: String, image: Int) {
 
     textViewEmpty.text = text
     addImageFromGlide(imageViewTurtle,image,0)

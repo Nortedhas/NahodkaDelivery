@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.MyOrder.rows
+package com.ageone.nahodka.Modules.ProfileOrderList.rows
 
 import android.graphics.Color
 import android.view.View
@@ -14,7 +14,7 @@ import com.ageone.nahodka.External.Base.View.BaseView
 
 import yummypets.com.stevia.*
 
-class MyOrderTextViewHolder(val constraintLayout: ConstraintLayout) :
+class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textViewOrderDate by lazy {
@@ -86,22 +86,22 @@ class MyOrderTextViewHolder(val constraintLayout: ConstraintLayout) :
         renderUI()
     }
 
-    inner class Factory: RecyclerView.Adapter<MyOrderTextItemViewHolder>(){
+    inner class Factory: RecyclerView.Adapter<ProfileListTextItemViewHolder>(){
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): MyOrderTextItemViewHolder {
+        ): ProfileListTextItemViewHolder {
 
             val layout = ConstraintLayout(parent.context)
             layout.width(matchParent)
                   .height(wrapContent)
 
-            return MyOrderTextItemViewHolder(layout)
+            return ProfileListTextItemViewHolder(layout)
         }
 
         override fun getItemCount(): Int = dishList.size
 
-        override fun onBindViewHolder(holder: MyOrderTextItemViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ProfileListTextItemViewHolder, position: Int) {
             var dish = dishList[position]
             holder.initialize(dish)
         }
@@ -110,7 +110,7 @@ class MyOrderTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun MyOrderTextViewHolder.renderUI() {
+fun ProfileListTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewOrderDate,
         textViewCity,
@@ -152,7 +152,7 @@ fun MyOrderTextViewHolder.renderUI() {
 
 }
 
-fun MyOrderTextViewHolder.initialize(date: String, city: String, address: String, restaurantName: String, amount: String) {
+fun ProfileListTextViewHolder.initialize(date: String, city: String, address: String, restaurantName: String, amount: String) {
     textViewOrderDate.text = "Заказ от $date"
     textViewCity.text = "Адрес доставки: г. $city"
     textViewAddress.text = address
