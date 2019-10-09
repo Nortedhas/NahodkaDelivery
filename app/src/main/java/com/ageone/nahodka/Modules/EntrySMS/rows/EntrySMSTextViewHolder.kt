@@ -2,24 +2,11 @@ package com.example.ageone.Modules.EntrySMS.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.InputType
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.Gravity
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.updateMargins
 import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.Application.utils
-import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
-import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
-import com.ageone.nahodka.Models.User.user
-import com.example.ageone.Modules.Entry.EntryViewModel
-import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 import java.text.SimpleDateFormat
 import java.util.*

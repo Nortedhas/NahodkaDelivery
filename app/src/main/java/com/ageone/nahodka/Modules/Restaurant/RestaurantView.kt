@@ -33,6 +33,8 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         viewAdapter
     }
 
+    var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
+
     val imageViewFAB by lazy {
         val imageView = BaseImageView()
         imageView.setBackgroundColor(Color.TRANSPARENT)
@@ -110,6 +112,8 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
             var isStarPressed = false
+            var food = foodList[position]
+
             when (holder) {
                 is RestaurantImageViewHolder -> {
                     holder.initialize()
@@ -119,7 +123,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     }
                 }
                 is RestaurantItemViewHolder -> {
-                    holder.initialize(R.drawable.food,"Ollis Pizza",
+                    holder.initialize(food,"Ollis Pizza",
                         "Итальянская, Мексиканская, Кавказ...",
                         "Заказ от 600 руб.", R.drawable.ic_star,"4.0",
                         utils.variable.displayWidth.toFloat())

@@ -1,7 +1,6 @@
 package com.example.ageone.Modules.Entry
 
 import android.graphics.Color
-import android.os.Build
 import android.text.InputType
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +13,14 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.R
-import com.example.ageone.Modules.Entry.rows.EntryEditTextViewHolder
-import com.example.ageone.Modules.Entry.rows.EntryTextViewHolder
+import com.example.ageone.Modules.Entry.rows.RegistrationEditTextViewHolder
+import com.example.ageone.Modules.Entry.rows.RegistrationTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
 import yummypets.com.stevia.*
 
-class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = EntryViewModel()
+    val viewModel = RegistrationViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -37,7 +36,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         button.textSize = 20F
         button.cornerRadius = 0
         button.setOnClickListener {
-            emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
+            emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.toString())
         }
          //   button.visibility = View.GONE
         button
@@ -93,10 +92,10 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
             val holder = when (viewType) {
                 EntryEditTextViewHolderType -> {
-                    EntryEditTextViewHolder(layout)
+                    RegistrationEditTextViewHolder(layout)
                 }
                 EntryTextViewHolderType -> {
-                    EntryTextViewHolder(layout)
+                    RegistrationTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -110,7 +109,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
             when (holder) {
 
-                is EntryEditTextViewHolder-> {
+                is RegistrationEditTextViewHolder-> {
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
@@ -127,7 +126,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                     }
                 }
 
-                is EntryTextViewHolder -> {
+                is RegistrationTextViewHolder -> {
                     holder.initialize()
                 }
 
@@ -139,7 +138,7 @@ class EntryView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
 }
 
-fun EntryView.renderUIO() {
+fun RegistrationView.renderUIO() {
 
     innerContent.fitsSystemWindows = true
 

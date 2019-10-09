@@ -8,9 +8,9 @@ import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.InitModuleUI
-import com.example.ageone.Modules.Entry.EntryModel
-import com.example.ageone.Modules.Entry.EntryView
-import com.example.ageone.Modules.Entry.EntryViewModel
+import com.example.ageone.Modules.Entry.RegistrationModel
+import com.example.ageone.Modules.Entry.RegistrationView
+import com.example.ageone.Modules.Entry.RegistrationViewModel
 import com.example.ageone.Modules.EntrySMS.EntrySMSModel
 import com.example.ageone.Modules.EntrySMS.EntrySMSView
 import com.example.ageone.Modules.EntrySMS.EntrySMSViewModel
@@ -53,7 +53,7 @@ class FlowAuth: BaseFlow() {
     inner class FlowAuthModels {
 //        var modelMap = MapModel()
         var modelStart = StartModel()
-        var modelEntry = EntryModel()
+        var modelEntry = RegistrationModel()
         var modelEntrySMS = EntrySMSModel()
 
     }
@@ -76,7 +76,7 @@ class FlowAuth: BaseFlow() {
 
 
     fun runEntryModule(){
-        val module = EntryView(InitModuleUI(
+        val module = RegistrationView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = false,
             isBackPressed = true
@@ -87,8 +87,8 @@ class FlowAuth: BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
-            when(EntryViewModel.EventType.valueOf(event)){
-                EntryViewModel.EventType.OnNextPressed ->{
+            when(RegistrationViewModel.EventType.valueOf(event)){
+                RegistrationViewModel.EventType.OnNextPressed ->{
                     runEntrySMSModule()
 
                 }

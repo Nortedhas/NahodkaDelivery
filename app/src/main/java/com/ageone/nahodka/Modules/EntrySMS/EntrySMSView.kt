@@ -1,19 +1,12 @@
 package com.example.ageone.Modules.EntrySMS
 
-import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.Rect
 import android.text.InputType
-import android.view.KeyEvent
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
-import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -26,8 +19,7 @@ import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
 import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
-import com.example.ageone.Modules.Entry.EntryViewModel
-import timber.log.Timber
+import com.example.ageone.Modules.Entry.RegistrationViewModel
 import yummypets.com.stevia.*
 
 class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -53,7 +45,7 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         button.setOnClickListener {
             user.isAuthorized = true
             isNext = false
-            emitEvent?.invoke(EntryViewModel.EventType.OnNextPressed.toString())
+            emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.toString())
         }
         button
     }

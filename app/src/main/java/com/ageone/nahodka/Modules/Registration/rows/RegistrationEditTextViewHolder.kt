@@ -14,7 +14,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 import yummypets.com.stevia.*
 
-class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+class RegistrationEditTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val phoneTextView by lazy {
@@ -64,7 +64,7 @@ class EntryEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun EntryEditTextViewHolder.renderUI() {
+fun RegistrationEditTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL
 
@@ -76,7 +76,7 @@ fun EntryEditTextViewHolder.renderUI() {
 
 }
 
-fun EntryEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun RegistrationEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
     textInputL.hint = hint
     textInputL.defineType(type)
 

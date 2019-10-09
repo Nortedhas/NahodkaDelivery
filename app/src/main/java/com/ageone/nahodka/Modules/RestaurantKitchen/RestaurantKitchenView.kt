@@ -25,6 +25,8 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
         viewAdapter
     }
 
+    var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
+
     init {
 //        viewModel.loadRealmData()
 
@@ -96,11 +98,12 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             var isStarPressed = false
+            var food = foodList[position]
 
             when (holder) {
                 is RestaurantKitchenPreviewViewHolder -> {
                     holder.initialize(
-                        R.drawable.food,
+                        food,
                         "Ollis Pizza",
                         "600",
                         "00:00 - 23:50",
@@ -130,7 +133,7 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 is RestaurantKitchenCardViewHolder -> {
                     holder.initialize(
-                        R.drawable.food,
+                        food,
                         "Пицца классическая",
                         "450",
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ")

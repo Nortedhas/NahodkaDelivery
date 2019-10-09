@@ -3,8 +3,8 @@ package com.example.ageone.Modules.Entry
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class EntryViewModel : InterfaceViewModel {
-    var model = EntryModel()
+class RegistrationViewModel : InterfaceViewModel {
+    var model = RegistrationModel()
 
     enum class EventType {
 
@@ -17,13 +17,13 @@ class EntryViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is EntryModel) {
+        if (recievedModel is RegistrationModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class EntryModel : InterfaceModel {
+class RegistrationModel : InterfaceModel {
 
 }

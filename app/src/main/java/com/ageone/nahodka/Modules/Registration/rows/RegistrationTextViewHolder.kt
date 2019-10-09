@@ -12,7 +12,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
 
-class EntryTextViewHolder(val constraintLayout: ConstraintLayout) :
+class RegistrationTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
@@ -33,7 +33,7 @@ class EntryTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun EntryTextViewHolder.renderUI() {
+fun RegistrationTextViewHolder.renderUI() {
     constraintLayout.setBackgroundColor(Color.WHITE)
 
     constraintLayout.subviews(
@@ -47,7 +47,7 @@ fun EntryTextViewHolder.renderUI() {
 
 }
 
-fun EntryTextViewHolder.initialize() {
+fun RegistrationTextViewHolder.initialize() {
     val text = "Нажимая на кнопку “Далее”, я соглашаюсь с данными"
     val declaration = " пользовательского соглашения"
 
