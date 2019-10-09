@@ -20,10 +20,7 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
 
         val marginHeight = ((((height - rect.height()) / height ) * utils.variable.displayHeight).toInt()) - 56
 
-        if (marginHeight > 100) {
-            button.constrainBottomToBottomOf(this, marginHeight)
-        } else {
-            button.constrainBottomToBottomOf(this)
-        }
+        if (marginHeight > 100) button.constrainBottomToBottomOf(this, marginHeight)
+        else button.constrainBottomToBottomOf(this)
     }
 }
