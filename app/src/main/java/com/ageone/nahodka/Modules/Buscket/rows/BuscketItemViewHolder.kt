@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Bucket.rows
+package com.ageone.nahodka.Modules.Buscket.rows
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -10,7 +10,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
-class BucketItemViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketItemViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     var count = 1
@@ -79,7 +79,7 @@ class BucketItemViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun BucketItemViewHolder.renderUI() {
+fun BuscketItemViewHolder.renderUI() {
     constraintLayout.subviews(
         imageViewDish,
         textViewDishName,
@@ -128,7 +128,7 @@ fun BucketItemViewHolder.renderUI() {
         .constrainRightToLeftOf(imageViewPlus,10)
 }
 
-fun BucketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, restaurant: String, price: Int) {
+fun BuscketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, restaurant: String, price: Int) {
 
     imageViewDish
         .width(utils.tools.getActualSizeFromDes(132))

@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Bucket.rows
+package com.ageone.nahodka.Modules.Buscket.rows
 
 import android.graphics.Color
 import android.view.Gravity
@@ -10,7 +10,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
-class BucketEmptyViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketEmptyViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textViewEmpty by lazy {
@@ -37,7 +37,7 @@ class BucketEmptyViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun BucketEmptyViewHolder.renderUI() {
+fun BuscketEmptyViewHolder.renderUI() {
     constraintLayout.subviews(
         imageViewTurtle,
         textViewEmpty
@@ -56,7 +56,7 @@ fun BucketEmptyViewHolder.renderUI() {
 
 }
 
-fun BucketEmptyViewHolder.initialize(image: Int) {
+fun BuscketEmptyViewHolder.initialize(image: Int) {
 
     addImageFromGlide(imageViewTurtle,image,0)
 }

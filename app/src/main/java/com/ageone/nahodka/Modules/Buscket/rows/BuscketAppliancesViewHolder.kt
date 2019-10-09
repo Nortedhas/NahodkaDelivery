@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Bucket.rows
+package com.ageone.nahodka.Modules.Buscket.rows
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,7 +9,7 @@ import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
 
-class BucketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     var appliancesCount = 1
@@ -65,7 +65,7 @@ class BucketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun BucketAppliancesViewHolder.renderUI() {
+fun BuscketAppliancesViewHolder.renderUI() {
     constraintLayout.subviews(
         separatorTop,
         textViewAppliances,
@@ -107,7 +107,7 @@ fun BucketAppliancesViewHolder.renderUI() {
 
 }
 
-fun BucketAppliancesViewHolder.initialize() {
+fun BuscketAppliancesViewHolder.initialize() {
 
     textViewCount.text = appliancesCount.toString()
 

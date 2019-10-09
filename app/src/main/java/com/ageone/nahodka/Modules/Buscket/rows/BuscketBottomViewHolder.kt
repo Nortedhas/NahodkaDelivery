@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Bucket.rows
+package com.ageone.nahodka.Modules.Buscket.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -9,7 +9,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
-class BucketBottomViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketBottomViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textViewTotal by lazy {
@@ -52,7 +52,7 @@ class BucketBottomViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun BucketBottomViewHolder.renderUI() {
+fun BuscketBottomViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewTotal,
         textViewCount,
@@ -79,7 +79,7 @@ fun BucketBottomViewHolder.renderUI() {
         .constrainCenterXToCenterXOf(buttonCheckout)
 }
 
-fun BucketBottomViewHolder.initialize(total: Int) {
+fun BuscketBottomViewHolder.initialize(total: Int) {
 
     textViewCount.text = "${total.toString()} руб."
 }

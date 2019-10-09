@@ -10,9 +10,9 @@ import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Bucket.BucketModel
-import com.ageone.nahodka.Modules.Bucket.BucketView
-import com.ageone.nahodka.Modules.Bucket.BucketViewModel
+import com.ageone.nahodka.Modules.Buscket.BuscketModel
+import com.ageone.nahodka.Modules.Buscket.BuscketView
+import com.ageone.nahodka.Modules.Buscket.BuscketViewModel
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderModel
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderView
 import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderViewModel
@@ -61,13 +61,13 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
     }
 
     inner class FlowBucketModels {
-        var modelBucket = BucketModel()
+        var modelBucket = BuscketModel()
         var modelCheckout = CheckoutOrderModel()
         var modelComment = CommentModel()
     }
 
     fun runModuleBucket() {
-        val module = BucketView(
+        val module = BuscketView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
                 firstIcon = Icon(
@@ -83,8 +83,8 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         module.viewModel.initialize(models.modelBucket) {module.reload()}
 
         module.emitEvent = { event ->
-            when(BucketViewModel.EventType.valueOf(event)){
-                BucketViewModel.EventType.OnCheckPressed -> {
+            when(BuscketViewModel.EventType.valueOf(event)){
+                BuscketViewModel.EventType.OnCheckPressed -> {
                     runModuleCheckout()
                 }
             }

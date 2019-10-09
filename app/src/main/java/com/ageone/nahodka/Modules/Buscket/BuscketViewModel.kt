@@ -1,10 +1,10 @@
-package com.ageone.nahodka.Modules.Bucket
+package com.ageone.nahodka.Modules.Buscket
 
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class BucketViewModel : InterfaceViewModel {
-    var model = BucketModel()
+class BuscketViewModel : InterfaceViewModel {
+    var model = BuscketModel()
 
     enum class EventType {
 
@@ -17,13 +17,13 @@ class BucketViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is BucketModel) {
+        if (recievedModel is BuscketModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class BucketModel : InterfaceModel {
+class BuscketModel : InterfaceModel {
 
 }
