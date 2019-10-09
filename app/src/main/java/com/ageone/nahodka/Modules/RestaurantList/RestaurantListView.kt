@@ -38,6 +38,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         imageView.setOnClickListener {
             emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.toString())
         }
+
         imageView
     }
 

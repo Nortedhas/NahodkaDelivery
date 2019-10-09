@@ -42,7 +42,7 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     init {
 //        viewModel.loadRealmData()
 
-        innerContent.setButtonAboveKeyboard(nextButton)
+//        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
 
@@ -124,7 +124,6 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 }
 
 fun ChangeView.renderUIO() {
-    innerContent.fitsSystemWindows = true
 
     innerContent.subviews(
         bodyTable,

@@ -53,7 +53,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
     init {
 //        viewModel.loadRealmData
 
-        innerContent.setButtonAboveKeyboard(nextButton)
+//        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "СМС код"
@@ -142,10 +142,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
 
 fun SMSView.renderUIO() {
-
-    //innerContent.fitsSystemWindows = true
-
-
     innerContent.subviews(
         bodyTable,
         nextButton

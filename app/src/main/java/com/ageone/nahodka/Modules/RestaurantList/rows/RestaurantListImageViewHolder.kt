@@ -17,12 +17,14 @@ import timber.log.Timber
 import yummypets.com.stevia.*
 import java.util.*
 import kotlin.concurrent.schedule
+import com.ageone.nahodka.External.Base.RecyclerView.NonscrollRecylerView
+
 
 class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val recyclerViewImage by lazy {
-        val recyclerView = BaseRecyclerView()
+        val recyclerView = NonscrollRecylerView()
         recyclerView
     }
 
@@ -97,7 +99,7 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
         override fun onBindViewHolder(holder: RestaurantImageItemViewHolder, position: Int) {
             val food = foodList[position]
 
-            holder.initialize(utils.variable.displayWidth,food)
+            holder.initialize(utils.variable.displayWidth, food)
 
             holder.constraintLayout.setOnClickListener {
 
@@ -108,7 +110,7 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
             }
 
 
-            if(position == 0) {
+            if (position == 0) {
                 holder.imageViewFood
                     .constrainLeftToLeftOf(holder.constraintLayout)
             }

@@ -46,7 +46,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
     init {
 //        viewModel.loadRealmData()
 
-        innerContent.setButtonAboveKeyboard(nextButton)
+//        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "Регистрация"
@@ -140,8 +140,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 }
 
 fun RegistrationView.renderUIO() {
-
-    innerContent.fitsSystemWindows = true
 
     innerContent.subviews(
         bodyTable,
