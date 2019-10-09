@@ -1,6 +1,8 @@
 package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -15,6 +17,8 @@ import yummypets.com.stevia.*
 
 class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
+
+    var onTapFrame: (() -> (Unit))? = null
 
     val editTextPhone by lazy {
         val editText = BaseTextInputLayout()
@@ -72,6 +76,22 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 5F.dp
             editText.maxLines = 3
+
+            editText.addTextChangedListener(object: TextWatcher{
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    onTapFrame?.invoke()
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+            })
         }
 
         editText

@@ -78,6 +78,7 @@ class FlowMain: BaseFlow() {
             InitModuleUI(
                 firstIcon = Icon(
                     icon = R.drawable.ic_shoping_kart,
+                    size = 35,
                     listener = {
                         coordinator.runFlowBucket(this)
                     }

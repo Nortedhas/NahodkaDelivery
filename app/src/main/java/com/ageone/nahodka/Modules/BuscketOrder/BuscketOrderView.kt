@@ -119,16 +119,14 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.initialize("Адрес доставки", InputEditTextType.TEXT)
                 }
                 is BuscketOrderEditTextViewHolder -> {
-                   /* val hint = hintList[position-1]
-                    val type = typeList[position-1]*/
 
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
                 }
                 is BuscketOrderPhoneViewHolder -> {
                     holder.initialize("Телефон", "Комментарий к заказу")
-                    holder.editTextComment.setOnClickListener{
-                        rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCommentPressed.toString())
-                    }
+                        holder.onTapFrame = {
+                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCommentPressed.toString())
+                        }
                 }
                 is BuscketOrderBottomViewHolder -> {
                     holder.initialize(162,50, "Способ оплаты")
