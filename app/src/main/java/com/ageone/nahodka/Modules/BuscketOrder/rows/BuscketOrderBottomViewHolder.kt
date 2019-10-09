@@ -2,6 +2,8 @@ package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +22,8 @@ import yummypets.com.stevia.*
 class BuscketOrderBottomViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
+    var onTap: (() -> (Unit))? = null
+
     val editTextPay by lazy {
         val editText = BaseTextInputLayout()
 
@@ -37,11 +41,13 @@ class BuscketOrderBottomViewHolder(val constraintLayout: ConstraintLayout) :
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
         editText.defineType(InputEditTextType.TEXT)
 
-
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 7F.dp
+            editText.textSize = 6F.dp
             editText.maxLines = 1
+            editText.setOnClickListener {
+                onTap?.invoke()
+            }
         }
 
         editText

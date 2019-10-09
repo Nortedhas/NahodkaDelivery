@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -27,25 +28,21 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         viewAdapter
     }
 
-    val nextButton by lazy { //TODO: переместить UI
+    val nextButton by lazy {
         val button = BaseButton()
         button.setBackgroundColor(Color.parseColor("#09D0B8"))
         button.text = "Далее"
         button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
-        button.height(56)
         button.cornerRadius = 0
-        button.setOnClickListener {
-            emitEvent?.invoke(ChangeViewModel.EventType.OnNextPressed.toString())
-        }
-        //   button.visibility = View.GONE
         button
     }
 
     init {
 //        viewModel.loadRealmData()
 
+        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
 
@@ -146,6 +143,11 @@ fun ChangeView.renderUIO() {
     nextButton
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
+        .height(56)
+        .setOnClickListener {
+            emitEvent?.invoke(ChangeViewModel.EventType.OnNextPressed.toString())
+        }
+
 
 }
 
