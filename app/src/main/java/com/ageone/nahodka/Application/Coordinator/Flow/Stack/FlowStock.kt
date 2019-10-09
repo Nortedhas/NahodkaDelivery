@@ -20,9 +20,9 @@ import com.ageone.nahodka.Modules.Info.InfoView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantModel
 import com.ageone.nahodka.Modules.Restaurant.RestaurantView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantViewModel
-import com.ageone.nahodka.Modules.Review.ReviewModel
-import com.ageone.nahodka.Modules.Review.ReviewView
-import com.ageone.nahodka.Modules.Review.ReviewViewModel
+import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkModel
+import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkView
+import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkViewModel
 import com.ageone.nahodka.Modules.Stock.StockModel
 import com.ageone.nahodka.Modules.Stock.StockView
 import com.ageone.nahodka.Modules.Stock.StockViewModel
@@ -67,7 +67,7 @@ class FlowStock : BaseFlow() {
     inner class FlowStockModels {
         var moduleStockText = StockModel()
         var modelRestaurantKitchen = RestaurantModel()
-        var modelReview = ReviewModel()
+        var modelReview = RestaurantMarkModel()
         var moduleClientReview = ClientReviewModel()
         var moduleInfo = InfoModel()
     }
@@ -132,7 +132,7 @@ class FlowStock : BaseFlow() {
     }
 
     private fun runModuleReview(){
-        val module = ReviewView(
+        val module = RestaurantMarkView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
                 isBackPressed = true
@@ -144,8 +144,8 @@ class FlowStock : BaseFlow() {
         module.emitEvent = { event ->
             models.modelReview = module.viewModel.model
 
-            when(ReviewViewModel.EventType.valueOf(event)) {
-                ReviewViewModel.EventType.OnCommentPressed -> {
+            when(RestaurantMarkViewModel.EventType.valueOf(event)) {
+                RestaurantMarkViewModel.EventType.OnCommentPressed -> {
                     runModuleClientReview()
                 }
             }

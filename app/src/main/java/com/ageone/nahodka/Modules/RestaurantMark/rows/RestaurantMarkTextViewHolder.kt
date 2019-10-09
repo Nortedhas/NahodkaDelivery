@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Review.rows
+package com.ageone.nahodka.Modules.RestaurantMark.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -9,7 +9,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
 
-class ReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
+class RestaurantMarkTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
 
@@ -64,7 +64,7 @@ class ReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun ReviewTextViewHolder.renderUI() {
+fun RestaurantMarkTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewName,
         imageViewStar,
@@ -105,7 +105,7 @@ fun ReviewTextViewHolder.renderUI() {
 
 }
 
-fun ReviewTextViewHolder.initialize(name: String, rating: String, commentCount: Int) {
+fun RestaurantMarkTextViewHolder.initialize(name: String, rating: String, commentCount: Int) {
 
     textViewName.text = name
     textViewRating.text = rating

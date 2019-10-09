@@ -1,11 +1,10 @@
-package com.ageone.nahodka.Modules.Review
+package com.ageone.nahodka.Modules.RestaurantMark
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class ReviewViewModel : InterfaceViewModel {
-    var model = ReviewModel()
+class RestaurantMarkViewModel : InterfaceViewModel {
+    var model = RestaurantMarkModel()
 
     enum class EventType {
 
@@ -19,13 +18,13 @@ class ReviewViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ReviewModel) {
+        if (recievedModel is RestaurantMarkModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ReviewModel : InterfaceModel {
+class RestaurantMarkModel : InterfaceModel {
 
 }

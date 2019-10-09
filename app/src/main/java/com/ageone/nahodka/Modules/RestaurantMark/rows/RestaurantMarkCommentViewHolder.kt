@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Review.rows
+package com.ageone.nahodka.Modules.RestaurantMark.rows
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -10,7 +10,7 @@ import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
 
-class ReviewCommentViewHolder(val constraintLayout: ConstraintLayout) :
+class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val separator by lazy {
@@ -62,7 +62,7 @@ class ReviewCommentViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun ReviewCommentViewHolder.renderUI() {
+fun RestaurantMarkCommentViewHolder.renderUI() {
     constraintLayout.subviews(
         separator,
         textViewName,
@@ -104,7 +104,7 @@ fun ReviewCommentViewHolder.renderUI() {
 
 }
 
-fun ReviewCommentViewHolder.initialize(name: String, rating: String,date: String, comment: String) {
+fun RestaurantMarkCommentViewHolder.initialize(name: String, rating: String, date: String, comment: String) {
     textViewName.text = name
     textViewRating.text = rating
     textViewDate.text = date

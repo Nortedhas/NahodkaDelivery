@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.RestaurantKitchen
+package com.ageone.nahodka.Modules.RestaurantMark
 
 import android.graphics.Color
 import android.view.ViewGroup
@@ -9,32 +9,29 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.RestaurantKitchen.rows.*
+import com.ageone.nahodka.Modules.RestaurantMark.rows.RestaurantMarkCommentViewHolder
+import com.ageone.nahodka.Modules.RestaurantMark.rows.RestaurantMarkTextViewHolder
+import com.ageone.nahodka.Modules.RestaurantMark.rows.initialize
 import yummypets.com.stevia.*
 
+class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
-    BaseModule(initModuleUI) {
-
-    val viewModel = RestaurantKitchenViewModel()
+    val viewModel = RestaurantMarkViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
 
-    var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
-
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)
+        setBackgroundResource(R.drawable.back_white)//TODO: set background
 
-        toolbar.title = "Ollias Pizza"
+        toolbar.title = "Отзывы"
         toolbar.textColor = Color.WHITE
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
+
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
@@ -55,18 +52,14 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RestaurantKitchenPreviewType = 0
-
-        private val RestaurantKitchenTextType = 1
-
-        private val RestaurantKitchenCardType = 3
+        private val RestaurantMarkTextType = 0
+        private val RestaurantMarkCommentType = 1
 
         override fun getItemCount() = 6//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RestaurantKitchenPreviewType
-            1 -> RestaurantKitchenTextType
-            else -> RestaurantKitchenCardType
+            0 -> RestaurantMarkTextType
+            else -> RestaurantMarkCommentType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -78,14 +71,11 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                RestaurantKitchenPreviewType -> {
-                    RestaurantKitchenPreviewViewHolder(layout)
+                RestaurantMarkTextType -> {
+                    RestaurantMarkTextViewHolder(layout)
                 }
-                RestaurantKitchenTextType -> {
-                    RestaurantKitchenTextViewHolder(layout)
-                }
-                RestaurantKitchenCardType -> {
-                    RestaurantKitchenCardViewHolder(layout)
+                RestaurantMarkCommentType -> {
+                    RestaurantMarkCommentViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -98,45 +88,32 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             var isStarPressed = false
-            var food = foodList[position]
-
             when (holder) {
-                is RestaurantKitchenPreviewViewHolder -> {
-                    holder.initialize(
-                        food,
-                        "Ollis Pizza",
-                        "600",
-                        "00:00 - 23:50",
-                        "800",
-                        "бесплатно",
-                        "4.0",
-                        "18")
-                    holder.imageViewInfo.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantKitchenViewModel.EventType.OnInfoPressed.toString())
-                    }
-                    holder.textViewReview.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantKitchenViewModel.EventType.OnReviewPressed.toString())
-                    }
+                is RestaurantMarkTextViewHolder -> {
+                    holder.initialize("Ollis Pizza", "4.0", itemCount)
                     holder.imageViewStar.setOnClickListener {
                         if(!isStarPressed) {
                             holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
                             isStarPressed = true
-                        } else {
+                        }else {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
+                            isStarPressed = false
+                        }                    }
+                    holder.imageViewComment.setOnClickListener {
+                        rootModule.emitEvent?.invoke(RestaurantMarkViewModel.EventType.OnCommentPressed.toString())
+                    }
+                }
+                is RestaurantMarkCommentViewHolder -> {
+                    holder.initialize("Анастасия", "4.0", "7 мая 2019", "Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан")
+                    holder.imageViewStar.setOnClickListener {
+                        if(!isStarPressed) {
+                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
+                            isStarPressed = true
+                        }else {
                             holder.imageViewStar.setImageResource(R.drawable.ic_star)
                             isStarPressed = false
                         }
                     }
-                }
-                is RestaurantKitchenTextViewHolder -> {
-                    holder.initialize()
-
-                }
-                is RestaurantKitchenCardViewHolder -> {
-                    holder.initialize(
-                        food,
-                        "Пицца классическая",
-                        "450",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ")
                 }
 
             }
@@ -147,8 +124,7 @@ class RestaurantKitchenView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
 }
 
-fun RestaurantKitchenView.renderUIO() {
-
+fun RestaurantMarkView.renderUIO() {
     innerContent.subviews(
         bodyTable
     )
@@ -160,7 +136,7 @@ fun RestaurantKitchenView.renderUIO() {
         .updatePadding(bottom = 24.dp)
 
     bodyTable
-        .clipToPadding = false
-}
+        .clipToPadding = false}
+
 
 
