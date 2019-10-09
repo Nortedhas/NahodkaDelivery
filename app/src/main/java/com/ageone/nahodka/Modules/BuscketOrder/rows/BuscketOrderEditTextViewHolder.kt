@@ -31,7 +31,7 @@ class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 6F.dp
+            editText.textSize = 5F.dp
         }
         textInput
     }

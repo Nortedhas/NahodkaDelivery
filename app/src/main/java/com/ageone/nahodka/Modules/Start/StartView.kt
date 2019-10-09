@@ -19,7 +19,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         textView.textSize = 25F
         textView.gravity = Gravity.CENTER
         textView.setBackgroundColor(Color.TRANSPARENT)
-        textView.text = "Находка"
+        textView.text = "Название"
         textView.typeface = Typeface.DEFAULT_BOLD
 
         textView
@@ -32,7 +32,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         textView.textSize = 20F
         textView.gravity = Gravity.CENTER_HORIZONTAL
         textView.setBackgroundColor(Color.TRANSPARENT)
-        textView.text = "Мы не за горами"
+        textView.text = "Лучшая доставка Находки"
 
         textView
 
@@ -40,7 +40,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
 
     init {
-        setBackgroundResource(R.drawable.back_start)//TODO: set background
+        setBackgroundResource(R.drawable.back_start)
         renderUIO()
     }
 

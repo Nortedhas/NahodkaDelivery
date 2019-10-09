@@ -16,7 +16,14 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
     val viewModel = BuscketViewModel()
 
-    var dishImage = listOf(R.drawable.dish1, R.drawable.dish2, R.drawable.dish3, R.drawable.dish1, R.drawable.dish2, R.drawable.dish3)
+    var dishImage = listOf(
+        R.drawable.dish1,
+        R.drawable.dish2,
+        R.drawable.dish3,
+        R.drawable.dish1,
+        R.drawable.dish2,
+        R.drawable.dish3
+    )
 
 
     val viewAdapter by lazy {

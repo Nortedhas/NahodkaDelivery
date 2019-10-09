@@ -77,21 +77,9 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textSize = 6F.dp
             editText.maxLines = 3
 
-            editText.addTextChangedListener(object: TextWatcher{
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    onTapFrame?.invoke()
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-            })
+            editText.setOnClickListener {
+                onTapFrame?.invoke()
+            }
         }
 
         editText

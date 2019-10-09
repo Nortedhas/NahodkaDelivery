@@ -78,7 +78,7 @@ class FlowMain: BaseFlow() {
             InitModuleUI(
                 firstIcon = Icon(
                     icon = R.drawable.ic_shoping_kart,
-                    size = 35,
+                    size = 30,
                     listener = {
                         coordinator.runFlowBucket(this)
                     }
@@ -114,7 +114,7 @@ class FlowMain: BaseFlow() {
                 isBackPressed = true,
                 firstIcon = Icon(
                     icon = R.drawable.ic_shoping_kart,
-                    size = 35,
+                    size = 30,
                     listener = {
                         coordinator.runFlowBucket(this)
                     }

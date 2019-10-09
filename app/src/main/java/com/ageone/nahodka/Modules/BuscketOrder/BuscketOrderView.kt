@@ -27,20 +27,6 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         viewAdapter
     }
 
-    val layoutManager by lazy {
-        val layoutManager = GridLayoutManager(currentActivity,4)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when (position) {
-                    0 -> 4
-                    in 1..4 -> 1
-                    else -> 4
-                }
-            }
-        }
-        layoutManager
-    }
-
 
     init {
 //        viewModel.loadRealmData()
@@ -53,10 +39,8 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
         renderToolbar()
 
-        //bodyTable.layoutManager = layoutManager
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -123,7 +107,6 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.initialize("Адрес доставки", InputEditTextType.TEXT)
                 }
                 is BuscketOrderEditTextViewHolder -> {
-
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
                 }
                 is BuscketOrderPhoneViewHolder -> {

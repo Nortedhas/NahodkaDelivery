@@ -17,8 +17,6 @@ class BuscketItemViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewDish by lazy {
         val imageView = BaseImageView()
-
-
         imageView.initialize()
         imageView
     }
@@ -130,16 +128,17 @@ fun BuscketItemViewHolder.renderUI() {
 
 fun BuscketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, restaurant: String, price: Int) {
 
+    addImageFromGlide(imageViewDish, image,0)
+
     imageViewDish
         .width(utils.tools.getActualSizeFromDes(132))
         .height(utils.tools.getActualSizeFromDes(101))
 
-    addImageFromGlide(imageViewDish,image,0)
 
     textViewDishName.text = dishName
-    textViewWeight.text = "${weight.toString()} г"
+    textViewWeight.text = "$weight г"
     textViewRestaurant.text = restaurant
-    textViewCount.text = "Количество порций: ${count.toString()}"
-    textViewPrice.text = "${price.toString()} руб."
+    textViewCount.text = "Количество порций: $count"
+    textViewPrice.text = "$price руб."
 
 }

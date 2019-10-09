@@ -26,7 +26,6 @@ class RegistrationEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
     }
 
-
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
 
@@ -45,14 +44,7 @@ class RegistrationEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
-            editText.textSize = 7F.dp
-
-            /*editText.setOnKeyListener { v, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    v.clearFocus()
-                }
-                true
-            }*/
+            editText.textSize = 20F
             }
         textInput
     }

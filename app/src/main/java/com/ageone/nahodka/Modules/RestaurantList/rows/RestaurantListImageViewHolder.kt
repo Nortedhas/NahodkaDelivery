@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.utils
-import com.ageone.nahodka.External.Base.RecyclerView.BaseRecyclerView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
+import com.ageone.nahodka.External.Base.RecyclerView.NonscrollRecylerView
 import com.ageone.nahodka.R
 import com.ageone.nahodka.UIComponents.ViewHolders.RestaurantImageItemViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
@@ -17,8 +17,6 @@ import timber.log.Timber
 import yummypets.com.stevia.*
 import java.util.*
 import kotlin.concurrent.schedule
-import com.ageone.nahodka.External.Base.RecyclerView.NonscrollRecylerView
-
 
 class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
@@ -99,23 +97,12 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
         override fun onBindViewHolder(holder: RestaurantImageItemViewHolder, position: Int) {
             val food = foodList[position]
 
-            holder.initialize(utils.variable.displayWidth, food)
-
-            holder.constraintLayout.setOnClickListener {
+            holder.initialize(utils.variable.displayWidth,food)
 
                 holder.constraintLayout.setOnClickListener {
                     onTap?.invoke(position)
                 }
-
-            }
-
-
-            if (position == 0) {
-                holder.imageViewFood
-                    .constrainLeftToLeftOf(holder.constraintLayout)
-            }
         }
-
     }
 
 }

@@ -70,7 +70,7 @@ class FlowAuth: BaseFlow() {
 
         Handler().postDelayed({
             runEntryModule()
-        }, 5000)
+        }, 2000)
 
     }
 
