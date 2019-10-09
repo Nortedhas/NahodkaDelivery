@@ -16,8 +16,8 @@ import com.ageone.nahodka.Modules.Buscket.BuscketViewModel
 import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderModel
 import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderView
 import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderViewModel
-import com.ageone.nahodka.Modules.Comment.CommentModel
-import com.ageone.nahodka.Modules.Comment.CommentView
+import com.ageone.nahodka.Modules.Frame.FrameModel
+import com.ageone.nahodka.Modules.Frame.Frameiew
 import com.ageone.nahodka.Modules.WebView
 import com.ageone.nahodka.R
 
@@ -63,7 +63,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
     inner class FlowBucketModels {
         var modelBucket = BuscketModel()
         var modelCheckout = BuscketOrderModel()
-        var modelComment = CommentModel()
+        var modelComment = FrameModel()
     }
 
     fun runModuleBucket() {
@@ -121,7 +121,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
     }
 
     private fun runModuleComment(){
-        val module = CommentView( InitModuleUI(
+        val module = Frameiew( InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
         )

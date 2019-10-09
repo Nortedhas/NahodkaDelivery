@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Comment
+package com.ageone.nahodka.Modules.Frame
 
 import android.graphics.Color
 import android.view.ViewGroup
@@ -8,15 +8,13 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Comment.rows.CommentEditTextViewHolder
-import com.ageone.nahodka.Modules.Comment.rows.initialize
+import com.ageone.nahodka.Modules.Frame.rows.FrameEditTextViewHolder
+import com.ageone.nahodka.Modules.Frame.rows.initialize
 import yummypets.com.stevia.*
 
-class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = CommentViewModel()
+    val viewModel = FrameViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -52,12 +50,12 @@ class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val CommentEditTextType = 0
+        private val FrameEditTextType = 0
 
         override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> CommentEditTextType
+            0 -> FrameEditTextType
             else -> -1
         }
 
@@ -70,8 +68,8 @@ class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                CommentEditTextType -> {
-                    CommentEditTextViewHolder(layout)
+                FrameEditTextType -> {
+                    FrameEditTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -84,7 +82,7 @@ class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is CommentEditTextViewHolder -> {
+                is FrameEditTextViewHolder -> {
                     holder.initialize("Комментарий к заказу")
                 }
 
@@ -96,7 +94,7 @@ class CommentView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
 }
 
-fun CommentView.renderUIO() {
+fun Frameiew.renderUIO() {
 
     renderBodyTable()
 }

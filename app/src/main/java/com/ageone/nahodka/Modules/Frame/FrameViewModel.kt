@@ -1,15 +1,13 @@
-package com.ageone.nahodka.Modules.CheckoutOrder
+package com.ageone.nahodka.Modules.Frame
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class CheckoutOrderViewModel : InterfaceViewModel {
-    var model = CheckoutOrderModel()
+class FrameViewModel : InterfaceViewModel {
+    var model = FrameModel()
 
     enum class EventType {
-        OnCommentPressed,
-        OnCheckPressed
+
     }
 
     /*var realmData = listOf<>()
@@ -18,13 +16,13 @@ class CheckoutOrderViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is CheckoutOrderModel) {
+        if (recievedModel is FrameModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class CheckoutOrderModel : InterfaceModel {
+class FrameModel : InterfaceModel {
 
 }
