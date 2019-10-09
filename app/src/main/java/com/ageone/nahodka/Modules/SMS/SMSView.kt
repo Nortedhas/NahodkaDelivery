@@ -1,11 +1,15 @@
 package com.example.ageone.Modules.EntrySMS
 
+import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.text.InputType
+import android.util.DisplayMetrics
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
@@ -20,6 +24,7 @@ import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.RegistrationViewModel
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -40,18 +45,40 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         button.inputType = InputType.TYPE_TEXT_VARIATION_NORMAL
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
-        button.height(56)
         button.cornerRadius = 0
-        button.setOnClickListener {
-            user.isAuthorized = true
-            isNext = false
-            emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.toString())
-        }
+
         button
+    }
+    fun getNavButton(): Boolean{
+        var d = resources.getIdentifier("config_showNavigationBar", "bool", "android")
+        return d > 0 && resources.getBoolean(d)
     }
 
     init {
 //        viewModel.loadRealmData
+
+        viewTreeObserver.addOnGlobalLayoutListener {
+            val rect = Rect()
+            val height: Float = utils.variable.displayHeight.toFloat()
+
+            getWindowVisibleDisplayFrame(rect)
+
+            val heightKeyboard = height - convertPxToDp(rect.height().toFloat(),context)
+            val marginHeight = ((((height - rect.height()) / height ) * utils.variable.displayHeight).toInt())
+
+            Timber.i("Height display in px: $height")
+            Timber.i("Height display in dp: ${utils.variable.displayHeight}")
+            Timber.i("Rect height : ${rect.height()}")
+            Timber.i("Rect height in dp : ${convertPxToDp(rect.height().toFloat(),context)}")
+            Timber.i("Keyboard height in px: $heightKeyboard")
+            Timber.i("Keyboard height in dp: ${convertPxToDp(heightKeyboard, context)}")
+            Timber.i("Margin height : $marginHeight")
+
+            Timber.i("Have navigation bar : ${getNavButton()}")
+
+            if (marginHeight > 100) nextButton.constrainBottomToBottomOf(this, heightKeyboard.toInt())
+            else nextButton.constrainBottomToBottomOf(this)
+        }
 
         innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)
@@ -75,6 +102,9 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         bindUI()
     }
 
+    fun convertPxToDp(px: Float, context: Context): Float {
+        return px /(context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+    }
     fun bindUI() {
         /*compositeDisposable.add(
             RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
@@ -164,6 +194,11 @@ fun SMSView.renderUIO() {
     nextButton
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
+        .height(56)
+        .setOnClickListener {
+        user.isAuthorized = true
+        emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.toString())
+    }
 }
 
 

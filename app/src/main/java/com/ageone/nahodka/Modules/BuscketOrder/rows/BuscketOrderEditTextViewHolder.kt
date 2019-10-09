@@ -31,7 +31,9 @@ class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 16F
+            editText.maxLines = 1
+
         }
         textInput
     }
@@ -54,7 +56,9 @@ class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 16F
+            editText.maxLines = 1
+
         }
         textInput
     }
@@ -77,7 +81,9 @@ class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 16F
+            editText.maxLines = 1
+
         }
         textInput
     }
@@ -100,7 +106,9 @@ class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 16F
+            editText.maxLines = 1
+
         }
         textInput
     }
@@ -121,29 +129,29 @@ fun BuscketOrderEditTextViewHolder.renderUI() {
     )
 
     textInputOffice
-        .constrainTopToTopOf(constraintLayout)
+        .constrainBottomToBottomOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout, 16)
         .width((utils.variable.displayWidth - 96) /4)
-        .height(utils.variable.displayWidth * .136F)
+        .height(utils.variable.displayWidth * .166F)
 
     textInputHome
-        .constrainTopToTopOf(constraintLayout)
+        .constrainBottomToBottomOf(constraintLayout)
         .constrainLeftToRightOf(textInputOffice, 16)
         .width((utils.variable.displayWidth - 96) /4)
-        .height(utils.variable.displayWidth * .136F)
+        .height(utils.variable.displayWidth * .166F)
 
     textInputPorch
-        .constrainTopToTopOf(constraintLayout)
+        .constrainBottomToBottomOf(constraintLayout)
         .constrainLeftToRightOf(textInputHome, 16)
         .width((utils.variable.displayWidth - 96) /4)
-        .height(utils.variable.displayWidth * .136F)
+        .height(utils.variable.displayWidth * .166F)
 
 
     textInputFloor
-        .constrainTopToTopOf(constraintLayout)
+        .constrainBottomToBottomOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout, 16)
         .width((utils.variable.displayWidth - 96) /4)
-        .height(utils.variable.displayWidth * .136F)
+        .height(utils.variable.displayWidth * .166F)
 
 }
 

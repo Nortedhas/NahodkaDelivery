@@ -36,9 +36,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
-        button.setOnClickListener {
-            emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.toString())
-        }
          //   button.visibility = View.GONE
         button
     }
@@ -46,7 +43,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
     init {
 //        viewModel.loadRealmData()
 
-        innerContent.setButtonAboveKeyboard(nextButton)
+        //innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "Регистрация"
@@ -161,6 +158,9 @@ fun RegistrationView.renderUIO() {
         .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
+        .setOnClickListener {
+        emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.toString())
+    }
 
 
 }

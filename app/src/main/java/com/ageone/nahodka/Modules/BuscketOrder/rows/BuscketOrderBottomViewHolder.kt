@@ -2,13 +2,12 @@ package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Base.EditText.BaseEditText
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
@@ -24,7 +23,7 @@ class BuscketOrderBottomViewHolder(val constraintLayout: ConstraintLayout) :
 
     var onTap: (() -> (Unit))? = null
 
-    val editTextPay by lazy {
+    val textInputPay by lazy {
         val editText = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -43,12 +42,14 @@ class BuscketOrderBottomViewHolder(val constraintLayout: ConstraintLayout) :
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 16F
             editText.maxLines = 1
             editText.setOnClickListener {
                 onTap?.invoke()
             }
         }
+
+
 
         editText
     }
@@ -134,7 +135,7 @@ class BuscketOrderBottomViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun BuscketOrderBottomViewHolder.renderUI() {
     constraintLayout.subviews(
-        editTextPay,
+        textInputPay,
         textViewAmount,
         textViewAmountPrice,
         textViewDelivery,
@@ -144,14 +145,14 @@ fun BuscketOrderBottomViewHolder.renderUI() {
         buttonCheckout,
         textViewCheckout
     )
-    editTextPay
+    textInputPay
         .constrainTopToTopOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout,16)
         .width(utils.variable.displayWidth/2)
         .height(utils.variable.displayWidth * .136F)
 
     textViewAmount
-        .constrainTopToBottomOf(editTextPay,10)
+        .constrainTopToBottomOf(textInputPay,10)
         .constrainLeftToLeftOf(constraintLayout,16)
 
     textViewAmountPrice
@@ -189,7 +190,7 @@ fun BuscketOrderBottomViewHolder.renderUI() {
 
 fun BuscketOrderBottomViewHolder.initialize(amountPrice: Int, deliveryPrice: Int, hint: String) {
 
-    editTextPay.hint = hint
+    textInputPay.hint = hint
 
     var total = amountPrice + deliveryPrice
     textViewAmountPrice.text = "${amountPrice.toString()} р."
