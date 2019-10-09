@@ -11,11 +11,9 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.Libraries.Alert.AlertManager
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.list
 import com.ageone.nahodka.Modules.BuscketOrder.rows.*
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -127,9 +125,9 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                             arrayOf("Картой", "Картой курьеру", "Наличными")
                         ) {_,index ->
                             when(index){
-                                0 -> holder.editTextPay.editText?.setText("Картой")
-                                1 -> holder.editTextPay.editText?.setText("Картой курьеру")
-                                2 -> holder.editTextPay.editText?.setText("Наличными")
+                                0 -> holder.textInputPay.editText?.setText("Картой")
+                                1 -> holder.textInputPay.editText?.setText("Картой курьеру")
+                                2 -> holder.textInputPay.editText?.setText("Наличными")
                             }
                         }
                     }

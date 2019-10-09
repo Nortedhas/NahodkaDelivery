@@ -33,7 +33,8 @@ class BuscketOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 6F.dp
+            editText.textSize = 16F
+            editText.maxLines = 1
         }
         textInput
     }

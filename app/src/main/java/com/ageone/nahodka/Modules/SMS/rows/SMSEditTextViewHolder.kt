@@ -34,7 +34,7 @@ class SMSEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
-            editText.textSize = 7F.dp
+            editText.textSize = 16F
 
             /*editText.setOnKeyListener { v, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_BACK) {

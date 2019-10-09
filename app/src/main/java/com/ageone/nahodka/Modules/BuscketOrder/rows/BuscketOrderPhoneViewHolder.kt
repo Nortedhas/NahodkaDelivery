@@ -1,8 +1,6 @@
 package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -40,7 +38,7 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 7F.dp
+            editText.textSize = 6F.dp
             editText.maxLines = 1
         }
         editText
@@ -53,7 +51,7 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
         imageView
     }
 
-    val editTextComment by lazy {
+    val textInputComment by lazy {
         val editText = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -74,7 +72,7 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 6F.dp
+            editText.textSize = 16F
             editText.maxLines = 3
 
             editText.setOnClickListener {
@@ -96,7 +94,7 @@ fun BuscketOrderPhoneViewHolder.renderUI() {
     constraintLayout.subviews(
         editTextPhone,
         imageViewComment,
-        editTextComment
+        textInputComment
     )
 
     editTextPhone
@@ -108,7 +106,7 @@ fun BuscketOrderPhoneViewHolder.renderUI() {
         .constrainTopToBottomOf(editTextPhone,28)
         .constrainLeftToLeftOf(constraintLayout,16)
 
-    editTextComment
+    textInputComment
         .constrainTopToBottomOf(editTextPhone)
         .constrainRightToRightOf(constraintLayout,16)
         .width(utils.tools.getActualSizeFromDes(304))
@@ -119,5 +117,5 @@ fun BuscketOrderPhoneViewHolder.renderUI() {
 
 fun BuscketOrderPhoneViewHolder.initialize(hintPhone: String, hintComment: String) {
     editTextPhone.hint = hintPhone
-    editTextComment.hint = hintComment
+    textInputComment.hint = hintComment
 }
