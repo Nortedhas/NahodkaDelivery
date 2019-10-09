@@ -189,13 +189,13 @@ fun RestaurantPreviewViewHolder.renderUI() {
 
     textViewName
         .constrainBottomToBottomOf(imageViewPreview,12)
-        .constrainLeftToLeftOf(imageViewPreview,23)
+        .constrainLeftToLeftOf(imageViewPreview,16)
 
     imageViewClock
         .width(15)
         .height(15)
         .constrainCenterYToCenterYOf(textViewTimeDelivery)
-        .constrainLeftToLeftOf(imageViewPreview,23)
+        .constrainLeftToLeftOf(imageViewPreview,16)
 
     textViewTimeDelivery
         .constrainBottomToTopOf(textViewName,2)
@@ -205,7 +205,7 @@ fun RestaurantPreviewViewHolder.renderUI() {
         .width(15)
         .height(15)
         .constrainCenterYToCenterYOf(textViewCheck)
-        .constrainLeftToLeftOf(imageViewPreview,23)
+        .constrainLeftToLeftOf(imageViewPreview,16)
 
     textViewCheck
         .constrainBottomToTopOf(textViewTimeDelivery,4)
@@ -221,7 +221,7 @@ fun RestaurantPreviewViewHolder.renderUI() {
         .width(14)
         .height(14)
         .constrainCenterYToCenterYOf(textViewOrder)
-        .constrainLeftToLeftOf(constraintLayout,23)
+        .constrainCenterXToCenterXOf(imageViewClock)
 
     textViewOrder
         .constrainTopToBottomOf(imageViewPreview,12)
@@ -231,7 +231,7 @@ fun RestaurantPreviewViewHolder.renderUI() {
         .width(18)
         .height(18)
         .constrainCenterYToCenterYOf(textViewTruck)
-        .constrainLeftToLeftOf(constraintLayout,23)
+        .constrainCenterXToCenterXOf(imageViewClock)
 
     textViewTruck
         .constrainTopToBottomOf(imageViewOrder,8)
@@ -241,7 +241,7 @@ fun RestaurantPreviewViewHolder.renderUI() {
         .width(64)
         .height(24)
         .constrainTopToBottomOf(textViewTruck,10)
-        .constrainLeftToLeftOf(constraintLayout,17)
+        .constrainLeftToLeftOf(constraintLayout,16)
 
     imageViewStar
         .width(13)

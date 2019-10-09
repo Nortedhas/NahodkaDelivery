@@ -29,8 +29,6 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
     val viewModel = ChangeSMSViewModel()
 
-    var isNext = true
-
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -44,11 +42,6 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
-        button.setOnClickListener {
-            user.isAuthorized = true
-            isNext = false
-            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
-        }
         button
     }
 
@@ -161,6 +154,10 @@ fun ChangeSMSView.renderUIO() {
         .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
+        .setOnClickListener {
+            user.isAuthorized = true
+            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
+        }
 }
 
 

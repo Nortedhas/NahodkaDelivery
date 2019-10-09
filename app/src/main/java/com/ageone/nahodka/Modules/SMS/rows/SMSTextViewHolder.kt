@@ -47,6 +47,7 @@ fun SMSTextViewHolder.renderUI() {
     textView
         .constrainTopToTopOf(constraintLayout, 16)
         .fillHorizontally(16)
+        .text = "Если Вы не получили смс, запросить код повторно можно через 01:00"
 }
 
 fun SMSTextViewHolder.initialize(complition: (()->(Unit))) {

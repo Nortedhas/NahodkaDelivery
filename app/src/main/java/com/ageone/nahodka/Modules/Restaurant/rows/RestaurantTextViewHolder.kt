@@ -91,6 +91,9 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         override fun onBindViewHolder(holder: KitchenTextViewHolder, position: Int) {
 
             val food = if (position - 1 < kitchenList.size) kitchenList[position] else ""
+
+           // if(position == 0) holder.back.constrainLeftToLeftOf(constraintLayout,8)
+
             holder.initialize(food,position == selectedFood)
 
             holder.constraintLayout.setOnClickListener {
@@ -113,7 +116,7 @@ fun RestaurantTextViewHolder.renderUI() {
 
     textViewFastFood
         .constrainTopToBottomOf(recyclerViewKitchen,10)
-        .constrainLeftToLeftOf(constraintLayout,17)
+        .constrainLeftToLeftOf(constraintLayout,16)
 
 }
 
