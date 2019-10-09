@@ -16,10 +16,8 @@ import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 import timber.log.Timber
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.core.app.ActivityCompat
 import com.ageone.nahodka.R
-import com.example.ageone.Modules.EntrySMS.EntrySMSViewModel
 import com.vk.api.sdk.utils.VKUtils
 
 

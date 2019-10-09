@@ -71,14 +71,14 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val EntryEditTextViewHolderType = 0
-        private val EntryTextViewHolderType = 1
+        private val RegistrationEditTextType = 0
+        private val RegistrationTextType = 1
 
         override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0,1 -> EntryEditTextViewHolderType
-            2 -> EntryTextViewHolderType
+            0,1 -> RegistrationEditTextType
+            2 -> RegistrationTextType
             else -> -1
         }
 
@@ -91,10 +91,10 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                EntryEditTextViewHolderType -> {
+                RegistrationEditTextType -> {
                     RegistrationEditTextViewHolder(layout)
                 }
-                EntryTextViewHolderType -> {
+                RegistrationTextType -> {
                     RegistrationTextViewHolder(layout)
                 }
                 else -> {

@@ -1,9 +1,6 @@
-package com.ageone.nahodka.Modules.EntrySMS.rows
+package com.ageone.nahodka.Modules.SMS.rows
 
 import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -11,10 +8,9 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
-import timber.log.Timber
 import yummypets.com.stevia.*
 
-class EntrySMSEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+class SMSEditTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     var onStartEditText: (() -> (Unit))? = null
@@ -59,7 +55,7 @@ class EntrySMSEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun EntrySMSEditTextViewHolder.renderUI() {
+fun SMSEditTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL
     )
@@ -71,7 +67,7 @@ fun EntrySMSEditTextViewHolder.renderUI() {
 
 }
 
-fun EntrySMSEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun SMSEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
 
     textInputL.hint = hint
     textInputL.defineType(type)

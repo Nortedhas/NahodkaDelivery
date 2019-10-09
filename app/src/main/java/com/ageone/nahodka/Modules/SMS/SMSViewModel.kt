@@ -4,8 +4,8 @@ import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
 
-class EntrySMSViewModel : InterfaceViewModel {
-    var model = EntrySMSModel()
+class SMSViewModel : InterfaceViewModel {
+    var model = SMSModel()
 
     enum class EventType {
         OnNextPressed,
@@ -18,13 +18,13 @@ class EntrySMSViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is EntrySMSModel) {
+        if (recievedModel is SMSModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class EntrySMSModel : InterfaceModel {
+class SMSModel : InterfaceModel {
 
 }

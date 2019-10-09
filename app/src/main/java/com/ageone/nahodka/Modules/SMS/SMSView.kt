@@ -14,17 +14,17 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
-import com.ageone.nahodka.Modules.EntrySMS.rows.EntrySMSEditTextViewHolder
-import com.ageone.nahodka.Modules.EntrySMS.rows.initialize
-import com.example.ageone.Modules.EntrySMS.rows.EntrySMSTextViewHolder
+import com.ageone.nahodka.Modules.SMS.rows.SMSEditTextViewHolder
+import com.ageone.nahodka.Modules.SMS.rows.initialize
+import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.RegistrationViewModel
 import yummypets.com.stevia.*
 
-class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = EntrySMSViewModel()
+    val viewModel = SMSViewModel()
 
     var isNext = true
 
@@ -85,14 +85,14 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationSMSInputTextType = 0
-        private val RegistrationSMSTextType = 1
+        private val SMSInputTextType = 0
+        private val SMSTextType = 1
 
         override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RegistrationSMSInputTextType
-            1 -> RegistrationSMSTextType
+            0 -> SMSInputTextType
+            1 -> SMSTextType
             else -> -1
         }
 
@@ -109,11 +109,11 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
 
 
             val holder = when (viewType) {
-                RegistrationSMSInputTextType -> {
-                    EntrySMSEditTextViewHolder(layout)
+                SMSInputTextType -> {
+                    SMSEditTextViewHolder(layout)
                 }
-                RegistrationSMSTextType -> {
-                    EntrySMSTextViewHolder(layout)
+                SMSTextType -> {
+                    SMSTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -126,26 +126,22 @@ class EntrySMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is EntrySMSEditTextViewHolder -> {
+                is SMSEditTextViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
                 }
-                is EntrySMSTextViewHolder -> {
+                is SMSTextViewHolder -> {
                     holder.initialize {
                         router.onBackPressed()
                     }
                 }
             }
-
         }
-
     }
-
-
 }
 
 
 
-fun EntrySMSView.renderUIO() {
+fun SMSView.renderUIO() {
 
     //innerContent.fitsSystemWindows = true
 

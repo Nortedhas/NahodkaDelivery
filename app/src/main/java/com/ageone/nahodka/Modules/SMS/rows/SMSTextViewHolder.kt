@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
 
-class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
+class SMSTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
@@ -39,7 +39,7 @@ class EntrySMSTextViewHolder(val constraintLayout: ConstraintLayout) :
     }
 }
 
-fun EntrySMSTextViewHolder.renderUI() {
+fun SMSTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textView
     )
@@ -49,7 +49,7 @@ fun EntrySMSTextViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun EntrySMSTextViewHolder.initialize(complition: (()->(Unit))) {
+fun SMSTextViewHolder.initialize(complition: (()->(Unit))) {
 
     timer.schedule(1000, 1000){
         timeBeforeRedirect-=1000L
