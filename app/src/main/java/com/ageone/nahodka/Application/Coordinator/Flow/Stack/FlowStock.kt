@@ -23,9 +23,9 @@ import com.ageone.nahodka.Modules.Restaurant.RestaurantViewModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkView
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkViewModel
-import com.ageone.nahodka.Modules.Stock.StockModel
-import com.ageone.nahodka.Modules.Stock.StockView
-import com.ageone.nahodka.Modules.Stock.StockViewModel
+import com.ageone.nahodka.Modules.Sales.SalesModel
+import com.ageone.nahodka.Modules.Sales.SalesView
+import com.ageone.nahodka.Modules.Sales.SalesViewModel
 import com.ageone.nahodka.R
 
 fun FlowCoordinator.runFlowStock() {
@@ -65,7 +65,7 @@ class FlowStock : BaseFlow() {
     }
 
     inner class FlowStockModels {
-        var moduleStockText = StockModel()
+        var moduleStockText = SalesModel()
         var modelRestaurantKitchen = RestaurantModel()
         var modelReview = RestaurantMarkModel()
         var moduleClientReview = MarkModel()
@@ -73,7 +73,7 @@ class FlowStock : BaseFlow() {
     }
 
     fun runModuleStockText() {
-        val module = StockView(
+        val module = SalesView(
             InitModuleUI(
                 firstIcon = Icon(
                     icon = R.drawable.ic_shoping_kart,
@@ -90,8 +90,8 @@ class FlowStock : BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            when (StockViewModel.EventType.valueOf(event)) {
-                StockViewModel.EventType.OnStockPressed -> {
+            when (SalesViewModel.EventType.valueOf(event)) {
+                SalesViewModel.EventType.OnStockPressed -> {
                     runModuleRestaurantKitchen()
                 }
             }

@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Stock
+package com.ageone.nahodka.Modules.Sales
 
 import android.graphics.Color
 import android.view.ViewGroup
@@ -9,15 +9,13 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Stock.rows.StockCardViewHolder
-import com.ageone.nahodka.Modules.Stock.rows.initialize
+import com.ageone.nahodka.Modules.Sales.rows.SalesCardViewHolder
+import com.ageone.nahodka.Modules.Sales.rows.initialize
 import yummypets.com.stevia.*
 
-class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = StockViewModel()
+    val viewModel = SalesViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -54,12 +52,12 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val StockCardType = 0
+        private val SalesCardType = 0
 
         override fun getItemCount() = 6//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            else -> StockCardType
+            else -> SalesCardType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -71,8 +69,8 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                StockCardType -> {
-                    StockCardViewHolder(layout)
+                SalesCardType -> {
+                    SalesCardViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -86,14 +84,14 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
             var food = foodList[position]
             when (holder) {
-                is StockCardViewHolder -> {
+                is SalesCardViewHolder -> {
                     holder.initialize(
                         food,
                         "Ollis Pizza",
                         "Скидка 30% на пасту")
 
                     holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(StockViewModel.EventType.OnStockPressed.toString())
+                        rootModule.emitEvent?.invoke(SalesViewModel.EventType.OnStockPressed.toString())
                     }
 
                 }
@@ -106,7 +104,7 @@ class StockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
 }
 
-fun StockView.renderUIO() {
+fun SalesView.renderUIO() {
 
     innerContent.subviews(
         bodyTable

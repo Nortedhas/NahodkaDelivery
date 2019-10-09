@@ -1,11 +1,10 @@
-package com.ageone.nahodka.Modules.Stock
+package com.ageone.nahodka.Modules.Sales
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class StockViewModel : InterfaceViewModel {
-    var model = StockModel()
+class SalesViewModel : InterfaceViewModel {
+    var model = SalesModel()
 
     enum class EventType {
         OnStockPressed
@@ -18,13 +17,13 @@ class StockViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is StockModel) {
+        if (recievedModel is SalesModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class StockModel : InterfaceModel {
+class SalesModel : InterfaceModel {
 
 }
