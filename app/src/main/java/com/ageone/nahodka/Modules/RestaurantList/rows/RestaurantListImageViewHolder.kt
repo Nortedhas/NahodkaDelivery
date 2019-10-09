@@ -99,21 +99,10 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
 
             holder.initialize(utils.variable.displayWidth,food)
 
-            holder.constraintLayout.setOnClickListener {
-
                 holder.constraintLayout.setOnClickListener {
                     onTap?.invoke(position)
                 }
-
-            }
-
-
-            if(position == 0) {
-                holder.imageViewFood
-                    .constrainLeftToLeftOf(holder.constraintLayout)
-            }
         }
-
     }
 
 }

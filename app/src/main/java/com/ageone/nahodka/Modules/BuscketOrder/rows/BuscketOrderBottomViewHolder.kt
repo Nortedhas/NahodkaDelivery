@@ -43,7 +43,7 @@ class BuscketOrderBottomViewHolder(val constraintLayout: ConstraintLayout) :
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 6F.dp
+            editText.textSize = 5F.dp
             editText.maxLines = 1
             editText.setOnClickListener {
                 onTap?.invoke()
