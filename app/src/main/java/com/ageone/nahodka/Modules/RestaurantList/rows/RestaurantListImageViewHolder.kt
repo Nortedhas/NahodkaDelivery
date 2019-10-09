@@ -1,6 +1,5 @@
-package com.ageone.nahodka.Modules.Restaurant.rows
+package com.ageone.nahodka.Modules.RestaurantList.rows
 
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +18,7 @@ import yummypets.com.stevia.*
 import java.util.*
 import kotlin.concurrent.schedule
 
-class RestaurantImageViewHolder(val constraintLayout: ConstraintLayout) :
+class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val recyclerViewImage by lazy {
@@ -70,12 +69,9 @@ class RestaurantImageViewHolder(val constraintLayout: ConstraintLayout) :
                     currentActivity?.runOnUiThread {
                         recyclerViewImage.smoothScrollToPosition(position % (foodList.size - 1) + 1)
                     }
-
                     if (position % (foodList.size - 1) == 0) {
                         position++
                     }
-
-
                 }
             }
 
@@ -122,7 +118,7 @@ class RestaurantImageViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun RestaurantImageViewHolder.renderUI() {
+fun RestaurantListImageViewHolder.renderUI() {
     constraintLayout.subviews(
         recyclerViewImage
     )
@@ -133,7 +129,7 @@ fun RestaurantImageViewHolder.renderUI() {
 
 }
 
-fun RestaurantImageViewHolder.initialize() {
+fun RestaurantListImageViewHolder.initialize() {
 
 }
 

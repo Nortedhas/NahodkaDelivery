@@ -11,7 +11,7 @@ import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
 
 import yummypets.com.stevia.*
 
-class RestaurantItemViewHolder(val constraintLayout: ConstraintLayout) :
+class RestaurantListItemViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val imageViewRestaurant by lazy {
@@ -64,7 +64,7 @@ class RestaurantItemViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun RestaurantItemViewHolder.renderUI() {
+fun RestaurantListItemViewHolder.renderUI() {
     constraintLayout.subviews(
         imageViewRestaurant,
         textViewName,
@@ -103,7 +103,7 @@ fun RestaurantItemViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 }
 
-fun RestaurantItemViewHolder.initialize(image: Int, name: String,kitchen: String, delivery: String, star: Int, rating: String,x: Float) {
+fun RestaurantListItemViewHolder.initialize(image: Int, name: String, kitchen: String, delivery: String, star: Int, rating: String, x: Float) {
 
     addImageFromGlide(imageViewRestaurant, image)
     textViewName.text = name

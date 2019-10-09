@@ -24,9 +24,9 @@ import com.ageone.nahodka.Modules.Review.ReviewModel
 import com.ageone.nahodka.Modules.Review.ReviewView
 import com.ageone.nahodka.Modules.Review.ReviewViewModel
 import com.ageone.nahodka.R
-import com.example.ageone.Modules.Restaurant.RestaurantModel
-import com.example.ageone.Modules.Restaurant.RestaurantView
-import com.example.ageone.Modules.Restaurant.RestaurantViewModel
+import com.example.ageone.Modules.Restaurant.RestaurantListModel
+import com.example.ageone.Modules.Restaurant.RestaurantListView
+import com.example.ageone.Modules.Restaurant.RestaurantListViewModel
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -65,7 +65,7 @@ class FlowMain: BaseFlow() {
     }
 
     inner class FlowMainModels {
-        var modelRestaurant = RestaurantModel()
+        var modelRestaurant = RestaurantListModel()
         var modelRestaurantKitchen = RestaurantKitchenModel()
         var modelReview = ReviewModel()
         var moduleClientReview = ClientReviewModel()
@@ -74,7 +74,7 @@ class FlowMain: BaseFlow() {
     }
 
     private fun runModuleRestaurant() {
-        val module = RestaurantView(
+        val module = RestaurantListView(
             InitModuleUI(
                 firstIcon = Icon(
                     icon = R.drawable.ic_shoping_kart,
@@ -92,14 +92,14 @@ class FlowMain: BaseFlow() {
         module.emitEvent = {event ->
             models.modelRestaurant = module.viewModel.model
 
-            when(RestaurantViewModel.EventType.valueOf(event)) {
-                RestaurantViewModel.EventType.OnRestaurantPressed -> {
+            when(RestaurantListViewModel.EventType.valueOf(event)) {
+                RestaurantListViewModel.EventType.OnRestaurantPressed -> {
                     runModuleRestaurantKitchen()
                 }
-                RestaurantViewModel.EventType.OnFilterPressed -> {
+                RestaurantListViewModel.EventType.OnFilterPressed -> {
                     runModuleFilter()
                 }
-                RestaurantViewModel.EventType.OnBannerPressed -> {
+                RestaurantListViewModel.EventType.OnBannerPressed -> {
                     runModuleRestaurantKitchen()
                 }
             }

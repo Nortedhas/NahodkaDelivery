@@ -1,15 +1,9 @@
 package com.example.ageone.Modules.Restaurant
 
 import android.graphics.Color
-import android.view.MotionEvent
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.get
 import androidx.core.view.updatePadding
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -17,16 +11,15 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Restaurant.rows.RestaurantImageViewHolder
-import com.ageone.nahodka.Modules.Restaurant.rows.initialize
-import com.example.ageone.Modules.Restaurant.rows.RestaurantItemViewHolder
+import com.ageone.nahodka.Modules.RestaurantList.rows.RestaurantListImageViewHolder
+import com.ageone.nahodka.Modules.RestaurantList.rows.initialize
+import com.example.ageone.Modules.Restaurant.rows.RestaurantListItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
-class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = RestaurantViewModel()
+    val viewModel = RestaurantListViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -43,7 +36,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         imageView.setImageResource(R.drawable.ic_fab)
         imageView.initialize()
         imageView.setOnClickListener {
-            emitEvent?.invoke(RestaurantViewModel.EventType.OnFilterPressed.toString())
+            emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.toString())
         }
         imageView
     }
@@ -77,14 +70,14 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RestaurantImageType = 0
-        private val RestaurantItemType = 1
+        private val RestaurantListImageType = 0
+        private val RestaurantListItemType = 1
 
         override fun getItemCount() = 5//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RestaurantImageType
-            else -> RestaurantItemType
+            0 -> RestaurantListImageType
+            else -> RestaurantListItemType
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -96,11 +89,11 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                RestaurantImageType -> {
-                    RestaurantImageViewHolder(layout)
+                RestaurantListImageType -> {
+                    RestaurantListImageViewHolder(layout)
                 }
-                RestaurantItemType -> {
-                    RestaurantItemViewHolder(layout)
+                RestaurantListItemType -> {
+                    RestaurantListItemViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -115,14 +108,14 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
             var food = foodList[position]
 
             when (holder) {
-                is RestaurantImageViewHolder -> {
+                is RestaurantListImageViewHolder -> {
                     holder.initialize()
 
                     holder.onTap = { position ->
-                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnBannerPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnBannerPressed.toString())
                     }
                 }
-                is RestaurantItemViewHolder -> {
+                is RestaurantListItemViewHolder -> {
                     holder.initialize(food,"Ollis Pizza",
                         "Итальянская, Мексиканская, Кавказ...",
                         "Заказ от 600 руб.", R.drawable.ic_star,"4.0",
@@ -139,7 +132,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     }
 
                     holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnRestaurantPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnRestaurantPressed.toString())
                     }
                 }
 
@@ -151,7 +144,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
 }
 
-fun RestaurantView.renderUIO() {
+fun RestaurantListView.renderUIO() {
 
     innerContent.subviews(
         bodyTable,
