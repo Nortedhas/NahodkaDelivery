@@ -13,9 +13,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Change.rows.ChangeEditTextViewHolder
+import com.ageone.nahodka.Modules.Change.rows.ChangeTextInputViewHolder
 import com.ageone.nahodka.Modules.Change.rows.initialize
 import yummypets.com.stevia.*
 
@@ -90,7 +88,7 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
             val holder = when (viewType) {
                 ChangeEditTextType -> {
-                    ChangeEditTextViewHolder(layout)
+                    ChangeTextInputViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -103,7 +101,7 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is ChangeEditTextViewHolder -> {
+                is ChangeTextInputViewHolder -> {
                     when (position % 2) {
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)

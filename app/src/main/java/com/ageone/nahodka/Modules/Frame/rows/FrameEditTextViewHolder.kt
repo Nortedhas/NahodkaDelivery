@@ -30,7 +30,7 @@ class FrameEditTextViewHolder(val constraintLayout: ConstraintLayout) :
         editText.defineType(InputEditTextType.TEXT)
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 16F
         }
         editText
     }

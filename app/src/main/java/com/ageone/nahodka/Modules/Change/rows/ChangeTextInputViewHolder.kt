@@ -10,7 +10,7 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class ChangeEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+class ChangeTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val editTextName by lazy {
@@ -31,7 +31,8 @@ class ChangeEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
-            editText.textSize = 7F.dp
+            editText.textSize = 20F
+            editText.maxLines = 1
 
         }
         editText
@@ -44,7 +45,7 @@ class ChangeEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun ChangeEditTextViewHolder.renderUI() {
+fun ChangeTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
         editTextName
     )
@@ -56,7 +57,7 @@ fun ChangeEditTextViewHolder.renderUI() {
 
 }
 
-fun ChangeEditTextViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun ChangeTextInputViewHolder.initialize(hint: String, type: InputEditTextType) {
     editTextName.hint = hint
     editTextName.defineType(type)
 

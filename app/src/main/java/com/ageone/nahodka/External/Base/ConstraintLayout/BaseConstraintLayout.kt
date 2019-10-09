@@ -15,10 +15,20 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
     viewTreeObserver.addOnGlobalLayoutListener {
         val rect = Rect()
         val height: Float = rootView.height.toFloat()
+        val navButton = resources.getIdentifier("config_showNavigationBar", "bool", "android")
+        var isNavButton = navButton > 0 && resources.getBoolean(navButton)
 
         getWindowVisibleDisplayFrame(rect)
 
-        val marginHeight = ((((height - rect.height()) / height ) * utils.variable.displayHeight).toInt())
+        var marginHeight = 0
+
+        if(isNavButton) {
+             marginHeight =
+                ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt() - 56)
+        }else {
+            marginHeight =
+                ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt())
+        }
 
         if (marginHeight > 100) button.constrainBottomToBottomOf(this, marginHeight)
         else button.constrainBottomToBottomOf(this)

@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.External.Base.Button.BaseButton
-import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.R
-import com.example.ageone.Modules.Entry.rows.RegistrationEditTextViewHolder
+import com.example.ageone.Modules.Entry.rows.RegistrationTextInputViewHolder
 import com.example.ageone.Modules.Entry.rows.RegistrationTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
 import yummypets.com.stevia.*
@@ -94,7 +93,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
             val holder = when (viewType) {
                 RegistrationEditTextType -> {
-                    RegistrationEditTextViewHolder(layout)
+                    RegistrationTextInputViewHolder(layout)
                 }
                 RegistrationTextType -> {
                     RegistrationTextViewHolder(layout)
@@ -111,7 +110,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
             when (holder) {
 
-                is RegistrationEditTextViewHolder-> {
+                is RegistrationTextInputViewHolder-> {
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)

@@ -149,7 +149,7 @@ fun BuscketOrderBottomViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout,16)
         .width(utils.variable.displayWidth/2)
-        .height(utils.variable.displayWidth * .136F)
+        .height(utils.variable.displayWidth * .166F)
 
     textViewAmount
         .constrainTopToBottomOf(textInputPay,10)
