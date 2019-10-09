@@ -31,8 +31,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
     val viewModel = SMSViewModel()
 
-    var isNext = true
-
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -90,11 +88,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
         bodyTable.adapter = viewAdapter
 
-      //  var window = bodyTable
-
-
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         nextButton.setOnClickListener {
             user.isAuthorized = true
@@ -137,10 +131,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
                 .width(matchParent)
                 .height(wrapContent)
 
-            var window = layout
-
-
-
             val holder = when (viewType) {
                 SMSInputTextType -> {
                     SMSEditTextViewHolder(layout)
@@ -176,14 +166,10 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
 fun SMSView.renderUIO() {
 
-    //innerContent.fitsSystemWindows = true
-
-
     innerContent.subviews(
         bodyTable,
         nextButton
     )
-
 
     bodyTable
         .fillHorizontally()

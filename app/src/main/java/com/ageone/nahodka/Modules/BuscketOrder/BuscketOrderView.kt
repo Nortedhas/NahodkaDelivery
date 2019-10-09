@@ -1,11 +1,11 @@
 package com.ageone.nahodka.Modules.BuscketOrder
 
 import android.graphics.Color
+import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.GridLayoutManager
 import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.R
+import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -14,7 +14,12 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.list
 import com.ageone.nahodka.Modules.BuscketOrder.rows.*
-import yummypets.com.stevia.*
+import com.ageone.nahodka.R
+import yummypets.com.stevia.height
+import yummypets.com.stevia.matchParent
+import yummypets.com.stevia.width
+import yummypets.com.stevia.wrapContent
+
 
 class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -29,7 +34,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Оформить заказ"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
@@ -109,27 +114,34 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
                 is BuscketOrderPhoneViewHolder -> {
                     holder.initialize("Телефон", "Комментарий к заказу")
-                        holder.onTapFrame = {
-                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCommentPressed.toString())
+                    holder.textInputComment.editText?.setOnTouchListener { v, event ->
+                        if (event.action == MotionEvent.ACTION_DOWN) {
+                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCommentPressed.name)
                         }
+                        false
+                    }
+
                 }
                 is BuscketOrderBottomViewHolder -> {
                     holder.initialize(162,50, "Способ оплаты")
                     holder.buttonCheckout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.toString())
+                        rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.name)
                     }
-
-                    holder.onTap = {
-                        alertManager.list(
-                            "Выберите способ оплаты",
-                            arrayOf("Картой", "Картой курьеру", "Наличными")
-                        ) {_,index ->
-                            when(index){
-                                0 -> holder.textInputPay.editText?.setText("Картой")
-                                1 -> holder.textInputPay.editText?.setText("Картой курьеру")
-                                2 -> holder.textInputPay.editText?.setText("Наличными")
+                    holder.textInputPay.editText?.setOnTouchListener { v, event ->
+                        currentActivity?.hideKeyboard()
+                        if (event.action == MotionEvent.ACTION_DOWN) {
+                            alertManager.list(
+                                "Выберите способ оплаты",
+                                arrayOf("Картой", "Картой курьеру", "Наличными")
+                            ) {_,index ->
+                                when(index){
+                                    0 -> holder.textInputPay.editText?.setText("Картой")
+                                    1 -> holder.textInputPay.editText?.setText("Картой курьеру")
+                                    2 -> holder.textInputPay.editText?.setText("Наличными")
+                                }
                             }
                         }
+                        false
                     }
                 }
             }

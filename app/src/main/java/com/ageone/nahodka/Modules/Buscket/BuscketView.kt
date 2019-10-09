@@ -34,7 +34,7 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Корзина"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
@@ -65,14 +65,14 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         private val BuscketBottomType = 2
         private val BuscketEmptyType = 3
 
-        override fun getItemCount() = dishImage.size +3 //viewModel.realmData.size
+        override fun getItemCount() = 3 + dishImage.size //viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
             if(itemCount == 1) {
                 BuscketEmptyType
             } else {
                 when (position) {
-                    in 0..dishImage.size -1 -> BuscketRecyclerType
+                    in dishImage.indices -> BuscketRecyclerType
                     dishImage.size -> BuscketAppliancesType
                     dishImage.size + 1 -> BuscketBottomType
                     else -> -1
