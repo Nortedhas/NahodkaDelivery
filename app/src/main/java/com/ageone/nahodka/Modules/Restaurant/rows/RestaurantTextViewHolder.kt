@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.RestaurantKitchen.rows
+package com.ageone.nahodka.Modules.Restaurant.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -18,7 +18,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.HorizontalSpacesItemDecorat
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 
 
-class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
+class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     var kitchenList = listOf(
@@ -102,7 +102,7 @@ class RestaurantKitchenTextViewHolder(val constraintLayout: ConstraintLayout) :
     }
 }
 
-fun RestaurantKitchenTextViewHolder.renderUI() {
+fun RestaurantTextViewHolder.renderUI() {
     constraintLayout.subviews(
         recyclerViewKitchen,
         textViewFastFood
@@ -117,6 +117,6 @@ fun RestaurantKitchenTextViewHolder.renderUI() {
 
 }
 
-fun RestaurantKitchenTextViewHolder.initialize() {
+fun RestaurantTextViewHolder.initialize() {
 
 }

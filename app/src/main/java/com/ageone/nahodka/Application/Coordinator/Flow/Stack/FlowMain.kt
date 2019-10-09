@@ -17,9 +17,9 @@ import com.ageone.nahodka.Modules.Filter.FilterModel
 import com.ageone.nahodka.Modules.Filter.FilterView
 import com.ageone.nahodka.Modules.Info.InfoModel
 import com.ageone.nahodka.Modules.Info.InfoView
-import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenModel
-import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenView
-import com.ageone.nahodka.Modules.RestaurantKitchen.RestaurantKitchenViewModel
+import com.ageone.nahodka.Modules.Restaurant.RestaurantModel
+import com.ageone.nahodka.Modules.Restaurant.RestaurantView
+import com.ageone.nahodka.Modules.Restaurant.RestaurantViewModel
 import com.ageone.nahodka.Modules.Review.ReviewModel
 import com.ageone.nahodka.Modules.Review.ReviewView
 import com.ageone.nahodka.Modules.Review.ReviewViewModel
@@ -66,7 +66,7 @@ class FlowMain: BaseFlow() {
 
     inner class FlowMainModels {
         var modelRestaurant = RestaurantListModel()
-        var modelRestaurantKitchen = RestaurantKitchenModel()
+        var modelRestaurantKitchen = RestaurantModel()
         var modelReview = ReviewModel()
         var moduleClientReview = ClientReviewModel()
         var moduleInfo = InfoModel()
@@ -108,7 +108,7 @@ class FlowMain: BaseFlow() {
     }
 
     fun runModuleRestaurantKitchen(){
-        val module = RestaurantKitchenView(
+        val module = RestaurantView(
             InitModuleUI(
                 isBackPressed = true,
                 firstIcon = Icon(
@@ -126,11 +126,11 @@ class FlowMain: BaseFlow() {
         module.emitEvent = { event ->
             models.modelRestaurantKitchen = module.viewModel.model
 
-            when(RestaurantKitchenViewModel.EventType.valueOf(event)) {
-                RestaurantKitchenViewModel.EventType.OnReviewPressed -> {
+            when(RestaurantViewModel.EventType.valueOf(event)) {
+                RestaurantViewModel.EventType.OnReviewPressed -> {
                     runModuleReview()
                 }
-                RestaurantKitchenViewModel.EventType.OnInfoPressed -> {
+                RestaurantViewModel.EventType.OnInfoPressed -> {
                     runModuleInfo()
                 }
             }
