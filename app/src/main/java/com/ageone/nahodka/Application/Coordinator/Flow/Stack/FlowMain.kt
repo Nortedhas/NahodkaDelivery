@@ -11,12 +11,12 @@ import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.ClientReview.ClientReviewModel
-import com.ageone.nahodka.Modules.ClientReview.ClientReviewView
+import com.ageone.nahodka.Modules.Mark.MarkModel
+import com.ageone.nahodka.Modules.Mark.MarkView
 import com.ageone.nahodka.Modules.Filter.FilterModel
 import com.ageone.nahodka.Modules.Filter.FilterView
-import com.ageone.nahodka.Modules.Info.InfoModel
-import com.ageone.nahodka.Modules.Info.InfoView
+import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoModel
+import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantModel
 import com.ageone.nahodka.Modules.Restaurant.RestaurantView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantViewModel
@@ -68,8 +68,8 @@ class FlowMain: BaseFlow() {
         var modelRestaurant = RestaurantListModel()
         var modelRestaurantKitchen = RestaurantModel()
         var modelReview = RestaurantMarkModel()
-        var moduleClientReview = ClientReviewModel()
-        var moduleInfo = InfoModel()
+        var moduleClientReview = MarkModel()
+        var moduleInfo = RestaurantInfoModel()
         var moduleFilter = FilterModel()
     }
 
@@ -166,7 +166,7 @@ class FlowMain: BaseFlow() {
     }
 
     private fun runModuleClientReview(){
-        val module = ClientReviewView(
+        val module = MarkView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
                 isBackPressed = true
@@ -181,7 +181,7 @@ class FlowMain: BaseFlow() {
     }
 
     private fun runModuleInfo(){
-        val module = InfoView(
+        val module = RestaurantInfoView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
                 isBackPressed = true

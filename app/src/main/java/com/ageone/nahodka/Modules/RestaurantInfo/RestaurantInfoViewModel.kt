@@ -1,15 +1,13 @@
-package com.ageone.nahodka.Modules.ClientReview
+package com.ageone.nahodka.Modules.RestaurantInfo
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class ClientReviewViewModel : InterfaceViewModel {
-    var model = ClientReviewModel()
+class RestaurantInfoViewModel : InterfaceViewModel {
+    var model = RestaurantInfoModel()
 
     enum class EventType {
 
-        OnSendPressed
     }
 
     /*var realmData = listOf<>()
@@ -18,13 +16,13 @@ class ClientReviewViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ClientReviewModel) {
+        if (recievedModel is RestaurantInfoModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ClientReviewModel : InterfaceModel {
+class RestaurantInfoModel : InterfaceModel {
 
 }

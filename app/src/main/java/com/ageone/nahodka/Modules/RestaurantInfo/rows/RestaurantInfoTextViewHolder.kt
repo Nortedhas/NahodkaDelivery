@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Info.rows
+package com.ageone.nahodka.Modules.RestaurantInfo.rows
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -6,7 +6,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class InfoTextViewHolder(val constraintLayout: ConstraintLayout) :
+class RestaurantInfoTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
 
@@ -23,7 +23,7 @@ class InfoTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun InfoTextViewHolder.renderUI() {
+fun RestaurantInfoTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewInfo
     )
@@ -33,7 +33,7 @@ fun InfoTextViewHolder.renderUI() {
         .fillHorizontally(15)
 }
 
-fun InfoTextViewHolder.initialize(info: String) {
+fun RestaurantInfoTextViewHolder.initialize(info: String) {
 
     textViewInfo.text = info
 }

@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.ClientReview
+package com.ageone.nahodka.Modules.Mark
 
 import android.graphics.Color
 import android.view.ViewGroup
@@ -9,15 +9,13 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.ClientReview.rows.ClientReviewTextViewHolder
-import com.ageone.nahodka.Modules.ClientReview.rows.initialize
+import com.ageone.nahodka.Modules.Mark.rows.MarkTextViewHolder
+import com.ageone.nahodka.Modules.Mark.rows.initialize
 import yummypets.com.stevia.*
 
-class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = ClientReviewViewModel()
+    val viewModel = MarkViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -53,14 +51,14 @@ class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val ClientReviewTextType = 0
+        private val MarkTextType = 0
 
         var isRatingPressed = false
 
         override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> ClientReviewTextType
+            0 -> MarkTextType
             else -> -1
         }
 
@@ -73,8 +71,8 @@ class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                ClientReviewTextType -> {
-                    ClientReviewTextViewHolder(layout)
+                MarkTextType -> {
+                    MarkTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -87,7 +85,7 @@ class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is ClientReviewTextViewHolder -> {
+                is MarkTextViewHolder -> {
                     holder.initialize("Ollis Pizza", "Оставьте комментарий", InputEditTextType.TEXT)
 
 
@@ -176,7 +174,7 @@ class ClientReviewView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
 }
 
-fun ClientReviewView.renderUIO() {
+fun MarkView.renderUIO() {
 
     renderBodyTable()
 }

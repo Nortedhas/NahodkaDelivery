@@ -1,14 +1,14 @@
-package com.ageone.nahodka.Modules.Info
+package com.ageone.nahodka.Modules.Mark
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class InfoViewModel : InterfaceViewModel {
-    var model = InfoModel()
+class MarkViewModel : InterfaceViewModel {
+    var model = MarkModel()
 
     enum class EventType {
 
+        OnSendPressed
     }
 
     /*var realmData = listOf<>()
@@ -17,13 +17,13 @@ class InfoViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is InfoModel) {
+        if (recievedModel is MarkModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class InfoModel : InterfaceModel {
+class MarkModel : InterfaceModel {
 
 }

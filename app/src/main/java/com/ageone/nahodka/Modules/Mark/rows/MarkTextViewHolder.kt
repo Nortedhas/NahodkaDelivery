@@ -1,12 +1,10 @@
-package com.ageone.nahodka.Modules.ClientReview.rows
+package com.ageone.nahodka.Modules.Mark.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
 import android.widget.LinearLayout
-import android.widget.RatingBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
-import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -17,7 +15,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class ClientReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
+class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
 
@@ -110,7 +108,7 @@ class ClientReviewTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun ClientReviewTextViewHolder.renderUI() {
+fun MarkTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewEstimate,
         textViewName,
@@ -168,7 +166,7 @@ fun ClientReviewTextViewHolder.renderUI() {
 
 }
 
-fun ClientReviewTextViewHolder.initialize(name:String, hint: String, type: InputEditTextType) {
+fun MarkTextViewHolder.initialize(name:String, hint: String, type: InputEditTextType) {
 
     textViewName.text = name
     textInputL.hint = hint

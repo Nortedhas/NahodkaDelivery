@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Info
+package com.ageone.nahodka.Modules.RestaurantInfo
 
 import android.graphics.Color
 import android.view.ViewGroup
@@ -8,15 +8,13 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
-import com.ageone.nahodka.Modules.Info.rows.InfoTextViewHolder
-import com.ageone.nahodka.Modules.Info.rows.initialize
+import com.ageone.nahodka.Modules.RestaurantInfo.rows.RestaurantInfoTextViewHolder
+import com.ageone.nahodka.Modules.RestaurantInfo.rows.initialize
 import yummypets.com.stevia.*
 
-class InfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class RestaurantInfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = InfoViewModel()
+    val viewModel = RestaurantInfoViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -52,12 +50,12 @@ class InfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val InfoTextType = 0
+        private val RestaurantInfoTextType = 0
 
         override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> InfoTextType
+            0 -> RestaurantInfoTextType
             else -> -1
         }
 
@@ -70,8 +68,8 @@ class InfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                InfoTextType -> {
-                    InfoTextViewHolder(layout)
+                RestaurantInfoTextType -> {
+                    RestaurantInfoTextViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -84,7 +82,7 @@ class InfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is InfoTextViewHolder -> {
+                is RestaurantInfoTextViewHolder -> {
                     holder.initialize(" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ")
                 }
 
@@ -96,7 +94,7 @@ class InfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
 }
 
-fun InfoView.renderUIO() {
+fun RestaurantInfoView.renderUIO() {
 
     renderBodyTable()
 }
