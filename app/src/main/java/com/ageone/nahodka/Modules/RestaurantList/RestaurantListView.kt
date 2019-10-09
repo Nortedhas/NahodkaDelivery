@@ -28,12 +28,12 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
     var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
 
-    val imageViewFAB by lazy {
+    val imageViewFAB by lazy {//TODO: replace UI
         val imageView = BaseImageView()
         imageView.setBackgroundColor(Color.TRANSPARENT)
-        imageView.width(80)
-        imageView.height(80)
-        imageView.setImageResource(R.drawable.ic_fab)
+        imageView.width(30.dp)
+        imageView.height(30.dp)
+        imageView.setImageResource(R.drawable.button_filter)
         imageView.initialize()
         imageView.setOnClickListener {
             emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.toString())

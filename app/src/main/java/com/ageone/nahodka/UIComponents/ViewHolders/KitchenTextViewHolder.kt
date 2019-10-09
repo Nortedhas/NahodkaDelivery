@@ -14,7 +14,7 @@ class KitchenTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHol
 
     val back by lazy {
         val view = BaseView()
-        view.cornerRadius = 10.dp
+        view.cornerRadius = 20.dp
         view.initialize()
         view
     }
@@ -46,18 +46,14 @@ fun KitchenTextViewHolder.renderUI() {
 
     back
         .height(25)
-//        .width(70)
         .constrainTopToTopOf(constraintLayout,17)
         .constrainLeftToLeftOf(constraintLayout,13)
 
     textViewKitchen
-//        .fillParent(4)
-        .constrainRightToRightOf(back, 4)
-        .constrainLeftToLeftOf(back, 4)
+        .constrainRightToRightOf(back, 8)
+        .constrainLeftToLeftOf(back, 8)
         .constrainTopToTopOf(back, 4)
         .constrainBottomToBottomOf(back, 4)
-        /*.constrainCenterYToCenterYOf(back)
-        .constrainCenterXToCenterXOf(back)*/
 
 }
 

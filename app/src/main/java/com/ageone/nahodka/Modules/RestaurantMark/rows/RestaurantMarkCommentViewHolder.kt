@@ -22,14 +22,14 @@ class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
 
     val textViewName by lazy {
         val textView = BaseTextView()
-        textView.textSize = 11F
+        textView.textSize = 12F
         textView.textColor = Color.BLACK
         textView
     }
 
     val textViewRating by lazy {
         val textView = BaseTextView()
-        textView.textSize = 11F
+        textView.textSize = 12F
         textView.textColor = Color.BLACK
         textView
     }
@@ -43,14 +43,14 @@ class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
 
     val textViewComment by lazy {
         val textView = BaseTextView()
-        textView.textSize = 11F
+        textView.textSize = 12F
         textView.textColor = Color.parseColor("#979797")
         textView
     }
 
     val textViewDate by lazy {
         val textView = BaseTextView()
-        textView.textSize = 11F
+        textView.textSize = 12F
         textView.textColor = Color.parseColor("#979797")
         textView
     }

@@ -23,7 +23,14 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
         viewAdapter
     }
 
-    var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
+    var foodList = listOf(
+        R.drawable.pic_food1,
+        R.drawable.pic_food2,
+        R.drawable.pic_food3,
+        R.drawable.pic_food4,
+        R.drawable.pic_food1,
+        R.drawable.pic_food2
+    )
 
     init {
 //        viewModel.loadRealmData()
@@ -54,9 +61,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val RestaurantPreviewType = 0
-
         private val RestaurantTextType = 1
-
         private val RestaurantCardType = 3
 
         override fun getItemCount() = 6//viewModel.realmData.size
@@ -118,11 +123,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                     holder.imageViewStar.setOnClickListener {
                         if(!isStarPressed) {
                             holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
-                            isStarPressed = true
                         } else {
                             holder.imageViewStar.setImageResource(R.drawable.ic_star)
-                            isStarPressed = false
                         }
+                        isStarPressed = !isStarPressed
                     }
                 }
                 is RestaurantTextViewHolder -> {
