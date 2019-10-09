@@ -13,9 +13,9 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Buscket.BuscketModel
 import com.ageone.nahodka.Modules.Buscket.BuscketView
 import com.ageone.nahodka.Modules.Buscket.BuscketViewModel
-import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderModel
-import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderView
-import com.ageone.nahodka.Modules.CheckoutOrder.CheckoutOrderViewModel
+import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderModel
+import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderView
+import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderViewModel
 import com.ageone.nahodka.Modules.Comment.CommentModel
 import com.ageone.nahodka.Modules.Comment.CommentView
 import com.ageone.nahodka.Modules.WebView
@@ -62,7 +62,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
 
     inner class FlowBucketModels {
         var modelBucket = BuscketModel()
-        var modelCheckout = CheckoutOrderModel()
+        var modelCheckout = BuscketOrderModel()
         var modelComment = CommentModel()
     }
 
@@ -96,7 +96,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
     }
 
     private fun runModuleCheckout(){
-        val module = CheckoutOrderView( InitModuleUI(
+        val module = BuscketOrderView( InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
         )
@@ -105,11 +105,11 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         module.viewModel.initialize(models.modelCheckout) { module.reload()}
 
         module.emitEvent = {event ->
-            when(CheckoutOrderViewModel.EventType.valueOf(event)) {
-                CheckoutOrderViewModel.EventType.OnCommentPressed -> {
+            when(BuscketOrderViewModel.EventType.valueOf(event)) {
+                BuscketOrderViewModel.EventType.OnCommentPressed -> {
                     runModuleComment()
                 }
-                CheckoutOrderViewModel.EventType.OnCheckPressed -> {
+                BuscketOrderViewModel.EventType.OnCheckPressed -> {
                     runModuleWebView("")
                 }
             }

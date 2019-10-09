@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.CheckoutOrder.rows
+package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
@@ -13,7 +13,7 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class CheckoutOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val editTextPhone by lazy {
@@ -84,7 +84,7 @@ class CheckoutOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun CheckoutOrderPhoneViewHolder.renderUI() {
+fun BuscketOrderPhoneViewHolder.renderUI() {
     constraintLayout.subviews(
         editTextPhone,
         imageViewComment,
@@ -109,7 +109,7 @@ fun CheckoutOrderPhoneViewHolder.renderUI() {
 
 }
 
-fun CheckoutOrderPhoneViewHolder.initialize(hintPhone: String,hintComment: String) {
+fun BuscketOrderPhoneViewHolder.initialize(hintPhone: String, hintComment: String) {
     editTextPhone.hint = hintPhone
     editTextComment.hint = hintComment
 }

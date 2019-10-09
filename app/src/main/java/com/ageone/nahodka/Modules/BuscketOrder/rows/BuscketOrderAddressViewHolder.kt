@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.CheckoutOrder.rows
+package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
@@ -11,7 +11,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 import yummypets.com.stevia.*
 
-class CheckoutOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
 
@@ -46,7 +46,7 @@ class CheckoutOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun CheckoutOrderAddressViewHolder.renderUI() {
+fun BuscketOrderAddressViewHolder.renderUI() {
     constraintLayout.subviews(
         editTextAddress
     )
@@ -58,7 +58,7 @@ fun CheckoutOrderAddressViewHolder.renderUI() {
 
 }
 
-fun CheckoutOrderAddressViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun BuscketOrderAddressViewHolder.initialize(hint: String, type: InputEditTextType) {
 
     editTextAddress.hint = hint
     editTextAddress.defineType(type)

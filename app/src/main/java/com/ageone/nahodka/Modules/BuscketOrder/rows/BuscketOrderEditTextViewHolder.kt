@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.CheckoutOrder.rows
+package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
@@ -10,7 +10,7 @@ import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class CheckoutOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textInputOffice by lazy {
@@ -112,7 +112,7 @@ class CheckoutOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun CheckoutOrderEditTextViewHolder.renderUI() {
+fun BuscketOrderEditTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputOffice,
         textInputHome,
@@ -148,7 +148,7 @@ fun CheckoutOrderEditTextViewHolder.renderUI() {
 }
 
 
-fun CheckoutOrderEditTextViewHolder.initialize(hintOffice: String, hintHome: String,hintPorch: String,hintFloor: String) {
+fun BuscketOrderEditTextViewHolder.initialize(hintOffice: String, hintHome: String, hintPorch: String, hintFloor: String) {
     textInputOffice.hint = hintOffice
     textInputHome.hint = hintHome
     textInputPorch.hint = hintPorch

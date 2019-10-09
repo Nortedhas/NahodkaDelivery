@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.CheckoutOrder.rows
+package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -17,7 +17,7 @@ import yummypets.com.stevia.constrainLeftToLeftOf
 import yummypets.com.stevia.constrainTopToTopOf
 import yummypets.com.stevia.*
 
-class CheckoutBottomViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketOrderBottomViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val editTextPay by lazy {
@@ -126,7 +126,7 @@ class CheckoutBottomViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun CheckoutBottomViewHolder.renderUI() {
+fun BuscketOrderBottomViewHolder.renderUI() {
     constraintLayout.subviews(
         editTextPay,
         textViewAmount,
@@ -181,7 +181,7 @@ fun CheckoutBottomViewHolder.renderUI() {
 
 }
 
-fun CheckoutBottomViewHolder.initialize(amountPrice: Int, deliveryPrice: Int, hint: String) {
+fun BuscketOrderBottomViewHolder.initialize(amountPrice: Int, deliveryPrice: Int, hint: String) {
 
     editTextPay.hint = hint
 
