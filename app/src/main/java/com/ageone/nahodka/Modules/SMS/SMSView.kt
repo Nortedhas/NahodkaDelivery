@@ -2,6 +2,7 @@ package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
 import android.text.InputType
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -39,7 +40,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
-
         button
     }
 
@@ -47,7 +47,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
     init {
 //        viewModel.loadRealmData
 
-        innerContent.setButtonAboveKeyboard(nextButton)
+//        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "СМС код"
@@ -57,7 +57,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
         bodyTable.adapter = viewAdapter
 
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         nextButton.setOnClickListener {
             user.isAuthorized = true

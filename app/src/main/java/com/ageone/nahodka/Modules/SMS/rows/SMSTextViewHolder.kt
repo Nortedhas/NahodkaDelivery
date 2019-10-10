@@ -47,17 +47,16 @@ fun SMSTextViewHolder.renderUI() {
     textView
         .constrainTopToTopOf(constraintLayout, 16)
         .fillHorizontally(16)
-        .text = "Если Вы не получили смс, запросить код повторно можно через 01:00"
 }
 
-fun SMSTextViewHolder.initialize(complition: (()->(Unit))) {
+fun SMSTextViewHolder.initialize(completion: (()->(Unit))) {
 
-    timer.schedule(1000, 1000){
+    timer.schedule(0, 1000){
         timeBeforeRedirect-=1000L
         currentActivity?.runOnUiThread {
             if (timeBeforeRedirect == 0L) {
                 timer.cancel()
-                complition.invoke()
+                completion.invoke()
             } else {
                 setTime(timeBeforeRedirect)
             }
