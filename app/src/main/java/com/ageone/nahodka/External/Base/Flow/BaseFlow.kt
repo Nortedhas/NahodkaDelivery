@@ -11,6 +11,9 @@ import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import timber.log.Timber
+import android.view.animation.AnimationUtils
+import com.ageone.nahodka.R
+
 
 abstract class BaseFlow: View(currentActivity){
     //modules in flow
@@ -29,8 +32,10 @@ abstract class BaseFlow: View(currentActivity){
     var isStarted = false
 
     val viewFlipperModule by lazy {
-        val viewFlipperModule = BaseViewFlipper()
-        viewFlipperModule
+        val flipper = BaseViewFlipper()
+        flipper.setInAnimation(this.context, android.R.anim.fade_in)
+        flipper.setOutAnimation(this.context, android.R.anim.fade_out)
+        flipper
     }
 
     init {

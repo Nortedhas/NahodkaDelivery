@@ -114,7 +114,7 @@ fun Activity.hideKeyboard() {
     }
 }
 
-fun AppActivity.setStatusBarColor(color: Int) {
+fun Activity.setStatusBarColor(color: Int) {
     window.statusBarColor = color
 }
 

@@ -3,6 +3,7 @@ package com.ageone.nahodka.Application.Coordinator.Flow
 import android.content.Context
 import android.graphics.Color
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import com.ageone.nahodka.Application.AppActivity
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
@@ -16,6 +17,7 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
+import com.ageone.nahodka.R
 import timber.log.Timber
 import yummypets.com.stevia.*
 
@@ -98,14 +100,13 @@ class FlowCoordinator {
 
     object ViewFlipperFlowObject{
         var currentFlow: BaseFlow? = null
-
         val viewFlipperFlow: BaseViewFlipper by lazy {
             val flipper = BaseViewFlipper()
+            flipper.setInAnimation(currentActivity, android.R.anim.fade_in)
+            flipper.setOutAnimation(currentActivity, android.R.anim.fade_out)
             flipper
         }
-
     }
-
 }
 
 fun setBottomNavigationVisible(visible: Boolean) = if (visible) {
@@ -117,7 +118,7 @@ fun setBottomNavigationVisible(visible: Boolean) = if (visible) {
 }
 
 fun setStatusBarColor(color: Int) {
-    (currentActivity as AppActivity).setStatusBarColor(color)
+    currentActivity?.setStatusBarColor(color)
 }
 
 private enum class LaunchInstructor {
