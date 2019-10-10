@@ -1,11 +1,10 @@
-package com.ageone.nahodka.Modules.Change
+package com.ageone.nahodka.Modules.ChangeName
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-class ChangeViewModel : InterfaceViewModel {
-    var model = ChangeModel()
+class ChangeNameViewModel : InterfaceViewModel {
+    var model = ChangeNameModel()
 
     enum class EventType {
         OnNextPressed
@@ -17,13 +16,13 @@ class ChangeViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ChangeModel) {
+        if (recievedModel is ChangeNameModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ChangeModel : InterfaceModel {
+class ChangeNameModel : InterfaceModel {
 
 }

@@ -10,7 +10,7 @@ import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textInputOffice by lazy {
@@ -120,7 +120,7 @@ class BuscketOrderEditTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun BuscketOrderEditTextViewHolder.renderUI() {
+fun BuscketOrderTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputOffice,
         textInputHome,
@@ -156,7 +156,7 @@ fun BuscketOrderEditTextViewHolder.renderUI() {
 }
 
 
-fun BuscketOrderEditTextViewHolder.initialize(hintOffice: String, hintHome: String, hintPorch: String, hintFloor: String) {
+fun BuscketOrderTextInputViewHolder.initialize(hintOffice: String, hintHome: String, hintPorch: String, hintFloor: String) {
     textInputOffice.hint = hintOffice
     textInputHome.hint = hintHome
     textInputPorch.hint = hintPorch

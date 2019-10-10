@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Change.rows
+package com.ageone.nahodka.Modules.Frame.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
@@ -10,10 +10,10 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class ChangeTextInputViewHolder(val constraintLayout: ConstraintLayout) :
+class FrameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    val editTextName by lazy {
+    val editTextComment by lazy {
         val editText = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -24,16 +24,13 @@ class ChangeTextInputViewHolder(val constraintLayout: ConstraintLayout) :
         params.updateMargins(left = (-2).dp)
         editText.layoutParams = params
 
-
-        editText.boxStrokeColor = Color.parseColor("#C1C1C1")
+        editText.boxStrokeColor = Color.parseColor("#D7D7D7")
         editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
-        editText.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
-
+        editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+        editText.defineType(InputEditTextType.TEXT)
         editText.editText?.let { editText ->
-            editText.textColor = Color.parseColor("#000000")
-            editText.textSize = 20F
-            editText.maxLines = 1
-
+            editText.textColor = Color.parseColor("#333333")
+            editText.textSize = 16F
         }
         editText
     }
@@ -45,20 +42,18 @@ class ChangeTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun ChangeTextInputViewHolder.renderUI() {
+fun FrameTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
-        editTextName
+        editTextComment
     )
 
-    editTextName
-        .constrainTopToTopOf(constraintLayout)
+    editTextComment
+        .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(16)
-
 
 }
 
-fun ChangeTextInputViewHolder.initialize(hint: String, type: InputEditTextType) {
-    editTextName.hint = hint
-    editTextName.defineType(type)
+fun FrameTextInputViewHolder.initialize(hint: String) {
+    editTextComment.hint = hint
 
 }

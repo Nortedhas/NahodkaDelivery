@@ -87,7 +87,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     BuscketOrderAddressViewHolder(layout)
                 }
                 BuscketOrderHouseType -> {
-                    BuscketOrderEditTextViewHolder(layout)
+                    BuscketOrderTextInputViewHolder(layout)
                 }
                 BuscketOrderPhoneType -> {
                     BuscketOrderPhoneViewHolder(layout)
@@ -109,7 +109,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is BuscketOrderAddressViewHolder -> {
                     holder.initialize("Адрес доставки", InputEditTextType.TEXT)
                 }
-                is BuscketOrderEditTextViewHolder -> {
+                is BuscketOrderTextInputViewHolder -> {
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
                 }
                 is BuscketOrderPhoneViewHolder -> {

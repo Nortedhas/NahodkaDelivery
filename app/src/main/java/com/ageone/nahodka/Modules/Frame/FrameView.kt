@@ -8,7 +8,7 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Frame.rows.FrameEditTextViewHolder
+import com.ageone.nahodka.Modules.Frame.rows.FrameTextInputViewHolder
 import com.ageone.nahodka.Modules.Frame.rows.initialize
 import yummypets.com.stevia.*
 
@@ -69,7 +69,7 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
             val holder = when (viewType) {
                 FrameEditTextType -> {
-                    FrameEditTextViewHolder(layout)
+                    FrameTextInputViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -82,7 +82,7 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is FrameEditTextViewHolder -> {
+                is FrameTextInputViewHolder -> {
                     holder.initialize("Комментарий к заказу")
                 }
 

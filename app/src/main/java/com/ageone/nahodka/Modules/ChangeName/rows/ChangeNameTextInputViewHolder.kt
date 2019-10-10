@@ -1,4 +1,4 @@
-package com.example.ageone.UIComponents.ViewHolders
+package com.ageone.nahodka.Modules.ChangeName.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
@@ -10,10 +10,11 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class EntryInputViewHolder(val constraintLayout: ConstraintLayout) :
+class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
-    val textInputL by lazy {
-        val textInput = BaseTextInputLayout()
+
+    val editTextName by lazy {
+        val editText = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -21,21 +22,21 @@ class EntryInputViewHolder(val constraintLayout: ConstraintLayout) :
         )
         params.marginStart = (-2).dp
         params.updateMargins(left = (-2).dp)
-        textInput.layoutParams = params
+        editText.layoutParams = params
 
 
-        textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
-        textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
+        editText.boxStrokeColor = Color.parseColor("#C1C1C1")
+        editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
+        editText.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
 
-        textInput.editText?.let { editText ->
+        editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
-            editText.textSize = 7F.dp
-            editText.hint = "СМС код"
-        }
-        textInput
-    }
+            editText.textSize = 20F
+            editText.maxLines = 1
 
+        }
+        editText
+    }
 
     init {
 
@@ -44,18 +45,20 @@ class EntryInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun EntryInputViewHolder.renderUI() {
+fun ChangeNameTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
-        textInputL
+        editTextName
     )
 
-    textInputL
-        .constrainTopToTopOf(constraintLayout,20)
-        .fillHorizontally(12)
+    editTextName
+        .constrainTopToTopOf(constraintLayout)
+        .fillHorizontally(16)
+
 
 }
 
-fun EntryInputViewHolder.initialize(hint: String, type: InputEditTextType) {
-    textInputL.hint = hint
-    textInputL.defineType(type)
+fun ChangeNameTextInputViewHolder.initialize(hint: String, type: InputEditTextType) {
+    editTextName.hint = hint
+    editTextName.defineType(type)
+
 }

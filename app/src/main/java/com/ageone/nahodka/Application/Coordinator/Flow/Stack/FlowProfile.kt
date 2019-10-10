@@ -13,9 +13,9 @@ import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Change.ChangeModel
-import com.ageone.nahodka.Modules.Change.ChangeView
-import com.ageone.nahodka.Modules.Change.ChangeViewModel
+import com.ageone.nahodka.Modules.ChangeName.ChangeNameModel
+import com.ageone.nahodka.Modules.ChangeName.ChangeNameView
+import com.ageone.nahodka.Modules.ChangeName.ChangeNameViewModel
 import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSModel
 import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSView
 import com.ageone.nahodka.Modules.ChangeSMS.ChangeSMSViewModel
@@ -66,7 +66,7 @@ class FlowProfile : BaseFlow() {
         var modelProfileTest = ProfileModel()
         var moduleMyOrder = ProfileListModel()
         var moduleContact= QuestionModel()
-        var moduleChange = ChangeModel()
+        var moduleChange = ChangeNameModel()
         var moduleChangeSMS = ChangeSMSModel()
     }
 
@@ -134,7 +134,7 @@ class FlowProfile : BaseFlow() {
     }
 
     fun runModuleChangeName(){
-        val module = ChangeView(
+        val module = ChangeNameView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
                 isBackPressed = true
@@ -144,8 +144,8 @@ class FlowProfile : BaseFlow() {
         module.viewModel.initialize(models.moduleChange) { module.reload() }
 
         module.emitEvent = {event ->
-            when(ChangeViewModel.EventType.valueOf(event)){
-                ChangeViewModel.EventType.OnNextPressed -> {
+            when(ChangeNameViewModel.EventType.valueOf(event)){
+                ChangeNameViewModel.EventType.OnNextPressed -> {
                     runModuleChangeSMS()
                 }
             }
