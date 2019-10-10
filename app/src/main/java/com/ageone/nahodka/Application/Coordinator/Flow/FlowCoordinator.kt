@@ -18,6 +18,7 @@ import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.R
+import nl.komponents.kovenant.Kovenant.context
 import timber.log.Timber
 import yummypets.com.stevia.*
 
@@ -102,8 +103,14 @@ class FlowCoordinator {
         var currentFlow: BaseFlow? = null
         val viewFlipperFlow: BaseViewFlipper by lazy {
             val flipper = BaseViewFlipper()
-            flipper.setInAnimation(currentActivity, android.R.anim.fade_in)
-            flipper.setOutAnimation(currentActivity, android.R.anim.fade_out)
+
+            val imgAnimationIn = AnimationUtils.loadAnimation(currentActivity, android.R.anim.fade_in)
+            imgAnimationIn.duration = 200
+            flipper.inAnimation = imgAnimationIn
+
+            val imgAnimationOut = AnimationUtils.loadAnimation(currentActivity, android.R.anim.fade_out)
+            imgAnimationOut.duration = 200
+            flipper.outAnimation = imgAnimationOut
             flipper
         }
     }

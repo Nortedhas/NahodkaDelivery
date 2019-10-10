@@ -126,8 +126,9 @@ fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String, cornerRadiu
 
 private fun createDownloadPlaceholder(): LayerDrawable {
     val circularProgressDrawable = CircularProgressDrawable(currentActivity as Context)
-    circularProgressDrawable.strokeWidth = 15f.dp
-    circularProgressDrawable.centerRadius = 100f.dp
+    circularProgressDrawable.strokeWidth = 10f.dp
+    circularProgressDrawable.centerRadius = 40f.dp
+    circularProgressDrawable.setColorSchemeColors(Color.WHITE)
     circularProgressDrawable.start()
 
     val placeholderImage = GradientDrawable()

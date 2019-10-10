@@ -11,8 +11,6 @@ import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import timber.log.Timber
-import android.view.animation.AnimationUtils
-import com.ageone.nahodka.R
 
 
 abstract class BaseFlow: View(currentActivity){
@@ -83,10 +81,10 @@ abstract class BaseFlow: View(currentActivity){
             }
             
             if (viewFlipperModule.contains(module)) {
-                viewFlipperModule.removeView(module)
                 //image previous module
                 viewFlipperModule.displayedChild = stack.size - 1//.last()
 
+                viewFlipperModule.removeView(module)
             }
             module.onDeInit?.invoke()
             Timber.i("Module DeInit ${module.className()}")

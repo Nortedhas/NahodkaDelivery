@@ -69,8 +69,6 @@ class App: Application()  {
 
         Realm.init(this)
 
-        VK.initialize(this)
-
         registerActivityLifecycleCallbacks(mFTActivityLifecycleCallbacks)
     }
 

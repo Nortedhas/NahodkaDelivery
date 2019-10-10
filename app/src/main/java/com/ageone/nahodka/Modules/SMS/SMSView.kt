@@ -47,7 +47,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
     init {
 //        viewModel.loadRealmData
 
-//        innerContent.setButtonAboveKeyboard(nextButton)
+        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "СМС код"
