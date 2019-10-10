@@ -5,18 +5,19 @@ import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import com.ageone.nahodka.Application.utils
-import com.ageone.nahodka.R
-import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
+import yummypets.com.stevia.constrainLeftToLeftOf
+import yummypets.com.stevia.constrainTopToTopOf
 import yummypets.com.stevia.*
 
-class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
+class BuscketOrderTextInputPayViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    val editTextPhone by lazy {
+
+    val textInputPay by lazy {
         val editText = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -31,12 +32,11 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
         editText.boxStrokeColor = Color.parseColor("#D7D7D7")
         editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
-        editText.defineType(InputEditTextType.PHONE)
-
+        editText.defineType(InputEditTextType.TEXT)
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 6F.dp
+            editText.textSize = 16F
             editText.maxLines = 1
         }
         editText
@@ -49,19 +49,19 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun BuscketOrderPhoneViewHolder.renderUI() {
+fun BuscketOrderTextInputPayViewHolder.renderUI() {
     constraintLayout.subviews(
-        editTextPhone
+        textInputPay
     )
 
-    editTextPhone
+    textInputPay
         .constrainTopToTopOf(constraintLayout)
-        .fillHorizontally(16)
-
-
+        .constrainLeftToLeftOf(constraintLayout,16)
+        .width(utils.variable.displayWidth/2)
+        .height(utils.variable.displayWidth * .166F)
 
 }
 
-fun BuscketOrderPhoneViewHolder.initialize(hintPhone: String) {
-    editTextPhone.hint = hintPhone
+fun BuscketOrderTextInputPayViewHolder.initialize(hint: String) {
+    textInputPay.hint = hint
 }

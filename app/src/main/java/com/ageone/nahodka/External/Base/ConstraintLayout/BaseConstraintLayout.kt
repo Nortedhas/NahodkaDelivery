@@ -22,9 +22,9 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
 
         var marginHeight = 0
 
-        if(isNavButton) {
+        if(!isNavButton) {
              marginHeight =
-                ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt() - 56)
+                ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt() - 54)
         }else {
             marginHeight =
                 ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt())
