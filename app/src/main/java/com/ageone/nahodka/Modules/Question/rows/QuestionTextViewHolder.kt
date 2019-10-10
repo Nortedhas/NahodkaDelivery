@@ -15,7 +15,7 @@ class QuestionTextViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT
-        textView.textSize = 18F
+        textView.textSize = 16F
         textView.textColor = Color.parseColor("#BFBFBF")
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView
@@ -25,7 +25,7 @@ class QuestionTextViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT
-        textView.textSize = 18F
+        textView.textSize = 16F
         textView.textColor = Color.parseColor("#818DFF")
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView

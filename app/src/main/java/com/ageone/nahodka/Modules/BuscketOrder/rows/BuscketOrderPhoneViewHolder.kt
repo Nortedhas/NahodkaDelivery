@@ -71,7 +71,7 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         editText.editText?.let { editText ->
-            editText.textColor = Color.parseColor("#333333")
+            editText.textColor = Color.parseColor("#7A7A7A")
             editText.textSize = 16F
             editText.maxLines = 3
 

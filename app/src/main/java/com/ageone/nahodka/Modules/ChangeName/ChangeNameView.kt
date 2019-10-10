@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.Change
+package com.ageone.nahodka.Modules.ChangeName
 
 import android.graphics.Color
 import android.text.InputType
@@ -6,20 +6,19 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.External.Base.Button.BaseButton
-import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Change.rows.ChangeTextInputViewHolder
-import com.ageone.nahodka.Modules.Change.rows.initialize
+import com.ageone.nahodka.Modules.ChangeName.rows.ChangeNameTextInputViewHolder
+import com.ageone.nahodka.Modules.ChangeName.rows.initialize
 import yummypets.com.stevia.*
 
-class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = ChangeViewModel()
+    val viewModel = ChangeNameViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -88,7 +87,7 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
             val holder = when (viewType) {
                 ChangeEditTextType -> {
-                    ChangeTextInputViewHolder(layout)
+                    ChangeNameTextInputViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -101,7 +100,7 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is ChangeTextInputViewHolder -> {
+                is ChangeNameTextInputViewHolder -> {
                     when (position % 2) {
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
@@ -121,7 +120,7 @@ class ChangeView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 }
 
-fun ChangeView.renderUIO() {
+fun ChangeNameView.renderUIO() {
 
     innerContent.subviews(
         bodyTable,
@@ -142,7 +141,7 @@ fun ChangeView.renderUIO() {
         .fillHorizontally()
         .height(56)
         .setOnClickListener {
-            emitEvent?.invoke(ChangeViewModel.EventType.OnNextPressed.toString())
+            emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.toString())
         }
 
 
