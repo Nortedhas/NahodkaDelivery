@@ -3,6 +3,7 @@ package com.example.ageone.Modules.Entry
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.os.Handler
 import android.text.InputType
 import android.view.KeyEvent
@@ -14,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.hideKeyboard
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dissmissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
@@ -49,6 +51,9 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
          //   button.visibility = View.GONE
         button
     }
+
+    var bottomList:ArrayList<Int> = ArrayList()
+
 
 
     init {
