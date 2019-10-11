@@ -13,7 +13,7 @@ import yummypets.com.stevia.*
 class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    val editTextName by lazy {
+    val textInputChange by lazy {
         val editText = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -47,10 +47,10 @@ class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun ChangeNameTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
-        editTextName
+        textInputChange
     )
 
-    editTextName
+    textInputChange
         .constrainTopToTopOf(constraintLayout)
         .fillHorizontally(16)
 
@@ -58,7 +58,7 @@ fun ChangeNameTextInputViewHolder.renderUI() {
 }
 
 fun ChangeNameTextInputViewHolder.initialize(hint: String, type: InputEditTextType) {
-    editTextName.hint = hint
-    editTextName.defineType(type)
+    textInputChange.hint = hint
+    textInputChange.defineType(type)
 
 }

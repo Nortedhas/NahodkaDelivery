@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.hideKeyboard
+import com.ageone.nahodka.External.Base.ConstraintLayout.dissmissFocus
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -122,7 +123,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
             when (holder) {
                 is BuscketOrderAddressViewHolder -> {
-                    holder.initialize("Адрес доставки", InputEditTextType.TEXT)
+                    holder.initialize("Адрес доставки")
                 }
                 is BuscketOrderTextInputViewHolder -> {
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")

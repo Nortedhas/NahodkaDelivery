@@ -34,14 +34,6 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 20F
             editText.maxLines = 1
-
-            /*editText.setOnKeyListener { v, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    //v.clearFocus()
-                    onEndEditText?.invoke()
-                }
-                true
-            }*/
         }
 
         textInput

@@ -15,7 +15,7 @@ class BuscketOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
 
-    val editTextAddress by lazy {
+    val textInputAddress by lazy {
         val textInput = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -30,6 +30,7 @@ class BuscketOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
         textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+        textInput.defineType(InputEditTextType.TEXT)
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
@@ -49,19 +50,16 @@ class BuscketOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun BuscketOrderAddressViewHolder.renderUI() {
     constraintLayout.subviews(
-        editTextAddress
+        textInputAddress
     )
 
-    editTextAddress
+    textInputAddress
         .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(16)
 
 
 }
 
-fun BuscketOrderAddressViewHolder.initialize(hint: String, type: InputEditTextType) {
-
-    editTextAddress.hint = hint
-    editTextAddress.defineType(type)
-
+fun BuscketOrderAddressViewHolder.initialize(hint: String) {
+    textInputAddress.hint = hint
 }

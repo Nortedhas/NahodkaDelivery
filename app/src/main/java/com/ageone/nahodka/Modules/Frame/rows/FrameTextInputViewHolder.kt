@@ -13,7 +13,7 @@ import yummypets.com.stevia.*
 class FrameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    val editTextComment by lazy {
+    val textInputFrame by lazy {
         val editText = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
@@ -44,16 +44,16 @@ class FrameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun FrameTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
-        editTextComment
+        textInputFrame
     )
 
-    editTextComment
+    textInputFrame
         .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(16)
 
 }
 
 fun FrameTextInputViewHolder.initialize(hint: String) {
-    editTextComment.hint = hint
+    textInputFrame.hint = hint
 
 }
