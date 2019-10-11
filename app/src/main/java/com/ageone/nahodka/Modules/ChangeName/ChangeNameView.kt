@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.dissmissFocus
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -104,7 +105,6 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     when (position % 2) {
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
-
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)

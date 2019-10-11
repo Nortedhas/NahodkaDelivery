@@ -1,7 +1,9 @@
 package com.example.ageone.Modules.Entry
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.os.Handler
 import android.text.InputType
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -11,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.dissmissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -44,6 +47,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
          //   button.visibility = View.GONE
         button
     }
+
 
     init {
 //        viewModel.loadRealmData()
@@ -112,6 +116,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             return holder
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
@@ -120,14 +125,30 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
+                           /* holder.textInputL.editText?.setOnTouchListener { view, motionEvent ->
+                                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                                    Handler().postDelayed({
+                                        holder.textInputL.editText?.requestFocus()
+                                    }, 500)
+                                }
+                                false
+                            }*/
+                            innerContent.dissmissFocus(holder.textInputL.editText)
                         }
-
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
+                           /* holder.textInputL.editText?.setOnTouchListener { view, motionEvent ->
+                                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                                    Handler().postDelayed({
+                                        holder.textInputL.editText?.requestFocus()
+                                    }, 500)
+                                }
+                                false
+                            }*/
+                            innerContent.dissmissFocus(holder.textInputL.editText)
                         }
                     }
                 }
-
                 is RegistrationTextViewHolder -> {
                     holder.initialize()
                 }

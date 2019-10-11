@@ -11,10 +11,13 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.google.android.material.textfield.TextInputLayout
 import android.content.Context
+import android.graphics.Rect
+import android.os.Handler
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.utils
 import timber.log.Timber
 
 import yummypets.com.stevia.*
@@ -50,20 +53,16 @@ class RegistrationTextInputViewHolder(val constraintLayout: ConstraintLayout) :
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 20F
-            editText?.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_BACK /*&& event.repeatCount == 0*/) {
+            editText.maxLines = 1
 
-                    editText?.isFocusable = false
-                    editText?.isFocusableInTouchMode = true
-
-                    val imm = currentActivity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                    imm?.hideSoftInputFromWindow(v.windowToken,0)
-
-                    return@OnKeyListener true
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 1000)
                 }
                 false
-            })
-
+            }
         }
         textInput
     }
@@ -78,7 +77,6 @@ class RegistrationTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 fun RegistrationTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL
-
     )
 
      textInputL
