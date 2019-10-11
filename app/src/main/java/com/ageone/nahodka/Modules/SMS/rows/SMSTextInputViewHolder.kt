@@ -1,6 +1,8 @@
 package com.ageone.nahodka.Modules.SMS.rows
 
 import android.graphics.Color
+import android.os.Handler
+import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -34,6 +36,15 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 20F
             editText.maxLines = 1
+
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 300)
+                }
+                false
+            }
         }
 
         textInput

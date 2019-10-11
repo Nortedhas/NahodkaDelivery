@@ -16,7 +16,9 @@ import android.os.Handler
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.Application.utils
 import timber.log.Timber
 
@@ -59,7 +61,7 @@ class RegistrationTextInputViewHolder(val constraintLayout: ConstraintLayout) :
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){
                     Handler().postDelayed({
                         editText.requestFocus()
-                    }, 1000)
+                    }, 300)
                 }
                 false
             }

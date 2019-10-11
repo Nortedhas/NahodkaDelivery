@@ -1,6 +1,8 @@
 package com.ageone.nahodka.Modules.BuscketOrder.rows
 
 import android.graphics.Color
+import android.os.Handler
+import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -33,6 +35,14 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 16F
             editText.maxLines = 1
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 300)
+                }
+                false
+            }
 
         }
         textInput
@@ -59,6 +69,15 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textSize = 16F
             editText.maxLines = 1
 
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 300)
+                }
+                false
+            }
+
         }
         textInput
     }
@@ -84,6 +103,15 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textSize = 16F
             editText.maxLines = 1
 
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 300)
+                }
+                false
+            }
+
         }
         textInput
     }
@@ -108,6 +136,15 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 16F
             editText.maxLines = 1
+
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 300)
+                }
+                false
+            }
 
         }
         textInput

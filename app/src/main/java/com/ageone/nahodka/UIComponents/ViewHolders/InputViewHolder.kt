@@ -1,6 +1,8 @@
 package com.ageone.nahodka.UIComponents.ViewHolders
 
 import android.graphics.Color
+import android.os.Handler
+import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -32,6 +34,16 @@ class InputViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 7F.dp
+
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 300)
+                }
+                false
+            }
+
         }
         textInput
     }

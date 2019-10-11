@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dissmissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
@@ -125,25 +127,27 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
-                           /* holder.textInputL.editText?.setOnTouchListener { view, motionEvent ->
-                                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                                    Handler().postDelayed({
-                                        holder.textInputL.editText?.requestFocus()
-                                    }, 500)
+
+                            /*currentActivity?.addKeyboardToggleListener { shonw ->
+                                if(shonw) {
+                                    holder.textInputL.editText?.requestFocus()
                                 }
-                                false
+                                else{
+                                    holder.textInputL.editText?.clearFocus()
+                                }
                             }*/
-                            innerContent.dissmissFocus(holder.textInputL.editText)
+
+                                innerContent.dissmissFocus(holder.textInputL.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-                           /* holder.textInputL.editText?.setOnTouchListener { view, motionEvent ->
-                                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                                    Handler().postDelayed({
-                                        holder.textInputL.editText?.requestFocus()
-                                    }, 500)
+                            /*currentActivity?.addKeyboardToggleListener { shonw ->
+                                if(shonw) {
+                                    holder.textInputL.editText?.requestFocus()
                                 }
-                                false
+                                else{
+                                    holder.textInputL.editText?.clearFocus()
+                                }
                             }*/
                             innerContent.dissmissFocus(holder.textInputL.editText)
                         }
