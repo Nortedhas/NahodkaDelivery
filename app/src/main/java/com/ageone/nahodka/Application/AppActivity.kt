@@ -105,7 +105,7 @@ class AppActivity: BaseActivity() {
 }
 
 fun Activity.hideKeyboard() {
-    // Check if no view has
+    // Check if no view has focus
     val view = currentFocus
     view?.let { v ->
         //hide keyboard

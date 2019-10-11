@@ -59,7 +59,7 @@ class RegistrationTextInputViewHolder(val constraintLayout: ConstraintLayout) :
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){
                     Handler().postDelayed({
                         editText.requestFocus()
-                    }, 1000)
+                    }, 500)
                 }
                 false
             }

@@ -48,7 +48,7 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
 
 }
 
-fun BaseConstraintLayout.dissmissFocus(view: EditText?) {
+fun BaseConstraintLayout.dismissFocus(view: EditText?) {
 
     viewTreeObserver.addOnGlobalLayoutListener {
         val rect = Rect()
