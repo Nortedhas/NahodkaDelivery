@@ -62,15 +62,21 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         private val BuscketOrderEditTextType = 0
         private val BuscketOrderHouseType = 1
         private val BuscketOrderPhoneType = 2
-        private val BuscketOrderBottomType = 3
+        private val BuscketOrderMarkType = 3
+        private val BuscketOrderPayType = 4
+        private val BuscketOrderBottomType = 5
+        private val BuscketOrderButtonType = 6
 
-        override fun getItemCount() = 4//viewModel.realmData.size
+        override fun getItemCount() = 7//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> BuscketOrderEditTextType
             1 -> BuscketOrderHouseType
             2 -> BuscketOrderPhoneType
-            3 -> BuscketOrderBottomType
+            3 -> BuscketOrderMarkType
+            4 -> BuscketOrderPayType
+            5 -> BuscketOrderBottomType
+            6 -> BuscketOrderButtonType
             else -> -1
         }
 
@@ -92,8 +98,17 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 BuscketOrderPhoneType -> {
                     BuscketOrderPhoneViewHolder(layout)
                 }
+                BuscketOrderMarkType -> {
+                    BuscketOrderMarkViewHolder(layout)
+                }
+                BuscketOrderPayType -> {
+                    BuscketOrderTextInputPayViewHolder(layout)
+                }
                 BuscketOrderBottomType -> {
-                    BuscketOrderBottomViewHolder(layout)
+                    BuscketOrderTotalViewHolder(layout)
+                }
+                BuscketOrderButtonType -> {
+                    BuscketOrderButtonViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -113,20 +128,19 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
                 }
                 is BuscketOrderPhoneViewHolder -> {
-                    holder.initialize("Телефон", "Комментарий к заказу")
+                    holder.initialize("Телефон")
+                }
+                is BuscketOrderMarkViewHolder -> {
+                    holder.initialize("Комментарий к зааказу")
                     holder.textInputComment.editText?.setOnTouchListener { v, event ->
                         if (event.action == MotionEvent.ACTION_DOWN) {
                             rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCommentPressed.name)
                         }
                         false
                     }
-
                 }
-                is BuscketOrderBottomViewHolder -> {
-                    holder.initialize(162,50, "Способ оплаты")
-                    holder.buttonCheckout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.name)
-                    }
+                is BuscketOrderTextInputPayViewHolder -> {
+                    holder.initialize("Способ оплаты")
                     holder.textInputPay.editText?.setOnTouchListener { v, event ->
                         currentActivity?.hideKeyboard()
                         if (event.action == MotionEvent.ACTION_DOWN) {
@@ -142,6 +156,14 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                             }
                         }
                         false
+                    }                }
+                is BuscketOrderTotalViewHolder -> {
+                    holder.initialize(162,50)
+                }
+                is BuscketOrderButtonViewHolder -> {
+                    holder.initialize()
+                    holder.buttonCheckout.setOnClickListener {
+                        rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.name)
                     }
                 }
             }
