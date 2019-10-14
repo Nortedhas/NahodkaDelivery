@@ -34,6 +34,7 @@ class RestaurantListItemViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.textColor = Color.parseColor("#000000")
         textView.textSize = 12F
+        textView.setLines(1)
         textView
     }
 

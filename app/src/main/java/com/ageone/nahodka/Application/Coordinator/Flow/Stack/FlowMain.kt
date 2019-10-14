@@ -8,7 +8,9 @@ import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.Application.coordinator
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Extensions.Activity.clearLightStatusBar
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Mark.MarkModel
@@ -41,6 +43,7 @@ fun FlowCoordinator.runFlowMain() {
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
         flow.colorStatusBar = Color.parseColor("#21D5BF")
+        currentActivity?.clearLightStatusBar(Color.parseColor("#21D5BF"),Color.WHITE)
 
         flows.add(flow)
     }

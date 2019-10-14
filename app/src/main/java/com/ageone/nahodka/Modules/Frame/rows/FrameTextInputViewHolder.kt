@@ -25,9 +25,9 @@ class FrameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
         editText.layoutParams = params
 
         editText.boxStrokeColor = Color.parseColor("#D7D7D7")
-        editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
         editText.defineType(InputEditTextType.TEXT)
+
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 16F
@@ -49,7 +49,7 @@ fun FrameTextInputViewHolder.renderUI() {
 
     textInputFrame
         .constrainTopToTopOf(constraintLayout,16)
-        .fillHorizontally(16)
+        .fillHorizontally(14)
 
 }
 

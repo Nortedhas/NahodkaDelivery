@@ -135,14 +135,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-                            /*currentActivity?.addKeyboardToggleListener { shonw ->
-                                if(shonw) {
-                                    holder.textInputL.editText?.requestFocus()
-                                }
-                                else{
-                                    holder.textInputL.editText?.clearFocus()
-                                }
-                            }*/
+
                             innerContent.dismissFocus(holder.textInputL.editText)
                         }
                     }

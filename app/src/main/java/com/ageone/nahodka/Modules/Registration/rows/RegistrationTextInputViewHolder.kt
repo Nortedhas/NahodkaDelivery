@@ -49,8 +49,8 @@ class RegistrationTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
+
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
@@ -83,7 +83,7 @@ fun RegistrationTextInputViewHolder.renderUI() {
 
      textInputL
          .constrainTopToBottomOf(phoneTextView)
-         .fillHorizontally(16)
+         .fillHorizontally(14)
 
 }
 

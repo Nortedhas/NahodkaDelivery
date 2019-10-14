@@ -31,6 +31,8 @@ fun RestaurantInfoTextViewHolder.renderUI() {
     textViewInfo
         .constrainTopToTopOf(constraintLayout,15)
         .fillHorizontally(15)
+        .constrainLeftToLeftOf(constraintLayout,20)
+        .constrainRightToRightOf(constraintLayout,20)
 }
 
 fun RestaurantInfoTextViewHolder.initialize(info: String) {

@@ -31,7 +31,6 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         editText.boxStrokeColor = Color.parseColor("#D7D7D7")
-        editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
         editText.defineType(InputEditTextType.PHONE)
 
@@ -66,7 +65,7 @@ fun BuscketOrderPhoneViewHolder.renderUI() {
 
     editTextPhone
         .constrainTopToTopOf(constraintLayout)
-        .fillHorizontally(16)
+        .fillHorizontally(14)
 
 
 

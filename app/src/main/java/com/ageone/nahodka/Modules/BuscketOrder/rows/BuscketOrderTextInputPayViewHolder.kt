@@ -32,7 +32,6 @@ class BuscketOrderTextInputPayViewHolder(val constraintLayout: ConstraintLayout)
 
 
         editText.boxStrokeColor = Color.parseColor("#D7D7D7")
-        editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
         editText.defineType(InputEditTextType.TEXT)
 
@@ -66,7 +65,7 @@ fun BuscketOrderTextInputPayViewHolder.renderUI() {
 
     textInputPay
         .constrainTopToTopOf(constraintLayout)
-        .constrainLeftToLeftOf(constraintLayout,16)
+        .constrainLeftToLeftOf(constraintLayout,14)
         .width(utils.variable.displayWidth/2)
         .height(utils.variable.displayWidth * .166F)
 

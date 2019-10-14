@@ -29,7 +29,6 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
         textInput.defineType(InputEditTextType.NUMERIC)
 
@@ -65,7 +64,7 @@ fun SMSTextInputViewHolder.renderUI() {
 
     textInputL
         .constrainTopToTopOf(constraintLayout,16)
-        .fillHorizontally(16)
+        .fillHorizontally(14)
 
 
 }

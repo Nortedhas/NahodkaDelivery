@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Modules.BuscketOrder
 
 import android.graphics.Color
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -148,14 +149,19 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is BuscketOrderTextInputPayViewHolder -> {
                     holder.initialize("Способ оплаты")
                     holder.textInputPay.editText?.setOnTouchListener { v, event ->
-                        currentActivity?.hideKeyboard()
                         if (event.action == MotionEvent.ACTION_DOWN) {
+                            Handler().postDelayed({
+                                currentActivity?.hideKeyboard()
+                            }, 300)
                             alertManager.list(
                                 "Выберите способ оплаты",
                                 arrayOf("Картой", "Картой курьеру", "Наличными")
                             ) {_,index ->
                                 when(index){
-                                    0 -> holder.textInputPay.editText?.setText("Картой")
+                                    0 -> {
+                                        holder.textInputPay.editText?.setText("Картой")
+                                        currentActivity?.hideKeyboard()
+                                    }
                                     1 -> holder.textInputPay.editText?.setText("Картой курьеру")
                                     2 -> holder.textInputPay.editText?.setText("Наличными")
                                 }

@@ -30,7 +30,6 @@ class BuscketOrderAddressViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
         textInput.defineType(InputEditTextType.TEXT)
 
@@ -67,7 +66,7 @@ fun BuscketOrderAddressViewHolder.renderUI() {
 
     textInputAddress
         .constrainTopToTopOf(constraintLayout,16)
-        .fillHorizontally(16)
+        .fillHorizontally(14)
 
 
 }

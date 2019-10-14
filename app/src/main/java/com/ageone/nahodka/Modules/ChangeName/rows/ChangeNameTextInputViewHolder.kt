@@ -28,7 +28,6 @@ class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         editText.boxStrokeColor = Color.parseColor("#C1C1C1")
-        editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         editText.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
 
         editText.editText?.let { editText ->
@@ -63,7 +62,7 @@ fun ChangeNameTextInputViewHolder.renderUI() {
 
     textInputChange
         .constrainTopToTopOf(constraintLayout)
-        .fillHorizontally(16)
+        .fillHorizontally(14)
 
 
 }

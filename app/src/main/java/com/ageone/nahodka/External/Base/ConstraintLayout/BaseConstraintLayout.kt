@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
-import timber.log.Timber
 import yummypets.com.stevia.constrainBottomToBottomOf
 
 class BaseConstraintLayout: ConstraintLayout(currentActivity) {
@@ -62,8 +61,6 @@ fun BaseConstraintLayout.dismissFocus(view: EditText?) {
         }
     }
 }
-
-
 
 
 fun BaseConstraintLayout.PxtoDp(px: Float, context: Context): Float{

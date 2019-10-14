@@ -80,7 +80,6 @@ class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
 
         textInput.editText?.let { editText ->
@@ -158,7 +157,7 @@ fun MarkTextViewHolder.renderUI() {
 
     textInputL
         .constrainTopToBottomOf(imageViewRating1,18)
-        .fillHorizontally(16)
+        .fillHorizontally(14)
 
     buttonSend
         .constrainTopToBottomOf(textInputL,28)

@@ -1,12 +1,15 @@
 package com.ageone.nahodka.Application.Coordinator.Flow
 
+import android.graphics.Color
 import android.os.Handler
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.coordinator
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
+import com.ageone.nahodka.External.Extensions.Activity.setLightStatusBar
 import com.ageone.nahodka.External.InitModuleUI
 import com.example.ageone.Modules.Entry.RegistrationModel
 import com.example.ageone.Modules.Entry.RegistrationView
@@ -35,6 +38,7 @@ fun FlowCoordinator.runFlowAuth() {
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }
+
 
     flow?.start()
 
@@ -83,6 +87,8 @@ class FlowAuth: BaseFlow() {
         ))
 
         module.viewModel.initialize(models.modelEntry) { module.reload() }
+
+        currentActivity?.setLightStatusBar(Color.WHITE,Color.GRAY)
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

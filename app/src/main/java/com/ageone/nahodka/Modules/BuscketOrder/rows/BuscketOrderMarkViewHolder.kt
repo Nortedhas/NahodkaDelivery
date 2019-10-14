@@ -37,7 +37,6 @@ class BuscketOrderMarkViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         editText.boxStrokeColor = Color.parseColor("#D7D7D7")
-        editText.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
         editText.defineType(InputEditTextType.TEXT)
 
@@ -74,7 +73,7 @@ fun BuscketOrderMarkViewHolder.renderUI() {
 
     textInputComment
         .constrainTopToTopOf(constraintLayout)
-        .constrainRightToRightOf(constraintLayout,16)
+        .constrainRightToRightOf(constraintLayout,14)
         .width(utils.tools.getActualSizeFromDes(304))
 
 

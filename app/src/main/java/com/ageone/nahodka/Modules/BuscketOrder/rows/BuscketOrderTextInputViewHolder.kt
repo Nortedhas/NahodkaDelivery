@@ -28,7 +28,6 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
 
         textInput.editText?.let { editText ->
@@ -61,7 +60,6 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
 
         textInput.editText?.let { editText ->
@@ -95,7 +93,6 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
 
         textInput.editText?.let { editText ->
@@ -129,7 +126,6 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
 
         textInput.editText?.let { editText ->
@@ -167,26 +163,26 @@ fun BuscketOrderTextInputViewHolder.renderUI() {
 
     textInputOffice
         .constrainBottomToBottomOf(constraintLayout)
-        .constrainLeftToLeftOf(constraintLayout, 16)
+        .constrainLeftToLeftOf(constraintLayout, 14)
         .width((utils.variable.displayWidth - 96) /4)
         .height(utils.variable.displayWidth * .166F)
 
     textInputHome
         .constrainBottomToBottomOf(constraintLayout)
-        .constrainLeftToRightOf(textInputOffice, 16)
+        .constrainLeftToRightOf(textInputOffice, 14)
         .width((utils.variable.displayWidth - 96) /4)
         .height(utils.variable.displayWidth * .166F)
 
     textInputPorch
         .constrainBottomToBottomOf(constraintLayout)
-        .constrainLeftToRightOf(textInputHome, 16)
+        .constrainLeftToRightOf(textInputHome, 14)
         .width((utils.variable.displayWidth - 96) /4)
         .height(utils.variable.displayWidth * .166F)
 
 
     textInputFloor
         .constrainBottomToBottomOf(constraintLayout)
-        .constrainRightToRightOf(constraintLayout, 16)
+        .constrainRightToRightOf(constraintLayout, 14)
         .width((utils.variable.displayWidth - 96) /4)
         .height(utils.variable.displayWidth * .166F)
 
