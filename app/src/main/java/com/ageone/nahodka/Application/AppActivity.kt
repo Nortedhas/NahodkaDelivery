@@ -18,10 +18,17 @@ import timber.log.Timber
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import com.ageone.nahodka.R
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
 import com.vk.api.sdk.utils.VKUtils
 
 
 class AppActivity: BaseActivity() {
+
+    var fusedLocationClient: FusedLocationProviderClient? = null
+    var locationRequest: LocationRequest? = null
+    var locationCallback: LocationCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
