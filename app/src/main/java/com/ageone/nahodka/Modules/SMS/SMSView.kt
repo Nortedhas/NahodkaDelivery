@@ -7,11 +7,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.SMS.rows.SMSTextInputViewHolder
@@ -20,7 +20,6 @@ import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.RegistrationViewModel
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -63,7 +62,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
         nextButton.setOnClickListener {
             user.isAuthorized = true
-
             emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
             isTimer = true
         }

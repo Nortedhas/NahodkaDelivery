@@ -1,7 +1,6 @@
 package com.ageone.nahodka.Modules.ChangeSMS
 
 import android.graphics.Color
-import android.os.CountDownTimer
 import android.text.InputType
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,20 +8,18 @@ import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
 import com.ageone.nahodka.Modules.ChangeSMS.rows.initialize
 import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {

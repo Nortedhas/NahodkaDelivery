@@ -1,21 +1,11 @@
 package com.example.ageone.Modules.Entry
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Color
-import android.graphics.Rect
-import android.os.Handler
 import android.text.InputType
-import android.view.KeyEvent
-import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
-import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.Application.hideKeyboard
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
@@ -28,7 +18,6 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.rows.RegistrationTextInputViewHolder
 import com.example.ageone.Modules.Entry.rows.RegistrationTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {

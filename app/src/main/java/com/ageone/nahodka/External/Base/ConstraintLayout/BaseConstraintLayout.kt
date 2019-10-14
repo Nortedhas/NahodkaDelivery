@@ -17,32 +17,23 @@ class BaseConstraintLayout: ConstraintLayout(currentActivity) {
 
 fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
     val rectLayout = Rect()
-
     getWindowVisibleDisplayFrame(rectLayout)
 
     var usableRect = rectLayout.bottom - rectLayout.top
-
     val layoutHeight = usableRect - utils.variable.statusBarHeight
 
     viewTreeObserver.addOnGlobalLayoutListener {
 
         val rect = Rect()
-
         getWindowVisibleDisplayFrame(rect)
 
         var displayHeight = rootView.height
-
         var usableHeight = rect.bottom - rect.top
-
         var bottomButton = displayHeight - layoutHeight
 
-
         var keyboardHeight = displayHeight - usableHeight - bottomButton
-
         var coff: Float = keyboardHeight.toFloat() / layoutHeight
-
         var heightInDp = utils.variable.displayHeight
-
         var margin = (heightInDp * coff) - 8
 
         if (margin > 50) {
@@ -61,7 +52,6 @@ fun BaseConstraintLayout.dismissFocus(view: EditText?) {
         val height: Float = rootView.height.toFloat()
 
         getWindowVisibleDisplayFrame(rect)
-
 
         var heightDiff =
             ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt())
