@@ -31,6 +31,7 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
         textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
         textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
+        textInput.defineType(InputEditTextType.NUMERIC)
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
@@ -41,7 +42,7 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){
                     Handler().postDelayed({
                         editText.requestFocus()
-                    }, 300)
+                    }, 1000)
                 }
                 false
             }
@@ -69,9 +70,6 @@ fun SMSTextInputViewHolder.renderUI() {
 
 }
 
-fun SMSTextInputViewHolder.initialize(hint: String, type: InputEditTextType) {
-
+fun SMSTextInputViewHolder.initialize(hint: String) {
     textInputL.hint = hint
-    textInputL.defineType(type)
-
 }

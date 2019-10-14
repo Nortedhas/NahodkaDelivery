@@ -30,6 +30,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
     val viewModel = ChangeSMSViewModel()
 
+    var isTimer = false
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -51,6 +52,12 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
         innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
+
+        nextButton.setOnClickListener {
+            user.isAuthorized = true
+            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
+            isTimer = true
+        }
 
         toolbar.title = "СМС код"
         toolbar.textColor = Color.WHITE
@@ -117,21 +124,21 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
             when (holder) {
                 is InputViewHolder -> {
-                    holder.initialize("СМС код", InputEditTextType.PHONE)
+                    holder.initialize("СМС код", InputEditTextType.NUMERIC)
                     innerContent.dissmissFocus(holder.textInputL.editText)
                 }
                 is ChangeSMSTextViewHolder -> {
                     holder.initialize {
-                        router.onBackPressed()
+                        if(!isTimer) {
+                            router.onBackPressed()
+                        }
                     }
                 }
 
             }
 
         }
-
     }
-
 }
 
 fun ChangeSMSView.renderUIO() {
@@ -154,10 +161,7 @@ fun ChangeSMSView.renderUIO() {
         .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
-        .setOnClickListener {
-            user.isAuthorized = true
-            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
-        }
+
 }
 
 

@@ -21,11 +21,14 @@ import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.RegistrationViewModel
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = SMSViewModel()
+
+    var isTimer = false
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -40,7 +43,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
-
         button
     }
 
@@ -63,6 +65,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         nextButton.setOnClickListener {
             user.isAuthorized = true
             emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
+            isTimer = true
         }
 
         renderUIO()
@@ -117,12 +120,14 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
             when (holder) {
                 is SMSTextInputViewHolder -> {
-                    holder.initialize("СМС код", InputEditTextType.NUMERIC)
+                    holder.initialize("СМС код")
                     innerContent.dissmissFocus(holder.textInputL.editText)
                 }
                 is SMSTextViewHolder -> {
                     holder.initialize {
-                        router.onBackPressed()
+                        if(!isTimer) {
+                            router.onBackPressed()
+                        }
                     }
                 }
             }

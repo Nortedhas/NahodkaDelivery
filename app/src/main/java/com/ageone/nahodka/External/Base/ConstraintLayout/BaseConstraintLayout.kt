@@ -43,7 +43,7 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
 
         var heightInDp = utils.variable.displayHeight
 
-        var margin = (heightInDp * coff) - 2
+        var margin = (heightInDp * coff) - 8
 
         if (margin > 50) {
             button.constrainBottomToBottomOf(this, margin.toInt())
