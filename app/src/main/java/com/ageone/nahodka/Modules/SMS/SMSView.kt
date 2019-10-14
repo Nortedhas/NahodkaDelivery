@@ -117,6 +117,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
             when (holder) {
                 is SMSTextInputViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
+                    innerContent.dissmissFocus(holder.textInputL.editText)
                 }
                 is SMSTextViewHolder -> {
                     holder.initialize {

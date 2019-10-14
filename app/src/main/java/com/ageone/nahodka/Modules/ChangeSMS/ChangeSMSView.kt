@@ -112,6 +112,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             when (holder) {
                 is InputViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.PHONE)
+                    innerContent.dissmissFocus(holder.textInputL.editText)
                 }
                 is ChangeSMSTextViewHolder -> {
                     holder.initialize {

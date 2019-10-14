@@ -104,9 +104,11 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     when (position % 2) {
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
+                            innerContent.dissmissFocus(holder.textInputChange.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
+                            innerContent.dissmissFocus(holder.textInputChange.editText)
                         }
                     }
 

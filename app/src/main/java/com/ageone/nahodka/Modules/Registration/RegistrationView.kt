@@ -1,14 +1,21 @@
 package com.example.ageone.Modules.Entry
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
+import android.os.Handler
 import android.text.InputType
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.Button.BaseButton
-import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.nahodka.External.Base.ConstraintLayout.dissmissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -19,6 +26,7 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.rows.RegistrationTextInputViewHolder
 import com.example.ageone.Modules.Entry.rows.RegistrationTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -30,7 +38,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         viewAdapter
     }
 
-    val nextButton by lazy {
+    val nextButton by lazy { //TODO: переместить UI
         val button = BaseButton()
         button.setBackgroundColor(Color.parseColor("#09D0B8"))
         button.text = "Далее"
@@ -38,6 +46,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
+         //   button.visibility = View.GONE
         button
     }
 
@@ -46,7 +55,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 //        viewModel.loadRealmData()
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)
+        setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "Регистрация"
         toolbar.textColor = Color.BLACK
@@ -54,7 +63,8 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
 
         nextButton.setOnClickListener {
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
@@ -117,27 +127,29 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
-                           /* holder.textInputL.editText?.setOnTouchListener { view, motionEvent ->
-                                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                                    Handler().postDelayed({
-                                        holder.textInputL.editText?.requestFocus()
-                                    }, 500)
+
+                            /*currentActivity?.addKeyboardToggleListener { shonw ->
+                                if(shonw) {
+                                    holder.textInputL.editText?.requestFocus()
                                 }
-                                false
+                                else{
+                                    holder.textInputL.editText?.clearFocus()
+                                }
                             }*/
-                            innerContent.dismissFocus(holder.textInputL.editText)
+
+                                innerContent.dissmissFocus(holder.textInputL.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-                           /* holder.textInputL.editText?.setOnTouchListener { view, motionEvent ->
-                                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                                    Handler().postDelayed({
-                                        holder.textInputL.editText?.requestFocus()
-                                    }, 500)
+                            /*currentActivity?.addKeyboardToggleListener { shonw ->
+                                if(shonw) {
+                                    holder.textInputL.editText?.requestFocus()
                                 }
-                                false
+                                else{
+                                    holder.textInputL.editText?.clearFocus()
+                                }
                             }*/
-                            innerContent.dismissFocus(holder.textInputL.editText)
+                            innerContent.dissmissFocus(holder.textInputL.editText)
                         }
                     }
                 }

@@ -122,12 +122,18 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             when (holder) {
                 is BuscketOrderAddressViewHolder -> {
                     holder.initialize("Адрес доставки")
+                    innerContent.dissmissFocus(holder.textInputAddress.editText)
                 }
                 is BuscketOrderTextInputViewHolder -> {
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
+                    innerContent.dissmissFocus(holder.textInputOffice.editText)
+                    innerContent.dissmissFocus(holder.textInputHome.editText)
+                    innerContent.dissmissFocus(holder.textInputPorch.editText)
+                    innerContent.dissmissFocus(holder.textInputFloor.editText)
                 }
                 is BuscketOrderPhoneViewHolder -> {
                     holder.initialize("Телефон")
+                    innerContent.dissmissFocus(holder.editTextPhone.editText)
                 }
                 is BuscketOrderMarkViewHolder -> {
                     holder.initialize("Комментарий к зааказу")
