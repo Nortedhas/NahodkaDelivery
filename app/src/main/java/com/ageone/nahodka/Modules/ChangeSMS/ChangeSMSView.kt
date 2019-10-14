@@ -49,7 +49,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
     init {
 //        viewModel.loadRealmData()
 
-//        innerContent.setButtonAboveKeyboard(nextButton)
+        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "СМС код"
