@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.hideKeyboard
+import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -122,18 +123,18 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             when (holder) {
                 is BuscketOrderAddressViewHolder -> {
                     holder.initialize("Адрес доставки")
-                    innerContent.dissmissFocus(holder.textInputAddress.editText)
+                    innerContent.dismissFocus(holder.textInputAddress.editText)
                 }
                 is BuscketOrderTextInputViewHolder -> {
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
-                    innerContent.dissmissFocus(holder.textInputOffice.editText)
-                    innerContent.dissmissFocus(holder.textInputHome.editText)
-                    innerContent.dissmissFocus(holder.textInputPorch.editText)
-                    innerContent.dissmissFocus(holder.textInputFloor.editText)
+                    innerContent.dismissFocus(holder.textInputOffice.editText)
+                    innerContent.dismissFocus(holder.textInputHome.editText)
+                    innerContent.dismissFocus(holder.textInputPorch.editText)
+                    innerContent.dismissFocus(holder.textInputFloor.editText)
                 }
                 is BuscketOrderPhoneViewHolder -> {
                     holder.initialize("Телефон")
-                    innerContent.dissmissFocus(holder.editTextPhone.editText)
+                    innerContent.dismissFocus(holder.editTextPhone.editText)
                 }
                 is BuscketOrderMarkViewHolder -> {
                     holder.initialize("Комментарий к зааказу")

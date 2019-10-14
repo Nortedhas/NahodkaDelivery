@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -117,7 +118,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
             when (holder) {
                 is SMSTextInputViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.NUMERIC)
-                    innerContent.dissmissFocus(holder.textInputL.editText)
+                    innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is SMSTextViewHolder -> {
                     holder.initialize {

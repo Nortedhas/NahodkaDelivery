@@ -8,6 +8,8 @@ import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -43,7 +45,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
     init {
 //        viewModel.loadRealmData()
 
-//        innerContent.setButtonAboveKeyboard(nextButton)
+        innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
 
         toolbar.title = "СМС код"
@@ -112,7 +114,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             when (holder) {
                 is InputViewHolder -> {
                     holder.initialize("СМС код", InputEditTextType.PHONE)
-                    innerContent.dissmissFocus(holder.textInputL.editText)
+                    innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is ChangeSMSTextViewHolder -> {
                     holder.initialize {
