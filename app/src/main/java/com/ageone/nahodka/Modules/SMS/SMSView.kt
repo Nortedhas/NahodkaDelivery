@@ -2,13 +2,11 @@ package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
 import android.text.InputType
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Button.BaseButton
-import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -22,11 +20,14 @@ import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.RegistrationViewModel
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = SMSViewModel()
+
+    var isTimer = false
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -58,11 +59,13 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
         bodyTable.adapter = viewAdapter
 
-        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         nextButton.setOnClickListener {
             user.isAuthorized = true
+
             emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
+            isTimer = true
         }
 
         renderUIO()
@@ -117,12 +120,14 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
             when (holder) {
                 is SMSTextInputViewHolder -> {
-                    holder.initialize("СМС код", InputEditTextType.NUMERIC)
+                    holder.initialize("СМС код")
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is SMSTextViewHolder -> {
                     holder.initialize {
-                        router.onBackPressed()
+                        if(!isTimer) {
+                            router.onBackPressed()
+                        }
                     }
                 }
             }

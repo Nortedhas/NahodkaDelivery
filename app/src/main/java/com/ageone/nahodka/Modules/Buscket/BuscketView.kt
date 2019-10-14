@@ -111,11 +111,12 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-            var count = 0
+            var count = 1
             when (holder) {
                 is BuscketItemViewHolder -> {
                     var dish = dishImage[position]
                     holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
+                    holder.textViewCount.text = "Количество порций: ${count.toString()}"
                     holder.imageViewPlus.setOnClickListener {
                         count++
                         holder.textViewCount.text = "Количество порций: ${count.toString()}"

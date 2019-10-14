@@ -137,7 +137,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     innerContent.dismissFocus(holder.editTextPhone.editText)
                 }
                 is BuscketOrderMarkViewHolder -> {
-                    holder.initialize("Комментарий к зааказу")
+                    holder.initialize("Комментарий к заказу")
                     holder.textInputComment.editText?.setOnTouchListener { v, event ->
                         if (event.action == MotionEvent.ACTION_DOWN) {
                             rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCommentPressed.name)
