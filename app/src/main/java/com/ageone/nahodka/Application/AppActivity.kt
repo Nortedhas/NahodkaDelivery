@@ -10,10 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.ageone.nahodka.External.Base.Activity.BaseActivity
 import com.ageone.nahodka.Models.User.user
-import com.ageone.nahodka.Models.VKUser
 import com.swarmnyc.promisekt.Promise
-import com.vk.api.sdk.requests.VKRequest
-import org.json.JSONObject
 import timber.log.Timber
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
@@ -21,7 +18,6 @@ import com.ageone.nahodka.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
-import com.vk.api.sdk.utils.VKUtils
 
 
 class AppActivity: BaseActivity() {
@@ -52,8 +48,6 @@ class AppActivity: BaseActivity() {
 //        FuelManager.instance.basePath = DataBase.url
 
         verifyStoragePermissions(this)
-        val fingerprints = VKUtils.getCertificateFingerprint(this, this.packageName)
-        Timber.i("PACKAGE: ${fingerprints?.toList()}")
 
         user.isAuthorized = false //TODO: change after add registration
         coordinator.setLaunchScreen()
@@ -123,23 +117,6 @@ fun Activity.hideKeyboard() {
 
 fun Activity.setStatusBarColor(color: Int) {
     window.statusBarColor = color
-}
-
-class VKUsersRequest: VKRequest<VKUser> {
-    constructor(): super("account.getProfileInfo") {
-        addParam("access_token", utils.variable.vkSdkTokenUser)
-    }
-
-    override fun parse(r: JSONObject): VKUser {
-        var result = VKUser()
-        try {
-             result = VKUser.parse(r.getJSONObject("response"))
-        }
-        catch (e: Exception) {
-            Timber.e("Error parsing VK user: $e")
-        }
-        return result
-    }
 }
 
 // Storage Permissions
