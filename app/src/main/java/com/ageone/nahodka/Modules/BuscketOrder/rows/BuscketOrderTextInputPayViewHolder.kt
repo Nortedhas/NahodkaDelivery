@@ -39,6 +39,9 @@ class BuscketOrderTextInputPayViewHolder(val constraintLayout: ConstraintLayout)
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 16F
             editText.maxLines = 1
+            editText.setSingleLine(true)
+
+
             editText.setOnTouchListener { view, motionEvent ->
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){
                     Handler().postDelayed({

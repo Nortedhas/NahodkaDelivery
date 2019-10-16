@@ -1,7 +1,9 @@
 package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
+import android.text.Editable
 import android.text.InputType
+import android.text.TextWatcher
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -9,10 +11,13 @@ import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
+import com.ageone.nahodka.External.Base.EditText.limitLength
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.SMS.rows.SMSTextInputViewHolder
 import com.ageone.nahodka.Modules.SMS.rows.initialize
@@ -20,6 +25,8 @@ import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.RegistrationViewModel
+import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -32,6 +39,8 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         val viewAdapter = Factory(this)
         viewAdapter
     }
+
+    var symbolCount: Int? = 0
 
     val nextButton by lazy {
         val button = BaseButton()
@@ -61,9 +70,18 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         nextButton.setOnClickListener {
-            user.isAuthorized = true
-            emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
             isTimer = true
+            if(symbolCount!! < 4){
+
+                alertManager.single("Ошибка!","Неправильный СМС-код",null,"OK") { _, position ->
+                }
+
+            } else {
+                user.isAuthorized = true
+                emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
+                isTimer = true
+            }
+
         }
 
         renderUIO()
@@ -119,7 +137,29 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
             when (holder) {
                 is SMSTextInputViewHolder -> {
                     holder.initialize("СМС код")
+
+                    holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
+                        override fun beforeTextChanged(
+                            p0: CharSequence?,
+                            p1: Int,
+                            p2: Int,
+                            p3: Int
+                        ) {
+
+                        }
+
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            symbolCount = p0?.count()
+                        }
+
+                        override fun afterTextChanged(p0: Editable?) {
+
+                        }
+
+                    })
+                    holder.textInputL.editText?.limitLength(4)
                     innerContent.dismissFocus(holder.textInputL.editText)
+
                 }
                 is SMSTextViewHolder -> {
                     holder.initialize {

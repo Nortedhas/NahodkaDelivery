@@ -3,11 +3,13 @@ package com.ageone.nahodka.External.Base.ConstraintLayout
 import android.content.Context
 import android.graphics.Rect
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
+import timber.log.Timber
 import yummypets.com.stevia.constrainBottomToBottomOf
 
 class BaseConstraintLayout: ConstraintLayout(currentActivity) {
@@ -19,9 +21,20 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
     getWindowVisibleDisplayFrame(rectLayout)
 
     var usableRect = rectLayout.bottom - rectLayout.top
-    val layoutHeight = usableRect - utils.variable.statusBarHeight
+
+
 
     viewTreeObserver.addOnGlobalLayoutListener {
+
+        val statusBarInDp = (utils.variable.statusBarHeight.toFloat() / rootView.height.toFloat()) * utils.variable.displayHeight.toFloat()
+
+        var layoutHeight = 0
+
+        if(statusBarInDp > 24) {
+            layoutHeight = usableRect
+        } else {
+            layoutHeight = usableRect - utils.variable.statusBarHeight
+        }
 
         val rect = Rect()
         getWindowVisibleDisplayFrame(rect)
@@ -33,15 +46,22 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
         var keyboardHeight = displayHeight - usableHeight - bottomButton
         var coff: Float = keyboardHeight.toFloat() / layoutHeight
         var heightInDp = utils.variable.displayHeight
-        var margin = (heightInDp * coff) - 8
 
-        if (margin > 50) {
-            button.constrainBottomToBottomOf(this, margin.toInt())
-        } else if (margin < 50) {
-            button.constrainBottomToBottomOf(this)
+        var margin = 0F
+
+        if(statusBarInDp > 24) {
+            margin = (heightInDp * coff)
+        } else {
+           margin = (heightInDp * coff) - 8
         }
-    }
 
+
+            if (margin > 50) {
+                button.constrainBottomToBottomOf(this, margin.toInt())
+            } else if (margin < 50) {
+                button.constrainBottomToBottomOf(this)
+            }
+    }
 }
 
 fun BaseConstraintLayout.dismissFocus(view: EditText?) {
@@ -65,4 +85,14 @@ fun BaseConstraintLayout.dismissFocus(view: EditText?) {
 
 fun BaseConstraintLayout.PxtoDp(px: Float, context: Context): Float{
     return px / context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
+}
+
+fun BaseConstraintLayout.DptoPx(dp: Float, context: Context): Float{
+    var px = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        resources.displayMetrics
+    )
+
+    return px
 }

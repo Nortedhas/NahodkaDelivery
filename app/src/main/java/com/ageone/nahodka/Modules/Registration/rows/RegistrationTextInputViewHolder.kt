@@ -56,6 +56,7 @@ class RegistrationTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 20F
             editText.maxLines = 1
+            editText.setSingleLine(true)
 
             editText.setOnTouchListener { view, motionEvent ->
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){

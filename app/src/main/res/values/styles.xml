@@ -44,4 +44,11 @@
     <!-- color borders viewHolder input layout outline-->
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#09D0B8</color>
 
+    <!-- color TimePickerDialog -->
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">#09D0B8</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

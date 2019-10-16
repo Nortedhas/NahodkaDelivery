@@ -1,6 +1,8 @@
 package com.ageone.nahodka.Modules.Mark
 
 import android.graphics.Color
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.R
@@ -9,13 +11,19 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Modules.Mark.rows.MarkTextViewHolder
 import com.ageone.nahodka.Modules.Mark.rows.initialize
+import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = MarkViewModel()
+
+    var symbolCount: Int? = 0
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -87,7 +95,6 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             when (holder) {
                 is MarkTextViewHolder -> {
                     holder.initialize("Ollis Pizza", "Оставьте комментарий", InputEditTextType.TEXT)
-
 
                         holder.imageViewRating1.setOnClickListener {
                             when(isRatingPressed){
@@ -161,6 +168,33 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                             }
                             true -> {
                                 isRatingPressed = false
+                            }
+                        }
+                    }
+
+                    holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
+                        override fun afterTextChanged(p0: Editable?) {
+
+                        }
+
+                        override fun beforeTextChanged(
+                            p0: CharSequence?,
+                            p1: Int,
+                            p2: Int,
+                            p3: Int
+                        ) {
+                        }
+
+                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            symbolCount = p0?.count()
+                        }
+
+                    })
+
+                    holder.buttonSend.setOnClickListener{
+                        if(symbolCount == 0) {
+                            alertManager.single("Ошибка","Напишите отзыв",null,"OK") {_, position ->
+
                             }
                         }
                     }
