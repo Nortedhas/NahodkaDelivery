@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.updatePadding
+import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
@@ -41,9 +42,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         val viewAdapter = Factory(this)
         viewAdapter
     }
-
-    var symbalCountPhone: Int? = 0
-    var symbalCountName: Int? = 0
 
     val nextButton by lazy {
         val button = BaseButton()
@@ -75,16 +73,16 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
         nextButton.setOnClickListener {
 
-            if(symbalCountPhone!! < 18 && symbalCountName !=0){
+            if(viewModel.model.phone.count() < 18 && viewModel.model.name.count() != 0){
                 alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position ->
 
                 }
             }
-            else if(symbalCountName == 0 && symbalCountPhone!! > 0) {
+            else if(viewModel.model.phone.count() > 0 && viewModel.model.name.count() == 0) {
                 alertManager.single("Ошибка","Неверное имя",null,"OK") {_, position ->
                 }
             }
-            else if(symbalCountName == 0 && symbalCountPhone == 0){
+            else if(viewModel.model.phone.count() == 0 && viewModel.model.name.count() == 0){
                 alertManager.single("Ошибка","Заполните поля",null,"OK") {_, position ->
                 }
             }
@@ -153,60 +151,18 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
 
-                            holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
-                                override fun afterTextChanged(p0: Editable?) {
-
-                                }
-
-                                override fun beforeTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-
-                                }
-
-                                override fun onTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-                                    symbalCountPhone = p0?.count()
-                                }
-
-                            })
+                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                                viewModel.model.phone = text.toString()
+                            }
 
                             innerContent.dismissFocus(holder.textInputL.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
 
-                            holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
-                                override fun afterTextChanged(p0: Editable?) {
-
-                                }
-
-                                override fun beforeTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-
-                                }
-
-                                override fun onTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-                                    symbalCountName = p0?.count()
-                                }
-
-                            })
+                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                                viewModel.model.name = text.toString()
+                            }
 
                             innerContent.dismissFocus(holder.textInputL.editText)
                         }

@@ -25,5 +25,6 @@ class RegistrationViewModel : InterfaceViewModel {
 }
 
 class RegistrationModel : InterfaceModel {
-
+    var phone = ""
+    var name = ""
 }

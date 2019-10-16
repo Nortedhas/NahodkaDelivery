@@ -24,5 +24,6 @@ class ChangeNameViewModel : InterfaceViewModel {
 }
 
 class ChangeNameModel : InterfaceModel {
-
+    var phone = ""
+    var name = ""
 }

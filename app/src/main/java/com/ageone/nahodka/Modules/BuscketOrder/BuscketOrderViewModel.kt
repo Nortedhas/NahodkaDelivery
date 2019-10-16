@@ -25,5 +25,13 @@ class BuscketOrderViewModel : InterfaceViewModel {
 }
 
 class BuscketOrderModel : InterfaceModel {
+    var address = ""
+    var office = ""
+    var homePhone = ""
+    var porch = ""
+    var floor = ""
+    var phone = ""
+    var payVariant = ""
+    var mark = ""
 
 }

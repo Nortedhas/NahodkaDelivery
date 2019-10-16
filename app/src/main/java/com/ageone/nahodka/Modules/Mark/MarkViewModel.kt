@@ -26,4 +26,5 @@ class MarkViewModel : InterfaceViewModel {
 
 class MarkModel : InterfaceModel {
 
+    var mark = ""
 }

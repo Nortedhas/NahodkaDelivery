@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
@@ -135,110 +136,51 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is BuscketOrderAddressViewHolder -> {
                     holder.initialize("Адрес доставки")
                     innerContent.dismissFocus(holder.textInputAddress.editText)
-                    holder.textInputAddress.editText?.addTextChangedListener(object: TextWatcher{ override fun afterTextChanged(p0: Editable?) {
 
-                        }
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                        }
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCountAddress = p0?.count()
-                        }
-                    })
+                    holder.textInputAddress.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.address = text.toString()
+                    }
                 }
                 is BuscketOrderTextInputViewHolder -> {
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
 
-                    holder.textInputFloor.editText?.addTextChangedListener(object: TextWatcher{
-                        override fun afterTextChanged(p0: Editable?) {
-                        }
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                        }
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCountFloor = p0?.count()
-                        }
-                    })
+                    holder.textInputOffice.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.office = text.toString()
+                    }
 
-                    holder.textInputHome.editText?.addTextChangedListener(object: TextWatcher{
-                        override fun afterTextChanged(p0: Editable?) {
-                        }
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                        }
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCountHome = p0?.count()
-                        }
-                    })
+                    holder.textInputHome.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.homePhone = text.toString()
+                    }
 
-                    holder.textInputOffice.editText?.addTextChangedListener(object: TextWatcher{
-                        override fun afterTextChanged(p0: Editable?) {
-                        }
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                        }
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCountOffice = p0?.count()
-                        }
-                    })
+                    holder.textInputPorch.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.porch = text.toString()
+                    }
 
-                    holder.textInputPorch.editText?.addTextChangedListener(object: TextWatcher{
-                        override fun afterTextChanged(p0: Editable?) {
-                        }
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                        }
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCountPorch = p0?.count()
-                        }
-                    })
+                    holder.textInputFloor.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.floor = text.toString()
+                    }
+
                     innerContent.dismissFocus(holder.textInputOffice.editText)
                     innerContent.dismissFocus(holder.textInputHome.editText)
                     innerContent.dismissFocus(holder.textInputPorch.editText)
                     innerContent.dismissFocus(holder.textInputFloor.editText)
                 }
+
                 is BuscketOrderPhoneViewHolder -> {
                     holder.initialize("Телефон")
 
-                    holder.editTextPhone.editText?.addTextChangedListener(object: TextWatcher{
-                        override fun afterTextChanged(p0: Editable?) {
-                        }
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                        }
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCountPhone = p0?.count()
-                        }
-                    })
-
+                    holder.editTextPhone.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.phone = text.toString()
+                    }
                     innerContent.dismissFocus(holder.editTextPhone.editText)
                 }
                 is BuscketOrderMarkViewHolder -> {
                     holder.initialize("Комментарий к заказу")
+
+                    holder.textInputComment.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.mark = text.toString()
+                    }
+
                     holder.textInputComment.editText?.setOnTouchListener { v, event ->
                         if (event.action == MotionEvent.ACTION_DOWN) {
                             rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCommentPressed.name)
@@ -258,23 +200,17 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                                 arrayOf("Картой", "Картой курьеру", "Наличными")
                             ) {_,index ->
                                 when(index){
-                                    0 -> {
-                                        holder.textInputPay.editText?.setText("Картой")
-                                        symbolPayIsEmpty = true
-                                    }
-
-                                    1 -> {
-                                        holder.textInputPay.editText?.setText("Картой курьеру")
-                                        symbolPayIsEmpty = true
-                                    }
-                                    2 -> {
-                                        holder.textInputPay.editText?.setText("Наличными")
-                                        symbolPayIsEmpty = true
-                                    }
+                                    0 -> holder.textInputPay.editText?.setText("Картой")
+                                    1 -> holder.textInputPay.editText?.setText("Картой курьеру")
+                                    2 -> holder.textInputPay.editText?.setText("Наличными")
                                 }
                             }
                         }
                         false
+                    }
+
+                    holder.textInputPay.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.payVariant = text.toString()
                     }
                 }
                 is BuscketOrderTotalViewHolder -> {
@@ -284,13 +220,13 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.initialize()
                     holder.buttonCheckout.setOnClickListener {
 
-                        if(symbolCountAddress == 0 ||
-                            symbolCountFloor == 0 ||
-                            symbolCountHome == 0 ||
-                            symbolCountOffice == 0 ||
-                            symbolCountPorch == 0 ||
-                            symbolCountPhone == 0 ||
-                            !symbolPayIsEmpty){
+                        if( viewModel.model.address.count() == 0 ||
+                            viewModel.model.office.count() == 0 ||
+                            viewModel.model.homePhone.count() == 0 ||
+                            viewModel.model.porch.count() == 0 ||
+                            viewModel.model.floor.count() == 0 ||
+                            viewModel.model.phone.count() == 0 ||
+                            viewModel.model.payVariant.count() == 0){
                             alertManager.single("Ошибка","Заполните все поля",null,"OK") {_, position ->
                             }
                         } else {

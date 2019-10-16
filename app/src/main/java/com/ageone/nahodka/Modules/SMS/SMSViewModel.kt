@@ -7,6 +7,7 @@ import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 class SMSViewModel : InterfaceViewModel {
     var model = SMSModel()
 
+
     enum class EventType {
         OnNextPressed,
         Timeout
@@ -26,5 +27,5 @@ class SMSViewModel : InterfaceViewModel {
 }
 
 class SMSModel : InterfaceModel {
-
+    var code = ""
 }
