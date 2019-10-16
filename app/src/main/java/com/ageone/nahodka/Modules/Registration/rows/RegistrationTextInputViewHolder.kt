@@ -39,32 +39,13 @@ class RegistrationTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
 
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        params.marginStart = (-2).dp
-        params.updateMargins(left = (-2).dp)
-        textInput.layoutParams = params
-
-
         textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
         textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
-
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 20F
             editText.maxLines = 1
-
-            editText.setOnTouchListener { view, motionEvent ->
-                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                    Handler().postDelayed({
-                        editText.requestFocus()
-                    }, 500)
-                }
-                false
-            }
         }
         textInput
     }

@@ -41,10 +41,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         button
     }
 
-    var bottomList:ArrayList<Int> = ArrayList()
-
-
-
     init {
 //        viewModel.loadRealmData()
 
@@ -59,10 +55,9 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
-
         nextButton.setOnClickListener {
-                emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
-            }
+            emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
+        }
 
         renderUIO()
         bindUI()
@@ -84,7 +79,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0,1 -> RegistrationEditTextType
+            0, 1 -> RegistrationEditTextType
             2 -> RegistrationTextType
             else -> -1
         }
@@ -121,24 +116,12 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
-
-                            /*currentActivity?.addKeyboardToggleListener { shonw ->
-                                if(shonw) {
-                                    holder.textInputL.editText?.requestFocus()
-                                }
-                                else{
-                                    holder.textInputL.editText?.clearFocus()
-                                }
-                            }*/
-
-                                innerContent.dismissFocus(holder.textInputL.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-
-                            innerContent.dismissFocus(holder.textInputL.editText)
                         }
                     }
+                    innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is RegistrationTextViewHolder -> {
                     holder.initialize()
