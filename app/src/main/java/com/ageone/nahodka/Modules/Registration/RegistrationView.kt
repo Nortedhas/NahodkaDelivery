@@ -2,16 +2,15 @@ package com.example.ageone.Modules.Entry
 
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.text.Editable
+import android.os.Bundle
 import android.text.InputType
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
@@ -21,7 +20,6 @@ import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputEditText
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
@@ -30,7 +28,6 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.rows.RegistrationTextInputViewHolder
 import com.example.ageone.Modules.Entry.rows.RegistrationTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 import java.util.*
 
@@ -51,7 +48,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
-         //   button.visibility = View.GONE
+        button.visibility = View.GONE
         button
     }
 
@@ -89,9 +86,10 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             else {
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
                 //clickTimePicker(nextButton)
+                //startBrowserWithUri("https://en.wikipedia.org/wiki/Rickrolling",context)
 
             }
-            }
+        }
 
         renderUIO()
         bindUI()
@@ -153,6 +151,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
                             holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.phone = text.toString()
+                                nextButton.visibility = View.VISIBLE
                             }
 
                             innerContent.dismissFocus(holder.textInputL.editText)
@@ -162,6 +161,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
                             holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.name = text.toString()
+                                nextButton.visibility = View.VISIBLE
                             }
 
                             innerContent.dismissFocus(holder.textInputL.editText)
@@ -218,12 +218,13 @@ fun RegistrationView.clickTimePicker(view: BaseButton){
     timePickerDialog.show()
 }
 
-/*fun RegistrationView.startBrowserWithUri(url: String){
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-
-    if(intent.resolveActivity(currentActivity?.packageManager) != null){
-        startActivity(context,intent)
-    }
-}*/
+fun RegistrationView.startBrowserWithUri(url: String,context: Context){
+    val uris = Uri.parse(url)
+    val intents = Intent(Intent.ACTION_VIEW, uris)
+    val b = Bundle()
+    b.putBoolean("new_window", true)
+    intents.putExtras(b)
+    context.startActivity(intents)
+}
 
 

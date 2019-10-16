@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -49,6 +50,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
+        button.visibility = View.GONE
         button
     }
 
@@ -137,6 +139,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.code = text.toString()
+                        nextButton.visibility = View.VISIBLE
                     }
 
                     holder.textInputL.editText?.limitLength(4)

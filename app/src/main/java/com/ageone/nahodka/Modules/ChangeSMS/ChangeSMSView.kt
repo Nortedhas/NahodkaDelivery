@@ -2,6 +2,7 @@ package com.ageone.nahodka.Modules.ChangeSMS
 
 import android.graphics.Color
 import android.text.InputType
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -44,6 +45,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
+        button.visibility = View.GONE
         button
     }
 
@@ -132,6 +134,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.code = text.toString()
+                        nextButton.visibility = View.VISIBLE
                     }
 
                     innerContent.dismissFocus(holder.textInputL.editText)

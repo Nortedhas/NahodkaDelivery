@@ -2,6 +2,7 @@ package com.ageone.nahodka.Modules.ChangeName
 
 import android.graphics.Color
 import android.text.InputType
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -38,6 +39,7 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
+        button.visibility = View.GONE
         button
     }
 
@@ -131,6 +133,8 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                             holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.phone = text.toString()
+                                nextButton.visibility = View.VISIBLE
+
                             }
 
                             innerContent.dismissFocus(holder.textInputChange.editText)
@@ -140,6 +144,8 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                             holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.name = text.toString()
+                                nextButton.visibility = View.VISIBLE
+
                             }
                             innerContent.dismissFocus(holder.textInputChange.editText)
                         }
