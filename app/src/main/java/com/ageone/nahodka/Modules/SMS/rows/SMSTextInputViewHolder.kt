@@ -2,6 +2,7 @@ package com.ageone.nahodka.Modules.SMS.rows
 
 import android.graphics.Color
 import android.os.Handler
+import android.text.TextWatcher
 import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +15,6 @@ import yummypets.com.stevia.*
 
 class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
-
 
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
@@ -36,6 +36,7 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#000000")
             editText.textSize = 20F
             editText.maxLines = 1
+            editText.setSingleLine(true)
 
             editText.setOnTouchListener { view, motionEvent ->
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){
@@ -45,6 +46,7 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
                 }
                 false
             }
+
         }
 
         textInput

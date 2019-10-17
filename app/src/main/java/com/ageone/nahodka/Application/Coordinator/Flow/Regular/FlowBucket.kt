@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Application.Coordinator.Flow.Regular
 
 
+import androidx.core.view.children
 import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
@@ -8,6 +9,7 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Buscket.BuscketModel
@@ -20,6 +22,7 @@ import com.ageone.nahodka.Modules.Frame.FrameModel
 import com.ageone.nahodka.Modules.Frame.Frameiew
 import com.ageone.nahodka.Modules.WebView
 import com.ageone.nahodka.R
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
 
@@ -36,6 +39,14 @@ fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
     }
 
     flow?.onFinish = {
+
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is BaseModule) {
+                Timber.i("Delete module in flow finish")
+                view.onDeInit?.invoke()
+            }
+        }
+
         viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
