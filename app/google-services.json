@@ -15,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "593616075747-nuv0kok99tmp011im1m81vg3fiarkl9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ageone.nahodka",
+            "certificate_hash": "2ba705d32aae95e5c87d3ead01b6d13d934894f1"
+          }
+        },
+        {
           "client_id": "593616075747-0qbh1plsvvfbavsuamf5cv6jd0vhr5u8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "  AIzaSyDZxkhKRFiVHtL1St0Mu1a0casV_MuY2IY"
+          "current_key": "AIzaSyDgMuCVKUJEJLuRqBtoGYb7VuewmSL1oIo"
         }
       ],
       "services": {
