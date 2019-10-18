@@ -11,6 +11,7 @@ import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.nahodka.External.Base.ConstraintLayout.viewAboveKeybooard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -21,10 +22,7 @@ import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Modules.BuscketOrder.rows.*
 import com.ageone.nahodka.R
 import timber.log.Timber
-import yummypets.com.stevia.height
-import yummypets.com.stevia.matchParent
-import yummypets.com.stevia.width
-import yummypets.com.stevia.wrapContent
+import yummypets.com.stevia.*
 
 
 class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -172,6 +170,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.editTextPhone.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.phone = text.toString()
                     }
+
                     innerContent.dismissFocus(holder.editTextPhone.editText)
                 }
                 is BuscketOrderMarkViewHolder -> {
@@ -190,8 +189,12 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
                 is BuscketOrderTextInputPayViewHolder -> {
                     holder.initialize("Способ оплаты")
-                    holder.textInputPay.editText?.setOnTouchListener { v, event ->
+                    innerContent.viewAboveKeybooard(holder.textInputPay,bodyTable)
+                    //innerContent.dismissFocus(holder.textInputPay.editText)
+
+                    /*holder.textInputPay.editText?.setOnTouchListener { v, event ->
                         if (event.action == MotionEvent.ACTION_DOWN) {
+
                             Handler().postDelayed({
                                 currentActivity?.hideKeyboard()
                             }, 300)
@@ -207,7 +210,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                             }
                         }
                         false
-                    }
+                    }*/
 
                     holder.textInputPay.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.payVariant = text.toString()
