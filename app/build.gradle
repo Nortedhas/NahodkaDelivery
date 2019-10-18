@@ -7,8 +7,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 apply plugin: 'realm-android'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
 
 
 android {
@@ -31,6 +31,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 
     packagingOptions {
         pickFirst 'lib/mips/librsjni.so'
@@ -82,7 +83,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     kapt "android.arch.lifecycle:compiler:1.1.1"
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'         //Color shadow for image (with Glide)
+    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'
+    //Color shadow for image (with Glide)
 
     implementation 'com.github.swarmnyc.promisekt:promisekt:1.0.5'          //PromiseKt
     implementation 'com.github.swarmnyc.promisekt:promisekt-android:1.0.5'
@@ -102,6 +104,9 @@ dependencies {
     implementation 'com.squareup.moshi:moshi-adapters:1.8.0'
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
+
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+    //implementation 'com.google.firebase:firebase-analytics:17.2.0'
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'       //Google maps
     implementation 'com.google.android.gms:play-services-base:17.1.0'

@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
@@ -40,8 +42,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         viewAdapter
     }
 
-    var symbolCount: Int? = 0
-
     val nextButton by lazy {
         val button = BaseButton()
         button.setBackgroundColor(Color.parseColor("#09D0B8"))
@@ -50,6 +50,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
+        button.visibility = View.GONE
         button
     }
 
@@ -70,13 +71,11 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         nextButton.setOnClickListener {
-            isTimer = true
-            if(symbolCount!! < 4){
-
+            if(viewModel.model.code.count() < 4 ){
                 alertManager.single("Ошибка!","Неправильный СМС-код",null,"OK") { _, position ->
-                }
 
-            } else {
+                }
+            }  else {
                 user.isAuthorized = true
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
                 isTimer = true
@@ -138,25 +137,11 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
                 is SMSTextInputViewHolder -> {
                     holder.initialize("СМС код")
 
-                    holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
+                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.code = text.toString()
+                        nextButton.visibility = View.VISIBLE
+                    }
 
-                        }
-
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCount = p0?.count()
-                        }
-
-                        override fun afterTextChanged(p0: Editable?) {
-
-                        }
-
-                    })
                     holder.textInputL.editText?.limitLength(4)
                     innerContent.dismissFocus(holder.textInputL.editText)
 

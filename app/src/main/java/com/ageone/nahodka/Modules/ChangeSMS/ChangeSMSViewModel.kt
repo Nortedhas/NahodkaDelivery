@@ -27,5 +27,5 @@ class ChangeSMSViewModel : InterfaceViewModel {
 }
 
 class ChangeSMSModel : InterfaceModel {
-
+    var code = ""
 }

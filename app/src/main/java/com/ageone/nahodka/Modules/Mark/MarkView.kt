@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -22,8 +23,6 @@ import yummypets.com.stevia.*
 class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = MarkViewModel()
-
-    var symbolCount: Int? = 0
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -172,29 +171,13 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         }
                     }
 
-                    holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
-                        override fun afterTextChanged(p0: Editable?) {
-
-                        }
-
-                        override fun beforeTextChanged(
-                            p0: CharSequence?,
-                            p1: Int,
-                            p2: Int,
-                            p3: Int
-                        ) {
-                        }
-
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            symbolCount = p0?.count()
-                        }
-
-                    })
+                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.mark = text.toString()
+                    }
 
                     holder.buttonSend.setOnClickListener{
-                        if(symbolCount == 0) {
+                        if(viewModel.model.mark.count() == 0) {
                             alertManager.single("Ошибка","Напишите отзыв",null,"OK") {_, position ->
-
                             }
                         }
                     }

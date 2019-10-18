@@ -2,9 +2,11 @@ package com.ageone.nahodka.Modules.ChangeName
 
 import android.graphics.Color
 import android.text.InputType
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
@@ -14,6 +16,8 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Modules.ChangeName.rows.ChangeNameTextInputViewHolder
 import com.ageone.nahodka.Modules.ChangeName.rows.initialize
 import yummypets.com.stevia.*
@@ -35,11 +39,31 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
+        button.visibility = View.GONE
         button
     }
 
     init {
 //        viewModel.loadRealmData()
+
+        nextButton.setOnClickListener {
+            if(viewModel.model.phone.count() < 18 && viewModel.model.name.count() != 0){
+                alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position ->
+
+                }
+            }
+            else if(viewModel.model.phone.count() > 0 && viewModel.model.name.count() == 0) {
+                alertManager.single("Ошибка","Неверное имя",null,"OK") { _, position ->
+                }
+            }
+            else if(viewModel.model.phone.count() == 0 && viewModel.model.name.count() == 0){
+                alertManager.single("Ошибка","Заполните поля",null,"OK") { _, position ->
+                }
+            }
+            else {
+                emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.toString())
+            }
+        }
 
         innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)//TODO: set background
@@ -106,10 +130,23 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     when (position % 2) {
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
+
+                            holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
+                                viewModel.model.phone = text.toString()
+                                nextButton.visibility = View.VISIBLE
+
+                            }
+
                             innerContent.dismissFocus(holder.textInputChange.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
+
+                            holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
+                                viewModel.model.name = text.toString()
+                                nextButton.visibility = View.VISIBLE
+
+                            }
                             innerContent.dismissFocus(holder.textInputChange.editText)
                         }
                     }
@@ -143,9 +180,7 @@ fun ChangeNameView.renderUIO() {
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
         .height(56)
-        .setOnClickListener {
-            emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.toString())
-        }
+
 
 
 }

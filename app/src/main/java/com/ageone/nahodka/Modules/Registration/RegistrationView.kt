@@ -2,17 +2,17 @@ package com.example.ageone.Modules.Entry
 
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.text.Editable
+import android.os.Bundle
 import android.text.InputType
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.updatePadding
+import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
@@ -20,7 +20,6 @@ import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputEditText
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
@@ -29,7 +28,6 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.rows.RegistrationTextInputViewHolder
 import com.example.ageone.Modules.Entry.rows.RegistrationTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 import java.util.*
 
@@ -42,9 +40,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         viewAdapter
     }
 
-    var symbalCountPhone: Int? = 0
-    var symbalCountName: Int? = 0
-
     val nextButton by lazy {
         val button = BaseButton()
         button.setBackgroundColor(Color.parseColor("#09D0B8"))
@@ -53,7 +48,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         button.setTextColor(Color.WHITE)
         button.textSize = 20F
         button.cornerRadius = 0
-         //   button.visibility = View.GONE
+        button.visibility = View.GONE
         button
     }
 
@@ -75,25 +70,26 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
         nextButton.setOnClickListener {
 
-            if(symbalCountPhone!! < 18 && symbalCountName !=0){
+            if(viewModel.model.phone.count() < 18 && viewModel.model.name.count() != 0){
                 alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position ->
 
                 }
             }
-            else if(symbalCountName == 0 && symbalCountPhone!! > 0) {
+            else if(viewModel.model.phone.count() > 0 && viewModel.model.name.count() == 0) {
                 alertManager.single("Ошибка","Неверное имя",null,"OK") {_, position ->
                 }
             }
-            else if(symbalCountName == 0 && symbalCountPhone == 0){
+            else if(viewModel.model.phone.count() == 0 && viewModel.model.name.count() == 0){
                 alertManager.single("Ошибка","Заполните поля",null,"OK") {_, position ->
                 }
             }
             else {
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
                 //clickTimePicker(nextButton)
+                //startBrowserWithUri("https://en.wikipedia.org/wiki/Rickrolling",context)
 
             }
-            }
+        }
 
         renderUIO()
         bindUI()
@@ -115,7 +111,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         override fun getItemCount() = 3//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0, 1 -> RegistrationEditTextType
+            0,1 -> RegistrationEditTextType
             2 -> RegistrationTextType
             else -> -1
         }
@@ -153,60 +149,20 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
 
-                            holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
-                                override fun afterTextChanged(p0: Editable?) {
-
-                                }
-
-                                override fun beforeTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-
-                                }
-
-                                override fun onTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-                                    symbalCountPhone = p0?.count()
-                                }
-
-                            })
+                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                                viewModel.model.phone = text.toString()
+                                nextButton.visibility = View.VISIBLE
+                            }
 
                             innerContent.dismissFocus(holder.textInputL.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
 
-                            holder.textInputL.editText?.addTextChangedListener(object: TextWatcher{
-                                override fun afterTextChanged(p0: Editable?) {
-
-                                }
-
-                                override fun beforeTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-
-                                }
-
-                                override fun onTextChanged(
-                                    p0: CharSequence?,
-                                    p1: Int,
-                                    p2: Int,
-                                    p3: Int
-                                ) {
-                                    symbalCountName = p0?.count()
-                                }
-
-                            })
+                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                                viewModel.model.name = text.toString()
+                                nextButton.visibility = View.VISIBLE
+                            }
 
                             innerContent.dismissFocus(holder.textInputL.editText)
                         }
@@ -245,6 +201,30 @@ fun RegistrationView.renderUIO() {
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
 
+
+}
+
+fun RegistrationView.clickTimePicker(view: BaseButton){
+    var calendar = Calendar.getInstance()
+
+    var hour  = calendar.get(Calendar.HOUR)
+
+    var minute = calendar.get(Calendar.MINUTE)
+
+    val timePickerDialog = TimePickerDialog(context, R.style.TimePickerTheme,TimePickerDialog.OnTimeSetListener(function = {dialog, h , m ->
+        view.setText("h : $h , m : $m")
+    }),hour,minute,true)
+
+    timePickerDialog.show()
+}
+
+fun RegistrationView.startBrowserWithUri(url: String,context: Context){
+    val uris = Uri.parse(url)
+    val intents = Intent(Intent.ACTION_VIEW, uris)
+    val b = Bundle()
+    b.putBoolean("new_window", true)
+    intents.putExtras(b)
+    context.startActivity(intents)
 }
 
 
