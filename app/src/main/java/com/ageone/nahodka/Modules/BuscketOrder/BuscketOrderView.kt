@@ -189,10 +189,10 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
                 is BuscketOrderTextInputPayViewHolder -> {
                     holder.initialize("Способ оплаты")
-                    //innerContent.viewAboveKeybooard(holder.textInputPay,bodyTable)
-                    innerContent.dismissFocus(holder.textInputPay.editText)
+                    innerContent.viewAboveKeybooard(holder.textInputPay,bodyTable)
+                    //innerContent.dismissFocus(holder.textInputPay.editText)
 
-                    holder.textInputPay.editText?.setOnTouchListener { v, event ->
+                    /*holder.textInputPay.editText?.setOnTouchListener { v, event ->
                         if (event.action == MotionEvent.ACTION_DOWN) {
 
                             Handler().postDelayed({
@@ -210,7 +210,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                             }
                         }
                         false
-                    }
+                    }*/
 
                     holder.textInputPay.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.payVariant = text.toString()
