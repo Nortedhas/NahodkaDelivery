@@ -84,6 +84,7 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             when (holder) {
                 is FrameTextInputViewHolder -> {
                     holder.initialize("Комментарий к заказу")
+                    holder.textInputFrame.editText?.requestFocus()
                 }
 
             }
