@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Modules.Frame
 
 import android.graphics.Color
+import android.os.Handler
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.R
@@ -84,7 +85,10 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             when (holder) {
                 is FrameTextInputViewHolder -> {
                     holder.initialize("Комментарий к заказу")
-                    holder.textInputFrame.editText?.requestFocus()
+                    Handler().postDelayed({
+                        holder.textInputFrame.editText?.requestFocus()
+                    }, 300)
+
                 }
 
             }
