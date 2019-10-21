@@ -21,6 +21,7 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Models.User.user
+import com.ageone.nahodka.Modules.ChangeSMS.rows.ChangeSMSTextInputViewHolder
 import com.ageone.nahodka.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
 import com.ageone.nahodka.Modules.ChangeSMS.rows.initialize
 import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
@@ -111,7 +112,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
             val holder = when (viewType) {
                 ChangeSMSEditTextType -> {
-                    InputViewHolder(layout)
+                    ChangeSMSTextInputViewHolder(layout)
                 }
                 ChangeSMSTextType -> {
                     ChangeSMSTextViewHolder(layout)
@@ -126,9 +127,8 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is InputViewHolder -> {
-                    holder.initialize("СМС код", InputEditTextType.NUMERIC)
-                    holder.textInputL.editText?.setSingleLine(true)
+                is ChangeSMSTextInputViewHolder -> {
+                    holder.initialize("СМС код")
                     holder.textInputL.editText?.limitLength(4)
 
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
