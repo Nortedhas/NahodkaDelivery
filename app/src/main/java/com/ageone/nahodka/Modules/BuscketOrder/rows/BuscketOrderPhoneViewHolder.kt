@@ -68,7 +68,6 @@ fun BuscketOrderPhoneViewHolder.renderUI() {
         .fillHorizontally(14)
 
 
-
 }
 
 fun BuscketOrderPhoneViewHolder.initialize(hintPhone: String) {

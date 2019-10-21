@@ -67,7 +67,7 @@ fun BuscketOrderTextInputPayViewHolder.renderUI() {
     )
 
     textInputPay
-        .constrainTopToTopOf(constraintLayout,100)
+        .constrainTopToTopOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout,14)
         .width(utils.variable.displayWidth/2)
         .height(utils.variable.displayWidth * .166F)
