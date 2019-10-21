@@ -204,20 +204,6 @@ fun RegistrationView.renderUIO() {
 
 }
 
-fun RegistrationView.clickTimePicker(view: BaseButton){
-    var calendar = Calendar.getInstance()
-
-    var hour  = calendar.get(Calendar.HOUR)
-
-    var minute = calendar.get(Calendar.MINUTE)
-
-    val timePickerDialog = TimePickerDialog(context, R.style.TimePickerTheme,TimePickerDialog.OnTimeSetListener(function = {dialog, h , m ->
-        view.setText("h : $h , m : $m")
-    }),hour,minute,true)
-
-    timePickerDialog.show()
-}
-
 fun RegistrationView.startBrowserWithUri(url: String,context: Context){
     val uris = Uri.parse(url)
     val intents = Intent(Intent.ACTION_VIEW, uris)

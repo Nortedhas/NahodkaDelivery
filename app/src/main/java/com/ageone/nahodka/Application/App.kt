@@ -44,6 +44,7 @@ val api = API()
 //val database = DataBase
 val rxData = RxData()
 var webSocket = WebSocket()
+var intent = Intent()
 
 val currentActivity: BaseActivity?
     get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as BaseActivity
