@@ -25,12 +25,9 @@ class RegistrationTextViewHolder(val constraintLayout: ConstraintLayout) :
         textViewLogin
     }
 
-
-
     init {
         renderUI()
     }
-
 }
 
 fun RegistrationTextViewHolder.renderUI() {

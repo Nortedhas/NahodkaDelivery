@@ -2,8 +2,6 @@ package com.ageone.nahodka.Modules.BuscketOrder
 
 import android.graphics.Color
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +9,6 @@ import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
-import com.ageone.nahodka.External.Base.ConstraintLayout.viewAboveKeybooard
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
@@ -21,7 +18,6 @@ import com.ageone.nahodka.External.Libraries.Alert.list
 import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Modules.BuscketOrder.rows.*
 import com.ageone.nahodka.R
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 
@@ -189,7 +185,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
                 is BuscketOrderTextInputPayViewHolder -> {
                     holder.initialize("Способ оплаты")
-                    //innerContent.viewAboveKeybooard(holder.textInputPay,bodyTable)
+                    //innerContent.setScrollableView(holder.textInputPay,bodyTable)
                     innerContent.dismissFocus(holder.textInputPay.editText)
 
                     holder.textInputPay.editText?.setOnTouchListener { v, event ->

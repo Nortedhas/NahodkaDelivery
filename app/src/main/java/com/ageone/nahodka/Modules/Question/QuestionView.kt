@@ -78,7 +78,6 @@ class QuestionView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -92,17 +91,12 @@ class QuestionView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
                         startActivity(context,intent,null)
                     }
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun QuestionView.renderUIO() {
-
     renderBodyTable()
 }
 

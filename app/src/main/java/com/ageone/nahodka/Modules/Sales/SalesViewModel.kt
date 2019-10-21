@@ -8,7 +8,6 @@ class SalesViewModel : InterfaceViewModel {
 
     enum class EventType {
         OnStockPressed
-
     }
 
     /*var realmData = listOf<>()

@@ -6,8 +6,6 @@ import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
-import yummypets.com.stevia.constrainLeftToLeftOf
-import yummypets.com.stevia.constrainTopToTopOf
 import yummypets.com.stevia.*
 
 class BuscketOrderTotalViewHolder(val constraintLayout: ConstraintLayout) :
@@ -68,14 +66,9 @@ class BuscketOrderTotalViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-
-
-
     init {
-
         renderUI()
     }
-
 }
 
 fun BuscketOrderTotalViewHolder.renderUI() {
@@ -87,7 +80,6 @@ fun BuscketOrderTotalViewHolder.renderUI() {
         textViewTotal,
         textViewTotalPrice
     )
-
 
     textViewAmount
         .constrainTopToTopOf(constraintLayout,10)
@@ -113,21 +105,16 @@ fun BuscketOrderTotalViewHolder.renderUI() {
     textViewTotalPrice
         .constrainCenterYToCenterYOf(textViewTotal)
         .constrainRightToRightOf(constraintLayout,16)
-
-
-
 }
 
 fun BuscketOrderTotalViewHolder.initialize(amountPrice: Int, deliveryPrice: Int) {
-
-
-    var total = amountPrice + deliveryPrice
     textViewAmountPrice.text = "${amountPrice.toString()} р."
+
     if(deliveryPrice == 0){
         textViewDeliveryPrice.text = "Бесплатно"
     } else {
         textViewDeliveryPrice.text = "${deliveryPrice.toString()} р."
     }
-    textViewTotalPrice.text = "${total.toString()} р."
 
+    textViewTotalPrice.text = "${(amountPrice+deliveryPrice).toString()} р."
 }

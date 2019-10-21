@@ -3,10 +3,8 @@ package com.example.ageone.Modules.EntrySMS
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
-
 class SMSViewModel : InterfaceViewModel {
     var model = SMSModel()
-
 
     enum class EventType {
         OnNextPressed,

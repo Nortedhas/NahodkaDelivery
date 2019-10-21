@@ -120,7 +120,6 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -136,7 +135,6 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         viewModel.model.code = text.toString()
                         nextButton.visibility = View.VISIBLE
                     }
-
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is ChangeSMSTextViewHolder -> {
@@ -146,15 +144,12 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         }
                     }
                 }
-
             }
-
         }
     }
 }
 
 fun ChangeSMSView.renderUIO() {
-
     innerContent.subviews(
         bodyTable,
         nextButton
@@ -173,7 +168,6 @@ fun ChangeSMSView.renderUIO() {
         .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
-
 }
 
 

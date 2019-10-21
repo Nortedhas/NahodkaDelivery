@@ -30,12 +30,10 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         toolbar.title = ""
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
-
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -76,7 +74,6 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -88,19 +85,13 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     Handler().postDelayed({
                         holder.textInputFrame.editText?.requestFocus()
                     }, 300)
-
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun Frameiew.renderUIO() {
-
     renderBodyTable()
 }
 

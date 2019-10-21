@@ -12,12 +12,10 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
-import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
 class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
-
 
     val textViewEstimate by lazy {
         val textView = BaseTextView()
@@ -42,24 +40,28 @@ class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
         imageView.initialize()
         imageView
     }
+
     val imageViewRating2 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
         imageView.initialize()
         imageView
     }
+
     val imageViewRating3 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
         imageView.initialize()
         imageView
     }
+
     val imageViewRating4 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
         imageView.initialize()
         imageView
     }
+
     val imageViewRating5 by lazy {
         val imageView = BaseImageView()
         imageView.setImageResource(R.drawable.ic_star)
@@ -77,7 +79,6 @@ class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
         params.marginStart = (-2).dp
         params.updateMargins(left = (-2).dp)
         textInput.layoutParams = params
-
 
         textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
         textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
@@ -101,10 +102,8 @@ class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun MarkTextViewHolder.renderUI() {
@@ -139,16 +138,19 @@ fun MarkTextViewHolder.renderUI() {
         .height(18)
         .constrainCenterYToCenterYOf(imageViewRating1)
         .constrainLeftToRightOf(imageViewRating1,15)
+
     imageViewRating3
         .width(18)
         .height(18)
         .constrainCenterYToCenterYOf(imageViewRating2)
         .constrainLeftToRightOf(imageViewRating2,15)
+
     imageViewRating4
         .width(18)
         .height(18)
         .constrainCenterYToCenterYOf(imageViewRating3)
         .constrainLeftToRightOf(imageViewRating3,15)
+
     imageViewRating5
         .width(18)
         .height(18)
@@ -162,13 +164,10 @@ fun MarkTextViewHolder.renderUI() {
     buttonSend
         .constrainTopToBottomOf(textInputL,28)
         .fillHorizontally(16)
-
 }
 
 fun MarkTextViewHolder.initialize(name:String, hint: String, type: InputEditTextType) {
-
     textViewName.text = name
     textInputL.hint = hint
     textInputL.defineType(type)
-
 }

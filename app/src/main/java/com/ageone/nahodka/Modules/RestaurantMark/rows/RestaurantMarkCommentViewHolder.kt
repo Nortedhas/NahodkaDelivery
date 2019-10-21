@@ -56,10 +56,8 @@ class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun RestaurantMarkCommentViewHolder.renderUI() {

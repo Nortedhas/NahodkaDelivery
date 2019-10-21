@@ -12,7 +12,6 @@ import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Filter.rows.FilterTextViewHolder
 import com.ageone.nahodka.Modules.Filter.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -38,7 +37,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
-
         renderUIO()
         bindUI()
     }
@@ -52,8 +50,8 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
-
         private val FilterTextType = 0
+
         override fun getItemCount() = 1//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
@@ -77,18 +75,16 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
             var isPressedPrice = false
             var isPressedAround = false
+
             when (holder) {
                 is FilterTextViewHolder -> {
                     holder.initialize()
-
                     holder.checkPrice.setOnClickListener {
                         holder.checkAround.isChecked = false
                         holder.checkPrice.isChecked = true
@@ -101,7 +97,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                             isPressedPrice = true
                         }
                     }
-
                     holder.checkAround.setOnClickListener {
                         holder.checkPrice.isChecked = false
                         holder.checkAround.isChecked = true
@@ -111,9 +106,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                             holder.checkAround.isChecked = false
                             isPressedAround = false
                         }else if(!isPressedAround){
-
                         isPressedAround = true
-
                         }
                     }
                 }
@@ -123,7 +116,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 }
 
 fun FilterView.renderUIO() {
-
     renderBodyTable()
 }
 

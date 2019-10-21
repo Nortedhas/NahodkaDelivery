@@ -40,7 +40,6 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
 
     var onTap: ((Int) -> (Unit))? = null
 
-
     init {
 
         recyclerViewImage.adapter = viewAdapter
@@ -74,7 +73,6 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
                     }
                 }
             }
-
         renderUI()
     }
 
@@ -98,10 +96,9 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
             val food = foodList[position]
 
             holder.initialize(utils.variable.displayWidth,food)
-
-                holder.constraintLayout.setOnClickListener {
+            holder.constraintLayout.setOnClickListener {
                     onTap?.invoke(position)
-                }
+            }
         }
     }
 
@@ -111,11 +108,10 @@ fun RestaurantListImageViewHolder.renderUI() {
     constraintLayout.subviews(
         recyclerViewImage
     )
+
     recyclerViewImage
         .fillHorizontally()
         .constrainTopToTopOf(constraintLayout)
-
-
 }
 
 fun RestaurantListImageViewHolder.initialize() {

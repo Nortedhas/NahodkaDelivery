@@ -1,6 +1,5 @@
 package com.ageone.nahodka.Modules.Profile
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 

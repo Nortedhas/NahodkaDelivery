@@ -67,14 +67,12 @@ class RestaurantCardViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
 
 }
 
 fun RestaurantCardViewHolder.renderUI() {
-
 
     constraintLayout.subviews(
         viewBack.subviews(
@@ -118,11 +116,9 @@ fun RestaurantCardViewHolder.renderUI() {
         .constrainRightToRightOf(viewBack, 16)
         .constrainLeftToLeftOf(viewBack, 16)
         .constrainBottomToBottomOf(viewBack, 16)
-
 }
 
 fun RestaurantCardViewHolder.initialize(image: Int, dishName: String, dishPrice: String, dishDescription: String) {
-
     textViewName.text = dishName
     textViewPrice.text = "$dishPrice руб."
     textViewDescription.text = dishDescription

@@ -45,7 +45,6 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         imageView.setOnClickListener {
             emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
         }
-//        imageView.elevation = 4F
         imageView
     }
 
@@ -62,7 +61,6 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -107,7 +105,6 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -138,18 +135,13 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                             isStarPressed = false
                         }
                     }
-
                     holder.constraintLayout.setOnClickListener {
                         rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnRestaurantPressed.toString())
                     }
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun RestaurantListView.renderUIO() {

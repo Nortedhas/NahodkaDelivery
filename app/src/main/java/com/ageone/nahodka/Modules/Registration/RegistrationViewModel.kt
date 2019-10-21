@@ -7,7 +7,6 @@ class RegistrationViewModel : InterfaceViewModel {
     var model = RegistrationModel()
 
     enum class EventType {
-
         OnNextPressed
     }
 

@@ -87,7 +87,7 @@ fun BaseConstraintLayout.dismissFocus(view: EditText?) {
     }
 }
 
-fun BaseConstraintLayout.viewAboveKeybooard(view: BaseTextInputLayout?,recyclerView: BaseRecyclerView){
+fun BaseConstraintLayout.setScrollableView(view: BaseTextInputLayout?, recyclerView: BaseRecyclerView){
     val rectLayout = Rect()
     getWindowVisibleDisplayFrame(rectLayout)
 
@@ -129,7 +129,6 @@ fun BaseConstraintLayout.viewAboveKeybooard(view: BaseTextInputLayout?,recyclerV
         }
 
         if (margin > 50) {
-            Timber.i("View up : $margin")
             recyclerView.constrainBottomToBottomOf(this,margin.toInt())
             isFocus = true
         } else if (margin.toInt() < 50) {
@@ -144,17 +143,3 @@ fun BaseConstraintLayout.viewAboveKeybooard(view: BaseTextInputLayout?,recyclerV
 
 }
 
-
-fun BaseConstraintLayout.PxtoDp(px: Float, context: Context): Float{
-    return px / context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
-}
-
-fun BaseConstraintLayout.DptoPx(dp: Float, context: Context): Float{
-    var px = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        dp,
-        resources.displayMetrics
-    )
-
-    return px
-}

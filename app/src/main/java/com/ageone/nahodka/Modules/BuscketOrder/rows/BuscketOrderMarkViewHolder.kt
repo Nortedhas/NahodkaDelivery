@@ -10,7 +10,6 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.R
-import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
 class BuscketOrderMarkViewHolder(val constraintLayout: ConstraintLayout) :
@@ -35,28 +34,21 @@ class BuscketOrderMarkViewHolder(val constraintLayout: ConstraintLayout) :
         params.updateMargins(left = (-2).dp)
         editText.layoutParams = params
 
-
         editText.boxStrokeColor = Color.parseColor("#D7D7D7")
         editText.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
         editText.defineType(InputEditTextType.TEXT)
-
-
 
         editText.editText?.let { editText ->
             editText.textColor = Color.parseColor("#7A7A7A")
             editText.textSize = 16F
             editText.maxLines = 3
-
         }
-
         editText
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun BuscketOrderMarkViewHolder.renderUI() {
@@ -75,8 +67,6 @@ fun BuscketOrderMarkViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout,14)
         .width(utils.tools.getActualSizeFromDes(304))
-
-
 }
 
 fun BuscketOrderMarkViewHolder.initialize(hintMark: String) {

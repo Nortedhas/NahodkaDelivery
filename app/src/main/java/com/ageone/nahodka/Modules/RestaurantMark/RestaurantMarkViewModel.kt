@@ -7,7 +7,6 @@ class RestaurantMarkViewModel : InterfaceViewModel {
     var model = RestaurantMarkModel()
 
     enum class EventType {
-
         OnCommentPressed,
         OnStarPresse
     }

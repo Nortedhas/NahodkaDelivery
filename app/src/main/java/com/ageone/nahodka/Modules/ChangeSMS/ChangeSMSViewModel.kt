@@ -1,6 +1,5 @@
 package com.ageone.nahodka.Modules.ChangeSMS
 
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 
@@ -8,7 +7,6 @@ class ChangeSMSViewModel : InterfaceViewModel {
     var model = ChangeSMSModel()
 
     enum class EventType {
-
         OnNextPressed,
         Timeout
     }

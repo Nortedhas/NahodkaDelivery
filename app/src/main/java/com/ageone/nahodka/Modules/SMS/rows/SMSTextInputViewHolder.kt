@@ -1,16 +1,12 @@
 package com.ageone.nahodka.Modules.SMS.rows
 
 import android.graphics.Color
-import android.os.Handler
-import android.text.TextWatcher
-import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
-import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
 class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
@@ -27,7 +23,6 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
         params.updateMargins(left = (-2).dp)
         textInput.layoutParams = params
 
-
         textInput.boxStrokeColor = Color.parseColor("#C1C1C1")
         textInput.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
         textInput.defineType(InputEditTextType.NUMERIC)
@@ -37,17 +32,13 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textSize = 20F
             editText.maxLines = 1
             editText.setSingleLine(true)
-
         }
-
         textInput
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun SMSTextInputViewHolder.renderUI() {

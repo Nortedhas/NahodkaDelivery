@@ -7,7 +7,6 @@ class MarkViewModel : InterfaceViewModel {
     var model = MarkModel()
 
     enum class EventType {
-
         OnSendPressed
     }
 
