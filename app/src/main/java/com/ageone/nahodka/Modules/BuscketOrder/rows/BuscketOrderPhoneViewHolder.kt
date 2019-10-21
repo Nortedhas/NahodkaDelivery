@@ -39,14 +39,6 @@ class BuscketOrderPhoneViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textColor = Color.parseColor("#333333")
             editText.textSize = 6F.dp
             editText.maxLines = 1
-            editText.setOnTouchListener { view, motionEvent ->
-                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                    Handler().postDelayed({
-                        editText.requestFocus()
-                    }, 300)
-                }
-                false
-            }
         }
         editText
     }

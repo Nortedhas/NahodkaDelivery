@@ -36,15 +36,6 @@ class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.maxLines = 1
             editText.setSingleLine(true)
 
-            editText.setOnTouchListener { view, motionEvent ->
-                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                    Handler().postDelayed({
-                        editText.requestFocus()
-                    }, 300)
-                }
-                false
-            }
-
         }
         editText
     }
