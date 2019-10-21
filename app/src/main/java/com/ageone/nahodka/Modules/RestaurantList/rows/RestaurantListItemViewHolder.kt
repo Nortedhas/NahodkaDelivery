@@ -8,7 +8,6 @@ import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
-
 import yummypets.com.stevia.*
 
 class RestaurantListItemViewHolder(val constraintLayout: ConstraintLayout) :
@@ -59,7 +58,6 @@ class RestaurantListItemViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
 
@@ -105,7 +103,6 @@ fun RestaurantListItemViewHolder.renderUI() {
 }
 
 fun RestaurantListItemViewHolder.initialize(image: Int, name: String, kitchen: String, delivery: String, star: Int, rating: String, x: Float) {
-
     addImageFromGlide(imageViewRestaurant, image)
     textViewName.text = name
     textViewKitchen.text = kitchen

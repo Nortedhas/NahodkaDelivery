@@ -32,7 +32,6 @@ class QuestionTextViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
 
@@ -55,7 +54,6 @@ fun QuestionTextViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewContact,4)
         .constrainLeftToLeftOf(constraintLayout,20)
         .constrainRightToRightOf(constraintLayout, 25)
-
 }
 
 fun QuestionTextViewHolder.initialize(number: String) {

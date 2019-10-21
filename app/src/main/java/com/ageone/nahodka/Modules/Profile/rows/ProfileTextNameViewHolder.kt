@@ -11,7 +11,6 @@ import yummypets.com.stevia.*
 class ProfileTextNameViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-
     val textViewName by lazy {
         val textView = BaseTextView()
         textView.textSize = 20F
@@ -52,7 +51,6 @@ class ProfileTextNameViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
 
@@ -91,7 +89,6 @@ fun ProfileTextNameViewHolder.renderUI() {
 }
 
 fun ProfileTextNameViewHolder.initialize(name: String, phone: String) {
-
     textViewName.text = name
     textViewPhone.text = "Телефон: $phone"
 }

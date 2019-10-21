@@ -68,13 +68,11 @@ class BuscketItemViewHolder(val constraintLayout: ConstraintLayout) :
         imageView.setImageResource(R.drawable.ic_add)
         imageView.initialize()
         imageView
-
     }
-    init {
 
+    init {
         renderUI()
     }
-
 }
 
 fun BuscketItemViewHolder.renderUI() {
@@ -133,7 +131,6 @@ fun BuscketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, 
     imageViewDish
         .width(utils.tools.getActualSizeFromDes(132))
         .height(utils.tools.getActualSizeFromDes(101))
-
 
     textViewDishName.text = dishName
     textViewWeight.text = "$weight г"

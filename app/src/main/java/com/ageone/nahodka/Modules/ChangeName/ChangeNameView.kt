@@ -49,7 +49,6 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         nextButton.setOnClickListener {
             if(viewModel.model.phone.count() < 18 && viewModel.model.name.count() != 0){
                 alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position ->
-
                 }
             }
             else if(viewModel.model.phone.count() > 0 && viewModel.model.name.count() == 0) {
@@ -61,24 +60,21 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 }
             }
             else {
-                emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.toString())
+                emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.name)
             }
         }
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
-
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Смена имени"
         toolbar.textColor = Color.WHITE
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
-
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -119,7 +115,6 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -134,9 +129,7 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                             holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.phone = text.toString()
                                 nextButton.visibility = View.VISIBLE
-
                             }
-
                             innerContent.dismissFocus(holder.textInputChange.editText)
                         }
                         1 -> {
@@ -145,23 +138,17 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                             holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.name = text.toString()
                                 nextButton.visibility = View.VISIBLE
-
                             }
                             innerContent.dismissFocus(holder.textInputChange.editText)
                         }
                     }
-
                 }
-
             }
-
         }
-
     }
 }
 
 fun ChangeNameView.renderUIO() {
-
     innerContent.subviews(
         bodyTable,
         nextButton
@@ -180,9 +167,4 @@ fun ChangeNameView.renderUIO() {
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
         .height(56)
-
-
-
 }
-
-

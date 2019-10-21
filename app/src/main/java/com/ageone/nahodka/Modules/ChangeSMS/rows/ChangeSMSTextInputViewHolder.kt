@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Modules.SMS.rows
+package com.ageone.nahodka.Modules.ChangeSMS.rows
 
 import android.graphics.Color
 import android.widget.LinearLayout
@@ -9,7 +9,7 @@ import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import yummypets.com.stevia.*
 
-class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
+class ChangeSMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textInputL by lazy {
@@ -41,7 +41,7 @@ class SMSTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     }
 }
 
-fun SMSTextInputViewHolder.renderUI() {
+fun ChangeSMSTextInputViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL
     )
@@ -53,6 +53,6 @@ fun SMSTextInputViewHolder.renderUI() {
 
 }
 
-fun SMSTextInputViewHolder.initialize(hint: String) {
+fun ChangeSMSTextInputViewHolder.initialize(hint: String) {
     textInputL.hint = hint
 }

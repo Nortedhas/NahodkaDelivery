@@ -153,7 +153,6 @@ class RestaurantPreviewViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
 

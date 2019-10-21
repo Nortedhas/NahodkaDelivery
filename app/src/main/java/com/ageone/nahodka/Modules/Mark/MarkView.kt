@@ -1,8 +1,6 @@
 package com.ageone.nahodka.Modules.Mark
 
 import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
@@ -16,8 +14,6 @@ import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Modules.Mark.rows.MarkTextViewHolder
 import com.ageone.nahodka.Modules.Mark.rows.initialize
-import com.google.android.material.snackbar.Snackbar
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -32,7 +28,7 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Ваш отзыв"
         toolbar.textColor = Color.WHITE
@@ -42,7 +38,6 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -85,7 +80,6 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -182,17 +176,12 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         }
                     }
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun MarkView.renderUIO() {
-
     renderBodyTable()
 }
 

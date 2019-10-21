@@ -31,10 +31,8 @@ class BuscketEmptyViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun BuscketEmptyViewHolder.renderUI() {
@@ -52,11 +50,8 @@ fun BuscketEmptyViewHolder.renderUI() {
         .constrainCenterXToCenterXOf(constraintLayout)
         .width(utils.variable.displayWidth - 20)
         .height(utils.variable.displayWidth * .75F)
-
-
 }
 
 fun BuscketEmptyViewHolder.initialize(image: Int) {
-
     addImageFromGlide(imageViewTurtle,image,0)
 }

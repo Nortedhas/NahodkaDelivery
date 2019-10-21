@@ -26,7 +26,7 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Мои заказы"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
@@ -36,7 +36,6 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -59,11 +58,10 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         override fun getItemCount() = 5//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
-          when (itemCount) {
-              1 -> ProfileListEmptyType
-              else -> ProfileListTextType
-          }
-
+            when (itemCount) {
+                1 -> ProfileListEmptyType
+                else -> ProfileListTextType
+            }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
@@ -84,7 +82,6 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -95,21 +92,21 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                     setBackgroundColor(Color.parseColor("#eeece8"))
                     holder.initialize("У Вас пока ещё нет \nсозданных заказов", R.drawable.dribbble)
                 }
-
                 is ProfileListTextViewHolder -> {
-                    holder.initialize("24.02.19", "Находка", "ул. Темирязевская, д 155, кв. 210", "Tokio City", "1536.00")
+                    holder.initialize(
+                        "24.02.19",
+                        "Находка",
+                        "ул. Темирязевская, д 155, кв. 210",
+                        "Tokio City",
+                        "1536.00"
+                    )
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun ProfileListView.renderUIO() {
-
     innerContent.subviews(
         bodyTable
     )

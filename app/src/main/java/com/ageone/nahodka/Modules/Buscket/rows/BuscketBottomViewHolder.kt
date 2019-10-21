@@ -46,10 +46,8 @@ class BuscketBottomViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun BuscketBottomViewHolder.renderUI() {
@@ -80,6 +78,5 @@ fun BuscketBottomViewHolder.renderUI() {
 }
 
 fun BuscketBottomViewHolder.initialize(total: Int) {
-
     textViewCount.text = "${total.toString()} руб."
 }

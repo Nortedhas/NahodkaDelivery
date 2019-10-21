@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
-import com.example.ageone.Modules.EntrySMS.rows.renderUI
 import yummypets.com.stevia.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +27,6 @@ class ChangeSMSTextViewHolder(val constraintLayout: ConstraintLayout) :
 
     var timeBeforeRedirect = 60000L
     val time = SimpleDateFormat("mm:ss")
-
     val timer = Timer()
 
     init {
@@ -40,7 +38,6 @@ class ChangeSMSTextViewHolder(val constraintLayout: ConstraintLayout) :
             Date(timeBeforeRedirect)
         )}"
     }
-
 }
 
 fun ChangeSMSTextViewHolder.renderUI() {
@@ -52,11 +49,9 @@ fun ChangeSMSTextViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout, 16)
         .fillHorizontally(16)
         .text = "Если Вы не получили смс, запросить код повторно можно через 01:00"
-
 }
 
 fun ChangeSMSTextViewHolder.initialize(complition: (()->(Unit))) {
-
     timer.schedule(1000, 1000){
         timeBeforeRedirect-=1000L
         currentActivity?.runOnUiThread {

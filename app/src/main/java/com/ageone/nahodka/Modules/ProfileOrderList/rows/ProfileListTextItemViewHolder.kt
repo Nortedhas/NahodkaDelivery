@@ -18,7 +18,6 @@ class ProfileListTextItemViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
 
@@ -31,10 +30,8 @@ fun ProfileListTextItemViewHolder.renderUI() {
 
     textViewFood
         .constrainTopToTopOf(constraintLayout,6)
-
 }
 
 fun ProfileListTextItemViewHolder.initialize(food: String) {
-
     textViewFood.text = food
 }

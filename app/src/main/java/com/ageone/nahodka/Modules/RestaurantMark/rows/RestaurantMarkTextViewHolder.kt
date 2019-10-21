@@ -12,7 +12,6 @@ import yummypets.com.stevia.*
 class RestaurantMarkTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-
     val textViewName by lazy {
         val textView = BaseTextView()
         textView.textSize = 30F
@@ -57,8 +56,8 @@ class RestaurantMarkTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView.text = "Оценить"
         textView
     }
-    init {
 
+    init {
         renderUI()
     }
 
@@ -106,7 +105,6 @@ fun RestaurantMarkTextViewHolder.renderUI() {
 }
 
 fun RestaurantMarkTextViewHolder.initialize(name: String, rating: String, commentCount: Int) {
-
     textViewName.text = name
     textViewRating.text = rating
     textViewComment.text = "Комментарии (${commentCount.toString()})"

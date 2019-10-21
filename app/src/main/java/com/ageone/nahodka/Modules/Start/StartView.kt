@@ -21,9 +21,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView.text = "Название"
         textView.typeface = Typeface.DEFAULT_BOLD
-
         textView
-
     }
 
     val startDiscribeTextView by lazy {
@@ -33,32 +31,27 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         textView.gravity = Gravity.CENTER_HORIZONTAL
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView.text = "Лучшая доставка Находки"
-
         textView
-
     }
-
 
     init {
         setBackgroundResource(R.drawable.back_start)
         renderUIO()
     }
-
 }
-    fun StartView.renderUIO(){
-        innerContent.subviews(
-            startNameTextView,
-            startDiscribeTextView
-        )
-
-        startNameTextView
-            .fillHorizontally()
-            .constrainTopToTopOf(innerContent)
-            .constrainBottomToBottomOf(innerContent,50)
-
+fun StartView.renderUIO(){
+    innerContent.subviews(
+        startNameTextView,
         startDiscribeTextView
-            .fillHorizontally()
-            .constrainTopToBottomOf(startNameTextView,16)
+    )
 
-    }
+    startNameTextView
+        .fillHorizontally()
+        .constrainTopToTopOf(innerContent)
+        .constrainBottomToBottomOf(innerContent,50)
+
+    startDiscribeTextView
+        .fillHorizontally()
+        .constrainTopToBottomOf(startNameTextView,16)
+ }
 

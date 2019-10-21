@@ -9,15 +9,14 @@ import yummypets.com.stevia.*
 class RestaurantInfoTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-
     val textViewInfo by lazy {
         val textView = BaseTextView()
         textView.textSize = 16F
         textView.textColor = Color.parseColor("#777777")
         textView
     }
-    init {
 
+    init {
         renderUI()
     }
 
@@ -36,6 +35,5 @@ fun RestaurantInfoTextViewHolder.renderUI() {
 }
 
 fun RestaurantInfoTextViewHolder.initialize(info: String) {
-
     textViewInfo.text = info
 }

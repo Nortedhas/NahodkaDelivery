@@ -21,6 +21,7 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Models.User.user
+import com.ageone.nahodka.Modules.ChangeSMS.rows.ChangeSMSTextInputViewHolder
 import com.ageone.nahodka.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
 import com.ageone.nahodka.Modules.ChangeSMS.rows.initialize
 import com.ageone.nahodka.UIComponents.ViewHolders.InputViewHolder
@@ -53,7 +54,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 //        viewModel.loadRealmData()
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         nextButton.setOnClickListener {
             if(viewModel.model.code.count() < 4){
@@ -61,7 +62,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             }
         }  else {
             user.isAuthorized = true
-            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
+            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.name)
             isTimer = true
         }
     }
@@ -111,7 +112,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
             val holder = when (viewType) {
                 ChangeSMSEditTextType -> {
-                    InputViewHolder(layout)
+                    ChangeSMSTextInputViewHolder(layout)
                 }
                 ChangeSMSTextType -> {
                     ChangeSMSTextViewHolder(layout)
@@ -120,23 +121,20 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is InputViewHolder -> {
-                    holder.initialize("СМС код", InputEditTextType.NUMERIC)
-                    holder.textInputL.editText?.setSingleLine(true)
+                is ChangeSMSTextInputViewHolder -> {
+                    holder.initialize("СМС код")
                     holder.textInputL.editText?.limitLength(4)
 
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.code = text.toString()
                         nextButton.visibility = View.VISIBLE
                     }
-
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is ChangeSMSTextViewHolder -> {
@@ -146,15 +144,12 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         }
                     }
                 }
-
             }
-
         }
     }
 }
 
 fun ChangeSMSView.renderUIO() {
-
     innerContent.subviews(
         bodyTable,
         nextButton
@@ -173,7 +168,6 @@ fun ChangeSMSView.renderUIO() {
         .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
-
 }
 
 

@@ -27,7 +27,6 @@ class SMSTextViewHolder(val constraintLayout: ConstraintLayout) :
 
     var timeBeforeRedirect = 60000L
     val time = SimpleDateFormat("mm:ss")
-
     val timer = Timer()
 
     init {
@@ -50,7 +49,6 @@ fun SMSTextViewHolder.renderUI() {
 }
 
 fun SMSTextViewHolder.initialize(completion: (()->(Unit))) {
-
     timer.schedule(0, 1000){
         timeBeforeRedirect-=1000L
         currentActivity?.runOnUiThread {
@@ -62,5 +60,4 @@ fun SMSTextViewHolder.initialize(completion: (()->(Unit))) {
             }
         }
     }
-
 }

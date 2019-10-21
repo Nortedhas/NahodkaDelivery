@@ -25,7 +25,6 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         R.drawable.dish3
     )
 
-
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -44,7 +43,6 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -79,7 +77,6 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 }
             }
 
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
             val layout = ConstraintLayout(parent.context)
@@ -105,13 +102,12 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
             var count = 1
+
             when (holder) {
                 is BuscketItemViewHolder -> {
                     var dish = dishImage[position]
@@ -139,30 +135,24 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                             notifyDataSetChanged()
                         }
                     }
-
                     holder.initialize()
                 }
                 is BuscketBottomViewHolder -> {
                     holder.initialize(162)
                     holder.buttonCheckout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(BuscketViewModel.EventType.OnCheckPressed.toString())
+                        rootModule.emitEvent?.invoke(BuscketViewModel.EventType.OnCheckPressed.name)
                     }
                 }
                 is BuscketEmptyViewHolder -> {
                     setBackgroundColor(Color.parseColor("#eeece8"))
                     holder.initialize(R.drawable.dribbble)
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun BuscketView.renderUIO() {
-
     innerContent.subviews(
         bodyTable
     )

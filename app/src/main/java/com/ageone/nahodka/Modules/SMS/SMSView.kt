@@ -1,9 +1,7 @@
 package com.example.ageone.Modules.EntrySMS
 
 import android.graphics.Color
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -27,8 +25,6 @@ import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
 import com.example.ageone.Modules.EntrySMS.rows.initialize
 import com.ageone.nahodka.R
 import com.example.ageone.Modules.Entry.RegistrationViewModel
-import com.google.android.material.snackbar.Snackbar
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -54,7 +50,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         button
     }
 
-
     init {
 //        viewModel.loadRealmData
 
@@ -73,16 +68,13 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         nextButton.setOnClickListener {
             if(viewModel.model.code.count() < 4 ){
                 alertManager.single("Ошибка!","Неправильный СМС-код",null,"OK") { _, position ->
-
                 }
-            }  else {
+            } else {
                 user.isAuthorized = true
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
                 isTimer = true
             }
-
         }
-
         renderUIO()
         bindUI()
     }
@@ -109,7 +101,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-
             val layout = ConstraintLayout(parent.context)
 
             layout
@@ -127,24 +118,19 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
             when (holder) {
                 is SMSTextInputViewHolder -> {
                     holder.initialize("СМС код")
-
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.code = text.toString()
                         nextButton.visibility = View.VISIBLE
                     }
-
                     holder.textInputL.editText?.limitLength(4)
                     innerContent.dismissFocus(holder.textInputL.editText)
-
                 }
                 is SMSTextViewHolder -> {
                     holder.initialize {

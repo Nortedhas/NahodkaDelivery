@@ -24,7 +24,7 @@ class RestaurantInfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Инфо"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
@@ -75,27 +75,20 @@ class RestaurantInfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
             when (holder) {
                 is RestaurantInfoTextViewHolder -> {
                     holder.initialize(" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ")
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun RestaurantInfoView.renderUIO() {
-
     renderBodyTable()
 }
 

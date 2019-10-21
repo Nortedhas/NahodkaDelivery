@@ -42,7 +42,6 @@ class FilterTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHold
     }
 
     init {
-
         renderUI()
     }
 
@@ -71,7 +70,6 @@ fun FilterTextViewHolder.renderUI() {
     checkAround
         .constrainCenterYToCenterYOf(textViewFilterAround)
         .constrainRightToRightOf(constraintLayout, 16)
-
 }
 
 fun FilterTextViewHolder.initialize() {

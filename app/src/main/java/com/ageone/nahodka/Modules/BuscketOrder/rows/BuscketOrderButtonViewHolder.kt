@@ -6,7 +6,6 @@ import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
-import yummypets.com.stevia.constrainLeftToLeftOf
 import yummypets.com.stevia.constrainTopToTopOf
 import yummypets.com.stevia.*
 import yummypets.com.stevia.subviews
@@ -31,12 +30,9 @@ class BuscketOrderButtonViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-
     init {
-
         renderUI()
     }
-
 }
 
 fun BuscketOrderButtonViewHolder.renderUI() {
@@ -54,8 +50,6 @@ fun BuscketOrderButtonViewHolder.renderUI() {
     textViewCheckout
         .constrainCenterYToCenterYOf(buttonCheckout)
         .constrainCenterXToCenterXOf(buttonCheckout)
-
-
 }
 
 fun BuscketOrderButtonViewHolder.initialize() {

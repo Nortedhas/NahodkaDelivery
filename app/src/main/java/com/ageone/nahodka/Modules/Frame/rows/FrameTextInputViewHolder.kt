@@ -7,7 +7,6 @@ import androidx.core.view.updateMargins
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
-import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
 class FrameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
@@ -36,10 +35,8 @@ class FrameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun FrameTextInputViewHolder.renderUI() {
@@ -50,10 +47,8 @@ fun FrameTextInputViewHolder.renderUI() {
     textInputFrame
         .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(14)
-
 }
 
 fun FrameTextInputViewHolder.initialize(hint: String) {
     textInputFrame.hint = hint
-
 }

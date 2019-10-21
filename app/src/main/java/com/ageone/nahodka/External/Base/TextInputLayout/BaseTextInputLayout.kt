@@ -45,7 +45,7 @@ class BaseTextInputLayout: TextInputLayout(currentActivity) {
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){
                     Handler().postDelayed({
                         editText.requestFocus()
-                    }, 500)
+                    }, 700)
                 }
                 false
             }

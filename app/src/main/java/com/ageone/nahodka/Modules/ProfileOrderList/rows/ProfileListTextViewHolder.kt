@@ -73,7 +73,6 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
     var dishList = listOf("Сушими с лосося 3 шт.", "Удон с курицей 2 шт.","Сушими с лосося 3 шт.", "Удон с курицей 2 шт.")
 
     init {
-
         recyclerViewHolder.adapter = viewAdapter
         recyclerViewHolder.layoutManager =
             LinearLayoutManager(
@@ -81,7 +80,6 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
                 LinearLayoutManager.VERTICAL, false)
 
         recyclerViewHolder.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUI()
     }
@@ -105,9 +103,7 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
             var dish = dishList[position]
             holder.initialize(dish)
         }
-
     }
-
 }
 
 fun ProfileListTextViewHolder.renderUI() {
@@ -148,8 +144,6 @@ fun ProfileListTextViewHolder.renderUI() {
     separatop
         .constrainTopToBottomOf(textViewAmount,20)
         .fillHorizontally()
-
-
 }
 
 fun ProfileListTextViewHolder.initialize(date: String, city: String, address: String, restaurantName: String, amount: String) {

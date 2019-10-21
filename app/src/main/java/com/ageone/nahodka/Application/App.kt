@@ -105,7 +105,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
 
-
         Timber.i("Notification title : ${p0.data["title"]}")
         Timber.i("Notification title : ${p0.data}")
 
@@ -114,6 +113,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             //val customMessage = it.data.getValue(CUSTOM_KEY)
             val title = it.notification?.title?: "Backup title"
             val message = it.notification?.body?: "Backup message"
+            Timber.i("Title : $title , message : $message")
             sendNotification(title, "$message")
         }
     }
@@ -139,7 +139,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     private fun createNotificationChannel() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(CHANNEL_ID, "channel name", importance)
             val notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

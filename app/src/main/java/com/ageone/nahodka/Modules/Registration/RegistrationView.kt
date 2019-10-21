@@ -13,7 +13,8 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
-import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.App
+import com.ageone.nahodka.Application.intent
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
@@ -29,7 +30,6 @@ import com.example.ageone.Modules.Entry.rows.RegistrationTextInputViewHolder
 import com.example.ageone.Modules.Entry.rows.RegistrationTextViewHolder
 import com.example.ageone.Modules.Entry.rows.initialize
 import yummypets.com.stevia.*
-import java.util.*
 
 class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -57,7 +57,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 //        viewModel.loadRealmData()
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Регистрация"
         toolbar.textColor = Color.BLACK
@@ -67,12 +67,10 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
-
         nextButton.setOnClickListener {
 
             if(viewModel.model.phone.count() < 18 && viewModel.model.name.count() != 0){
                 alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position ->
-
                 }
             }
             else if(viewModel.model.phone.count() > 0 && viewModel.model.name.count() == 0) {
@@ -85,9 +83,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             }
             else {
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
-                //clickTimePicker(nextButton)
-                //startBrowserWithUri("https://en.wikipedia.org/wiki/Rickrolling",context)
-
             }
         }
 
@@ -135,7 +130,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -143,41 +137,35 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-
                 is RegistrationTextInputViewHolder-> {
                     when (position % 2){
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
-
                             holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.phone = text.toString()
                                 nextButton.visibility = View.VISIBLE
                             }
-
                             innerContent.dismissFocus(holder.textInputL.editText)
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
-
                             holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.name = text.toString()
                                 nextButton.visibility = View.VISIBLE
                             }
-
                             innerContent.dismissFocus(holder.textInputL.editText)
                         }
                     }
                 }
                 is RegistrationTextViewHolder -> {
                     holder.initialize()
+                    holder.textView.setOnClickListener {
+                        startBrowserWithUri("https://en.wikipedia.org/wiki/Rickrolling",context)
+                    }
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun RegistrationView.renderUIO() {
@@ -200,17 +188,15 @@ fun RegistrationView.renderUIO() {
         .height(56)
         .constrainBottomToBottomOf(innerContent)
         .fillHorizontally()
-
-
 }
 
 fun RegistrationView.startBrowserWithUri(url: String,context: Context){
     val uris = Uri.parse(url)
-    val intents = Intent(Intent.ACTION_VIEW, uris)
+    intent = Intent(Intent.ACTION_VIEW, uris)
     val b = Bundle()
     b.putBoolean("new_window", true)
-    intents.putExtras(b)
-    context.startActivity(intents)
+    intent.putExtras(b)
+    context.startActivity(intent)
 }
 
 

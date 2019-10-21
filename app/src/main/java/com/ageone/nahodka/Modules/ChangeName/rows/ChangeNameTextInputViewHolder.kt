@@ -1,15 +1,12 @@
 package com.ageone.nahodka.Modules.ChangeName.rows
 
 import android.graphics.Color
-import android.os.Handler
-import android.view.KeyEvent
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
-import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
 class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
@@ -26,7 +23,6 @@ class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
         params.updateMargins(left = (-2).dp)
         editText.layoutParams = params
 
-
         editText.boxStrokeColor = Color.parseColor("#C1C1C1")
         editText.setInactiveUnderlineColor(Color.rgb(193, 193, 193))
 
@@ -35,25 +31,13 @@ class ChangeNameTextInputViewHolder(val constraintLayout: ConstraintLayout) :
             editText.textSize = 20F
             editText.maxLines = 1
             editText.setSingleLine(true)
-
-            editText.setOnTouchListener { view, motionEvent ->
-                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                    Handler().postDelayed({
-                        editText.requestFocus()
-                    }, 300)
-                }
-                false
-            }
-
         }
         editText
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun ChangeNameTextInputViewHolder.renderUI() {
@@ -64,12 +48,9 @@ fun ChangeNameTextInputViewHolder.renderUI() {
     textInputChange
         .constrainTopToTopOf(constraintLayout)
         .fillHorizontally(14)
-
-
 }
 
 fun ChangeNameTextInputViewHolder.initialize(hint: String, type: InputEditTextType) {
     textInputChange.hint = hint
     textInputChange.defineType(type)
-
 }

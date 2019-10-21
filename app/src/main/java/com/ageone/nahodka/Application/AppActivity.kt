@@ -22,6 +22,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class AppActivity: BaseActivity() {
@@ -55,7 +58,18 @@ class AppActivity: BaseActivity() {
 
         user.isAuthorized = false //TODO: change after add registration
         coordinator.setLaunchScreen()
-        Promise<Unit> { resolve, _ ->
+
+        GlobalScope.launch(Main){
+
+            router.layout.setOnApplyWindowInsetsListener { _, insets ->
+                utils.variable.statusBarHeight = insets.systemWindowInsetTop
+                insets
+            }
+
+            coordinator.start()
+        }
+
+        /*Promise<Unit> { resolve, _ ->
 
             router.layout.setOnApplyWindowInsetsListener { _, insets ->
                 utils.variable.statusBarHeight = insets.systemWindowInsetTop
@@ -82,7 +96,7 @@ class AppActivity: BaseActivity() {
                     })
             }*/
             coordinator.start()
-        }
+        }*/
 
         setContentView(router.layout)
 

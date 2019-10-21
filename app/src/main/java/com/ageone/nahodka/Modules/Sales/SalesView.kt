@@ -23,10 +23,11 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
     }
 
     var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
+
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Акции"
         toolbar.textColor = Color.WHITE
@@ -36,7 +37,6 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -76,7 +76,6 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -89,19 +88,13 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                         food,
                         "Ollis Pizza",
                         "Скидка 30% на пасту")
-
                     holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(SalesViewModel.EventType.OnStockPressed.toString())
+                        rootModule.emitEvent?.invoke(SalesViewModel.EventType.OnStockPressed.name)
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun SalesView.renderUIO() {

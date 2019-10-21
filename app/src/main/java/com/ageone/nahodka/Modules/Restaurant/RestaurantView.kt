@@ -12,7 +12,6 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Restaurant.rows.*
 import yummypets.com.stevia.*
 
-
 class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
     BaseModule(initModuleUI) {
 
@@ -44,7 +43,6 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -99,7 +97,6 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
             var isStarPressed = false
             var food = foodList[position]
 
@@ -115,10 +112,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "4.0",
                         "18")
                     holder.imageViewInfo.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnInfoPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnInfoPressed.name)
                     }
                     holder.textViewReview.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnReviewPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnReviewPressed.name)
                     }
                     holder.imageViewStar.setOnClickListener {
                         if(!isStarPressed) {
@@ -131,7 +128,6 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
                 is RestaurantTextViewHolder -> {
                     holder.initialize()
-
                 }
                 is RestaurantCardViewHolder -> {
                     holder.initialize(
@@ -140,13 +136,9 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "450",
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ")
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun RestaurantView.renderUIO() {

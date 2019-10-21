@@ -26,10 +26,8 @@ class ProfileListEmptyViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun ProfileListEmptyViewHolder.renderUI() {
@@ -47,12 +45,9 @@ fun ProfileListEmptyViewHolder.renderUI() {
         .constrainCenterXToCenterXOf(constraintLayout)
         .width(utils.variable.displayWidth - 20)
         .height(utils.variable.displayWidth * .75F)
-
-
 }
 
 fun ProfileListEmptyViewHolder.initialize(text: String, image: Int) {
-
     textViewEmpty.text = text
     addImageFromGlide(imageViewTurtle,image,0)
 }

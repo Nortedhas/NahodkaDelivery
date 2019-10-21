@@ -17,7 +17,6 @@ import yummypets.com.stevia.*
 import com.ageone.nahodka.External.Base.RecyclerView.HorizontalSpacesItemDecoration
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 
-
 class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
@@ -56,7 +55,6 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-
     init {
         recyclerViewKitchen.adapter = viewAdapter
         recyclerViewKitchen.layoutManager =
@@ -71,7 +69,6 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(recyclerViewKitchen)
-
 
         renderUI()
     }
@@ -89,13 +86,9 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         override fun getItemCount(): Int = kitchenList.size
 
         override fun onBindViewHolder(holder: KitchenTextViewHolder, position: Int) {
-
             val food = if (position - 1 < kitchenList.size) kitchenList[position] else ""
 
-           // if(position == 0) holder.back.constrainLeftToLeftOf(constraintLayout,8)
-
             holder.initialize(food,position == selectedFood)
-
             holder.constraintLayout.setOnClickListener {
                 textViewFastFood.text = holder.textViewKitchen.text.toString()
                 selectedFood = position
@@ -110,6 +103,7 @@ fun RestaurantTextViewHolder.renderUI() {
         recyclerViewKitchen,
         textViewFastFood
     )
+
     recyclerViewKitchen
         .fillHorizontally()
         .constrainTopToTopOf(constraintLayout)
@@ -117,7 +111,6 @@ fun RestaurantTextViewHolder.renderUI() {
     textViewFastFood
         .constrainTopToBottomOf(recyclerViewKitchen,10)
         .constrainLeftToLeftOf(constraintLayout,16)
-
 }
 
 fun RestaurantTextViewHolder.initialize() {

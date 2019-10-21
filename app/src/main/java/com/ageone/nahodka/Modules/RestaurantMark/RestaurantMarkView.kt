@@ -26,7 +26,7 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Отзывы"
         toolbar.textColor = Color.WHITE
@@ -36,7 +36,6 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -81,13 +80,12 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
             var isStarPressed = false
+
             when (holder) {
                 is RestaurantMarkTextViewHolder -> {
                     holder.initialize("Ollis Pizza", "4.0", itemCount)
@@ -98,9 +96,10 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                         }else {
                             holder.imageViewStar.setImageResource(R.drawable.ic_star)
                             isStarPressed = false
-                        }                    }
+                        }
+                    }
                     holder.imageViewComment.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantMarkViewModel.EventType.OnCommentPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantMarkViewModel.EventType.OnCommentPressed.name)
                     }
                 }
                 is RestaurantMarkCommentViewHolder -> {
@@ -115,13 +114,9 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                         }
                     }
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun RestaurantMarkView.renderUIO() {

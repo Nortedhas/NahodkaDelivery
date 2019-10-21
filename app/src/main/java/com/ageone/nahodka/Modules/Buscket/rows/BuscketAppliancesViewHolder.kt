@@ -38,7 +38,7 @@ class BuscketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewMinus by lazy {
         val imageView = BaseImageView()
-                imageView.setImageResource(R.drawable.ic_minus)
+        imageView.setImageResource(R.drawable.ic_minus)
         imageView.initialize()
         imageView
     }
@@ -48,7 +48,6 @@ class BuscketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
         imageView.setImageResource(R.drawable.ic_add)
         imageView.initialize()
         imageView
-
     }
 
     val separatorBottom by lazy {
@@ -59,10 +58,8 @@ class BuscketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     init {
-
         renderUI()
     }
-
 }
 
 fun BuscketAppliancesViewHolder.renderUI() {
@@ -104,11 +101,8 @@ fun BuscketAppliancesViewHolder.renderUI() {
         .height(1)
         .constrainTopToBottomOf(textViewAppliances,25)
         .fillHorizontally()
-
 }
 
 fun BuscketAppliancesViewHolder.initialize() {
-
     textViewCount.text = appliancesCount.toString()
-
 }

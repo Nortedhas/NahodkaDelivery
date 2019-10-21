@@ -9,8 +9,6 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Profile.rows.ProfileItemViewHolder
 import com.ageone.nahodka.Modules.Profile.rows.ProfileTextNameViewHolder
 import com.ageone.nahodka.Modules.Profile.rows.initialize
@@ -28,7 +26,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Профиль"
         toolbar.textColor = Color.WHITE
@@ -38,7 +36,6 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
@@ -83,7 +80,6 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                     BaseViewHolder(layout)
                 }
             }
-
             return holder
         }
 
@@ -93,7 +89,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 is ProfileTextNameViewHolder -> {
                     holder.initialize("Матвей", "+7 (999) 888-33-44")
                     holder.textViewChange.setOnClickListener {
-                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnChangePressed.toString())
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnChangePressed.name)
                     }
                 }
                 is ProfileItemViewHolder -> {
@@ -104,24 +100,20 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                         2 -> {
                             holder.initialize(R.drawable.ic_orders,"Мои заказы", "Здесь Вы сможете отслеживать статус своего заказа и просматривать прошлые")
                             holder.constraintLayout.setOnClickListener {
-                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnMyOrderPressed.toString())
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnMyOrderPressed.name)
                             }
                         }
                         3 -> {
                             holder.initialize(R.drawable.ic_call,"Связаться с нами", "Если у вас возникли вопросы, можете обратиться в нашу службу поддержки")
                             holder.constraintLayout.setOnClickListener {
-                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnContactPressed.toString())
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnContactPressed.name)
                             }
                         }
                     }
                 }
-
             }
-
         }
-
     }
-
 }
 
 fun ProfileView.renderUIO() {
