@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
+import com.ageone.nahodka.Application.App
+import com.ageone.nahodka.Application.intent
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
@@ -55,7 +57,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 //        viewModel.loadRealmData()
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Регистрация"
         toolbar.textColor = Color.BLACK
@@ -81,8 +83,6 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             }
             else {
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
-                //clickTimePicker(nextButton)
-                //startBrowserWithUri("https://en.wikipedia.org/wiki/Rickrolling",context)
             }
         }
 
@@ -159,6 +159,9 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
                 is RegistrationTextViewHolder -> {
                     holder.initialize()
+                    holder.textView.setOnClickListener {
+                        startBrowserWithUri("https://en.wikipedia.org/wiki/Rickrolling",context)
+                    }
                 }
             }
         }
@@ -189,11 +192,11 @@ fun RegistrationView.renderUIO() {
 
 fun RegistrationView.startBrowserWithUri(url: String,context: Context){
     val uris = Uri.parse(url)
-    val intents = Intent(Intent.ACTION_VIEW, uris)
+    intent = Intent(Intent.ACTION_VIEW, uris)
     val b = Bundle()
     b.putBoolean("new_window", true)
-    intents.putExtras(b)
-    context.startActivity(intents)
+    intent.putExtras(b)
+    context.startActivity(intent)
 }
 
 

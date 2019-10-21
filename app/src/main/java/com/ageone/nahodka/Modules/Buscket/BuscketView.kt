@@ -140,7 +140,7 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 is BuscketBottomViewHolder -> {
                     holder.initialize(162)
                     holder.buttonCheckout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(BuscketViewModel.EventType.OnCheckPressed.toString())
+                        rootModule.emitEvent?.invoke(BuscketViewModel.EventType.OnCheckPressed.name)
                     }
                 }
                 is BuscketEmptyViewHolder -> {

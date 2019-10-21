@@ -26,7 +26,7 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Отзывы"
         toolbar.textColor = Color.WHITE
@@ -99,7 +99,7 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                         }
                     }
                     holder.imageViewComment.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantMarkViewModel.EventType.OnCommentPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantMarkViewModel.EventType.OnCommentPressed.name)
                     }
                 }
                 is RestaurantMarkCommentViewHolder -> {

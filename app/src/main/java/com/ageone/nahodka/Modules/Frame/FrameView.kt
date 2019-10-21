@@ -25,7 +25,7 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = ""
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))

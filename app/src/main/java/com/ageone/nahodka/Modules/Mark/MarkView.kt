@@ -28,7 +28,7 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Ваш отзыв"
         toolbar.textColor = Color.WHITE

@@ -24,7 +24,7 @@ class RestaurantInfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Инфо"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))

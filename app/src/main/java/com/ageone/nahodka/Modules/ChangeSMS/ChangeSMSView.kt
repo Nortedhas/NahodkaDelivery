@@ -53,7 +53,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 //        viewModel.loadRealmData()
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         nextButton.setOnClickListener {
             if(viewModel.model.code.count() < 4){
@@ -61,7 +61,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             }
         }  else {
             user.isAuthorized = true
-            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.toString())
+            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.name)
             isTimer = true
         }
     }

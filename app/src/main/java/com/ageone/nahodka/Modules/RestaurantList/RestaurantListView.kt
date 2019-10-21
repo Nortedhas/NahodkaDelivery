@@ -35,16 +35,13 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         R.drawable.pic_food2
     )
 
-    val imageViewFAB by lazy {//TODO: replace UI
+    val imageViewFAB by lazy {
         val imageView = BaseImageView()
         imageView.setBackgroundColor(Color.TRANSPARENT)
         imageView.width(25.dp)
         imageView.height(25.dp)
         imageView.setImageResource(R.drawable.button_filter)
         imageView.initialize()
-        imageView.setOnClickListener {
-            emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
-        }
         imageView
     }
 
@@ -58,6 +55,10 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         toolbar.textColor = Color.WHITE
 
         renderToolbar()
+
+        imageViewFAB.setOnClickListener {
+            emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
+        }
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
@@ -117,7 +118,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                     holder.initialize()
 
                     holder.onTap = { position ->
-                        rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnBannerPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnBannerPressed.name)
                     }
                 }
                 is RestaurantListItemViewHolder -> {
@@ -136,7 +137,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                         }
                     }
                     holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnRestaurantPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnRestaurantPressed.name)
                     }
                 }
             }

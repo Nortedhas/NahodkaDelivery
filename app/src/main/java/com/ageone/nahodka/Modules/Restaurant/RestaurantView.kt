@@ -112,10 +112,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         "4.0",
                         "18")
                     holder.imageViewInfo.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnInfoPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnInfoPressed.name)
                     }
                     holder.textViewReview.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnReviewPressed.toString())
+                        rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnReviewPressed.name)
                     }
                     holder.imageViewStar.setOnClickListener {
                         if(!isStarPressed) {

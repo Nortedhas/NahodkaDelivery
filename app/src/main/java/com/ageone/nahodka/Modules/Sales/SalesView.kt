@@ -27,7 +27,7 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Акции"
         toolbar.textColor = Color.WHITE
@@ -89,7 +89,7 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
                         "Ollis Pizza",
                         "Скидка 30% на пасту")
                     holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(SalesViewModel.EventType.OnStockPressed.toString())
+                        rootModule.emitEvent?.invoke(SalesViewModel.EventType.OnStockPressed.name)
                     }
                 }
             }

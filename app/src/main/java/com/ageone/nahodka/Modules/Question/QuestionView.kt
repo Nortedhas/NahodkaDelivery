@@ -27,7 +27,7 @@ class QuestionView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(ini
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Связаться с нами"
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))

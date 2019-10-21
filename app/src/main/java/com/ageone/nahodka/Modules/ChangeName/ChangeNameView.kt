@@ -60,12 +60,12 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 }
             }
             else {
-                emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.toString())
+                emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.name)
             }
         }
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)//TODO: set background
+        setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Смена имени"
         toolbar.textColor = Color.WHITE
