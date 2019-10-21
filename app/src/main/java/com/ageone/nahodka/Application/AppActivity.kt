@@ -2,7 +2,9 @@ package com.ageone.nahodka.Application
 
 import android.Manifest
 import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.TypedValue
@@ -14,10 +16,12 @@ import com.swarmnyc.promisekt.Promise
 import timber.log.Timber
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import androidx.legacy.content.WakefulBroadcastReceiver
 import com.ageone.nahodka.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
+import com.google.firebase.messaging.RemoteMessage
 
 
 class AppActivity: BaseActivity() {
@@ -145,5 +149,13 @@ fun verifyStoragePermissions(activity: Activity) {
             PERMISSIONS_STORAGE,
             REQUEST_EXTERNAL_STORAGE
         )
+    }
+}
+
+class OnBootBroadcastReceiver : BroadcastReceiver(){
+    override fun onReceive(p0: Context?, p1: Intent?) {
+        var intent = Intent("com.ageone.nahodka.MyFirebaseMessagingService")
+        intent.setClass(p0, MyFirebaseMessagingService::class.java)
+        p0?.startService(intent)
     }
 }
