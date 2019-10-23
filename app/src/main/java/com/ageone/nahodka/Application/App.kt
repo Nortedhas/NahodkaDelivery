@@ -131,7 +131,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
-        val notificationBuilder = NotificationCompat.Builder(this)
+        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(notificationTitle)
             .setContentText(notificationContent)
@@ -145,9 +145,12 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     }
 
     private fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if(Build.VERSION.SDK_INT >= 26) {
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(CHANNEL_ID, "channel name", importance)
+            val channel = NotificationChannel(CHANNEL_ID, "nahodka channel", importance)
+            channel.enableLights(true)
+            channel.enableVibration(true)
+            channel.lightColor = Color.GRAY
             val notificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
@@ -162,20 +165,5 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     override fun onNewToken(p0: String) {
         Timber.i("Cloud token : $p0")
     }
-
-
-   /* @RequiresApi(api = Build.VERSION_CODES.O)
-    private fun setupNotificationChannels() {
-        val adminChannelName = getString(R.string.notifications_admin_channel_name)
-        val adminChannelDescription = getString(R.string.notifications_admin_channel_description)
-
-        val adminChannel: NotificationChannel
-        adminChannel = NotificationChannel(ADMIN_CHANNEL_ID, adminChannelName, NotificationManager.IMPORTANCE_LOW)
-        adminChannel.description = adminChannelDescription
-        adminChannel.enableLights(true)
-        adminChannel.lightColor = Color.GRAY
-        adminChannel.enableLights(true)
-        notificationManager.createNotificationChannel(adminChannel)
-    }*/
 }
 
