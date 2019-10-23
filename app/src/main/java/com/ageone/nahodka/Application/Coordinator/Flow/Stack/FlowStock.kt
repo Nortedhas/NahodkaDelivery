@@ -15,11 +15,13 @@ import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Mark.MarkModel
 import com.ageone.nahodka.Modules.Mark.MarkView
+import com.ageone.nahodka.Modules.Mark.MarkViewModel
 import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoModel
 import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantModel
 import com.ageone.nahodka.Modules.Restaurant.RestaurantView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantViewModel
+import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoViewModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkView
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkViewModel
@@ -61,18 +63,18 @@ class FlowStock : BaseFlow() {
 
     override fun start() {
         onStarted()
-        runModuleStockText()
+        runModuleSales()
     }
 
     inner class FlowStockModels {
-        var moduleStockText = SalesModel()
-        var modelRestaurantKitchen = RestaurantModel()
-        var modelReview = RestaurantMarkModel()
-        var moduleClientReview = MarkModel()
-        var moduleInfo = RestaurantInfoModel()
+        var modelSales = SalesModel()
+        var modelRestaurant = RestaurantModel()
+        var modelRestaurantMark = RestaurantMarkModel()
+        var modelMark = MarkModel()
+        var modelRestaurantInfo = RestaurantInfoModel()
     }
 
-    fun runModuleStockText() {
+    fun runModuleSales() {
         val module = SalesView(
             InitModuleUI(
                 firstIcon = Icon(
@@ -86,21 +88,21 @@ class FlowStock : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleStockText) { module.reload() }
+        module.viewModel.initialize(models.modelSales) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
             when (SalesViewModel.EventType.valueOf(event)) {
                 SalesViewModel.EventType.OnStockPressed -> {
-                    runModuleRestaurantKitchen()
+                    runModuleRestaurant()
                 }
             }
         }
         push(module)
     }
 
-    fun runModuleRestaurantKitchen(){
+    fun runModuleRestaurant(){
         val module = RestaurantView(
             InitModuleUI(
                 isBackPressed = true,
@@ -114,17 +116,15 @@ class FlowStock : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.modelRestaurantKitchen) {module.reload()}
+        module.viewModel.initialize(models.modelRestaurant) {module.reload()}
 
         module.emitEvent = { event ->
-            models.modelRestaurantKitchen = module.viewModel.model
-
             when(RestaurantViewModel.EventType.valueOf(event)) {
                 RestaurantViewModel.EventType.OnReviewPressed -> {
-                    runModuleReview()
+                    runModuleRestaurantMark()
                 }
                 RestaurantViewModel.EventType.OnInfoPressed -> {
-                    runModuleInfo()
+                    runModuleRestaurantInfo()
                 }
             }
         }
@@ -133,7 +133,7 @@ class FlowStock : BaseFlow() {
         push(module)
     }
 
-    private fun runModuleReview(){
+    private fun runModuleRestaurantMark(){
         val module = RestaurantMarkView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -141,14 +141,12 @@ class FlowStock : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.modelReview) { module.reload()}
+        module.viewModel.initialize(models.modelRestaurantMark) { module.reload()}
 
         module.emitEvent = { event ->
-            models.modelReview = module.viewModel.model
-
             when(RestaurantMarkViewModel.EventType.valueOf(event)) {
                 RestaurantMarkViewModel.EventType.OnCommentPressed -> {
-                    runModuleClientReview()
+                    runModuleMark()
                 }
             }
         }
@@ -158,7 +156,7 @@ class FlowStock : BaseFlow() {
         push(module)
     }
 
-    private fun runModuleClientReview(){
+    private fun runModuleMark(){
         val module = MarkView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -166,14 +164,20 @@ class FlowStock : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleClientReview) {module.reload()}
+        module.emitEvent = {event ->
+            when(MarkViewModel.EventType.valueOf(event)){
+
+            }
+        }
+
+        module.viewModel.initialize(models.modelMark) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         push(module)
     }
 
-    private fun runModuleInfo(){
+    private fun runModuleRestaurantInfo(){
         val module = RestaurantInfoView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -181,7 +185,13 @@ class FlowStock : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleInfo) {module.reload()}
+        module.emitEvent = {event ->
+            when(RestaurantInfoViewModel.EventType.valueOf(event)){
+
+            }
+        }
+
+        module.viewModel.initialize(models.modelRestaurantInfo) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

@@ -19,8 +19,10 @@ import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderModel
 import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderView
 import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderViewModel
 import com.ageone.nahodka.Modules.Frame.FrameModel
+import com.ageone.nahodka.Modules.Frame.FrameViewModel
 import com.ageone.nahodka.Modules.Frame.Frameiew
 import com.ageone.nahodka.Modules.WebView
+import com.ageone.nahodka.Modules.WebViewModel
 import com.ageone.nahodka.R
 import timber.log.Timber
 
@@ -68,16 +70,16 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
 
     override fun start() {
         onStarted()
-        runModuleBucket()
+        runModuleBuscket()
     }
 
     inner class FlowBucketModels {
-        var modelBucket = BuscketModel()
-        var modelCheckout = BuscketOrderModel()
-        var modelComment = FrameModel()
+        var modelBuscket = BuscketModel()
+        var modelBuscketOrder = BuscketOrderModel()
+        var modelFrame = FrameModel()
     }
 
-    fun runModuleBucket() {
+    fun runModuleBuscket() {
         val module = BuscketView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -91,34 +93,34 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.modelBucket) {module.reload()}
-
         module.emitEvent = { event ->
             when(BuscketViewModel.EventType.valueOf(event)){
                 BuscketViewModel.EventType.OnCheckPressed -> {
-                    runModuleCheckout()
+                    runModuleBuscketOrder()
                 }
             }
         }
+
+        module.viewModel.initialize(models.modelBuscket) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         push(module)
     }
 
-    private fun runModuleCheckout(){
+    private fun runModuleBuscketOrder(){
         val module = BuscketOrderView( InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
         )
         )
 
-        module.viewModel.initialize(models.modelCheckout) { module.reload()}
+        module.viewModel.initialize(models.modelBuscketOrder) { module.reload()}
 
         module.emitEvent = {event ->
             when(BuscketOrderViewModel.EventType.valueOf(event)) {
                 BuscketOrderViewModel.EventType.OnCommentPressed -> {
-                    runModuleComment()
+                    runModuleFrame()
                 }
                 BuscketOrderViewModel.EventType.OnCheckPressed -> {
                     runModuleWebView("")
@@ -131,14 +133,20 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         push(module)
     }
 
-    private fun runModuleComment(){
+    private fun runModuleFrame(){
         val module = Frameiew( InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
         )
         )
 
-        module.viewModel.initialize(models.modelComment) {module.reload()}
+        module.emitEvent = { event ->
+            when(FrameViewModel.EventType.valueOf(event)){
+
+            }
+        }
+
+        module.viewModel.initialize(models.modelFrame) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
@@ -152,8 +160,6 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         ),url)
 
         settingsCurrentFlow.isBottomNavigationVisible = false
-
-
 
         push(module)
     }
