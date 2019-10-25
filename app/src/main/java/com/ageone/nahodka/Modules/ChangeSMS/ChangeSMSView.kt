@@ -57,14 +57,11 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         setBackgroundResource(R.drawable.back_white)
 
         nextButton.setOnClickListener {
-            if(viewModel.model.code.count() < 4){
-            alertManager.single("Ошибка!","Неправильный СМС-код",null,"OK") { _, position ->
+            viewModel.validate {
+                user.isAuthorized = true
+                emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.name)
+                isTimer = true
             }
-        }  else {
-            user.isAuthorized = true
-            emitEvent?.invoke(ChangeSMSViewModel.EventType.OnNextPressed.name)
-            isTimer = true
-        }
     }
 
         toolbar.title = "СМС код"

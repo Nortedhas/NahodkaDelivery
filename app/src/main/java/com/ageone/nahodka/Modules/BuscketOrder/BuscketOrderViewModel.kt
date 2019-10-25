@@ -2,6 +2,8 @@ package com.ageone.nahodka.Modules.BuscketOrder
 
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.single
 
 class BuscketOrderViewModel : InterfaceViewModel {
     var model = BuscketOrderModel()
@@ -21,6 +23,20 @@ class BuscketOrderViewModel : InterfaceViewModel {
             model = recievedModel
             completion.invoke()
         }
+    }
+
+    fun validate(completion: () -> Unit){
+        if( model.address.isNullOrBlank()||
+            model.office.isNullOrBlank()||
+            model.homePhone.isNullOrBlank() ||
+            model.porch.isNullOrBlank() ||
+            model.floor.isNullOrBlank() ||
+            model.phone.isNullOrBlank() ||
+            model.payVariant.isNullOrBlank()){
+            alertManager.single("Ошибка","Заполните все поля",null,"OK") { _, position -> }
+            return
+        }
+        completion.invoke()
     }
 }
 

@@ -47,20 +47,9 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 //        viewModel.loadRealmData()
 
         nextButton.setOnClickListener {
-            if(viewModel.model.phone.count() < 18 && viewModel.model.name.count() != 0){
-                alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position ->
-                }
-            }
-            else if(viewModel.model.phone.count() > 0 && viewModel.model.name.count() == 0) {
-                alertManager.single("Ошибка","Неверное имя",null,"OK") { _, position ->
-                }
-            }
-            else if(viewModel.model.phone.count() == 0 && viewModel.model.name.count() == 0){
-                alertManager.single("Ошибка","Заполните поля",null,"OK") { _, position ->
-                }
-            }
-            else {
+            viewModel.validate {
                 emitEvent?.invoke(ChangeNameViewModel.EventType.OnNextPressed.name)
+
             }
         }
 

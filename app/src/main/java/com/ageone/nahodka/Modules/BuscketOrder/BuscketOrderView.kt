@@ -219,7 +219,11 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.initialize()
                     holder.buttonCheckout.setOnClickListener {
 
-                        if( viewModel.model.address.count() == 0 ||
+                        viewModel.validate {
+                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.name)
+
+                        }
+                       /* if( viewModel.model.address.count() == 0 ||
                             viewModel.model.office.count() == 0 ||
                             viewModel.model.homePhone.count() == 0 ||
                             viewModel.model.porch.count() == 0 ||
@@ -230,7 +234,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                             }
                         } else {
                             rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.name)
-                        }
+                        }*/
 
                     }
                 }
