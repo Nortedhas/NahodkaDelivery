@@ -19,6 +19,7 @@ import com.example.ageone.Modules.EntrySMS.SMSView
 import com.example.ageone.Modules.EntrySMS.SMSViewModel
 import com.example.ageone.Modules.Start.StartModel
 import com.example.ageone.Modules.Start.StartView
+import com.example.ageone.Modules.Start.StartViewModel
 
 fun FlowCoordinator.runFlowAuth() {
 
@@ -28,6 +29,8 @@ fun FlowCoordinator.runFlowAuth() {
 
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+
+        currentActivity?.setLightStatusBar(Color.WHITE,Color.GRAY)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
@@ -66,6 +69,13 @@ class FlowAuth: BaseFlow() {
         val module = StartView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = true))
+
+        module.emitEvent ={ event ->
+            when(StartViewModel.EventType.valueOf(event)){
+
+            }
+        }
+
         module.viewModel.initialize(models.modelStart) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
@@ -73,48 +83,41 @@ class FlowAuth: BaseFlow() {
         push(module)
 
         Handler().postDelayed({
-            runEntryModule()
+            runModuleRegistration()
         }, 2000)
 
     }
 
 
-    fun runEntryModule(){
+    fun runModuleRegistration(){
         val module = RegistrationView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = false,
             isBackPressed = true
         ))
 
-        module.viewModel.initialize(models.modelEntry) { module.reload() }
-
-        currentActivity?.setLightStatusBar(Color.WHITE,Color.GRAY)
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
         module.emitEvent = { event ->
             when(RegistrationViewModel.EventType.valueOf(event)){
                 RegistrationViewModel.EventType.OnNextPressed ->{
-                    runEntrySMSModule()
+                    runModuleSMS()
 
                 }
             }
         }
 
-        push(module)
+        module.viewModel.initialize(models.modelEntry) { module.reload() }
 
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        push(module)
     }
 
-    fun runEntrySMSModule(){
+    fun runModuleSMS(){
         val module = SMSView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = false,
             isBackPressed = true
         ))
-
-        module.viewModel.initialize(models.modelEntrySMS) { module.reload() }
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
             when(SMSViewModel.EventType.valueOf(event)){
@@ -122,10 +125,15 @@ class FlowAuth: BaseFlow() {
                     module.startLoadingFlow()
                 }
                 SMSViewModel.EventType.Timeout -> {
-                    runEntryModule()
+                    runModuleRegistration()
                 }
             }
         }
+
+        module.viewModel.initialize(models.modelEntrySMS) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
 
         push(module)
 

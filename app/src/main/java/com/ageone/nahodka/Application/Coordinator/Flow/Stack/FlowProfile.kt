@@ -26,6 +26,8 @@ import com.ageone.nahodka.Modules.ProfileOrderList.ProfileListView
 import com.ageone.nahodka.Modules.Profile.ProfileModel
 import com.ageone.nahodka.Modules.Profile.ProfileView
 import com.ageone.nahodka.Modules.Profile.ProfileViewModel
+import com.ageone.nahodka.Modules.ProfileOrderList.ProfileListViewModel
+import com.ageone.nahodka.Modules.Question.QuestionViewModel
 import com.ageone.nahodka.R
 
 fun FlowCoordinator.runFlowProfile() {
@@ -63,11 +65,11 @@ class FlowProfile : BaseFlow() {
     }
 
     inner class FlowProfileModels {
-        var modelProfileTest = ProfileModel()
-        var moduleMyOrder = ProfileListModel()
-        var moduleContact= QuestionModel()
-        var moduleChange = ChangeNameModel()
-        var moduleChangeSMS = ChangeSMSModel()
+        var modelProfile = ProfileModel()
+        var modelProfileList = ProfileListModel()
+        var modelQuestion= QuestionModel()
+        var modelChangeName = ChangeNameModel()
+        var modelChangeSMS = ChangeSMSModel()
     }
 
     fun runModuleProfile() {
@@ -82,17 +84,17 @@ class FlowProfile : BaseFlow() {
         )
         )
 
-        module.viewModel.initialize(models.modelProfileTest) { module.reload() }
+        module.viewModel.initialize(models.modelProfile) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
             when (ProfileViewModel.EventType.valueOf(event)) {
                 ProfileViewModel.EventType.OnMyOrderPressed -> {
-                    runModuleMyOrder()
+                    runModuleProfileList()
                 }
                 ProfileViewModel.EventType.OnContactPressed -> {
-                    runModuleContact()
+                    runModuleQuestion()
                 }
                 ProfileViewModel.EventType.OnChangePressed -> {
                     runModuleChangeName()
@@ -102,7 +104,7 @@ class FlowProfile : BaseFlow() {
         push(module)
     }
 
-    fun runModuleMyOrder(){
+    fun runModuleProfileList(){
         val module = ProfileListView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -110,7 +112,13 @@ class FlowProfile : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleMyOrder) { module.reload() }
+        module.emitEvent = {event ->
+            when(ProfileListViewModel.EventType.valueOf(event)){
+
+            }
+        }
+
+        module.viewModel.initialize(models.modelProfileList) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
@@ -118,7 +126,7 @@ class FlowProfile : BaseFlow() {
 
     }
 
-    fun runModuleContact(){
+    fun runModuleQuestion(){
         val module = QuestionView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -126,7 +134,13 @@ class FlowProfile : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleContact) { module.reload() }
+        module.emitEvent = {event ->
+            when(QuestionViewModel.EventType.valueOf(event)){
+
+                }
+            }
+
+        module.viewModel.initialize(models.modelQuestion) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
@@ -141,7 +155,7 @@ class FlowProfile : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleChange) { module.reload() }
+        module.viewModel.initialize(models.modelChangeName) { module.reload() }
 
         module.emitEvent = {event ->
             when(ChangeNameViewModel.EventType.valueOf(event)){
@@ -163,7 +177,7 @@ class FlowProfile : BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleChangeSMS) { module.reload() }
+        module.viewModel.initialize(models.modelChangeSMS) { module.reload() }
 
         module.emitEvent = {event ->
             when(ChangeSMSViewModel.EventType.valueOf(event)){

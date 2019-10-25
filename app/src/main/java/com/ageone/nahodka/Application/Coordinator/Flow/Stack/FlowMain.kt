@@ -17,11 +17,13 @@ import com.ageone.nahodka.Modules.Mark.MarkModel
 import com.ageone.nahodka.Modules.Mark.MarkView
 import com.ageone.nahodka.Modules.Filter.FilterModel
 import com.ageone.nahodka.Modules.Filter.FilterView
+import com.ageone.nahodka.Modules.Mark.MarkViewModel
 import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoModel
 import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantModel
 import com.ageone.nahodka.Modules.Restaurant.RestaurantView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantViewModel
+import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoViewModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkView
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkViewModel
@@ -64,19 +66,19 @@ class FlowMain: BaseFlow() {
 
     override fun start() {
         onStarted()
-        runModuleRestaurant()
+        runModuleRestaurantList()
     }
 
     inner class FlowMainModels {
-        var modelRestaurant = RestaurantListModel()
-        var modelRestaurantKitchen = RestaurantModel()
-        var modelReview = RestaurantMarkModel()
-        var moduleClientReview = MarkModel()
-        var moduleInfo = RestaurantInfoModel()
-        var moduleFilter = FilterModel()
+        var modelRestaurantList = RestaurantListModel()
+        var modelRestaurant = RestaurantModel()
+        var modelRestaurantMark = RestaurantMarkModel()
+        var modelMark = MarkModel()
+        var modelRestaurantInfo = RestaurantInfoModel()
+        var modelFilter = FilterModel()
     }
 
-    private fun runModuleRestaurant() {
+    private fun runModuleRestaurantList() {
         val module = RestaurantListView(
             InitModuleUI(
                 firstIcon = Icon(
@@ -89,29 +91,29 @@ class FlowMain: BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.modelRestaurant) { module.reload()}
+        module.viewModel.initialize(models.modelRestaurantList) { module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = {event ->
-            models.modelRestaurant = module.viewModel.model
+            //models.modelRestaurantList = module.viewModel.model
 
             when(RestaurantListViewModel.EventType.valueOf(event)) {
                 RestaurantListViewModel.EventType.OnRestaurantPressed -> {
-                    runModuleRestaurantKitchen()
+                    runModuleRestaurant()
                 }
                 RestaurantListViewModel.EventType.OnFilterPressed -> {
                     runModuleFilter()
                 }
                 RestaurantListViewModel.EventType.OnBannerPressed -> {
-                    runModuleRestaurantKitchen()
+                    runModuleRestaurant()
                 }
             }
         }
         push(module)
     }
 
-    fun runModuleRestaurantKitchen(){
+    fun runModuleRestaurant(){
         val module = RestaurantView(
             InitModuleUI(
                 isBackPressed = true,
@@ -125,14 +127,12 @@ class FlowMain: BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.modelRestaurantKitchen) {module.reload()}
+        module.viewModel.initialize(models.modelRestaurant) {module.reload()}
 
         module.emitEvent = { event ->
-            models.modelRestaurantKitchen = module.viewModel.model
-
             when(RestaurantViewModel.EventType.valueOf(event)) {
                 RestaurantViewModel.EventType.OnReviewPressed -> {
-                    runModuleReview()
+                    runModuleRestaurantMark()
                 }
                 RestaurantViewModel.EventType.OnInfoPressed -> {
                     runModuleInfo()
@@ -144,7 +144,7 @@ class FlowMain: BaseFlow() {
         push(module)
     }
 
-    private fun runModuleReview(){
+    private fun runModuleRestaurantMark(){
         val module = RestaurantMarkView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -152,14 +152,12 @@ class FlowMain: BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.modelReview) { module.reload()}
+        module.viewModel.initialize(models.modelRestaurantMark) { module.reload()}
 
         module.emitEvent = { event ->
-            models.modelReview = module.viewModel.model
-
             when(RestaurantMarkViewModel.EventType.valueOf(event)) {
                 RestaurantMarkViewModel.EventType.OnCommentPressed -> {
-                    runModuleClientReview()
+                    runModuleMark()
                 }
             }
         }
@@ -169,7 +167,7 @@ class FlowMain: BaseFlow() {
         push(module)
     }
 
-    private fun runModuleClientReview(){
+    private fun runModuleMark(){
         val module = MarkView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
@@ -177,7 +175,13 @@ class FlowMain: BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleClientReview) {module.reload()}
+        module.emitEvent = {event ->
+            when(MarkViewModel.EventType.valueOf(event)){
+
+            }
+        }
+
+        module.viewModel.initialize(models.modelMark) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
@@ -192,7 +196,13 @@ class FlowMain: BaseFlow() {
             )
         )
 
-        module.viewModel.initialize(models.moduleInfo) {module.reload()}
+        module.emitEvent = {event ->
+            when(RestaurantInfoViewModel.EventType.valueOf(event)){
+
+            }
+        }
+
+        module.viewModel.initialize(models.modelRestaurantInfo) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
@@ -206,7 +216,7 @@ class FlowMain: BaseFlow() {
             isBackPressed = true
         ))
 
-        module.viewModel.initialize(models.moduleFilter) {module.reload()}
+        module.viewModel.initialize(models.modelFilter) {module.reload()}
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

@@ -170,10 +170,10 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     }
 
                     holder.buttonSend.setOnClickListener{
-                        if(viewModel.model.mark.count() == 0) {
-                            alertManager.single("Ошибка","Напишите отзыв",null,"OK") {_, position ->
-                            }
+                        viewModel.validate {
+
                         }
+
                     }
                 }
             }

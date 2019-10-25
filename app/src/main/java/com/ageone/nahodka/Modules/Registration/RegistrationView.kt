@@ -68,20 +68,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         nextButton.setOnClickListener {
-
-            if(viewModel.model.phone.count() < 18 && viewModel.model.name.count() != 0){
-                alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position ->
-                }
-            }
-            else if(viewModel.model.phone.count() > 0 && viewModel.model.name.count() == 0) {
-                alertManager.single("Ошибка","Неверное имя",null,"OK") {_, position ->
-                }
-            }
-            else if(viewModel.model.phone.count() == 0 && viewModel.model.name.count() == 0){
-                alertManager.single("Ошибка","Заполните поля",null,"OK") {_, position ->
-                }
-            }
-            else {
+            viewModel.validate {
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
             }
         }

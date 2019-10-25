@@ -66,10 +66,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         nextButton.setOnClickListener {
-            if(viewModel.model.code.count() < 4 ){
-                alertManager.single("Ошибка!","Неправильный СМС-код",null,"OK") { _, position ->
-                }
-            } else {
+            viewModel.validate {
                 user.isAuthorized = true
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
                 isTimer = true
