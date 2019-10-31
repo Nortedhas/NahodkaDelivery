@@ -9,8 +9,12 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Buscket.rows.*
+import timber.log.Timber
 import yummypets.com.stevia.*
+import java.util.logging.Handler
 
 class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -30,6 +34,9 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         viewAdapter
     }
 
+
+    var dispose = RxBus.publish(RxEvent.EventAddProduct(dishImage.size))
+
     init {
 //        viewModel.loadRealmData()
 
@@ -43,6 +50,7 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
 
         renderUIO()
         bindUI()
@@ -114,7 +122,6 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                     holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
                     holder.textViewCount.text = "Количество порций: ${count.toString()}"
                     holder.imageViewPlus.setOnClickListener {
-                        count++
                         holder.textViewCount.text = "Количество порций: ${count.toString()}"
                     }
                     holder.imageViewMinus.setOnClickListener {

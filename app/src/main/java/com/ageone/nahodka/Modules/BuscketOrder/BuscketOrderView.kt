@@ -16,8 +16,11 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.list
 import com.ageone.nahodka.External.Libraries.Alert.single
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.BuscketOrder.rows.*
 import com.ageone.nahodka.R
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 
@@ -171,6 +174,10 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
                 is BuscketOrderMarkViewHolder -> {
                     holder.initialize("Комментарий к заказу")
+
+                    compositeDisposable.add(RxBus.listen(RxEvent.EventChangeMark::class.java).subscribe { changeMarkEvent ->
+                        holder.textInputComment.editText?.setText(changeMarkEvent.mark)
+                    })
 
                     holder.textInputComment.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.mark = text.toString()

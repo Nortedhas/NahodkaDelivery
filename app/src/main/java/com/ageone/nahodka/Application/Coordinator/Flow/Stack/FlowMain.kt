@@ -13,6 +13,8 @@ import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Extensions.Activity.clearLightStatusBar
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Mark.MarkModel
 import com.ageone.nahodka.Modules.Mark.MarkView
 import com.ageone.nahodka.Modules.Filter.FilterModel
@@ -31,6 +33,8 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Restaurant.RestaurantListModel
 import com.example.ageone.Modules.Restaurant.RestaurantListView
 import com.example.ageone.Modules.Restaurant.RestaurantListViewModel
+import io.reactivex.disposables.Disposable
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -96,7 +100,6 @@ class FlowMain: BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = {event ->
-            //models.modelRestaurantList = module.viewModel.model
 
             when(RestaurantListViewModel.EventType.valueOf(event)) {
                 RestaurantListViewModel.EventType.OnRestaurantPressed -> {

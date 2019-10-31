@@ -59,17 +59,7 @@ class AppActivity: BaseActivity() {
         user.isAuthorized = false //TODO: change after add registration
         coordinator.setLaunchScreen()
 
-        GlobalScope.launch(Main){
-
-            router.layout.setOnApplyWindowInsetsListener { _, insets ->
-                utils.variable.statusBarHeight = insets.systemWindowInsetTop
-                insets
-            }
-
-            coordinator.start()
-        }
-
-        /*Promise<Unit> { resolve, _ ->
+        Promise<Unit> { resolve, _ ->
 
             router.layout.setOnApplyWindowInsetsListener { _, insets ->
                 utils.variable.statusBarHeight = insets.systemWindowInsetTop
@@ -96,7 +86,7 @@ class AppActivity: BaseActivity() {
                     })
             }*/
             coordinator.start()
-        }*/
+        }
 
         setContentView(router.layout)
 

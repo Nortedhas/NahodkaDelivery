@@ -11,7 +11,7 @@ class LoadingView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     val viewModel = LoadingViewModel()
 
     init {
-        setBackgroundResource(R.drawable.back_white)
+        setBackgroundResource(R.drawable.loading)
 
         innerContent.subviews(
         )

@@ -1,6 +1,7 @@
 package com.example.ageone.Modules.Restaurant
 
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -10,11 +11,15 @@ import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
+import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.RestaurantList.rows.RestaurantListImageViewHolder
 import com.ageone.nahodka.Modules.RestaurantList.rows.initialize
 import com.example.ageone.Modules.Restaurant.rows.RestaurantListItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -54,7 +59,19 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         toolbar.textColor = Color.WHITE
 
+
         renderToolbar()
+
+        compositeDisposable.add(RxBus.listen(RxEvent.EventAddProduct::class.java).subscribe{addProductEvent->
+            if(addProductEvent.productCount > 0){
+                toolbar.pushIcon.visibility = View.VISIBLE
+                toolbar.pushTextView.visibility = View.VISIBLE
+                toolbar.pushTextView.text = addProductEvent.productCount.toString()
+            } else {
+                toolbar.pushIcon.visibility = View.GONE
+                toolbar.pushTextView.visibility = View.GONE
+            }
+        })
 
         imageViewFAB.setOnClickListener {
             emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
@@ -62,6 +79,9 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
+
+
 
         renderUIO()
         bindUI()
@@ -164,6 +184,7 @@ fun RestaurantListView.renderUIO() {
     imageViewFAB
         .constrainRightToRightOf(innerContent,5)
         .constrainBottomToBottomOf(innerContent,30)
+
 }
 
 

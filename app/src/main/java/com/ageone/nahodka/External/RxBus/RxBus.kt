@@ -18,8 +18,11 @@ object RxBus {
 }
 
 class RxEvent {
-    data class EventAddMeditation(val meditationName: String)
-    data class EventChangeDuration(val duration: Long)
-    data class EventChangeCurrentTime(val currentTime: Long)
-    class EventMediaPlayerEnd()
+    data class EventAddProduct(val productCount: Int)
+    data class EventChangeMark(val mark: String)
+
+//    data class EventAddMeditation(val meditationName: String)
+//    data class EventChangeDuration(val duration: Long)
+//    data class EventChangeCurrentTime(val currentTime: Long)
+//    class EventMediaPlayerEnd()
 }

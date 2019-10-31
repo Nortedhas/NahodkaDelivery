@@ -4,11 +4,14 @@ import android.graphics.Color
 import android.os.Handler
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Frame.rows.FrameTextInputViewHolder
 import com.ageone.nahodka.Modules.Frame.rows.initialize
 import yummypets.com.stevia.*
@@ -85,6 +88,10 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     Handler().postDelayed({
                         holder.textInputFrame.editText?.requestFocus()
                     }, 300)
+
+                    holder.textInputFrame.editText?.doOnTextChanged { text, start, count, after ->
+                        RxBus.publish(RxEvent.EventChangeMark(text.toString()))
+                    }
                 }
             }
         }
