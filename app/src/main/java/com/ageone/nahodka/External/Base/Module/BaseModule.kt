@@ -4,20 +4,26 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ageone.nahodka.External.Base.Toolbar.BaseToolbar
 import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseRecyclerView
-import com.ageone.nahodka.External.Base.Toolbar.BaseToolbar
+import com.ageone.nahodka.External.Extensions.Activity.hideKeyboard
 import com.ageone.nahodka.External.InitModuleUI
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import yummypets.com.stevia.*
 
 
-abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : ConstraintLayout(currentActivity) {
+open class BaseModule(override var initModuleUI: InitModuleUI = InitModuleUI()): ConstraintLayout(currentActivity),
+    ModuleInterface {
+    override fun getView(): View = this
+
+    override val idView: Int
+        get() = id
+
 
     val backgroundImage by lazy {
         val image = BaseImageView()
@@ -59,8 +65,8 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
         recyclerView
     }
 
-    var onDeInit: (() -> Unit)? = null
-    var emitEvent: ((String) -> Unit)? = null
+    override var onDeInit: (() -> Unit)? = null
+    override var emitEvent: ((String) -> Unit)? = null
 
     init {
         id = View.generateViewId()
@@ -115,7 +121,7 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
         )
 
         bodyTable
-            .fillHorizontally(8)
+            .fillHorizontally(8)//TODO: change!
             .fillVertically()
             .constrainTopToTopOf(innerContent)
             .updatePadding(bottom = 24.dp)
@@ -125,13 +131,11 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
 
     }
 
-
-
-    fun reload() {
+    open fun reload() {
         bodyTable.adapter?.notifyDataSetChanged()
     }
 
-    fun className(): String {
+    override fun className(): String {
         return utils.tools.getClassName(this.toString())
     }
 }

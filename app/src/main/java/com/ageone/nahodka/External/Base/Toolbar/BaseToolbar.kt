@@ -20,7 +20,6 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
 
-
 class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout): Toolbar(currentActivity) {
 
     var title: String? = null
@@ -47,12 +46,12 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         view.visibility = View.GONE
         view
     }
-    
+
     val textView by lazy {
         val textView = BaseTextView()
         textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT
-        textView.textSize = 17F
+        textView.textSize = initModuleUI.textSize ?: 17F
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView.visibility = View.GONE
         textView
@@ -92,6 +91,7 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         }
 
         initModuleUI.text?.let { text ->
+            textView.textColor = initModuleUI.textColor ?: textColor
             textView.textColor = textColor
             textView.visibility = View.VISIBLE
             textView.text = text
@@ -132,37 +132,37 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
     @SuppressLint("ClickableViewAccessibility")
     private fun renderUI() {
         content.subviews(
-            thirdIcon,
-            secondIcon,
-            textView,
-            firstIcon
+                thirdIcon,
+                secondIcon,
+                textView,
+                firstIcon
         )
 
         firstIcon
-            .width(initModuleUI.firstIcon?.size ?: baseIconSize)
-            .height(initModuleUI.firstIcon?.size ?: baseIconSize)
-            .constrainRightToRightOf(this, 16)
-            .constrainCenterYToCenterYOf(this)
+                .width(initModuleUI.firstIcon?.size ?: baseIconSize)
+                .height(initModuleUI.firstIcon?.size ?: baseIconSize)
+                .constrainRightToRightOf(this, 16)
+                .constrainCenterYToCenterYOf(this)
 
         firstIcon.setOnTouchListener(firstIcon.onTouchListener())
         secondIcon.setOnTouchListener(secondIcon.onTouchListener())
         thirdIcon.setOnTouchListener(thirdIcon.onTouchListener())
 
         textView
-            .constrainRightToLeftOf(firstIcon, 16)
-            .constrainCenterYToCenterYOf(this)
+                .constrainRightToLeftOf(firstIcon, 16)
+                .constrainCenterYToCenterYOf(this)
 
         secondIcon
-            .width(initModuleUI.secondIcon?.size ?: baseIconSize)
-            .height(initModuleUI.secondIcon?.size ?: baseIconSize)
-            .constrainRightToLeftOf(textView, 16)
-            .constrainCenterYToCenterYOf(this)
+                .width(initModuleUI.secondIcon?.size ?: baseIconSize)
+                .height(initModuleUI.secondIcon?.size ?: baseIconSize)
+                .constrainRightToLeftOf(textView, 16)
+                .constrainCenterYToCenterYOf(this)
 
         thirdIcon
-            .width(initModuleUI.thirdIcon?.size ?: baseIconSize)
-            .height(initModuleUI.thirdIcon?.size ?: baseIconSize)
-            .constrainRightToLeftOf(secondIcon, 16)
-            .constrainCenterYToCenterYOf(this)
+                .width(initModuleUI.thirdIcon?.size ?: baseIconSize)
+                .height(initModuleUI.thirdIcon?.size ?: baseIconSize)
+                .constrainRightToLeftOf(secondIcon, 16)
+                .constrainCenterYToCenterYOf(this)
 
     }
 
@@ -187,9 +187,9 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
                         MotionEvent.ACTION_MOVE -> {
                             rect?.let { rect ->
                                 if (!rect.contains(
-                                        view.left + event.x.toInt(),
-                                        view.top + event.y.toInt()
-                                    )
+                                                view.left + event.x.toInt(),
+                                                view.top + event.y.toInt()
+                                        )
                                 ) {
                                     this@onTouchListener.background = null
                                 }

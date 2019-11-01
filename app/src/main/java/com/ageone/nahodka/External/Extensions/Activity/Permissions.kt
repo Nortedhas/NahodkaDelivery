@@ -16,8 +16,8 @@ fun Activity.hasPermissions(permissions: Array<String>): Boolean = permissions.a
 
 // STORAGE
 private val PERMISSIONS_STORAGE = arrayOf(
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    Manifest.permission.READ_EXTERNAL_STORAGE,
+    Manifest.permission.WRITE_EXTERNAL_STORAGE
 )
 
 fun Activity.addStoragePermissions() {
@@ -26,25 +26,32 @@ fun Activity.addStoragePermissions() {
 
 // LOCATION
 val PERMISSIONS_LOCATION = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION
+    Manifest.permission.ACCESS_FINE_LOCATION,
+    Manifest.permission.ACCESS_COARSE_LOCATION
 )
-var isLocationGranted = false
 
 fun Activity.addLocationPermissions() {
     permissions += PERMISSIONS_LOCATION
+}
+
+// CAMERA
+val PERMISSIONS_CAMERA = arrayOf(
+    Manifest.permission.CAMERA
+)
+
+fun Activity.addCameraPermissions() {
+    permissions += PERMISSIONS_CAMERA
 }
 
 fun AppActivity.verifyPermissions(completion: () -> Unit ) {
 
     if (!hasPermissions(permissions)) {
         ActivityCompat.requestPermissions(
-                this,
-                permissions,
-                REQUEST_CODE
+            this,
+            permissions,
+            REQUEST_CODE
         )
     } else {
-        Timber.i("Location permission are OK")
         completion.invoke()
     }
 }

@@ -8,7 +8,6 @@ import android.graphics.drawable.LayerDrawable
 import android.widget.ImageView
 import androidx.annotation.Nullable
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.ageone.nahodka.Application.currentActivity
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -16,9 +15,9 @@ import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.ViewTarget
 import com.bumptech.glide.request.transition.Transition
+import com.ageone.nahodka.Application.currentActivity
 import io.github.armcha.coloredshadow.ShadowImageView
 import yummypets.com.stevia.dp
-
 
 @GlideModule
 class MyGlideModule : AppGlideModule()
@@ -41,7 +40,6 @@ fun addImageFromGlide(image: ImageView, uri: String, cornerRadius: Int = 8) {
             .placeholder(placeholder)
             .into(image)
     }
-
 
 }
 
@@ -126,9 +124,8 @@ fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String, cornerRadiu
 
 private fun createDownloadPlaceholder(): LayerDrawable {
     val circularProgressDrawable = CircularProgressDrawable(currentActivity as Context)
-    circularProgressDrawable.strokeWidth = 10f.dp
-    circularProgressDrawable.centerRadius = 40f.dp
-    circularProgressDrawable.setColorSchemeColors(Color.WHITE)
+    circularProgressDrawable.strokeWidth = 15f.dp
+    circularProgressDrawable.centerRadius = 100f.dp
     circularProgressDrawable.start()
 
     val placeholderImage = GradientDrawable()

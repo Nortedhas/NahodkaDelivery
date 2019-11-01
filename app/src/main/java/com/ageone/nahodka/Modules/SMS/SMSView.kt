@@ -16,9 +16,8 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.Libraries.Alert.alertManager
-import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Models.User.user
+import com.ageone.nahodka.Modules.SMS.SMSViewModel
 import com.ageone.nahodka.Modules.SMS.rows.SMSTextInputViewHolder
 import com.ageone.nahodka.Modules.SMS.rows.initialize
 import com.example.ageone.Modules.EntrySMS.rows.SMSTextViewHolder
@@ -67,7 +66,6 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
         nextButton.setOnClickListener {
             viewModel.validate {
-                user.isAuthorized = true
                 emitEvent?.invoke(RegistrationViewModel.EventType.OnNextPressed.name)
                 isTimer = true
             }

@@ -3,29 +3,26 @@ package com.ageone.nahodka.External.Extensions.Activity
 import android.location.Location
 import android.widget.Toast
 import com.ageone.nahodka.Application.AppActivity
-import com.google.android.gms.location.*
+import com.ageone.nahodka.Models.User.user
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.Tasks
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-val locationBase = LatLng(56.838607, 60.605514)
-var currentLocation: Location? = null
+val locationBase
+    get() = LatLng(56.838607, 60.605514)
 
 
-fun AppActivity.fetchLastLocation(){
-    /*fusedLocationClient?.
-        lastLocation?.addOnSuccessListener{ location ->
-        if (location != null) {
-            currentLocation = location
-        } else {
-            Toast.makeText(this, "No Location recorded", Toast.LENGTH_SHORT).show()
-        }
-    }*/
-
-    getLocationUpdates()
+fun AppActivity.fetchLastLocation(): Location? = fusedLocationClient?.let { fusedLocationClient ->
+    Tasks.await(fusedLocationClient.lastLocation)
 }
 
-
-private fun AppActivity.getLocationUpdates() {
+fun AppActivity.setLocationUpdates(intervalMilliSec: Long, fastestIntervalMilliSec: Long) {
 
     fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -46,7 +43,7 @@ private fun AppActivity.getLocationUpdates() {
                 // use your location object
                 // get latitude , longitude and other info from this
                 Timber.i("Newest location: ${location.latitude}")
-                currentLocation  = location
+                user.location.currentLocation  = location
             }
         }
     }
@@ -68,10 +65,10 @@ fun AppActivity.stopLocationUpdates() {
 
 var startLocation: LatLng = locationBase
     get() {
-        return if (isLocationGranted) {
+        return if (user.permission.geo) {
             LatLng(
-                    currentLocation?.latitude ?: locationBase.latitude,
-                    currentLocation?.longitude ?: locationBase.longitude
+                    user.location.currentLocation?.latitude ?: locationBase.latitude,
+                    user.location.currentLocation?.longitude ?: locationBase.longitude
             )
         } else {
             locationBase

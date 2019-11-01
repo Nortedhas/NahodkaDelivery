@@ -27,7 +27,7 @@ class ChangeSMSViewModel : InterfaceViewModel {
 
     fun validate(completion: () -> Unit){
         if(model.code.length < 4){
-            alertManager.single("Ошибка!","Неправильный СМС-код",null,"OK") { _, position -> }
+            alertManager.single("Ошибка!","Неправильный СМС-код",button = "OK") { _, position -> }
             return
         }
         completion.invoke()

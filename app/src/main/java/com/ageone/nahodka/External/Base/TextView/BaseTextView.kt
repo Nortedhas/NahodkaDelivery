@@ -49,18 +49,6 @@ class BaseTextView(): TextView(currentActivity) {
 
 }
 
-/*
-val text by lazy {
-    val text = BaseTextView()
-    text.text = "elevation"
-    val gradientDrawable = GradientDrawable()
-    gradientDrawable.gradientDrawable = GradientDrawable.RECTANGLE
-    gradientDrawable.setColor(Color.parseColor("#30bcff"))
-    text.backgroundColor = gradientDrawable
-    text.width(25F.dp)
-    text.elevation = 8F.dp
-    text
-}*/
 fun TextView.underline() {
     paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
 }

@@ -14,9 +14,9 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.example.ageone.Modules.Entry.RegistrationModel
 import com.example.ageone.Modules.Entry.RegistrationView
 import com.example.ageone.Modules.Entry.RegistrationViewModel
-import com.example.ageone.Modules.EntrySMS.SMSModel
+import com.ageone.nahodka.Modules.SMS.SMSModel
 import com.example.ageone.Modules.EntrySMS.SMSView
-import com.example.ageone.Modules.EntrySMS.SMSViewModel
+import com.ageone.nahodka.Modules.SMS.SMSViewModel
 import com.example.ageone.Modules.Start.StartModel
 import com.example.ageone.Modules.Start.StartView
 import com.example.ageone.Modules.Start.StartViewModel
@@ -58,7 +58,6 @@ class FlowAuth: BaseFlow() {
     }
 
     inner class FlowAuthModels {
-//        var modelMap = MapModel()
         var modelStart = StartModel()
         var modelEntry = RegistrationModel()
         var modelEntrySMS = SMSModel()
@@ -99,6 +98,8 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when(RegistrationViewModel.EventType.valueOf(event)){
                 RegistrationViewModel.EventType.OnNextPressed ->{
+                    models.modelEntrySMS.name = models.modelEntry.name
+                    models.modelEntrySMS.phone = models.modelEntry.phone
                     runModuleSMS()
 
                 }

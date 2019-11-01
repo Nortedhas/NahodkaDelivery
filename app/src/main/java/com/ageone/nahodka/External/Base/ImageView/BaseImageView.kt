@@ -64,4 +64,3 @@ fun BaseImageView.setOnlyTopRoundedCorners(radius: Float) {
     clipToOutline = true
 
 }
-

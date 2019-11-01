@@ -33,7 +33,7 @@ class BuscketOrderViewModel : InterfaceViewModel {
             model.floor.isNullOrBlank() ||
             model.phone.isNullOrBlank() ||
             model.payVariant.isNullOrBlank()){
-            alertManager.single("Ошибка","Заполните все поля",null,"OK") { _, position -> }
+            alertManager.single("Ошибка","Заполните все поля",button = "OK") { _, position -> }
             return
         }
         completion.invoke()

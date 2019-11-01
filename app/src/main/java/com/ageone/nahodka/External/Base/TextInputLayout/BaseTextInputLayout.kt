@@ -32,8 +32,8 @@ class BaseTextInputLayout: TextInputLayout(currentActivity) {
         addView(text)
 
         val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
         )
         params.marginStart = (-2).dp
         params.updateMargins(left = (-2).dp)
@@ -45,7 +45,7 @@ class BaseTextInputLayout: TextInputLayout(currentActivity) {
                 if(motionEvent.action == KeyEvent.ACTION_DOWN ){
                     Handler().postDelayed({
                         editText.requestFocus()
-                    }, 700)
+                    }, 500)
                 }
                 false
             }

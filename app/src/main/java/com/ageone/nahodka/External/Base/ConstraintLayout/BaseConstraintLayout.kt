@@ -57,15 +57,15 @@ fun BaseConstraintLayout.setButtonAboveKeyboard(button: BaseButton) {
         if(statusBarInDp > 24) {
             margin = (heightInDp * coff)
         } else {
-           margin = (heightInDp * coff) - 8
+            margin = (heightInDp * coff) - 8
         }
 
 
-            if (margin > 50) {
-                button.constrainBottomToBottomOf(this, margin.toInt())
-            } else if (margin < 50) {
-                button.constrainBottomToBottomOf(this)
-            }
+        if (margin > 50) {
+            button.constrainBottomToBottomOf(this, margin.toInt())
+        } else if (margin < 50) {
+            button.constrainBottomToBottomOf(this)
+        }
     }
 }
 
@@ -78,9 +78,9 @@ fun BaseConstraintLayout.dismissFocus(view: EditText?) {
         getWindowVisibleDisplayFrame(rect)
 
         var heightDiff =
-            ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt())
+                ((((height - rect.height()) / height) * utils.variable.displayHeight).toInt())
 
-        if (heightDiff < 50) {
+        if (heightDiff < 100) {
             view?.clearFocus()
             view?.isFocusableInTouchMode = true
         }
@@ -92,43 +92,39 @@ fun BaseConstraintLayout.setScrollableView(view: BaseTextInputLayout?, recyclerV
     getWindowVisibleDisplayFrame(rectLayout)
 
     var usableRect = rectLayout.bottom - rectLayout.top
-
     var isFocus = false
 
 
     viewTreeObserver.addOnGlobalLayoutListener {
 
         val statusBarInDp = (utils.variable.statusBarHeight.toFloat() / rootView.height.toFloat()) * utils.variable.displayHeight.toFloat()
-
         var layoutHeight = 0
 
-        if(statusBarInDp > 24) {
-            layoutHeight = usableRect
+        layoutHeight = if (statusBarInDp > 24) {
+            usableRect
         } else {
-            layoutHeight = usableRect - utils.variable.statusBarHeight
+            usableRect - utils.variable.statusBarHeight
         }
 
         val rect = Rect()
         getWindowVisibleDisplayFrame(rect)
 
         var displayHeight = rootView.height
-
         var usableHeight = rect.bottom - rect.top
         var bottomButton = displayHeight - layoutHeight
-
         var keyboardHeight = displayHeight - usableHeight - bottomButton
         var coff: Float = keyboardHeight.toFloat() / layoutHeight
         var heightInDp = utils.variable.displayHeight
-
         var margin = 0F
 
-        if(statusBarInDp > 24) {
-            margin = (heightInDp * coff)
+        margin = if (statusBarInDp > 24) {
+            (heightInDp * coff)
         } else {
-            margin = (heightInDp * coff) - 8
+            (heightInDp * coff) - 8
         }
 
         if (margin > 50) {
+            Timber.i("View up : $margin")
             recyclerView.constrainBottomToBottomOf(this,margin.toInt())
             isFocus = true
         } else if (margin.toInt() < 50) {
@@ -143,3 +139,17 @@ fun BaseConstraintLayout.setScrollableView(view: BaseTextInputLayout?, recyclerV
 
 }
 
+
+fun BaseConstraintLayout.PxtoDp(px: Float, context: Context): Float{
+    return px / context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
+}
+
+fun BaseConstraintLayout.DptoPx(dp: Float, context: Context): Float{
+    var px = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            resources.displayMetrics
+    )
+
+    return px
+}

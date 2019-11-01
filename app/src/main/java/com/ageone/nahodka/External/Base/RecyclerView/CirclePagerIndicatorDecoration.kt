@@ -8,8 +8,10 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 import yummypets.com.stevia.dp
 import kotlin.math.max
+import kotlin.math.min
 
 
 class CirclePagerIndicatorDecoration : RecyclerView.ItemDecoration() {

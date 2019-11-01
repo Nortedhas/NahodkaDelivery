@@ -1,14 +1,18 @@
 package com.ageone.nahodka.External.HTTP.API
 
-import com.ageone.nahodka.Application.api
-import com.ageone.nahodka.Application.utils
-import com.ageone.nahodka.Models.User.user
+import android.provider.Settings
 import com.ageone.nahodka.SCAG.DataBase
 import com.ageone.nahodka.SCAG.Parser
+import com.ageone.nahodka.SCAG.config
 import com.ageone.nahodka.SCAG.userData
+import com.ageone.nahodka.Application.api
+import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.blockUI
+import com.ageone.nahodka.External.Libraries.Alert.single
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
-import com.swarmnyc.promisekt.Promise
 import net.alexandroid.shpref.ShPref
 import org.json.JSONObject
 import timber.log.Timber
@@ -24,33 +28,45 @@ class API {
     fun handshake(completion: () -> Unit){
         Fuel.post(Routes.Handshake.path)
             .jsonBody(createBody(mapOf(
-                "deviceId" to uuid
+                "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
             )).toString())
             .responseString { request, response, result ->
-                Timber.i("API Handshake: $request $response")
+                result.fold({ result ->
+                    Timber.i("API Handshake: $request $response")
 
-                val jsonObject = JSONObject(result.get())
-                utils.variable.token = jsonObject.optString("Token")
-                Timber.i("API new token: ${utils.variable.token}")
-                cashTime = Date().time.toInt()
-                parser.userData(jsonObject)
-                completion.invoke()
+                    val jsonObject = JSONObject(result)
+                    utils.variable.token = jsonObject.optString("Token")
+                    Timber.i("API new token: ${utils.variable.token}")
+                    cashTime = Date().time.toInt()
+                    parser.userData(jsonObject)
+                    completion.invoke()
+
+                },{ error ->
+                    Timber.e("${error.response.responseMessage}")
+                })
+
             }
     }
 
-    fun request(params: Map<String, Any>, completion: (JSONObject) -> (Unit)) {
+    fun request(params: Map<String, Any>, isErrorShown: Boolean = false, completion: (JSONObject) -> (Unit)) {
 
         Fuel.post(Routes.Api.path)
             .jsonBody(createBody(params).toString())
-//            .header(DataBase.headers)
+            .header(DataBase.headers)
             .responseString { request, response, result ->
                 result.fold({ result ->
                     val jsonObject = JSONObject(result)
                     Timber.i("API request:\n $request \n $response")
 
                     val error = jsonObject.optString("error", "")
-                    if (error != "") {
+                    if (error.isNotEmpty()) {
                         Timber.e("$error")
+                        if (isErrorShown) {
+                            alertManager.single("Ошибка", "$error",
+                                completion =  {_,_ ->
+                                    alertManager.blockUI(false)
+                                })
+                        }
                     } else {
                         completion.invoke(jsonObject)
                     }
@@ -62,6 +78,35 @@ class API {
             }
     }
 
+    fun requestCoroutine(params: Map<String, Any>, isErrorShown: Boolean = false): JSONObject? {
+
+        val (request, response, result) =
+            Fuel.post(Routes.Api.path)
+            .jsonBody(createBody(params).toString())
+            .header(DataBase.headers)
+            .responseString()
+
+        Timber.i("API request:\n $request \n $response")
+
+        var json = JSONObject()
+        result.fold({ success->
+            json = JSONObject(success)
+            val error = json.optString("error", "")
+            if (error.isNotEmpty()) {
+                Timber.e("$error")
+                if (isErrorShown) {
+                    alertManager.single("Ошибка", "$error")
+                }
+                return null
+            }
+        },{ error ->
+            Timber.e("${error.response.responseMessage}")
+            return null
+        })
+
+        return json
+    }
+
     fun createBody(params: Map<String, Any>): JSONObject {
         val body = JSONObject()
         params.forEach { (key, value) ->
@@ -71,34 +116,23 @@ class API {
         return body
     }
 
+    fun requestMainLoad(completion: () -> Unit){
 
-//    fun handleUser()
-
-    fun requestMainLoad(completion: () -> Unit): Promise<Unit> {
-        return Promise { resolve, _ ->
-            //TODO change cashtime как отловить первый заход?
-            api.request(mapOf("router" to "mainLoad", "cashTime" to 0)) { jsonObject ->
-                for (type in DataBase.values()) {
-                    parser.parseAnyObject(jsonObject, type)
-                }
-                parser.userData(jsonObject)
-                completion.invoke()
+        api.request(mapOf("router" to "mainLoad", "cashTime" to api.cashTime)) { jsonObject ->
+            for (type in DataBase.values()) {
+                parser.parseAnyObject(jsonObject, type)
             }
-
+            parser.config(jsonObject)
+            api.cashTime = (System.currentTimeMillis() / 1000).toInt()
+            completion.invoke()
         }
+
     }
 
-}
 
-
-enum class Routes(val path: String) {
-    Handshake("/handshake"),
-    Database("/database"),
-    Api("/api");
-}
-
-var uuid = if (user.hashId.isNotBlank()) user.hashId else UUID.randomUUID().toString()
-
-fun uuidReload() {
-    uuid = UUID.randomUUID().toString()
+    enum class Routes(val path: String) {
+        Handshake("/handshake"),
+        Database("/database"),
+        Api("/api");
+    }
 }

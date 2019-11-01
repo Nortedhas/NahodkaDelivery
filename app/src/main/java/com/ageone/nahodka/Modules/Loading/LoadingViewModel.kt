@@ -1,7 +1,10 @@
 package com.ageone.nahodka.Modules
 
+import com.ageone.nahodka.Application.api
+import com.ageone.nahodka.Application.webSocket
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
+import timber.log.Timber
 
 class LoadingViewModel : InterfaceViewModel {
     var model = LoadingModel()
@@ -18,13 +21,11 @@ class LoadingViewModel : InterfaceViewModel {
     }
 
     fun startLoading(completion: () -> Unit) {
-        /*api.requestMainLoad {
+        api.requestMainLoad {
             Timber.i("completion invoke")
             webSocket.initialize()
             completion.invoke()
-        }*/
-
-        completion.invoke()
+        }
     }
 }
 

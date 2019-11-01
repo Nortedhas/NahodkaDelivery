@@ -1,4 +1,4 @@
-package com.ageone.nahodka.Internal.Utilities
+package com.ageone.nahodka.Internal.Utilities//todo: change package
 
 import com.ageone.nahodka.External.Utils.Tools
 import com.ageone.nahodka.External.Utils.Variable
@@ -11,4 +11,5 @@ class Utils {
     var isNetworkReachable = false
     var realm = RealmUtilities
     val config = ConfigDefault
+    val googleApiKey = "AIzaSyCDfj5ZoL0kncxgH8ja-julymHYjFR3Av0"
 }

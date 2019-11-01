@@ -1,31 +1,29 @@
 package com.ageone.nahodka.Application
 
-import android.Manifest
-import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.os.Bundle
-import android.util.TypedValue
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import com.ageone.nahodka.External.Base.Activity.BaseActivity
-import com.ageone.nahodka.Models.User.user
-import com.swarmnyc.promisekt.Promise
-import timber.log.Timber
 import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
-import androidx.legacy.content.WakefulBroadcastReceiver
+import android.os.Bundle
+import android.widget.Toast
+import com.ageone.nahodka.External.Base.Activity.BaseActivity
+import com.ageone.nahodka.External.Extensions.Activity.*
+import com.ageone.nahodka.External.Extensions.FlowCoordinator.logout
+import com.ageone.nahodka.External.HTTP.update
+import com.ageone.nahodka.External.Utils.Validation.KeyParameterValidation
+import com.ageone.nahodka.External.Utils.Validation.isValidUser
+import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.R
+import com.ageone.nahodka.SCAG.DataBase
+import com.ageone.nahodka.External.Extensions.Activity.*
+import com.github.kittinunf.fuel.core.FuelManager
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
-import com.google.firebase.messaging.RemoteMessage
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.swarmnyc.promisekt.Promise
+import timber.log.Timber
 
 class AppActivity: BaseActivity() {
 
@@ -34,42 +32,35 @@ class AppActivity: BaseActivity() {
     var locationCallback: LocationCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         //only vertical mode
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
         // for launchScreen
         setTheme(R.style.AppTheme)
 
         super.onCreate(savedInstanceState)
 
-        //fullscreen flags
-        window.decorView.systemUiVisibility =
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 
+        // MARK: UI
+
+        setFullScreen()
         setDisplaySize()
 
 
+        // MARK: PERMISSIONS
 
-//        FuelManager.instance.basePath = DataBase.url
-
-        verifyStoragePermissions(this)
-
-        user.isAuthorized = false //TODO: change after add registration
-        coordinator.setLaunchScreen()
-
-        GlobalScope.launch(Main){
-
-            router.layout.setOnApplyWindowInsetsListener { _, insets ->
-                utils.variable.statusBarHeight = insets.systemWindowInsetTop
-                insets
+        addStoragePermissions()
+        addLocationPermissions()
+        verifyPermissions {
+            if (hasPermissions(PERMISSIONS_LOCATION)) {
+                user.permission.geo = true
             }
-
-            coordinator.start()
+            setLocationUpdates(1000, 1000)
         }
 
-        /*Promise<Unit> { resolve, _ ->
+        FuelManager.instance.basePath = DataBase.url
+
+        coordinator.setLaunchScreen()
+        Promise<Unit> { resolve, _ ->
 
             router.layout.setOnApplyWindowInsetsListener { _, insets ->
                 utils.variable.statusBarHeight = insets.systemWindowInsetTop
@@ -79,9 +70,21 @@ class AppActivity: BaseActivity() {
             }
 
         }.then {
-            /*api.handshake {
-                Timber.i("Handshake out")
-                coordinator.start()
+
+            api.handshake {
+                if (!isValidUser(KeyParameterValidation.phone)) {
+                    coordinator.logout()
+                }
+
+                val googleApiAvailability = GoogleApiAvailability.getInstance()
+                when (val result = googleApiAvailability.isGooglePlayServicesAvailable(this)) {
+                    ConnectionResult.SUCCESS -> {
+                        coordinator.start()
+                    }
+                    else -> {
+                        googleApiAvailability.showErrorNotification(this, result)
+                    }
+                }
 
                 FirebaseInstanceId.getInstance().instanceId
                     .addOnCompleteListener(OnCompleteListener { task ->
@@ -92,84 +95,63 @@ class AppActivity: BaseActivity() {
 
                         // Get new Instance ID UserHandshake
                         val token = task.result?.token ?: ""
-//                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
+                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
                     })
-            }*/
-            coordinator.start()
-        }*/
+
+            }
+
+
+        }
 
         setContentView(router.layout)
-
-    }
-
-    private fun setDisplaySize() {
-        val displayMetrics = resources.displayMetrics
-        utils.variable.displayWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
-        utils.variable.displayHeight = (displayMetrics.heightPixels / displayMetrics.density).toInt()
-
-        Timber.i("width = ${utils.variable.displayWidth}")
-
-        // Calculate ActionBar height
-        val tv = TypedValue()
-        if (theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            utils.variable.actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics) / 3
-        }
     }
 
     override fun onBackPressed() {
-        Timber.i("back")
         router.onBackPressed()
     }
 
-}
 
-fun Activity.hideKeyboard() {
-    // Check if no view has focus
-    val view = currentFocus
-    view?.let { v ->
-        //hide keyboard
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.hideSoftInputFromWindow(v.windowToken, 0)
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
     }
-}
 
-fun Activity.setStatusBarColor(color: Int) {
-    window.statusBarColor = color
-}
-
-// Storage Permissions
-private val REQUEST_EXTERNAL_STORAGE = 1
-private val PERMISSIONS_STORAGE = arrayOf<String>(
-    Manifest.permission.READ_EXTERNAL_STORAGE,
-    Manifest.permission.WRITE_EXTERNAL_STORAGE
-)
-
-/**
- * Checks if the app has permission to write to device storage
- *
- * If the app does not has permission then the user will be prompted to grant permissions
- *
- * @param activity
- */
-fun verifyStoragePermissions(activity: Activity) {
-    // Check if we have write permission
-    val permission =
-        ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-    if (permission != PackageManager.PERMISSION_GRANTED) {
-        // We don't have permission so prompt the user
-        ActivityCompat.requestPermissions(
-            activity,
-            PERMISSIONS_STORAGE,
-            REQUEST_EXTERNAL_STORAGE
-        )
+    override fun onLowMemory() {
+        super.onLowMemory()
     }
-}
 
-class OnBootBroadcastReceiver : BroadcastReceiver(){
-    override fun onReceive(p0: Context?, p1: Intent?) {
-        var intent = Intent("com.ageone.nahodka.MyFirebaseMessagingService")
-        intent.setClass(p0, MyFirebaseMessagingService::class.java)
-        p0?.startService(intent)
+    override fun onStop() {
+        super.onStop()
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        startLocationUpdates()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResult: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_CODE -> {
+                if (grantResult.isNotEmpty() && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (hasPermissions(PERMISSIONS_LOCATION)) {
+                        user.permission.geo = true
+                    }
+                    setLocationUpdates(1000, 1000)
+                } else {
+                    Toast.makeText(this, "Location permission missing", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
+    }
+
 }

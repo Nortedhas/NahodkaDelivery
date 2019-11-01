@@ -1,7 +1,7 @@
 package com.ageone.nahodka.External.HTTP
 
 import com.ageone.nahodka.Application.api
-import com.ageone.nahodka.External.HTTP.API.Routes
+import com.ageone.nahodka.External.HTTP.API.API
 import com.ageone.nahodka.SCAG.DataBase
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
@@ -10,7 +10,7 @@ import timber.log.Timber
 
 fun DataBase.request(params: Map<String, Any>, completion: (JSONObject) -> (Unit)) {
 
-    Fuel.post(Routes.Database.path)
+    Fuel.post(API.Routes.Database.path)
         .jsonBody(api.createBody(params).toString())
 //        .header(DataBase.headers)
         .responseString { request, response, result ->
@@ -32,8 +32,6 @@ fun DataBase.request(params: Map<String, Any>, completion: (JSONObject) -> (Unit
         }
 }
 
-
-//TODO: 3 func
 fun DataBase.update(objectID: String, objectStruct: Map<String, Any>) {
     request(
         mapOf(

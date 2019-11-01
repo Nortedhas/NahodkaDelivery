@@ -5,20 +5,17 @@ import android.graphics.Color
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
-import com.ageone.nahodka.Application.AppActivity
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.TabBar.bottomNavigation
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
-import com.ageone.nahodka.Application.setStatusBarColor
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
+import com.ageone.nahodka.External.Extensions.Activity.setStatusBarColor
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
-import com.ageone.nahodka.R
-import nl.komponents.kovenant.Kovenant.context
 import timber.log.Timber
 import yummypets.com.stevia.*
 

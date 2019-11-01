@@ -26,15 +26,15 @@ class ChangeNameViewModel : InterfaceViewModel {
 
     fun validate(completion: () -> Unit){
         if(model.phone.length < 18 && model.name.length != 0){
-            alertManager.single("Ошибка","Неверный номер",null,"OK") { _, position -> }
+            alertManager.single("Ошибка","Неверный номер",button = "OK") { _, position -> }
             return
         }
         else if(model.phone.length > 0 && model.name.length == 0) {
-            alertManager.single("Ошибка","Неверное имя",null,"OK") { _, position -> }
+            alertManager.single("Ошибка","Неверное имя",button = "OK") { _, position -> }
             return
         }
         else if(model.phone.length == 0 && model.name.length == 0){
-            alertManager.single("Ошибка","Заполните поля",null,"OK") { _, position -> }
+            alertManager.single("Ошибка","Заполните поля",button = "OK") { _, position -> }
             return
         }
         else {

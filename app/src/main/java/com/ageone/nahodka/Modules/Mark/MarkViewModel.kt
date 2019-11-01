@@ -26,7 +26,7 @@ class MarkViewModel : InterfaceViewModel {
 
     fun validate(completion: () -> kotlin.Unit) {
         if (model.mark.length == 0) {
-            alertManager.single("Ошибка", "Напишите отзыв", null, "OK") { _, position -> }
+            alertManager.single("Ошибка", "Напишите отзыв", button = "OK") { _, position -> }
             return
         }
         completion.invoke()

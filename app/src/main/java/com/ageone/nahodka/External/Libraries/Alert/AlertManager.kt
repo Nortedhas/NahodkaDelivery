@@ -20,28 +20,28 @@ class AlertManager {
     fun renderUI() {
 
         constraintLayout.subviews(
-            imageViewIcon,
-            textViewTitle,
-            textViewMessage
+                imageViewIcon,
+                textViewTitle,
+                textViewMessage
         )
 
         imageViewIcon
-            .constrainTopToTopOf(constraintLayout, 8)
-            .constrainLeftToLeftOf(constraintLayout, 16)
-            .height(20F.dp)
-            .width(20F.dp)
+                .constrainTopToTopOf(constraintLayout, 8)
+                .constrainLeftToLeftOf(constraintLayout, 16)
+                .height(20F.dp)
+                .width(20F.dp)
 
         textViewTitle
-            .fillHorizontally()
-            .constrainLeftToLeftOf(constraintLayout, 16)
-            .constrainTopToBottomOf(imageViewIcon, 8)
-            .constrainRightToRightOf(constraintLayout, 16)
+                .fillHorizontally()
+                .constrainLeftToLeftOf(constraintLayout, 16)
+                .constrainTopToBottomOf(imageViewIcon, 8)
+                .constrainRightToRightOf(constraintLayout, 16)
 
         textViewMessage
-            .fillHorizontally()
-            .constrainLeftToLeftOf(constraintLayout, 16)
-            .constrainTopToBottomOf(textViewTitle, 8)
-            .constrainRightToRightOf(constraintLayout, 16)
+                .fillHorizontally()
+                .constrainLeftToLeftOf(constraintLayout, 16)
+                .constrainTopToBottomOf(textViewTitle, 8)
+                .constrainRightToRightOf(constraintLayout, 16)
 
     }
 
@@ -63,7 +63,7 @@ class AlertManager {
         val textViewTitle = BaseTextView()
         textViewTitle.gravity = View.TEXT_ALIGNMENT_VIEW_END
         textViewTitle.typeface = Typeface.DEFAULT_BOLD
-        textViewTitle.textSize = 6F.dp
+        textViewTitle.textSize = 16F
         textViewTitle.textColor = Color.BLACK
         textViewTitle.setBackgroundColor(Color.TRANSPARENT)
         textViewTitle
@@ -75,8 +75,8 @@ class AlertManager {
     val textViewMessage: BaseTextView by lazy {
         val textViewMessage = BaseTextView()
         textViewMessage.gravity = View.TEXT_ALIGNMENT_VIEW_END
-        textViewMessage.typeface = Typeface.DEFAULT_BOLD
-        textViewMessage.textSize = 5F.dp
+        textViewMessage.typeface = Typeface.DEFAULT
+        textViewMessage.textSize = 15F
         textViewMessage.textColor = Color.DKGRAY
         textViewMessage.setBackgroundColor(Color.TRANSPARENT)
         textViewMessage
@@ -86,23 +86,33 @@ class AlertManager {
 
 // MARK: Single
 
-fun AlertManager.single(title: String, message: String, image: Int? = null,
+fun AlertManager.single(title: String, message: String, image: Int? = null, blockingExternalPresses:Boolean? = null,
                         button: String = "OK", completion: ((DialogInterface, Int) -> (Unit))? = null) {
     renderUI()
-
+    if (completion == null) {
+        textViewMessage
+                .constrainBottomToBottomOf(constraintLayout,16)
+    }
     if (image == null) {
         imageViewIcon
-            .height(0)
-            .width(0)
-            .constrainTopToTopOf(constraintLayout, 0)
+                .height(0)
+                .width(0)
+                .constrainTopToTopOf(constraintLayout, 0)
     } else {
         imageViewIcon.setImageResource(image)
     }
-
     textViewTitle.text = title
     textViewMessage.text = message
-
     val builder = AlertDialog.Builder(currentActivity)
+
+    if (blockingExternalPresses != null){
+        if(blockingExternalPresses){
+            builder.setCancelable(false)
+        }else{
+            builder.setCancelable(true)
+        }
+
+    }
     builder.setView(constraintLayout)
     completion?.let{
         builder.setPositiveButton(button, completion)
@@ -114,18 +124,18 @@ fun AlertManager.single(title: String, message: String, image: Int? = null,
 // MARK: Double
 
 fun AlertManager.double(
-    title: String, message: String, image: Int? = null,
-    button: String = "OK", completion: (DialogInterface, Int) -> (Unit),
-    buttonCancel: String = "CANCEL", completionCancel: ((DialogInterface, Int) -> (Unit))? = null
+        title: String, message: String, image: Int? = null,blockingExternalPresses:Boolean? = null,
+        button: String = "OK", completion: (DialogInterface, Int) -> (Unit),
+        buttonCancel: String = "CANCEL", completionCancel: ((DialogInterface, Int) -> (Unit))? = null
 ) {
 
     renderUI()
 
     if (image == null) {
         imageViewIcon
-            .height(0)
-            .width(0)
-            .constrainTopToTopOf(constraintLayout, 0)
+                .height(0)
+                .width(0)
+                .constrainTopToTopOf(constraintLayout, 0)
     } else {
         imageViewIcon.setImageResource(image)
     }
@@ -134,7 +144,17 @@ fun AlertManager.double(
     textViewMessage.text = message
 
     val builder = AlertDialog.Builder(currentActivity)
+    if (blockingExternalPresses != null){
+        if(blockingExternalPresses){
+            builder.setCancelable(false)
+        }else{
+            builder.setCancelable(true)
+        }
+
+    }
+
     builder.setView(constraintLayout)
+    builder.setCancelable(false)
     builder.setPositiveButton(button, completion)
     completionCancel?.let {
         builder.setNegativeButton(buttonCancel, completionCancel)
@@ -144,14 +164,23 @@ fun AlertManager.double(
 
 // MARK: With list
 
-fun AlertManager.list(title: String,variants: Array<String>, completion: (DialogInterface, Int) -> (Unit)) {
+fun AlertManager.list(title: String,variants: Array<String>,blockingExternalPresses:Boolean? = null,completion: (DialogInterface, Int) -> (Unit)) {
 
     // setup the alert builder
     val builder = AlertDialog.Builder(currentActivity)
     builder.setTitle(title)
 
+    if (blockingExternalPresses != null){
+        if(blockingExternalPresses){
+            builder.setCancelable(false)
+        }else{
+            builder.setCancelable(true)
+        }
+
+    }
     // add a list
     builder.setItems(variants, completion)
+    builder.setCancelable(false)
 
     // create and show the alert dialog
     val dialog = builder.create()
@@ -166,6 +195,7 @@ fun AlertManager.blockUI(isVisible: Boolean) {
     if (isVisible) {
         coordinator.blockConstraint.visibility = View.VISIBLE
         coordinator.circularProgress.visibility = View.VISIBLE
+        coordinator.blockConstraint.setOnClickListener {  }
     } else {
         coordinator.blockConstraint.visibility = View.GONE
         coordinator.circularProgress.visibility = View.GONE

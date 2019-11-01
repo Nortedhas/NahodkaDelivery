@@ -5,8 +5,8 @@ import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipp
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.nahodka.Application.Coordinator.Flow.setBottomNavigationVisible
 import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.Application.hideKeyboard
 import com.ageone.nahodka.Application.router
+import com.ageone.nahodka.External.Extensions.Activity.hideKeyboard
 import com.ageone.nahodka.External.Extensions.Function.guard
 import timber.log.Timber
 import yummypets.com.stevia.style

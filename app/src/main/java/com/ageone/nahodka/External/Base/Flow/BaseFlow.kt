@@ -7,11 +7,10 @@ import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipp
 import com.ageone.nahodka.Application.Coordinator.Flow.setBottomNavigationVisible
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.Application.hideKeyboard
-import com.ageone.nahodka.External.Base.Module.BaseModule
+import com.ageone.nahodka.External.Base.Module.ModuleInterface
 import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
+import com.ageone.nahodka.External.Extensions.Activity.hideKeyboard
 import timber.log.Timber
-
 
 abstract class BaseFlow: View(currentActivity){
     //modules in flow
@@ -30,10 +29,8 @@ abstract class BaseFlow: View(currentActivity){
     var isStarted = false
 
     val viewFlipperModule by lazy {
-        val flipper = BaseViewFlipper()
-        flipper.setInAnimation(this.context, android.R.anim.fade_in)
-        flipper.setOutAnimation(this.context, android.R.anim.fade_out)
-        flipper
+        val viewFlipperModule = BaseViewFlipper()
+        viewFlipperModule
     }
 
     init {
@@ -47,21 +44,21 @@ abstract class BaseFlow: View(currentActivity){
         isStarted = true
     }
 
-    fun push(module: BaseModule?) {
+    fun push(module: ModuleInterface?) {
         module?.let { module ->
             includeModule(module)
-            //correct image module
-            viewFlipperModule.displayedChild = stack.indexOf(module.id)
+            //correct viewArrow module
+            viewFlipperModule.displayedChild = stack.indexOf(module.idView)
             setBottomNavigationVisible(module.initModuleUI.isBottomNavigationVisible)
         }
     }
 
     fun pop() {
         if (stack.size > 1) {
-            val currentModule = viewFlipperModule.currentView as BaseModule
+            val currentModule = viewFlipperModule.currentView as ModuleInterface
             deInitModule(currentModule)
 
-            val isBottomBarVisible = (viewFlipperModule.currentView as BaseModule).initModuleUI.isBottomNavigationVisible
+            val isBottomBarVisible = (viewFlipperModule.currentView as ModuleInterface).initModuleUI.isBottomNavigationVisible
             setBottomNavigationVisible(isBottomBarVisible)
             settingsCurrentFlow.isBottomNavigationVisible = isBottomBarVisible
 
@@ -73,29 +70,29 @@ abstract class BaseFlow: View(currentActivity){
 
     }
 
-    fun deInitModule(module: BaseModule?) {
+    fun deInitModule(module: ModuleInterface?) {
         module?.let{ module ->
             
-            if (stack.contains(module.id)) {
-                stack.remove(module.id)
+            if (stack.contains(module.idView)) {
+                stack.remove(module.idView)
             }
             
-            if (viewFlipperModule.contains(module)) {
-                //image previous module
-                viewFlipperModule.displayedChild = stack.size - 1//.last()
+            if (viewFlipperModule.contains(module.getView())) {
+                viewFlipperModule.removeView(module.getView())
+                //viewArrow show previous module
+                viewFlipperModule.displayedChild = stack.lastIndex
 
-                viewFlipperModule.removeView(module)
             }
             module.onDeInit?.invoke()
             Timber.i("Module DeInit ${module.className()}")
         }
     }
 
-    fun includeModule(module: BaseModule?) {
+    fun includeModule(module: ModuleInterface?) {
         module?.let { module ->
-            if (!stack.contains(module.id)){
-                stack.add(module.id)
-                viewFlipperModule.addView(module)
+            if (!stack.contains(module.idView)){
+                stack.add(module.idView)
+                viewFlipperModule.addView(module.getView())
             }
         }
     }
