@@ -47,7 +47,7 @@ class Router {
             viewFlipperFlow.displayedChild = previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow
 
             //correct visible bottom bar
-            val isBottomBarVisible = previousFlow!!.settingsCurrentFlow.isBottomNavigationVisible
+            val isBottomBarVisible = previousFlow.settingsCurrentFlow.isBottomNavigationVisible
             setBottomNavigationVisible(isBottomBarVisible)
             currentFlow?.settingsCurrentFlow?.isBottomNavigationVisible = isBottomBarVisible
 

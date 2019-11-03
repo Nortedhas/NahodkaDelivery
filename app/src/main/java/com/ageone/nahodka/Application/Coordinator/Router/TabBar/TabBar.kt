@@ -12,10 +12,11 @@ import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.items
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Base.Flow.FlowInterface
 import timber.log.Timber
 
 object Stack {
-    var flows = arrayListOf<BaseFlow>()
+    var flows = arrayListOf<FlowInterface>()
     var items = arrayListOf<AHBottomNavigationItem>()
 }
 

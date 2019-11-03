@@ -30,7 +30,7 @@ fun FlowCoordinator.runFlowAuth() {
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
-        currentActivity?.setLightStatusBar(Color.WHITE,Color.GRAY)
+        currentActivity?.setLightStatusBar(Color.WHITE, Color.GRAY)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 

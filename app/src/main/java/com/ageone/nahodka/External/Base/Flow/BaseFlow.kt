@@ -12,31 +12,25 @@ import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import com.ageone.nahodka.External.Extensions.Activity.hideKeyboard
 import timber.log.Timber
 
-abstract class BaseFlow: View(currentActivity){
+abstract class BaseFlow: View(currentActivity), FlowInterface{
     //modules in flow
-    val stack = mutableListOf<Int>()
+    override val stack = mutableListOf<Int>()
 
     //UserData for correct routing
-    var settingsCurrentFlow: DataFlow = DataFlow()
-    var previousFlow: BaseFlow? = null
+    override var settingsCurrentFlow: DataFlow = DataFlow()
+    override var previousFlow: BaseFlow? = null
 
-    var onStart: (() -> Unit)? = null
-    var onFinish: (() -> Unit)? = null
+    override var onStart: (() -> Unit)? = null
+    override var onFinish: (() -> Unit)? = null
 
-    var colorStatusBar = Color.TRANSPARENT
+    override var colorStatusBar = Color.TRANSPARENT
 
     //value for running the first module in flow (for navigation flows)
-    var isStarted = false
+    override var isStarted = false
 
     val viewFlipperModule by lazy {
         val viewFlipperModule = BaseViewFlipper()
         viewFlipperModule
-    }
-
-    init {
-
-        onStart?.invoke()
-
     }
 
     fun onStarted(){
@@ -44,7 +38,7 @@ abstract class BaseFlow: View(currentActivity){
         isStarted = true
     }
 
-    fun push(module: ModuleInterface?) {
+    override fun push(module: ModuleInterface?) {
         module?.let { module ->
             includeModule(module)
             //correct viewArrow module
@@ -53,7 +47,7 @@ abstract class BaseFlow: View(currentActivity){
         }
     }
 
-    fun pop() {
+    override fun pop() {
         if (stack.size > 1) {
             val currentModule = viewFlipperModule.currentView as ModuleInterface
             deInitModule(currentModule)
@@ -66,7 +60,7 @@ abstract class BaseFlow: View(currentActivity){
         }
     }
 
-    fun popToRoot() {
+    override fun popToRoot() {
 
     }
 
@@ -97,5 +91,4 @@ abstract class BaseFlow: View(currentActivity){
         }
     }
 
-    abstract fun start()
 }

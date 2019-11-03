@@ -11,6 +11,7 @@ import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Base.Flow.FlowInterface
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import com.ageone.nahodka.External.Extensions.Activity.setStatusBarColor
@@ -95,7 +96,7 @@ class FlowCoordinator {
     }
 
     object ViewFlipperFlowObject{
-        var currentFlow: BaseFlow? = null
+        var currentFlow: FlowInterface? = null
         val viewFlipperFlow: BaseViewFlipper by lazy {
             val flipper = BaseViewFlipper()
 
