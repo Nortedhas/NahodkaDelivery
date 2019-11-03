@@ -97,6 +97,11 @@ class FlowCoordinator {
 
     object ViewFlipperFlowObject{
         var currentFlow: FlowInterface? = null
+
+        /*val viewFlipperFlow: BaseConstraintLayout by lazy {
+            val flipper = BaseConstraintLayout()
+            flipper
+        }*/
         val viewFlipperFlow: BaseViewFlipper by lazy {
             val flipper = BaseViewFlipper()
 

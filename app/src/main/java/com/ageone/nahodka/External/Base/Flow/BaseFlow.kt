@@ -18,7 +18,7 @@ abstract class BaseFlow: View(currentActivity), FlowInterface{
 
     //UserData for correct routing
     override var settingsCurrentFlow: DataFlow = DataFlow()
-    override var previousFlow: BaseFlow? = null
+    override var previousFlow: FlowInterface? = null
 
     override var onStart: (() -> Unit)? = null
     override var onFinish: (() -> Unit)? = null

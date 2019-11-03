@@ -11,7 +11,7 @@ interface FlowInterface {
 
     //UserData for correct routing
     var settingsCurrentFlow: DataFlow
-    var previousFlow: BaseFlow?
+    var previousFlow: FlowInterface?
 
     var isStarted: Boolean
     var onStart: (() -> Unit)?
