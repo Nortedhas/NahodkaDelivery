@@ -16,9 +16,11 @@ import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
+import kotlin.properties.Delegates
 
 class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout): Toolbar(currentActivity) {
 
@@ -46,7 +48,7 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         view.visibility = View.GONE
         view
     }
-
+    
     val textView by lazy {
         val textView = BaseTextView()
         textView.gravity = Gravity.START
@@ -54,6 +56,29 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         textView.textSize = initModuleUI.textSize ?: 17F
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView.visibility = View.GONE
+        textView
+    }
+
+    val pushIcon by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.RED
+        view.cornerRadius = 16.dp
+        view.setBackgroundColor(Color.RED)
+        view.visibility = View.GONE
+        view.initialize()
+        view
+    }
+
+    val pushTextView by lazy {
+        val textView = BaseTextView()
+        textView.gravity = Gravity.CENTER
+        textView.typeface = Typeface.DEFAULT
+        textView.textSize = 10F
+        textView.setBackgroundColor(Color.TRANSPARENT)
+        textView.visibility = View.GONE
+        textView.text = ""
+        textView.textColor = Color.WHITE
+        textView.initialize()
         textView
     }
 
@@ -68,7 +93,7 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         setTitleTextColor(textColor)
 
         if (initModuleUI.isBackPressed) {
-            AppCompatResources.getDrawable(context, R.drawable.ic_arrow_back)?.let { drawable ->
+            AppCompatResources.getDrawable(context, R.drawable.ic_arrow)?.let { drawable ->
                 val wrappedDrawable = DrawableCompat.wrap(drawable)
                 DrawableCompat.setTint(wrappedDrawable, textColor)
 
@@ -92,7 +117,6 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
 
         initModuleUI.text?.let { text ->
             textView.textColor = initModuleUI.textColor ?: textColor
-            textView.textColor = textColor
             textView.visibility = View.VISIBLE
             textView.text = text
 
@@ -132,37 +156,51 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
     @SuppressLint("ClickableViewAccessibility")
     private fun renderUI() {
         content.subviews(
-                thirdIcon,
-                secondIcon,
-                textView,
-                firstIcon
+            thirdIcon,
+            secondIcon,
+            textView,
+            firstIcon,
+            pushIcon,
+            pushTextView
         )
 
         firstIcon
-                .width(initModuleUI.firstIcon?.size ?: baseIconSize)
-                .height(initModuleUI.firstIcon?.size ?: baseIconSize)
-                .constrainRightToRightOf(this, 16)
-                .constrainCenterYToCenterYOf(this)
+            .width(initModuleUI.firstIcon?.size ?: baseIconSize)
+            .height(initModuleUI.firstIcon?.size ?: baseIconSize)
+            .constrainRightToRightOf(this, 16)
+            .constrainCenterYToCenterYOf(this)
+
+        pushIcon
+            .width(15)
+            .height(15)
+            .constrainTopToTopOf(this,8)
+            .constrainRightToRightOf(this,16)
+
+        pushTextView
+            .width(15)
+            .height(15)
+            .constrainCenterXToCenterXOf(pushIcon)
+            .constrainCenterYToCenterYOf(pushIcon)
 
         firstIcon.setOnTouchListener(firstIcon.onTouchListener())
         secondIcon.setOnTouchListener(secondIcon.onTouchListener())
         thirdIcon.setOnTouchListener(thirdIcon.onTouchListener())
 
         textView
-                .constrainRightToLeftOf(firstIcon, 16)
-                .constrainCenterYToCenterYOf(this)
+            .constrainRightToLeftOf(firstIcon, 16)
+            .constrainCenterYToCenterYOf(this)
 
         secondIcon
-                .width(initModuleUI.secondIcon?.size ?: baseIconSize)
-                .height(initModuleUI.secondIcon?.size ?: baseIconSize)
-                .constrainRightToLeftOf(textView, 16)
-                .constrainCenterYToCenterYOf(this)
+            .width(initModuleUI.secondIcon?.size ?: baseIconSize)
+            .height(initModuleUI.secondIcon?.size ?: baseIconSize)
+            .constrainRightToLeftOf(textView, 16)
+            .constrainCenterYToCenterYOf(this)
 
         thirdIcon
-                .width(initModuleUI.thirdIcon?.size ?: baseIconSize)
-                .height(initModuleUI.thirdIcon?.size ?: baseIconSize)
-                .constrainRightToLeftOf(secondIcon, 16)
-                .constrainCenterYToCenterYOf(this)
+            .width(initModuleUI.thirdIcon?.size ?: baseIconSize)
+            .height(initModuleUI.thirdIcon?.size ?: baseIconSize)
+            .constrainRightToLeftOf(secondIcon, 16)
+            .constrainCenterYToCenterYOf(this)
 
     }
 
@@ -187,9 +225,9 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
                         MotionEvent.ACTION_MOVE -> {
                             rect?.let { rect ->
                                 if (!rect.contains(
-                                                view.left + event.x.toInt(),
-                                                view.top + event.y.toInt()
-                                        )
+                                        view.left + event.x.toInt(),
+                                        view.top + event.y.toInt()
+                                    )
                                 ) {
                                     this@onTouchListener.background = null
                                 }
@@ -207,5 +245,22 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
             }
 
         }
+    }
+
+    //TODO: replace in base
+
+    val countPush: Int by Delegates.observable(0) {property, oldValue, newValue ->
+        if (oldValue == newValue) return@observable
+
+        if (oldValue == 0) {
+            //todo: visible
+        }
+
+        if (newValue == 0) {
+            //todo: clear
+        }
+
+        //todo: other cases
+
     }
 }

@@ -8,8 +8,6 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.External.RxBus.RxEvent
 import com.ageone.nahodka.Modules.Filter.rows.FilterTextViewHolder
 import com.ageone.nahodka.Modules.Filter.rows.initialize
 import yummypets.com.stevia.*

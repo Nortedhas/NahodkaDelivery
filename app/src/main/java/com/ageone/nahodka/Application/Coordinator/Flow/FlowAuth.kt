@@ -53,60 +53,34 @@ class FlowAuth: BaseFlow() {
 
     override fun start() {
         onStarted()
-        runStartModule()
+        runModuleRegistration()
 
     }
 
     inner class FlowAuthModels {
-        var modelStart = StartModel()
-        var modelEntry = RegistrationModel()
-        var modelEntrySMS = SMSModel()
+        var modelRegistration = RegistrationModel()
+        var modelSMS = SMSModel()
 
     }
-
-    fun runStartModule(){
-        val module = StartView(InitModuleUI(
-            isBottomNavigationVisible = false,
-            isToolbarHidden = true))
-
-        module.emitEvent ={ event ->
-            when(StartViewModel.EventType.valueOf(event)){
-
-            }
-        }
-
-        module.viewModel.initialize(models.modelStart) { module.reload() }
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
-        push(module)
-
-        Handler().postDelayed({
-            runModuleRegistration()
-        }, 2000)
-
-    }
-
 
     fun runModuleRegistration(){
         val module = RegistrationView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isToolbarHidden = false,
-            isBackPressed = true
+            isBackPressed = false
         ))
 
         module.emitEvent = { event ->
             when(RegistrationViewModel.EventType.valueOf(event)){
                 RegistrationViewModel.EventType.OnNextPressed ->{
-                    models.modelEntrySMS.name = models.modelEntry.name
-                    models.modelEntrySMS.phone = models.modelEntry.phone
+                    models.modelSMS.name = models.modelRegistration.name
+                    models.modelSMS.phone = models.modelRegistration.phone
                     runModuleSMS()
 
                 }
             }
         }
 
-        module.viewModel.initialize(models.modelEntry) { module.reload() }
+        module.viewModel.initialize(models.modelRegistration) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
@@ -131,10 +105,9 @@ class FlowAuth: BaseFlow() {
             }
         }
 
-        module.viewModel.initialize(models.modelEntrySMS) { module.reload() }
+        module.viewModel.initialize(models.modelSMS) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
-
 
         push(module)
 

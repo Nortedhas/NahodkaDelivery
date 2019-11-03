@@ -13,7 +13,6 @@ import com.ageone.nahodka.External.Utils.Validation.isValidUser
 import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.R
 import com.ageone.nahodka.SCAG.DataBase
-import com.ageone.nahodka.External.Extensions.Activity.*
 import com.github.kittinunf.fuel.core.FuelManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -23,6 +22,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.swarmnyc.promisekt.Promise
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 class AppActivity: BaseActivity() {
@@ -53,55 +53,15 @@ class AppActivity: BaseActivity() {
         verifyPermissions {
             if (hasPermissions(PERMISSIONS_LOCATION)) {
                 user.permission.geo = true
+                setLocationUpdates(1000, 1000)
             }
-            setLocationUpdates(1000, 1000)
+
         }
 
-        FuelManager.instance.basePath = DataBase.url
 
-        coordinator.setLaunchScreen()
-        Promise<Unit> { resolve, _ ->
+        // MARK: start UI & request work
 
-            router.layout.setOnApplyWindowInsetsListener { _, insets ->
-                utils.variable.statusBarHeight = insets.systemWindowInsetTop
-
-                resolve(Unit)
-                insets
-            }
-
-        }.then {
-
-            api.handshake {
-                if (!isValidUser(KeyParameterValidation.phone)) {
-                    coordinator.logout()
-                }
-
-                val googleApiAvailability = GoogleApiAvailability.getInstance()
-                when (val result = googleApiAvailability.isGooglePlayServicesAvailable(this)) {
-                    ConnectionResult.SUCCESS -> {
-                        coordinator.start()
-                    }
-                    else -> {
-                        googleApiAvailability.showErrorNotification(this, result)
-                    }
-                }
-
-                FirebaseInstanceId.getInstance().instanceId
-                    .addOnCompleteListener(OnCompleteListener { task ->
-                        if (!task.isSuccessful) {
-                            Timber.i("fail")
-                            return@OnCompleteListener
-                        }
-
-                        // Get new Instance ID UserHandshake
-                        val token = task.result?.token ?: ""
-                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
-                    })
-
-            }
-
-
-        }
+        start()
 
         setContentView(router.layout)
     }
@@ -113,7 +73,9 @@ class AppActivity: BaseActivity() {
 
     override fun onPause() {
         super.onPause()
-        stopLocationUpdates()
+        if (user.permission.geo) {
+            stopLocationUpdates()
+        }
     }
 
     override fun onLowMemory() {
@@ -126,8 +88,9 @@ class AppActivity: BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        startLocationUpdates()
+        if (user.permission.geo) {
+            startLocationUpdates()
+        }
     }
 
     override fun onDestroy() {
@@ -144,14 +107,13 @@ class AppActivity: BaseActivity() {
                 if (grantResult.isNotEmpty() && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
                     if (hasPermissions(PERMISSIONS_LOCATION)) {
                         user.permission.geo = true
+                        setLocationUpdates(1000, 1000)
+                    } else {
+                        Toast.makeText(this, "Location permission missing", Toast.LENGTH_SHORT)
+                            .show()
                     }
-                    setLocationUpdates(1000, 1000)
-                } else {
-                    Toast.makeText(this, "Location permission missing", Toast.LENGTH_SHORT)
-                        .show()
                 }
             }
         }
     }
-
 }

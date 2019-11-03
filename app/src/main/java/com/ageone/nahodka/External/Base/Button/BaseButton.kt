@@ -70,7 +70,7 @@ class BaseButton: Button(currentActivity) {
 
                 }
                 else -> {
-                    currentActivity?.resources?.getDrawable(R.drawable.ic_arrow_back) as Bitmap//заглушка
+                    currentActivity?.resources?.getDrawable(R.drawable.ic_arrow) as Bitmap//заглушка
                 }
             }
 

@@ -9,6 +9,7 @@ import timber.log.Timber
 
 
 fun FlowCoordinator.logout() {
+    Timber.i("Auth logout")
     //correct data
     user.isAuthorized = false
     api.cashTime = 0

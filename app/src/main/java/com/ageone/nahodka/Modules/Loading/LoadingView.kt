@@ -3,6 +3,8 @@ package com.ageone.nahodka.Modules
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.InitModuleUI
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import yummypets.com.stevia.subviews
 
@@ -11,20 +13,21 @@ class LoadingView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     val viewModel = LoadingViewModel()
 
     init {
-        setBackgroundResource(R.drawable.back_white)
+        setBackgroundResource(R.drawable.back_loading)
 
         innerContent.subviews(
         )
 
-        Timber.i("Bottom init loading view")
-
     }
 
     fun loading(){
-        viewModel.startLoading {
-            emitEvent?.invoke(LoadingViewModel.EventType.onFinish.name)
+        runBlocking {
+            launch {
+                viewModel.startLoading()
+            }.join()
         }
 
+        emitEvent?.invoke(LoadingViewModel.EventType.onFinish.name)
     }
 
 

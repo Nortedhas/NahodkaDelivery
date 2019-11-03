@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 val locationBase
-    get() = LatLng(56.838607, 60.605514)
+    get() = LatLng(56.838607, 60.605514)//todo
 
 
 fun AppActivity.fetchLastLocation(): Location? = fusedLocationClient?.let { fusedLocationClient ->
@@ -27,8 +27,8 @@ fun AppActivity.setLocationUpdates(intervalMilliSec: Long, fastestIntervalMilliS
     fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
     locationRequest = LocationRequest().apply {
-        interval = 1 * 1000
-        fastestInterval = 1 * 1000
+        interval = intervalMilliSec
+        fastestInterval = fastestIntervalMilliSec
         smallestDisplacement = 100f // 100 m
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }

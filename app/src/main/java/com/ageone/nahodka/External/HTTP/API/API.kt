@@ -13,6 +13,8 @@ import com.ageone.nahodka.External.Libraries.Alert.blockUI
 import com.ageone.nahodka.External.Libraries.Alert.single
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import net.alexandroid.shpref.ShPref
 import org.json.JSONObject
 import timber.log.Timber
@@ -24,6 +26,8 @@ class API {
         set(value) = ShPref.put("ApiCashTime", value)
 
     val parser = Parser()
+
+    //TODO: replace in base
 
     fun handshake(completion: () -> Unit){
         Fuel.post(Routes.Handshake.path)
@@ -47,6 +51,37 @@ class API {
 
             }
     }
+
+    suspend fun handshake() {
+
+        val jsonObject = handshakeRequest()
+        jsonObject ?: return
+
+        utils.variable.token = jsonObject.optString("Token")
+        Timber.i("API new token: ${utils.variable.token}")
+        cashTime = Date().time.toInt()
+        parser.userData(jsonObject)
+
+    }
+
+    suspend fun handshakeRequest() = withContext(Dispatchers.Default) {
+        val (request, response, result) = Fuel.post(Routes.Handshake.path)
+            .jsonBody(createBody(mapOf(
+                "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
+            )).toString())
+            .responseString()
+
+        Timber.i("API Handshake: $request $response")
+
+        result.fold({ result ->
+            JSONObject(result)
+        },{ error ->
+            Timber.e("${error.response.responseMessage}")
+            null
+        })
+
+    }
+
 
     fun request(params: Map<String, Any>, isErrorShown: Boolean = false, completion: (JSONObject) -> (Unit)) {
 
@@ -78,47 +113,50 @@ class API {
             }
     }
 
-    fun requestCoroutine(params: Map<String, Any>, isErrorShown: Boolean = false): JSONObject? {
+    suspend fun request(params: Map<String, Any>, isErrorShown: Boolean = false) =
+        withContext(Dispatchers.Default) {
+            val (request, response, result) =
+                Fuel.post(Routes.Api.path)
+                    .jsonBody(createBody(params))
+                    .header(DataBase.headers)
+                    .responseString()
 
-        val (request, response, result) =
-            Fuel.post(Routes.Api.path)
-            .jsonBody(createBody(params).toString())
-            .header(DataBase.headers)
-            .responseString()
+            Timber.i("API request:\n $request \n $response")
 
-        Timber.i("API request:\n $request \n $response")
+            result.fold({ success->
+                val json = JSONObject(success)
 
-        var json = JSONObject()
-        result.fold({ success->
-            json = JSONObject(success)
-            val error = json.optString("error", "")
-            if (error.isNotEmpty()) {
-                Timber.e("$error")
-                if (isErrorShown) {
-                    alertManager.single("Ошибка", "$error")
+                val error = json.optString("error", "")
+                if (error.isNotEmpty()) {
+                    Timber.e("$error")
+                    if (isErrorShown) {
+                        alertManager.single("Ошибка", "$error")
+                    }
+                    null
+                } else {
+                    json
                 }
-                return null
-            }
-        },{ error ->
-            Timber.e("${error.response.responseMessage}")
-            return null
-        })
+            },{ error ->
+                Timber.e("${error.response.responseMessage}")
+                null
+            })
+        }
 
-        return json
-    }
-
-    fun createBody(params: Map<String, Any>): JSONObject {
+    fun createBody(params: Map<String, Any>): String {
         val body = JSONObject()
         params.forEach { (key, value) ->
             body.put(key, value)
         }
 
-        return body
+        return body.toString()
     }
 
-    fun requestMainLoad(completion: () -> Unit){
+    fun mainLoad(completion: () -> Unit){
 
-        api.request(mapOf("router" to "mainLoad", "cashTime" to api.cashTime)) { jsonObject ->
+        api.request(mapOf(
+            "router" to "mainLoad",
+            "cashTime" to api.cashTime)
+        ) { jsonObject ->
             for (type in DataBase.values()) {
                 parser.parseAnyObject(jsonObject, type)
             }
@@ -129,10 +167,44 @@ class API {
 
     }
 
+    suspend fun mainLoad(){
+        val jsonObject = api.request(mapOf(
+            "router" to "mainLoad",
+            "cashTime" to api.cashTime
+        ))
+        jsonObject ?: return
+
+        for (type in DataBase.values()) {
+            parser.parseAnyObject(jsonObject, type)
+        }
+        parser.config(jsonObject)
+        api.cashTime = (System.currentTimeMillis() / 1000).toInt()
+
+    }
+
+    suspend fun mainloadRequest() = withContext(Dispatchers.Default) {
+        val (request, response, result) = Fuel.post(Routes.Handshake.path)
+            .jsonBody(createBody(mapOf(
+                "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
+            )).toString())
+            .responseString()
+
+        result.fold({ result ->
+            Timber.i("API Handshake: $request $response")
+            JSONObject(result)
+        },{ error ->
+            Timber.e("${error.response.responseMessage}")
+            null
+        })
+
+    }
+
 
     enum class Routes(val path: String) {
         Handshake("/handshake"),
         Database("/database"),
         Api("/api");
     }
+
 }
+

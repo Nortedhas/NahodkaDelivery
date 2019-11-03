@@ -2,6 +2,7 @@ package com.ageone.nahodka.Models.User
 
 import com.ageone.nahodka.SCAG.UserData
 import net.alexandroid.shpref.ShPref
+import timber.log.Timber
 
 object user {
 
@@ -15,7 +16,10 @@ object user {
 
     var isAuthorized: Boolean
         get() = ShPref.getBoolean("userIsAuthorized", false)
-        set(value) = ShPref.put("userIsAuthorized", value)
+        set(value){
+            ShPref.put("userIsAuthorized", value)
+            Timber.i("Auth: $value")
+        }
 
     var data = UserData
 

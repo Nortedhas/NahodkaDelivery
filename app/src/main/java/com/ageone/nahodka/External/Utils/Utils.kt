@@ -2,6 +2,8 @@ package com.ageone.nahodka.External.Utils
 
 import android.graphics.Color
 import com.ageone.nahodka.Application.utils
+import timber.log.Timber
+import kotlin.properties.Delegates
 
 object Tools {
     fun hex(hex: String): Int {
@@ -20,8 +22,9 @@ object Variable {
     var displayWidth = 0
     var displayHeight = 0
     var actionBarHeight = 0
-    var token = ""
-    var vkSdkTokenUser = ""
+    var token: String by Delegates.observable(""){property, oldValue, newValue ->
+        Timber.i("Token: $newValue")
+    }
 
     val widthDisplayDesign = 375F
 }

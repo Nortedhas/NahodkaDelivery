@@ -4,6 +4,8 @@ import com.ageone.nahodka.Application.api
 import com.ageone.nahodka.Application.webSocket
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 
 class LoadingViewModel : InterfaceViewModel {
@@ -20,12 +22,14 @@ class LoadingViewModel : InterfaceViewModel {
         }
     }
 
-    fun startLoading(completion: () -> Unit) {
-        api.requestMainLoad {
-            Timber.i("completion invoke")
-            webSocket.initialize()
-            completion.invoke()
+    suspend fun startLoading() {
+        runBlocking {
+            launch {
+                api.mainLoad()
+            }.join()
         }
+
+        webSocket.initialize()
     }
 }
 

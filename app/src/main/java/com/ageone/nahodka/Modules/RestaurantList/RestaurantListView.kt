@@ -1,6 +1,7 @@
 package com.example.ageone.Modules.Restaurant
 
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -10,11 +11,13 @@ import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
+import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.RestaurantList.rows.RestaurantListImageViewHolder
 import com.ageone.nahodka.Modules.RestaurantList.rows.initialize
 import com.example.ageone.Modules.Restaurant.rows.RestaurantListItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -110,8 +113,6 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            var isStarPressed = false
-            var food = foodList[position]
 
             when (holder) {
                 is RestaurantListImageViewHolder -> {
@@ -122,9 +123,16 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                     }
                 }
                 is RestaurantListItemViewHolder -> {
-                    holder.initialize(food,"Ollis Pizza",
+                    var isStarPressed = false
+                    var food = foodList[position]
+
+                    holder.initialize(
+                        food,
+                        "Ollis Pizza",
                         "Итальянская, Мексиканская, Кавказ...",
-                        "Заказ от 600 руб.", R.drawable.ic_star,"4.0",
+                        "Заказ от 600 руб.",
+                        R.drawable.ic_star,
+                        "4.0",
                         utils.variable.displayWidth.toFloat())
 
                     holder.imageViewStar.setOnClickListener {
@@ -164,6 +172,7 @@ fun RestaurantListView.renderUIO() {
     imageViewFAB
         .constrainRightToRightOf(innerContent,5)
         .constrainBottomToBottomOf(innerContent,30)
+
 }
 
 

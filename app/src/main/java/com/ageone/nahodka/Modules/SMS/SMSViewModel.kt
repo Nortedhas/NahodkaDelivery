@@ -52,15 +52,15 @@ class SMSViewModel : InterfaceViewModel {
             api.parser.userData(json)
             utils.variable.token = json.optString("Token")
 
-            if (user.data.name.isNullOrBlank()) {
+            if (user.data.firstName.isNullOrBlank()) {
                 DataBase.User.update(
                     user.hashId,
                     mapOf(
-                        "name" to model.name
+                        "firstName" to model.name
                     )
                 )
 
-                user.data.name = model.name
+                user.data.firstName = model.name
                 user.data.phone = model.phone
             }
 

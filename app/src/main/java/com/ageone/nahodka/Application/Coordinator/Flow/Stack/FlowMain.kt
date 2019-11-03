@@ -31,6 +31,8 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Restaurant.RestaurantListModel
 import com.example.ageone.Modules.Restaurant.RestaurantListView
 import com.example.ageone.Modules.Restaurant.RestaurantListViewModel
+import io.reactivex.disposables.Disposable
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -96,7 +98,6 @@ class FlowMain: BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = {event ->
-            //models.modelRestaurantList = module.viewModel.model
 
             when(RestaurantListViewModel.EventType.valueOf(event)) {
                 RestaurantListViewModel.EventType.OnRestaurantPressed -> {

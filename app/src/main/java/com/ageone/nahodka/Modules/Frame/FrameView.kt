@@ -2,8 +2,11 @@ package com.ageone.nahodka.Modules.Frame
 
 import android.graphics.Color
 import android.os.Handler
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.doOnTextChanged
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -33,7 +36,11 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
+        onDeInit = {
+            rxData.comment = viewModel.model.comment
+        }
 
         renderUIO()
         bindUI()
@@ -41,7 +48,7 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
     fun bindUI() {
         /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+            RxBus.listen(RxEvent.Event::class.java).subscribe {
                 bodyTable.adapter?.notifyDataSetChanged()
             }
         )*/
@@ -85,6 +92,15 @@ class Frameiew(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     Handler().postDelayed({
                         holder.textInputFrame.editText?.requestFocus()
                     }, 300)
+
+                    if (rxData.comment.isNotBlank()) {
+                        holder.textInputFrame.editText?.setText(rxData.comment)
+                    }
+
+                    holder.textInputFrame.editText?.doOnTextChanged { text, start, count, after ->
+                        /*RxBus.publish(RxEvent.EventChangeMark(text.toString()))*/
+                        viewModel.model.comment = text.toString()
+                    }
                 }
             }
         }

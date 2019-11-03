@@ -44,7 +44,6 @@ class FlowCoordinator {
         viewFlipperFlow.removeAllViews()
         when (LaunchInstructor.configure()) {
             LaunchInstructor.Main -> {
-                Timber.i("Bottom run flow loading")
                 runFlowLoading()
             }
             LaunchInstructor.Auth -> {
@@ -54,7 +53,6 @@ class FlowCoordinator {
     }
 
     private fun renderUI() {
-//        viewFlipperFlow = BaseViewFlipper()
 
         router.layout.removeAllViews()
         router.layout.subviews(

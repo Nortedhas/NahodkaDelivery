@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Modules.Sales
 
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -22,7 +23,14 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         viewAdapter
     }
 
-    var foodList = listOf(R.drawable.pic_food1,R.drawable.pic_food2,R.drawable.pic_food3,R.drawable.pic_food4,R.drawable.pic_food1,R.drawable.pic_food2)
+    var foodList = listOf(
+        R.drawable.pic_food1,
+        R.drawable.pic_food2,
+        R.drawable.pic_food3,
+        R.drawable.pic_food4,
+        R.drawable.pic_food1,
+        R.drawable.pic_food2
+    )
 
     init {
 //        viewModel.loadRealmData()
@@ -34,6 +42,17 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
         renderToolbar()
+
+        /*compositeDisposable.add(RxBus.listen(RxEvent.EventAddProduct::class.java).subscribe{ addProductEvent->
+            if(addProductEvent.productCount > 0){
+                toolbar.pushIcon.visibility = View.VISIBLE
+                toolbar.pushTextView.visibility = View.VISIBLE
+                toolbar.pushTextView.text = addProductEvent.productCount.toString()
+            } else {
+                toolbar.pushIcon.visibility = View.GONE
+                toolbar.pushTextView.visibility = View.GONE
+            }
+        })*/
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER

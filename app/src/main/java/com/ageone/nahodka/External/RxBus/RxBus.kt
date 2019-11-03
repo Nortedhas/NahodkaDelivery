@@ -16,10 +16,3 @@ object RxBus {
     // Using ofType we filter only events that match that class type
     fun <T> listen(eventType: Class<T>): Observable<T> = publisher.ofType(eventType)
 }
-
-class RxEvent {
-    data class EventAddMeditation(val meditationName: String)
-    data class EventChangeDuration(val duration: Long)
-    data class EventChangeCurrentTime(val currentTime: Long)
-    class EventMediaPlayerEnd()
-}

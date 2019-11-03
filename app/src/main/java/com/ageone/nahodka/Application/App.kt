@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
@@ -17,10 +16,15 @@ import com.ageone.nahodka.BuildConfig
 import com.ageone.nahodka.External.Base.Activity.BaseActivity
 import com.ageone.nahodka.External.Extensions.Application.FTActivityLifecycleCallbacks
 import com.ageone.nahodka.External.HTTP.API.API
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.blockUI
+import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Internal.Utilities.Utils
 import com.ageone.nahodka.Models.RxData
 import com.ageone.nahodka.Network.Socket.WebSocket
 import com.ageone.nahodka.R
+import com.ageone.nahodka.SCAG.DataBase
+import com.github.kittinunf.fuel.core.FuelManager
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -30,12 +34,12 @@ import io.realm.Realm
 import net.alexandroid.shpref.ShPref
 import timber.log.Timber
 
+
 val router = Router()
 val coordinator = FlowCoordinator()
 
 val utils = Utils()
 val api = API()
-//val database = DataBase
 val rxData = RxData()
 var webSocket = WebSocket()
 var intent = Intent()
@@ -58,26 +62,41 @@ class App: Application()  {
 
         ShPref.init(this, ShPref.APPLY)
 
+
         // MARK: Timber
+
         if (BuildConfig.DEBUG) {
-            val deviceManufacturer = android.os.Build.MANUFACTURER
-            if (deviceManufacturer.toLowerCase().contains("huawei")) {
-                Timber.plant(HuaweiTree())
-            } else {
-                Timber.plant(Timber.DebugTree())
-            }
+            Timber.plant(Timber.DebugTree())
         }
 
+
+        // MARK: reactive network
+
         ReactiveNetwork
-            .observeInternetConnectivity()
+            .observeNetworkConnectivity(applicationContext)
+            .flatMapSingle<Any> { connectivity -> ReactiveNetwork.checkInternetConnectivity() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { isConnectedToInternet ->
-//                    Timber.i("Internet are allowed")
-                    utils.isNetworkReachable = isConnectedToInternet
+            .subscribe { isConnected ->
+                Timber.i("Internet: $isConnected")
+                if (isConnected is Boolean) {
+                    utils.isNetworkReachable = isConnected
+                }
+
             }
 
+
+        // MARK: Realm
+
         Realm.init(this)
+
+
+        // MARK: fuel
+
+        FuelManager.instance.basePath = DataBase.url
+
+
+        // MARK: current activity
 
         registerActivityLifecycleCallbacks(mFTActivityLifecycleCallbacks)
     }
@@ -89,40 +108,25 @@ class App: Application()  {
     }
 }
 
-class HuaweiTree : Timber.DebugTree() {
-    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        var priority = priority
-        if (priority == Log.VERBOSE || priority == Log.DEBUG)
-            priority = Log.INFO
-        super.log(priority, tag, message, t)
-    }
-}
-
 class MyFirebaseMessagingService: FirebaseMessagingService() {
 
-    private lateinit var notificationManager: NotificationManager
-    private val ADMIN_CHANNEL_ID = "nahodka"
-
-    override fun onMessageReceived(p0: RemoteMessage) {
-        super.onMessageReceived(p0)
-
-        Timber.i("Notification title : ${p0.data["title"]}")
-        Timber.i("Notification title : ${p0.data}")
+    override fun onMessageReceived(message: RemoteMessage) {
+        super.onMessageReceived(message)
 
         createNotificationChannel()
-        p0?.let{
-            //val customMessage = it.data.getValue(CUSTOM_KEY)
-            val title = it.notification?.title?: "Backup title"
-            val message = it.notification?.body?: "Backup message"
-            Timber.i("Title : $title , message : $message")
-            sendNotification(title, "$message")
-        }
+
+        val title = message.notification?.title ?: return
+        val message = message.notification?.body ?: return
+        Timber.i("Notification: $title: $message")
+
+        sendNotification(title, message)
     }
 
     private fun sendNotification(notificationTitle: String, notificationContent: String){
-        val intent = Intent(this, currentActivity!!::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+        intent = Intent(this, BaseActivity::class.java)
+            .apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
@@ -134,12 +138,13 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             .setChannelId(CHANNEL_ID)
 
         with(NotificationManagerCompat.from(this)){
-            notify(12345,notificationBuilder.build())
+            notify(12345, notificationBuilder.build())
         }
+
     }
 
     private fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= 26) {
+        if (Build.VERSION.SDK_INT >= 26) {
             val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(CHANNEL_ID, "nahodka channel", importance)
             channel.enableLights(true)
@@ -153,11 +158,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     companion object {
         const val CHANNEL_ID = "firebase_playground_channel_id"
-        const val CUSTOM_KEY = "custom_key"
-    }
-
-    override fun onNewToken(p0: String) {
-        Timber.i("Cloud token : $p0")
     }
 }
 

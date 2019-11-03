@@ -44,7 +44,7 @@ class RegistrationViewModel : InterfaceViewModel {
         var phone = model.phone.toCorrectPhone()
         api.request(mapOf(
             "router" to "phoneAuth",
-            "phone" to phone)){
+            "phone" to phone), isErrorShown = true){
             completion.invoke()
         }
     }

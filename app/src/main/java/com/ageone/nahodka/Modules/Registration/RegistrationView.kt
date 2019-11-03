@@ -15,6 +15,7 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.App
 import com.ageone.nahodka.Application.intent
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.ConstraintLayout.setButtonAboveKeyboard
@@ -57,15 +58,14 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 //        viewModel.loadRealmData()
 
         innerContent.setButtonAboveKeyboard(nextButton)
-        setBackgroundResource(R.drawable.back_white)
-
+        setBackgroundColor(Color.WHITE)
         toolbar.title = "Регистрация"
         toolbar.textColor = Color.BLACK
 
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         nextButton.setOnClickListener {
             viewModel.validate {
@@ -160,13 +160,14 @@ fun RegistrationView.renderUIO() {
     innerContent.subviews(
         bodyTable,
         nextButton
+
     )
 
     bodyTable
         .fillHorizontally()
         .fillVertically()
         .constrainTopToTopOf(innerContent)
-        .updatePadding(bottom = 24.dp)
+        //.updatePadding(bottom = 24.dp)
 
     bodyTable
         .clipToPadding = false

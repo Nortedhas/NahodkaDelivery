@@ -62,7 +62,6 @@ class FlowLoading: BaseFlow() {
     //main load, parsing, socket
 
     fun runModuleLoading() {
-        Timber.i("Bottom Run module loading")
         val module = LoadingView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = true
@@ -74,8 +73,6 @@ class FlowLoading: BaseFlow() {
         module.emitEvent = { event ->
             when(LoadingViewModel.EventType.valueOf(event)) {
                 LoadingViewModel.EventType.onFinish -> {
-
-                    Timber.i("Bottom Start flow main")
                     module.startMainFlow()
                 }
             }
@@ -86,8 +83,6 @@ class FlowLoading: BaseFlow() {
     }
 
     fun BaseModule.startMainFlow() {
-        Timber.i("Start main load")
-//        coordinator.start()
         onFinish?.invoke()
     }
 }

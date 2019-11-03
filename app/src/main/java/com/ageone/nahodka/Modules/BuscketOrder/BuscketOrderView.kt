@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -15,10 +16,14 @@ import com.ageone.nahodka.External.Extensions.Activity.hideKeyboard
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.list
-import com.ageone.nahodka.External.Libraries.Alert.single
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.BuscketOrder.rows.*
 import com.ageone.nahodka.R
-import yummypets.com.stevia.*
+import yummypets.com.stevia.height
+import yummypets.com.stevia.matchParent
+import yummypets.com.stevia.width
+import yummypets.com.stevia.wrapContent
 
 
 class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -29,13 +34,6 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         val viewAdapter = Factory(this)
         viewAdapter
     }
-    var symbolCountAddress: Int? = 0
-    var symbolCountOffice: Int? = 0
-    var symbolCountHome: Int? = 0
-    var symbolCountPorch: Int? = 0
-    var symbolCountFloor: Int? = 0
-    var symbolCountPhone: Int? = 0
-    var symbolPayIsEmpty: Boolean = false
 
     init {
 //        viewModel.loadRealmData()
@@ -56,11 +54,11 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+        compositeDisposable.addAll(
+            RxBus.listen(RxEvent.EventChangeComment::class.java).subscribe {
                 bodyTable.adapter?.notifyDataSetChanged()
             }
-        )*/
+        )
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
@@ -172,8 +170,16 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is BuscketOrderMarkViewHolder -> {
                     holder.initialize("Комментарий к заказу")
 
+                    /*compositeDisposable.add(RxBus.listen(RxEvent.EventChangeMark::class.java).subscribe { changeMarkEvent ->
+                        holder.textInputComment.editText?.setText(changeMarkEvent.mark)
+                    })
+
                     holder.textInputComment.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.mark = text.toString()
+                    }*/
+
+                    if (rxData.comment.isNotBlank()) {
+                        holder.textInputComment.editText?.setText(rxData.comment)
                     }
 
                     holder.textInputComment.editText?.setOnTouchListener { v, event ->
