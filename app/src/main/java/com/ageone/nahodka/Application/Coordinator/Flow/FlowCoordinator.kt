@@ -12,6 +12,7 @@ import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Flow.FlowInterface
+import com.ageone.nahodka.External.Base.FlowStorage.FlowStorage
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import com.ageone.nahodka.External.Extensions.Activity.setStatusBarColor
@@ -32,7 +33,7 @@ class FlowCoordinator {
         }
         launch.setBackgroundColor(Color.TRANSPARENT)
 
-        viewFlipperFlow.subviews(
+        viewFlipperFlow.asView().subviews(
             launch
         )
 
@@ -42,7 +43,7 @@ class FlowCoordinator {
     }
 
     fun start() {
-        viewFlipperFlow.removeAllViews()
+        viewFlipperFlow.asView().removeAllViews()
         when (LaunchInstructor.configure()) {
             LaunchInstructor.Main -> {
                 runFlowLoading()
@@ -57,14 +58,14 @@ class FlowCoordinator {
 
         router.layout.removeAllViews()
         router.layout.subviews(
-            viewFlipperFlow,
+            viewFlipperFlow.asView(),
             bottomNavigation,
             blockConstraint
         )
 
         bottomNavigation.constrainBottomToBottomOf(router.layout)
 
-        viewFlipperFlow
+        viewFlipperFlow.asView()
             .fillVertically()
             .fillHorizontally()
             .constrainBottomToTopOf(bottomNavigation)
@@ -98,11 +99,11 @@ class FlowCoordinator {
     object ViewFlipperFlowObject{
         var currentFlow: FlowInterface? = null
 
-        /*val viewFlipperFlow: BaseConstraintLayout by lazy {
-            val flipper = BaseConstraintLayout()
+        val viewFlipperFlow: FlowStorage by lazy {
+            val flipper = FlowStorage()
             flipper
-        }*/
-        val viewFlipperFlow: BaseViewFlipper by lazy {
+        }
+        /*val viewFlipperFlow: BaseViewFlipper by lazy {
             val flipper = BaseViewFlipper()
 
             val imgAnimationIn = AnimationUtils.loadAnimation(currentActivity, android.R.anim.fade_in)
@@ -113,7 +114,7 @@ class FlowCoordinator {
             imgAnimationOut.duration = 200
             flipper.outAnimation = imgAnimationOut
             flipper
-        }
+        }*/
     }
 }
 

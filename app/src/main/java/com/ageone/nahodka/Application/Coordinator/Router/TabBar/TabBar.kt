@@ -29,7 +29,8 @@ object TabBar {
 
         bottomNavigation.setOnTabSelectedListener { position, wasSelected ->
             if (!wasSelected && position < flows.size) {
-                viewFlipperFlow.displayedChild = position
+                viewFlipperFlow.displayFlow(position)
+//                viewFlipperFlow.displayedChild = position
 
                 //if flow starts in the first time
                 if (!flows[position].isStarted) {

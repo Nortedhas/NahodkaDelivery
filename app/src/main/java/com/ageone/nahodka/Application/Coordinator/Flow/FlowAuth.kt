@@ -27,8 +27,10 @@ fun FlowCoordinator.runFlowAuth() {
 
     flow?.let{ flow ->
 
-        viewFlipperFlow.addView(flow.viewFlipperModule)
-        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        viewFlipperFlow.addFlow(flow.viewFlipperModule)
+        viewFlipperFlow.displayFlow(flow)
+//        viewFlipperFlow.addView(flow.viewFlipperModule)
+//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
         currentActivity?.setLightStatusBar(Color.WHITE, Color.GRAY)
 
@@ -37,7 +39,8 @@ fun FlowCoordinator.runFlowAuth() {
     }
 
     flow?.onFinish = {
-        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
+//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }

@@ -11,15 +11,12 @@ object RealmUtilities {
 	val banner = BannerUtiles()
 	val cartitem = CartItemUtiles()
 	val category = CategoryUtiles()
-	val city = CityUtiles()
 	val comment = CommentUtiles()
-	val districtpoint = DistrictPointUtiles()
 	val document = DocumentUtiles()
 	val image = ImageUtiles()
 	val location = LocationUtiles()
 	val order = OrderUtiles()
 	val product = ProductUtiles()
-	val productlist = ProductListUtiles()
 	val sale = SaleUtiles()
 	val shop = ShopUtiles()
 	val user = UserUtiles()
@@ -115,36 +112,6 @@ class CategoryUtiles {
 
 }
 
-class CityUtiles {
-
-	fun getObjectById(id: String): City? =
-	try {
-		Realm.getDefaultInstance()
-			.where(City::class.java)
-		.equalTo("hashId", id)
-		.equalTo("isExist", true)
-		.findFirst()
-	} catch (e: Exception) {
-		Timber.e("$e")
-		null
-	}
-
-	fun getAllObjects(): RealmResults<City> =
-	try {
-		Realm.getDefaultInstance()
-			.where(City::class.java)
-		.equalTo("isExist", true)
-		.findAll()
-	} catch (e: Exception) {
-		Timber.e("$e")
-		Realm.getDefaultInstance()
-			.where(City::class.java)
-		.alwaysFalse()
-		.findAll()
-	}
-
-}
-
 class CommentUtiles {
 
 	fun getObjectById(id: String): Comment? =
@@ -169,36 +136,6 @@ class CommentUtiles {
 		Timber.e("$e")
 		Realm.getDefaultInstance()
 			.where(Comment::class.java)
-		.alwaysFalse()
-		.findAll()
-	}
-
-}
-
-class DistrictPointUtiles {
-
-	fun getObjectById(id: String): DistrictPoint? =
-	try {
-		Realm.getDefaultInstance()
-			.where(DistrictPoint::class.java)
-		.equalTo("hashId", id)
-		.equalTo("isExist", true)
-		.findFirst()
-	} catch (e: Exception) {
-		Timber.e("$e")
-		null
-	}
-
-	fun getAllObjects(): RealmResults<DistrictPoint> =
-	try {
-		Realm.getDefaultInstance()
-			.where(DistrictPoint::class.java)
-		.equalTo("isExist", true)
-		.findAll()
-	} catch (e: Exception) {
-		Timber.e("$e")
-		Realm.getDefaultInstance()
-			.where(DistrictPoint::class.java)
 		.alwaysFalse()
 		.findAll()
 	}
@@ -349,36 +286,6 @@ class ProductUtiles {
 		Timber.e("$e")
 		Realm.getDefaultInstance()
 			.where(Product::class.java)
-		.alwaysFalse()
-		.findAll()
-	}
-
-}
-
-class ProductListUtiles {
-
-	fun getObjectById(id: String): ProductList? =
-	try {
-		Realm.getDefaultInstance()
-			.where(ProductList::class.java)
-		.equalTo("hashId", id)
-		.equalTo("isExist", true)
-		.findFirst()
-	} catch (e: Exception) {
-		Timber.e("$e")
-		null
-	}
-
-	fun getAllObjects(): RealmResults<ProductList> =
-	try {
-		Realm.getDefaultInstance()
-			.where(ProductList::class.java)
-		.equalTo("isExist", true)
-		.findAll()
-	} catch (e: Exception) {
-		Timber.e("$e")
-		Realm.getDefaultInstance()
-			.where(ProductList::class.java)
 		.alwaysFalse()
 		.findAll()
 	}

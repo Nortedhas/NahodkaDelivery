@@ -40,9 +40,10 @@ fun FlowCoordinator.runFlowMain() {
 
 
     flow?.let{ flow ->
-
-        viewFlipperFlow.addView(flow.viewFlipperModule)
-        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        viewFlipperFlow.addFlow(flow.viewFlipperModule)
+        viewFlipperFlow.displayFlow(flow)
+//        viewFlipperFlow.addView(flow.viewFlipperModule)
+//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
@@ -53,7 +54,8 @@ fun FlowCoordinator.runFlowMain() {
     }
 
     flow?.onFinish = {
-        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
+//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }

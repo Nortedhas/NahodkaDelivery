@@ -19,15 +19,18 @@ fun FlowCoordinator.runFlowLoading() {
 
     flow?.let{ flow ->
 
-        viewFlipperFlow.addView(flow.viewFlipperModule)
-        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        viewFlipperFlow.addFlow(flow.viewFlipperModule)
+        viewFlipperFlow.displayFlow(flow)
+//        viewFlipperFlow.addView(flow.viewFlipperModule)
+//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
     }
 
     flow?.onFinish = {
-        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
+//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
 
         // MARK: first appear flow in bottom bar
@@ -37,7 +40,8 @@ fun FlowCoordinator.runFlowLoading() {
         createStackFlows(startFlow)
         TabBar.createBottomNavigation()
         TabBar.bottomNavigation.currentItem = startFlow
-        viewFlipperFlow.displayedChild = startFlow
+        viewFlipperFlow.displayFlow(startFlow)
+//        viewFlipperFlow.displayedChild = startFlow
 
         flow = null
     }

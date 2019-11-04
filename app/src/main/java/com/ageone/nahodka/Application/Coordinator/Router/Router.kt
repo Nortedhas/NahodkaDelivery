@@ -44,7 +44,8 @@ class Router {
 
             flowToDelete?.onFinish?.invoke()
 
-            viewFlipperFlow.displayedChild = previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow
+            viewFlipperFlow.displayFlow(previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow)
+//            viewFlipperFlow.displayedChild = previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow
 
             //correct visible bottom bar
             val isBottomBarVisible = previousFlow.settingsCurrentFlow.isBottomNavigationVisible

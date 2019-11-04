@@ -32,8 +32,10 @@ fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
         FlowBucket(previousFlow)
 
     flow?.let { flow ->
-        viewFlipperFlow.addView(flow.viewFlipperModule)
-        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        viewFlipperFlow.addFlow(flow.viewFlipperModule)
+        viewFlipperFlow.displayFlow(flow)
+//        viewFlipperFlow.addView(flow.viewFlipperModule)
+//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
@@ -42,14 +44,15 @@ fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
 
     flow?.onFinish = {
 
-        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->//todo: add to others flows
             if (view is BaseModule) {
                 Timber.i("Delete module in flow finish")
                 view.onDeInit?.invoke()
             }
         }
 
-        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
+//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }
@@ -112,8 +115,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         val module = BuscketOrderView( InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
-        )
-        )
+        ))
 
         module.viewModel.initialize(models.modelBuscketOrder) { module.reload()}
 
