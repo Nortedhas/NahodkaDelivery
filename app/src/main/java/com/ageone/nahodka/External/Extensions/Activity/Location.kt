@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 val locationBase
-    get() = LatLng(56.838607, 60.605514)//todo
+    get() = LatLng(42.8138, 132.873)
 
 
 fun AppActivity.fetchLastLocation(): Location? = fusedLocationClient?.let { fusedLocationClient ->

@@ -68,7 +68,7 @@ class API {
         val (request, response, result) = Fuel.post(Routes.Handshake.path)
             .jsonBody(createBody(mapOf(
                 "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
-            )).toString())
+            )))
             .responseString()
 
         Timber.i("API Handshake: $request $response")
@@ -86,7 +86,7 @@ class API {
     fun request(params: Map<String, Any>, isErrorShown: Boolean = false, completion: (JSONObject) -> (Unit)) {
 
         Fuel.post(Routes.Api.path)
-            .jsonBody(createBody(params).toString())
+            .jsonBody(createBody(params))
             .header(DataBase.headers)
             .responseString { request, response, result ->
                 result.fold({ result ->
@@ -179,23 +179,6 @@ class API {
         }
         parser.config(jsonObject)
         api.cashTime = (System.currentTimeMillis() / 1000).toInt()
-
-    }
-
-    suspend fun mainloadRequest() = withContext(Dispatchers.Default) {
-        val (request, response, result) = Fuel.post(Routes.Handshake.path)
-            .jsonBody(createBody(mapOf(
-                "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
-            )).toString())
-            .responseString()
-
-        result.fold({ result ->
-            Timber.i("API Handshake: $request $response")
-            JSONObject(result)
-        },{ error ->
-            Timber.e("${error.response.responseMessage}")
-            null
-        })
 
     }
 

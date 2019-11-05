@@ -12,7 +12,7 @@ fun Activity.setFullScreen() {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 }
 
-//if API less then 23 - background color is colorForDarkBack
+//if API less then 23 - background colorIcons is colorForDarkBack
 fun Activity.setLightStatusBar(colorStatusBar: Int, colorForDarkBack: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         var flags = window.decorView.systemUiVisibility // get current flag
@@ -24,7 +24,7 @@ fun Activity.setLightStatusBar(colorStatusBar: Int, colorForDarkBack: Int) {
     }
 }
 
-//if API less then 23 - background color is colorForDarkBack
+//if API less then 23 - background colorIcons is colorForDarkBack
 fun Activity.clearLightStatusBar(colorStatusBar: Int, colorForDarkBack: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         var flags = window.decorView.systemUiVisibility // get current flag

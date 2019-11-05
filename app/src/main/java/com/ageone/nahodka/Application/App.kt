@@ -16,9 +16,6 @@ import com.ageone.nahodka.BuildConfig
 import com.ageone.nahodka.External.Base.Activity.BaseActivity
 import com.ageone.nahodka.External.Extensions.Application.FTActivityLifecycleCallbacks
 import com.ageone.nahodka.External.HTTP.API.API
-import com.ageone.nahodka.External.Libraries.Alert.alertManager
-import com.ageone.nahodka.External.Libraries.Alert.blockUI
-import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Internal.Utilities.Utils
 import com.ageone.nahodka.Models.RxData
 import com.ageone.nahodka.Network.Socket.WebSocket
@@ -26,6 +23,8 @@ import com.ageone.nahodka.R
 import com.ageone.nahodka.SCAG.DataBase
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,6 +45,7 @@ var intent = Intent()
 
 val currentActivity: BaseActivity?
     get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as BaseActivity
+var placesClient: PlacesClient? = null
 
 class App: Application()  {
 
@@ -99,6 +99,15 @@ class App: Application()  {
         // MARK: current activity
 
         registerActivityLifecycleCallbacks(mFTActivityLifecycleCallbacks)
+
+
+        // MARK: Google Places
+
+        // Initialize the SDK
+        Places.initialize(applicationContext, utils.googleApiKey)
+
+        // Create a new Places client instance
+        placesClient = Places.createClient(this)
     }
 
     companion object {
