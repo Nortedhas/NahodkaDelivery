@@ -10,7 +10,7 @@ class BuscketOrderViewModel : InterfaceViewModel {
 
     enum class EventType {
         OnCommentPressed,
-        OnCheckPressed
+        OnPayOrderPressed
     }
 
     /*var realmData = listOf<>()

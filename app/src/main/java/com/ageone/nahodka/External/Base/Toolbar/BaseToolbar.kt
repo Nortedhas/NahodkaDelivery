@@ -249,18 +249,19 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
 
     //TODO: replace in base
 
-    val countPush: Int by Delegates.observable(0) {property, oldValue, newValue ->
+    var countPush: Int by Delegates.observable(0) {property, oldValue, newValue ->
         if (oldValue == newValue) return@observable
 
-        if (oldValue == 0) {
-            //todo: visible
+        if(newValue > oldValue){
+            pushIcon.visibility = View.VISIBLE
+            pushTextView.visibility = View.VISIBLE
+            pushTextView.text = newValue.toString()
         }
 
-        if (newValue == 0) {
-            //todo: clear
+        else if(newValue == 0) {
+            pushIcon.visibility = View.GONE
+            pushTextView.visibility = View.GONE
         }
-
-        //todo: other cases
-
     }
 }
+

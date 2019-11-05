@@ -226,7 +226,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.buttonCheckout.setOnClickListener {
 
                         viewModel.validate {
-                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.name)
+                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnPayOrderPressed.name)
 
                         }
                        /* if( viewModel.model.address.count() == 0 ||
@@ -239,7 +239,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                             alertManager.single("Ошибка","Заполните все поля",null,"OK") {_, position ->
                             }
                         } else {
-                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnCheckPressed.name)
+                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnPayOrderPressed.name)
                         }*/
 
                     }

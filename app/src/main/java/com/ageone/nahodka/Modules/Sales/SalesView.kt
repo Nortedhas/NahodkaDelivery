@@ -5,11 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.Sales.rows.SalesCardViewHolder
 import com.ageone.nahodka.Modules.Sales.rows.initialize
 import yummypets.com.stevia.*
@@ -40,20 +43,8 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         toolbar.title = "Акции"
         toolbar.textColor = Color.WHITE
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
-
         renderToolbar()
-
-        /*compositeDisposable.add(RxBus.listen(RxEvent.EventAddProduct::class.java).subscribe{ addProductEvent->
-            if(addProductEvent.productCount > 0){
-                toolbar.pushIcon.visibility = View.VISIBLE
-                toolbar.pushTextView.visibility = View.VISIBLE
-                toolbar.pushTextView.text = addProductEvent.productCount.toString()
-            } else {
-                toolbar.pushIcon.visibility = View.GONE
-                toolbar.pushTextView.visibility = View.GONE
-            }
-        })*/
-
+        toolbar.countPush = rxData.selectedItems.size
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
@@ -62,11 +53,11 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
+        compositeDisposable.add(
+            RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { pushCount ->
+                toolbar.countPush = pushCount.count
             }
-        )*/
+        )
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
