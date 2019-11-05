@@ -4,14 +4,13 @@ import android.graphics.Color
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.currentFlow
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Flow.isBottomNavigationExist
 import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.items
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Flow.FlowInterface
 import timber.log.Timber
 
@@ -29,8 +28,8 @@ object TabBar {
 
         bottomNavigation.setOnTabSelectedListener { position, wasSelected ->
             if (!wasSelected && position < flows.size) {
-                viewFlipperFlow.displayFlow(position)
-//                viewFlipperFlow.displayedChild = position
+                flowStorage.displayFlow(position)
+//                flowStorage.displayedChild = position
 
                 //if flow starts in the first time
                 if (!flows[position].isStarted) {

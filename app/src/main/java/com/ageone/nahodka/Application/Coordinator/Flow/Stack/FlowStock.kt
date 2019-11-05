@@ -2,9 +2,8 @@ package com.ageone.nahodka.Application.Coordinator.Flow.Stack
 
 
 import android.graphics.Color
-import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Flow.setStatusBarColor
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
@@ -36,20 +35,20 @@ fun FlowCoordinator.runFlowStock() {
 
     flow?.let { flow ->
         setStatusBarColor(Color.parseColor("#09D0B8"))
-        viewFlipperFlow.addFlow(flow.viewFlipperModule)
-        viewFlipperFlow.displayFlow(flow)
-//        viewFlipperFlow.addView(flow.viewFlipperModule)
-//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        flowStorage.addFlow(flow.viewFlipperModule)
+        flowStorage.displayFlow(flow.viewFlipperModule)
+//        flowStorage.addView(flow.viewFlipperModule)
+//        flowStorage.displayedChild = flowStorage.indexOfChild(flow.viewFlipperModule)
 
-        flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
+        flow.settingsCurrentFlow = DataFlow(flowStorage.size - 1)
         flow.colorStatusBar = Color.parseColor("#21D5BF")
 
         Stack.flows.add(flow)
     }
 
     flow?.onFinish = {
-        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
-//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        flowStorage.deleteFlow(flow?.viewFlipperModule)
+//        flowStorage.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }

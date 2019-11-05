@@ -1,9 +1,8 @@
 package com.ageone.nahodka.Application.Coordinator.Flow.Stack
 
 import android.graphics.Color
-import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack.flows
@@ -13,16 +12,16 @@ import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Extensions.Activity.clearLightStatusBar
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.Modules.Mark.MarkModel
-import com.ageone.nahodka.Modules.Mark.MarkView
 import com.ageone.nahodka.Modules.Filter.FilterModel
 import com.ageone.nahodka.Modules.Filter.FilterView
+import com.ageone.nahodka.Modules.Mark.MarkModel
+import com.ageone.nahodka.Modules.Mark.MarkView
 import com.ageone.nahodka.Modules.Mark.MarkViewModel
-import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoModel
-import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantModel
 import com.ageone.nahodka.Modules.Restaurant.RestaurantView
 import com.ageone.nahodka.Modules.Restaurant.RestaurantViewModel
+import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoModel
+import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoView
 import com.ageone.nahodka.Modules.RestaurantInfo.RestaurantInfoViewModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkModel
 import com.ageone.nahodka.Modules.RestaurantMark.RestaurantMarkView
@@ -31,8 +30,6 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Restaurant.RestaurantListModel
 import com.example.ageone.Modules.Restaurant.RestaurantListView
 import com.example.ageone.Modules.Restaurant.RestaurantListViewModel
-import io.reactivex.disposables.Disposable
-import timber.log.Timber
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -40,12 +37,10 @@ fun FlowCoordinator.runFlowMain() {
 
 
     flow?.let{ flow ->
-        viewFlipperFlow.addFlow(flow.viewFlipperModule)
-        viewFlipperFlow.displayFlow(flow)
-//        viewFlipperFlow.addView(flow.viewFlipperModule)
-//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        flowStorage.addFlow(flow.viewFlipperModule)
+        flowStorage.displayFlow(flow.viewFlipperModule)
 
-        flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
+        flow.settingsCurrentFlow = DataFlow(flowStorage.size - 1)
 
         flow.colorStatusBar = Color.parseColor("#21D5BF")
         currentActivity?.clearLightStatusBar(Color.parseColor("#21D5BF"),Color.WHITE)
@@ -54,8 +49,7 @@ fun FlowCoordinator.runFlowMain() {
     }
 
     flow?.onFinish = {
-        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
-//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        flowStorage.deleteFlow(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }

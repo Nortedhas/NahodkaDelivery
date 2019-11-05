@@ -4,9 +4,12 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import com.ageone.nahodka.Application.currentActivity
+import timber.log.Timber
 import yummypets.com.stevia.fillHorizontally
 import yummypets.com.stevia.fillVertically
 import yummypets.com.stevia.subviews
+
+//TODO: replace in base
 
 class FlowStorage: FlowStorageInterface {
     override fun displayFlow(index: Int) {
@@ -35,7 +38,9 @@ class FlowStorage: FlowStorageInterface {
     }
 
     override fun displayFlow(flow: View) {
+        Timber.i("Flow: display")
         val indexCurrentFlow = root.indexOfChild(flow)
+        Timber.i("Flow: $indexCurrentFlow")
         if (indexCurrentFlow in 0..root.childCount) {
             root.children.forEach { flowView ->
                 flowView.visibility = View.GONE

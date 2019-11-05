@@ -1,7 +1,6 @@
 package com.ageone.nahodka.Application.Coordinator.Flow
 
-import androidx.core.view.size
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.TabBar
 import com.ageone.nahodka.Application.Coordinator.Router.createStackFlows
@@ -19,18 +18,15 @@ fun FlowCoordinator.runFlowLoading() {
 
     flow?.let{ flow ->
 
-        viewFlipperFlow.addFlow(flow.viewFlipperModule)
-        viewFlipperFlow.displayFlow(flow)
-//        viewFlipperFlow.addView(flow.viewFlipperModule)
-//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        flowStorage.addFlow(flow.viewFlipperModule)
+        flowStorage.displayFlow(flow.viewFlipperModule)
 
-        flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
+        flow.settingsCurrentFlow = DataFlow(flowStorage.size - 1)
 
     }
 
     flow?.onFinish = {
-        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
-//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        flowStorage.deleteFlow(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
 
         // MARK: first appear flow in bottom bar
@@ -40,8 +36,7 @@ fun FlowCoordinator.runFlowLoading() {
         createStackFlows(startFlow)
         TabBar.createBottomNavigation()
         TabBar.bottomNavigation.currentItem = startFlow
-        viewFlipperFlow.displayFlow(startFlow)
-//        viewFlipperFlow.displayedChild = startFlow
+        flowStorage.displayFlow(startFlow)
 
         flow = null
     }
@@ -62,8 +57,6 @@ class FlowLoading: BaseFlow() {
     inner class FlowLoadingModels {
         var modelLoading = LoadingModel()
     }
-
-    //main load, parsing, socket
 
     fun runModuleLoading() {
         val module = LoadingView(InitModuleUI(

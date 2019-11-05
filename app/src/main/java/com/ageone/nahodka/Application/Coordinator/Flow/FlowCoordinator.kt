@@ -3,22 +3,18 @@ package com.ageone.nahodka.Application.Coordinator.Flow
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.TabBar.bottomNavigation
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
-import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Flow.FlowInterface
 import com.ageone.nahodka.External.Base.FlowStorage.FlowStorage
 import com.ageone.nahodka.External.Base.Module.BaseModule
-import com.ageone.nahodka.External.Base.ViewFlipper.BaseViewFlipper
 import com.ageone.nahodka.External.Extensions.Activity.setStatusBarColor
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Models.User.user
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 var isBottomNavigationExist = true
@@ -33,7 +29,7 @@ class FlowCoordinator {
         }
         launch.setBackgroundColor(Color.TRANSPARENT)
 
-        viewFlipperFlow.asView().subviews(
+        flowStorage.asView().subviews(
             launch
         )
 
@@ -43,7 +39,7 @@ class FlowCoordinator {
     }
 
     fun start() {
-        viewFlipperFlow.asView().removeAllViews()
+        flowStorage.asView().removeAllViews()
         when (LaunchInstructor.configure()) {
             LaunchInstructor.Main -> {
                 runFlowLoading()
@@ -58,14 +54,14 @@ class FlowCoordinator {
 
         router.layout.removeAllViews()
         router.layout.subviews(
-            viewFlipperFlow.asView(),
+            flowStorage.asView(),
             bottomNavigation,
             blockConstraint
         )
 
         bottomNavigation.constrainBottomToBottomOf(router.layout)
 
-        viewFlipperFlow.asView()
+        flowStorage.asView()
             .fillVertically()
             .fillHorizontally()
             .constrainBottomToTopOf(bottomNavigation)
@@ -99,22 +95,10 @@ class FlowCoordinator {
     object ViewFlipperFlowObject{
         var currentFlow: FlowInterface? = null
 
-        val viewFlipperFlow: FlowStorage by lazy {
+        val flowStorage: FlowStorage by lazy {
             val flipper = FlowStorage()
             flipper
         }
-        /*val viewFlipperFlow: BaseViewFlipper by lazy {
-            val flipper = BaseViewFlipper()
-
-            val imgAnimationIn = AnimationUtils.loadAnimation(currentActivity, android.R.anim.fade_in)
-            imgAnimationIn.duration = 200
-            flipper.inAnimation = imgAnimationIn
-
-            val imgAnimationOut = AnimationUtils.loadAnimation(currentActivity, android.R.anim.fade_out)
-            imgAnimationOut.duration = 200
-            flipper.outAnimation = imgAnimationOut
-            flipper
-        }*/
     }
 }
 

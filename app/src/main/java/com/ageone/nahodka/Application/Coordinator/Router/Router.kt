@@ -2,7 +2,7 @@ package com.ageone.nahodka.Application.Coordinator.Router
 
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.currentFlow
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Flow.setBottomNavigationVisible
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
@@ -44,8 +44,8 @@ class Router {
 
             flowToDelete?.onFinish?.invoke()
 
-            viewFlipperFlow.displayFlow(previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow)
-//            viewFlipperFlow.displayedChild = previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow
+            flowStorage.displayFlow(previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow)
+//            flowStorage.displayedChild = previousFlow!!.settingsCurrentFlow.indexOnFlipperFlow
 
             //correct visible bottom bar
             val isBottomBarVisible = previousFlow.settingsCurrentFlow.isBottomNavigationVisible

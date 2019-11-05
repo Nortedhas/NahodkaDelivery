@@ -2,9 +2,8 @@ package com.ageone.nahodka.Application.Coordinator.Flow.Regular
 
 
 import androidx.core.view.children
-import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.router
@@ -22,7 +21,6 @@ import com.ageone.nahodka.Modules.Frame.FrameModel
 import com.ageone.nahodka.Modules.Frame.FrameViewModel
 import com.ageone.nahodka.Modules.Frame.Frameiew
 import com.ageone.nahodka.Modules.WebView
-import com.ageone.nahodka.Modules.WebViewModel
 import com.ageone.nahodka.R
 import timber.log.Timber
 
@@ -32,12 +30,10 @@ fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
         FlowBucket(previousFlow)
 
     flow?.let { flow ->
-        viewFlipperFlow.addFlow(flow.viewFlipperModule)
-        viewFlipperFlow.displayFlow(flow)
-//        viewFlipperFlow.addView(flow.viewFlipperModule)
-//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        flowStorage.addFlow(flow.viewFlipperModule)
+        flowStorage.displayFlow(flow.viewFlipperModule)
 
-        flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
+        flow.settingsCurrentFlow = DataFlow(flowStorage.size - 1)
 
         Stack.flows.add(flow)
     }
@@ -51,8 +47,7 @@ fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
             }
         }
 
-        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
-//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        flowStorage.deleteFlow(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }
@@ -139,8 +134,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         val module = Frameiew( InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
-        )
-        )
+        ))
 
         module.emitEvent = { event ->
             when(FrameViewModel.EventType.valueOf(event)){

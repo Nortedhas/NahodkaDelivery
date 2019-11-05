@@ -1,9 +1,7 @@
 package com.ageone.nahodka.Application.Coordinator.Flow
 
 import android.graphics.Color
-import android.os.Handler
-import androidx.core.view.size
-import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.Application.currentActivity
@@ -17,9 +15,6 @@ import com.example.ageone.Modules.Entry.RegistrationViewModel
 import com.ageone.nahodka.Modules.SMS.SMSModel
 import com.example.ageone.Modules.EntrySMS.SMSView
 import com.ageone.nahodka.Modules.SMS.SMSViewModel
-import com.example.ageone.Modules.Start.StartModel
-import com.example.ageone.Modules.Start.StartView
-import com.example.ageone.Modules.Start.StartViewModel
 
 fun FlowCoordinator.runFlowAuth() {
 
@@ -27,20 +22,17 @@ fun FlowCoordinator.runFlowAuth() {
 
     flow?.let{ flow ->
 
-        viewFlipperFlow.addFlow(flow.viewFlipperModule)
-        viewFlipperFlow.displayFlow(flow)
-//        viewFlipperFlow.addView(flow.viewFlipperModule)
-//        viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
+        flowStorage.addFlow(flow.viewFlipperModule)
+        flowStorage.displayFlow(flow.viewFlipperModule)
 
         currentActivity?.setLightStatusBar(Color.WHITE, Color.GRAY)
 
-        flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
+        flow.settingsCurrentFlow = DataFlow(flowStorage.size - 1)
 
     }
 
     flow?.onFinish = {
-        viewFlipperFlow.deleteFlow(flow?.viewFlipperModule)
-//        viewFlipperFlow.removeView(flow?.viewFlipperModule)
+        flowStorage.deleteFlow(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }
