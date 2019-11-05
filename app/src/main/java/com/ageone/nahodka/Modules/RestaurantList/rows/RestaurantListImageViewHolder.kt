@@ -127,7 +127,6 @@ class OnScrollListener(
 
         val firstItemVisible = layoutManager.findFirstVisibleItemPosition()
 
-        Timber.i("Position: $firstItemVisible")
         if (firstItemVisible > 0 && firstItemVisible % (itemCount - 1) == 0) {
             recyclerView.scrollToPosition(1)
          } else if (firstItemVisible == 0) {

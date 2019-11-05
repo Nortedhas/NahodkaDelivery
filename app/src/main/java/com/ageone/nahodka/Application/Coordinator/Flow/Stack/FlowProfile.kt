@@ -12,6 +12,9 @@ import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.AutoComplete.AutoCompleteModel
+import com.ageone.nahodka.Modules.AutoComplete.AutoCompleteView
+import com.ageone.nahodka.Modules.AutoComplete.AutoCompleteViewModel
 import com.ageone.nahodka.Modules.ChangeName.ChangeNameModel
 import com.ageone.nahodka.Modules.ChangeName.ChangeNameView
 import com.ageone.nahodka.Modules.ChangeName.ChangeNameViewModel
@@ -64,11 +67,12 @@ class FlowProfile : BaseFlow() {
     }
 
     inner class FlowProfileModels {
-        var modelProfile = ProfileModel()
-        var modelProfileList = ProfileListModel()
-        var modelQuestion= QuestionModel()
-        var modelChangeName = ChangeNameModel()
-        var modelChangeSMS = ChangeSMSModel()
+        val modelProfile = ProfileModel()//todo: change all to val
+        val modelProfileList = ProfileListModel()
+        val modelQuestion= QuestionModel()
+        val modelChangeName = ChangeNameModel()
+        val modelChangeSMS = ChangeSMSModel()
+        val modelAutoComplete = AutoCompleteModel()
     }
 
     fun runModuleProfile() {
@@ -92,12 +96,30 @@ class FlowProfile : BaseFlow() {
                 ProfileViewModel.EventType.OnMyOrderPressed -> {
                     runModuleProfileList()
                 }
+                ProfileViewModel.EventType.OnFillAddressPressed -> {
+                    runModuleAutoComplete()
+                }
                 ProfileViewModel.EventType.OnContactPressed -> {
                     runModuleQuestion()
                 }
                 ProfileViewModel.EventType.OnChangePressed -> {
                     runModuleChangeName()
                 }
+            }
+        }
+        push(module)
+    }
+    
+
+    fun runModuleAutoComplete() {
+        val module = AutoCompleteView(InitModuleUI(isToolbarHidden = true))
+        module.viewModel.initialize(models.modelAutoComplete) { module.reload() }
+    
+        settingsCurrentFlow.isBottomNavigationVisible = true
+    
+        module.emitEvent = { event ->
+            when (AutoCompleteViewModel.EventType.valueOf(event)) {
+    
             }
         }
         push(module)

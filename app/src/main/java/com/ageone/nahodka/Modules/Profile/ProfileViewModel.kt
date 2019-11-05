@@ -9,7 +9,8 @@ class ProfileViewModel : InterfaceViewModel {
     enum class EventType {
         OnMyOrderPressed,
         OnContactPressed,
-        OnChangePressed
+        OnChangePressed,
+        OnFillAddressPressed
     }
 
     /*var realmData = listOf<>()

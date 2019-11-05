@@ -108,6 +108,9 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                     when(position) {
                         1 -> {
                             holder.initialize(R.drawable.ic_location,"Адрес доставки", "Заполните адрес доставки и оформляйте заказ еще быстрее")
+                            holder.constraintLayout.setOnClickListener {
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnFillAddressPressed.name)
+                            }
                         }
                         2 -> {
                             holder.initialize(R.drawable.ic_orders,"Мои заказы", "Здесь Вы сможете отслеживать статус своего заказа и просматривать прошлые")
