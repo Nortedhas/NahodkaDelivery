@@ -39,7 +39,7 @@ class AutoCompleteViewModel : InterfaceViewModel {
         val token = AutocompleteSessionToken.newInstance()
 
         // Create a RectangularBounds object.
-        /*val bounds = RectangularBounds.newInstance(
+        val bounds = RectangularBounds.newInstance(
             LatLng(
                 startLocation.latitude - 0.5,
                 startLocation.longitude - 0.5
@@ -48,12 +48,12 @@ class AutoCompleteViewModel : InterfaceViewModel {
                 startLocation.latitude + 0.5,
                 startLocation.longitude + 0.5
             )
-        )*/
+        )
 
         val request = FindAutocompletePredictionsRequest.builder()
-//            .setLocationBias(bounds)todo
+            .setLocationBias(bounds)
             .setCountry("ru")
-//            .setTypeFilter(TypeFilter.ADDRESS)
+            .setTypeFilter(TypeFilter.ADDRESS)
             .setSessionToken(token)
             .setQuery(query)
             .build()

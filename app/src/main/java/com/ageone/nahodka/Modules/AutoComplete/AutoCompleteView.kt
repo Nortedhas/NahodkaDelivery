@@ -76,6 +76,7 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             .filter { text -> text.isNotBlank() }
             .subscribe { text ->
                 Timber.i("Search: $text")
+                viewModel.getComplete(text)
             }
     }
 
