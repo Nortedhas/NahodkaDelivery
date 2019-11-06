@@ -39,14 +39,10 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         searchView.queryHint = "Начните ввод..."
         searchView.cornerRadius = 8.dp
         searchView.backgroundColor = Color.argb(64, 128,128,128)
-        searchView.setOnTouchListener { view, motionEvent ->
-            if(motionEvent.action == KeyEvent.ACTION_DOWN ){
-                Handler().postDelayed({
-                    searchView.requestFocus()
-                }, 500)
-            }
-            false
-        }
+        searchView.onActionViewExpanded()
+        searchView.requestFocus()
+        searchView.requestFocusFromTouch()
+        searchView.setIconifiedByDefault(false)
         searchView.initialize()
         searchView
     }
