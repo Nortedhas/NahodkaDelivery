@@ -40,8 +40,6 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         searchView.cornerRadius = 8.dp
         searchView.backgroundColor = Color.argb(64, 128,128,128)
         searchView.onActionViewExpanded()
-        searchView.requestFocus()
-        searchView.requestFocusFromTouch()
         searchView.setIconifiedByDefault(false)
         searchView.initialize()
         searchView
@@ -151,6 +149,7 @@ fun AutoCompleteView.renderUIO() {
         .constrainTopToTopOf(innerContent, 8)
         .constrainLeftToLeftOf(innerContent, 8)
         .width(utils.variable.displayWidth * .6F)
+        .isIconified = false
 
 
     bodyTable
