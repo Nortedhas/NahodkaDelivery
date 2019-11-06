@@ -2,6 +2,7 @@ package com.ageone.nahodka.Modules.AutoComplete
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Handler
 import android.view.KeyEvent
 import android.view.View
@@ -13,6 +14,7 @@ import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.SearchView.BaseSearchView
+import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.AutoComplete.rows.ResultViewHolder
 import com.ageone.nahodka.Modules.AutoComplete.rows.initialize
@@ -22,7 +24,7 @@ import timber.log.Timber
 import yummypets.com.stevia.*
 import java.util.concurrent.TimeUnit
 
-@SuppressLint("ClickableViewAccessibility")
+
 class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = AutoCompleteViewModel()
@@ -45,6 +47,14 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         searchView.setIconifiedByDefault(false)
         searchView.initialize()
         searchView
+    }
+    val buttonCancel by lazy {
+        val textView = BaseTextView()
+        textView.textSize = 17F
+        textView.text = "Отменить"
+        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.textColor = Color.parseColor("#333333")
+        textView
     }
 
     init {
@@ -131,7 +141,7 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
             when (holder) {
                 is ResultViewHolder -> {
-                    holder.initialize()
+                    holder.initialize(" Ленинский Проспект ", " Ленинский Проспект,Москва,Россия ")
                 }
 
             }
@@ -145,19 +155,27 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 fun AutoCompleteView.renderUIO() {
     innerContent.subviews(
         searchView,
+        buttonCancel,
         bodyTable
     )
 
     searchView
         .constrainTopToTopOf(innerContent, 8)
         .constrainLeftToLeftOf(innerContent, 8)
-        .width(utils.variable.displayWidth * .6F)
+        .height(40)
+        .width(utils.variable.displayWidth * .7F)
 
+    buttonCancel
+        .constrainTopToTopOf(searchView)
+        .constrainBottomToBottomOf(searchView)
+        .constrainLeftToRightOf(searchView, 5)
+        .constrainRightToRightOf(innerContent)
 
     bodyTable
         .fillHorizontally()
         .fillVertically()
-        .constrainTopToTopOf(searchView, 16)
+        .constrainTopToBottomOf(searchView, 8)
+        .setBackgroundColor(Color.parseColor("#fefcfc"))
 }
 
 
