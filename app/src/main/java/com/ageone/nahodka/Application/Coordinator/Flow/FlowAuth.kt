@@ -1,20 +1,27 @@
 package com.ageone.nahodka.Application.Coordinator.Flow
 
 import android.graphics.Color
+import android.os.Handler
+import androidx.core.view.size
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
+import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
+import com.ageone.nahodka.External.Extensions.Activity.clearLightStatusBar
 import com.ageone.nahodka.External.Extensions.Activity.setLightStatusBar
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Modules.SMS.SMSModel
+import com.ageone.nahodka.Modules.SMS.SMSViewModel
 import com.example.ageone.Modules.Entry.RegistrationModel
 import com.example.ageone.Modules.Entry.RegistrationView
 import com.example.ageone.Modules.Entry.RegistrationViewModel
-import com.ageone.nahodka.Modules.SMS.SMSModel
 import com.example.ageone.Modules.EntrySMS.SMSView
-import com.ageone.nahodka.Modules.SMS.SMSViewModel
+import com.example.ageone.Modules.Start.StartModel
+import com.example.ageone.Modules.Start.StartView
+import com.example.ageone.Modules.Start.StartViewModel
 
 fun FlowCoordinator.runFlowAuth() {
 

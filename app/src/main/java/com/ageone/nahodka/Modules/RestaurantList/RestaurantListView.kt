@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -13,6 +14,8 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.RestaurantList.rows.RestaurantListImageViewHolder
 import com.ageone.nahodka.Modules.RestaurantList.rows.initialize
 import com.example.ageone.Modules.Restaurant.rows.RestaurantListItemViewHolder
@@ -54,10 +57,11 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         setBackgroundResource(R.drawable.back_white)
 
         toolbar.title = "Рестораны"
-        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         toolbar.textColor = Color.WHITE
+        toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
         renderToolbar()
+
 
         imageViewFAB.setOnClickListener {
             emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
@@ -71,11 +75,11 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
+        compositeDisposable.add(
+            RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { pushCount ->
+                toolbar.countPush = pushCount.count
             }
-        )*/
+        )
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {

@@ -4,11 +4,14 @@ import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.Buscket.rows.*
 import timber.log.Timber
 import yummypets.com.stevia.*
@@ -54,8 +57,8 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
     fun bindUI() {
         /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
+            RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { pushCount ->
+                toolbar.countPush = pushCount.count
             }
         )*/
     }

@@ -119,8 +119,8 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
                 BuscketOrderViewModel.EventType.OnCommentPressed -> {
                     runModuleFrame()
                 }
-                BuscketOrderViewModel.EventType.OnCheckPressed -> {
-                    runModuleWebView("")
+                BuscketOrderViewModel.EventType.OnPayOrderPressed -> {
+                    runModulePayOrder("")
                 }
             }
         }
@@ -149,7 +149,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
         push(module)
     }
 
-    fun runModuleWebView(url: String) {
+    fun runModulePayOrder(url: String) {
         val module = WebView(InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true

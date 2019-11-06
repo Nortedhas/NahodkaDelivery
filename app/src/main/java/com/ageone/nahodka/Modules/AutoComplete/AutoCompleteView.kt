@@ -1,6 +1,9 @@
 package com.ageone.nahodka.Modules.AutoComplete
 
+import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Handler
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
@@ -19,6 +22,7 @@ import timber.log.Timber
 import yummypets.com.stevia.*
 import java.util.concurrent.TimeUnit
 
+@SuppressLint("ClickableViewAccessibility")
 class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = AutoCompleteViewModel()
@@ -35,6 +39,14 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         searchView.queryHint = "Начните ввод..."
         searchView.cornerRadius = 8.dp
         searchView.backgroundColor = Color.argb(64, 128,128,128)
+        searchView.setOnTouchListener { view, motionEvent ->
+            if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                Handler().postDelayed({
+                    searchView.requestFocus()
+                }, 500)
+            }
+            false
+        }
         searchView.initialize()
         searchView
     }
