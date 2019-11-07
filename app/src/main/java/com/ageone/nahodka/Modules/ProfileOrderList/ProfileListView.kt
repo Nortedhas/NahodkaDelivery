@@ -14,6 +14,7 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.ProfileOrderList.rows.ProfileListEmptyViewHolder
 import com.ageone.nahodka.Modules.ProfileOrderList.rows.ProfileListTextViewHolder
 import com.ageone.nahodka.Modules.ProfileOrderList.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -56,14 +57,22 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         private val ProfileListEmptyType = 0
         private val ProfileListTextType = 1
 
-        override fun getItemCount() = viewModel.realmData.size
+
+
+        override fun getItemCount() = if (viewModel.realmData.isEmpty()) 1 else viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
-            if (viewModel.realmData.isEmpty()) {
-                ProfileListEmptyType
-            } else {
-                ProfileListTextType
+            when(itemCount) {
+                1 -> ProfileListEmptyType
+                else -> ProfileListTextType
             }
+//            }
+//            if (itemCount == 0/*viewModel.realmData.isEmpty()*/) {
+//                ProfileListEmptyType
+//            } else {
+//                ProfileListTextType
+//
+//            }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
@@ -98,14 +107,15 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                     if (position in viewModel.realmData.indices) {
                         val order = viewModel.realmData[position]
                         val company = utils.realm.user.getObjectById(order.companyHashId)
+
                         holder.initialize(
                             order.created,
                             order.address,
+                            "Сушими с лосося 3 шт.\nУдон с курицей 2 шт.\nСушими с лосося 3 шт.\nУдон с курицей 2 шт.",
                             company?.name ?: "",
                             order.total
                         )
                     }
-
                 }
             }
         }
