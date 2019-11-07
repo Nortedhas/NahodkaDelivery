@@ -76,4 +76,3 @@ class BaseSearchView: SearchView(currentActivity) {
 
     }
 }
-//TODO: replace in base

@@ -27,8 +27,6 @@ class API {
 
     val parser = Parser()
 
-    //TODO: replace in base
-
     fun handshake(completion: () -> Unit){
         Fuel.post(Routes.Handshake.path)
             .jsonBody(createBody(mapOf(

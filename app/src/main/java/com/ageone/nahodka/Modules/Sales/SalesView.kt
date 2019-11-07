@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.rxData
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -15,6 +16,7 @@ import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.Sales.rows.SalesCardViewHolder
 import com.ageone.nahodka.Modules.Sales.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -26,17 +28,8 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         viewAdapter
     }
 
-    var foodList = listOf(
-        R.drawable.pic_food1,
-        R.drawable.pic_food2,
-        R.drawable.pic_food3,
-        R.drawable.pic_food4,
-        R.drawable.pic_food1,
-        R.drawable.pic_food2
-    )
-
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
 
@@ -53,7 +46,7 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
     }
 
     fun bindUI() {
-        compositeDisposable.add(
+        compositeDisposable.addAll(
             RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { pushCount ->
                 toolbar.countPush = pushCount.count
             }
@@ -64,7 +57,7 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
         private val SalesCardType = 0
 
-        override fun getItemCount() = 6//viewModel.realmData.size
+        override fun getItemCount() = viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             else -> SalesCardType
@@ -90,19 +83,25 @@ class SalesView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
-            var food = foodList[position]
             when (holder) {
                 is SalesCardViewHolder -> {
-                    holder.initialize(
-                        food,
-                        "Ollis Pizza",
-                        "Скидка 30% на пасту")
-                    holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(SalesViewModel.EventType.OnStockPressed.name)
+                    if (position in viewModel.realmData.indices) {
+                        val sale = viewModel.realmData[position]
+                        holder.initialize(
+                            sale.image?.original ?: "",
+                            sale.name,
+                            sale.txtInfo
+                        )
+
+                        holder.constraintLayout.setOnClickListener {
+                            rxData.currentCompany = utils.realm.user.getObjectById(sale.companyHashId)//change: companyHashId
+                            Timber.i("Company: ${rxData.currentCompany}")
+                            rootModule.emitEvent?.invoke(SalesViewModel.EventType.OnStockPressed.name)
+                        }
                     }
                 }
             }
+
         }
     }
 }

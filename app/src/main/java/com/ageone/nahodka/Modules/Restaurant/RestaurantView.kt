@@ -15,6 +15,7 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.Restaurant.rows.*
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
@@ -27,24 +28,16 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
         viewAdapter
     }
 
-    var foodList = listOf(
-        R.drawable.pic_food1,
-        R.drawable.pic_food2,
-        R.drawable.pic_food3,
-        R.drawable.pic_food4,
-        R.drawable.pic_food1,
-        R.drawable.pic_food2
-    )
-
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
 
-        toolbar.title = "Ollias Pizza"
+        toolbar.title = rxData.currentCompany?.name ?: ""
         toolbar.textColor = Color.WHITE
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
         renderToolbar()
+
         toolbar.countPush = rxData.selectedItems.size
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
@@ -67,7 +60,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
         private val RestaurantTextType = 1
         private val RestaurantCardType = 3
 
-        override fun getItemCount() = 6//viewModel.realmData.size
+        override fun getItemCount() = 2 + viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> RestaurantPreviewType
@@ -102,49 +95,52 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            var isStarPressed = false
-            var food = foodList[position]
 
             when (holder) {
                 is RestaurantPreviewViewHolder -> {
                     holder.initialize(
-                        food,
-                        "Ollis Pizza",
-                        "600",
-                        "00:00 - 23:50",
-                        "800",
-                        "бесплатно",
-                        "4.0",
-                        "18")
+                        rxData.currentCompany?.image?.original ?: "",
+                        "${rxData.currentCompany?.name}",
+                        "${rxData.currentCompany?.averageСheck}",
+                        rxData.currentCompany?.txtWorkTimeInfo ?: "",
+                        "${rxData.currentCompany?.deliveryFrom}",
+                        "${rxData.currentCompany?.deliveryPrice}",
+                        "${rxData.currentCompany?.rating}",
+                        "${rxData.currentCompany?.commentsNum}")
+
                     holder.imageViewInfo.setOnClickListener {
                         rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnInfoPressed.name)
                     }
+
                     holder.textViewReview.setOnClickListener {
                         rootModule.emitEvent?.invoke(RestaurantViewModel.EventType.OnReviewPressed.name)
                     }
-                    holder.imageViewStar.setOnClickListener {
-                        if(!isStarPressed) {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
-                        } else {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
-                        }
-                        isStarPressed = !isStarPressed
-                    }
                 }
+
                 is RestaurantTextViewHolder -> {
-                    holder.initialize()
-                }
-                is RestaurantCardViewHolder -> {
-                    holder.initialize(
-                        food,
-                        "Пицца классическая",
-                        "450",
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore ")
-                    holder.buttonAdd.setOnClickListener {
-                        rxData.selectedItems += 1
-                        //toolbar.countPush = rxData.selectedItems.size
-                        //toolbar.countPush = rxData.pushCount
+                    rxData.currentCompany?.createCategoriesFromCompany()?.forEach {category ->
+                        Timber.i("Category: ${category.name}")
                     }
+
+                    holder.initialize(rxData.currentCompany?.createCategoriesFromCompany() ?: listOf())
+                }
+
+                is RestaurantCardViewHolder -> {//todo: change with filter
+                    val pos = position - 2
+                    if (pos in viewModel.realmData.indices) {
+                        val product = viewModel.realmData[pos]
+                        holder.initialize(
+                            product.image?.original ?: "",
+                            product.name,
+                            product.price,
+                            product.about
+                        )
+
+                        holder.buttonAdd.setOnClickListener {
+                            rxData.selectedItems += product
+                        }
+                    }
+
                 }
             }
         }

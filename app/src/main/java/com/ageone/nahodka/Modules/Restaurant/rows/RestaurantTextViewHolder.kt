@@ -16,11 +16,12 @@ import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 import com.ageone.nahodka.External.Base.RecyclerView.HorizontalSpacesItemDecoration
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.ageone.nahodka.SCAG.Category
 
 class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    var kitchenList = listOf(
+    /*var kitchenList = listOf(
         "Фастфуд",
         "Пицца",
         "Суши",
@@ -31,9 +32,10 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         "Узбекская",
         "Шаурма",
         "Кондитерские изделия"
-    )
+    )*/
+    var kitchenList = listOf<Category>()
 
-    private var selectedFood = 0
+    private var selectedCategory = 0
 
     val recyclerViewKitchen by lazy {
         val recyclerView = BaseRecyclerView()
@@ -45,12 +47,12 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         viewAdapter
     }
 
-    val textViewFastFood by lazy {
+    val textViewCurrentCategory by lazy {
         val textView = BaseTextView()
         textView.textSize = 18F
         textView.typeface = Typeface.DEFAULT_BOLD
         textView.textColor = Color.BLACK
-        textView.text = kitchenList[0]
+//        textView.text = kitchenList[0].name
         textView.initialize()
         textView
     }
@@ -86,14 +88,17 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         override fun getItemCount(): Int = kitchenList.size
 
         override fun onBindViewHolder(holder: KitchenTextViewHolder, position: Int) {
-            val food = if (position - 1 < kitchenList.size) kitchenList[position] else ""
+            if (position in kitchenList.indices) {
+                val category = kitchenList[position]
 
-            holder.initialize(food,position == selectedFood)
-            holder.constraintLayout.setOnClickListener {
-                textViewFastFood.text = holder.textViewKitchen.text.toString()
-                selectedFood = position
-                notifyDataSetChanged()
+                holder.initialize(category.name,position == selectedCategory)
+                holder.constraintLayout.setOnClickListener {
+                    textViewCurrentCategory.text = holder.textViewKitchen.text.toString()
+                    selectedCategory = position
+                    notifyDataSetChanged()
+                }
             }
+
         }
     }
 }
@@ -101,18 +106,23 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
 fun RestaurantTextViewHolder.renderUI() {
     constraintLayout.subviews(
         recyclerViewKitchen,
-        textViewFastFood
+        textViewCurrentCategory
     )
 
     recyclerViewKitchen
         .fillHorizontally()
         .constrainTopToTopOf(constraintLayout)
 
-    textViewFastFood
+    textViewCurrentCategory
         .constrainTopToBottomOf(recyclerViewKitchen,10)
         .constrainLeftToLeftOf(constraintLayout,16)
 }
 
-fun RestaurantTextViewHolder.initialize() {
+fun RestaurantTextViewHolder.initialize(categories: List<Category>) {
+    kitchenList = categories
+    recyclerViewKitchen.adapter?.notifyDataSetChanged()
 
+    if (kitchenList.isNotEmpty()) {
+        textViewCurrentCategory.text = kitchenList[0].name
+    }
 }

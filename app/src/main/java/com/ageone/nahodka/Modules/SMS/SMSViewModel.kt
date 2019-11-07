@@ -23,7 +23,7 @@ class SMSViewModel : InterfaceViewModel {
 
     /*var realmData = listOf<>()
     fun loadRealmData() {
-        realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+        realmData = utils.realm.product.getAllObjects()
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
@@ -52,16 +52,15 @@ class SMSViewModel : InterfaceViewModel {
             api.parser.userData(json)
             utils.variable.token = json.optString("Token")
 
-            if (user.data.firstName.isNullOrBlank()) {
+            if (user.data.name.isNullOrBlank()) {
                 DataBase.User.update(
                     user.hashId,
                     mapOf(
-                        "firstName" to model.name
+                        "name" to model.name
                     )
                 )
 
-                user.data.firstName = model.name
-                user.data.phone = model.phone
+                user.data.name = model.name
             }
 
             user.isAuthorized = true

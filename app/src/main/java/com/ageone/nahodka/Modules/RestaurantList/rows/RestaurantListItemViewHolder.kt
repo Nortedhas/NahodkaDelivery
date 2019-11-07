@@ -102,12 +102,12 @@ fun RestaurantListItemViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 }
 
-fun RestaurantListItemViewHolder.initialize(image: Int, name: String, kitchen: String, delivery: String, star: Int, rating: String, x: Float) {
+fun RestaurantListItemViewHolder.initialize(image: String, name: String, kitchen: String, delivery: String, star: Int, rating: Double) {
     addImageFromGlide(imageViewRestaurant, image)
     textViewName.text = name
     textViewKitchen.text = kitchen
     textViewDelivery.text = delivery
     imageViewStar.setImageResource(star)
-    textViewRating.text = rating
+    textViewRating.text = rating.toString()
 
 }

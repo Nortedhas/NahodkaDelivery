@@ -1,18 +1,15 @@
 package com.example.ageone.Modules.Restaurant
 
 import android.graphics.Color
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
-import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
@@ -20,7 +17,6 @@ import com.ageone.nahodka.Modules.RestaurantList.rows.RestaurantListImageViewHol
 import com.ageone.nahodka.Modules.RestaurantList.rows.initialize
 import com.example.ageone.Modules.Restaurant.rows.RestaurantListItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -52,7 +48,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     }
 
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
 
@@ -87,7 +83,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         private val RestaurantListImageType = 0
         private val RestaurantListItemType = 1
 
-        override fun getItemCount() = 5//viewModel.realmData.size
+        override fun getItemCount() = 1 + viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> RestaurantListImageType
@@ -122,35 +118,29 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                 is RestaurantListImageViewHolder -> {
                     holder.initialize()
 
-                    holder.onTap = { position ->
+                    holder.onTap = {
                         rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnBannerPressed.name)
                     }
                 }
                 is RestaurantListItemViewHolder -> {
-                    var isStarPressed = false
-                    var food = foodList[position]
+                    val pos = position - 1
+                    if (pos in viewModel.realmData.indices) {
+                        val company = viewModel.realmData[pos]
 
-                    holder.initialize(
-                        food,
-                        "Ollis Pizza",
-                        "Итальянская, Мексиканская, Кавказ...",
-                        "Заказ от 600 руб.",
-                        R.drawable.ic_star,
-                        "4.0",
-                        utils.variable.displayWidth.toFloat())
-
-                    holder.imageViewStar.setOnClickListener {
-                        if(!isStarPressed) {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
-                            isStarPressed = true
-                        }else {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
-                            isStarPressed = false
+                        holder.initialize(
+                            company.image?.original ?: "",
+                            company.name,
+                            "Итальянская, Мексиканская, Кавказ...",//todo: add tags
+                            "Заказ от ${company.deliveryFrom} руб.",//todo: check in create order
+                            R.drawable.ic_star,
+                            company.rating
+                        )
+                        holder.constraintLayout.setOnClickListener {
+                            rxData.currentCompany = company
+                            rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnRestaurantPressed.name)
                         }
                     }
-                    holder.constraintLayout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnRestaurantPressed.name)
-                    }
+
                 }
             }
         }

@@ -1,9 +1,6 @@
 package com.ageone.nahodka.External.Base.FlowStorage
 
 import android.view.View
-import com.ageone.nahodka.External.Base.Flow.FlowInterface
-
-//TODO: replace in base
 
 interface FlowStorageInterface {
     val size: Int

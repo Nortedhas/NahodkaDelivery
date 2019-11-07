@@ -96,7 +96,7 @@ fun SalesCardViewHolder.renderUI() {
 
 }
 
-fun SalesCardViewHolder.initialize(image: Int, name: String, description: String) {
+fun SalesCardViewHolder.initialize(image: String, name: String, description: String) {
 
     textViewName.text = name
     textViewDescription.text = description

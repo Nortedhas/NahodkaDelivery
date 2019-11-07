@@ -1,7 +1,9 @@
 package com.ageone.nahodka.Modules.ProfileOrderList
 
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
+import com.ageone.nahodka.SCAG.Order
 
 class ProfileListViewModel : InterfaceViewModel {
     var model = ProfileListModel()
@@ -10,10 +12,10 @@ class ProfileListViewModel : InterfaceViewModel {
 
     }
 
-    /*var realmData = listOf<>()
+    var realmData = listOf<Order>()
     fun loadRealmData() {
-        realmData = utils.realm.product.getAllObjects()//TODO: change type data!
-    }*/
+        realmData = utils.realm.order.getAllObjects()
+    }
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
         if (recievedModel is ProfileListModel) {

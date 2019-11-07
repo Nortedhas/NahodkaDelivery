@@ -4,6 +4,7 @@ import com.ageone.nahodka.External.Base.Toolbar.BaseToolbar
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.SCAG.Product
+import com.ageone.nahodka.SCAG.User
 import timber.log.Timber
 import kotlin.properties.Delegates
 
@@ -17,9 +18,11 @@ class RxData {
         }
     }
 
-//    var selectedCompany: Company? = null
+    var productInBucketCompany: User? = null
+    var currentCompany: User? = null
 
-    var selectedItems: List<Int> by Delegates.observable(emptyList()) {property, oldValue, newValue ->
+
+    var selectedItems: List<Product> by Delegates.observable(emptyList()) {property, oldValue, newValue ->
         if (oldValue.size == newValue.size) return@observable
 
         if(newValue.size > oldValue.size) {
@@ -33,4 +36,6 @@ class RxData {
 class RxEvent {
     class EventChangeComment
     data class EventChangePushCount(var count: Int)
+    class EventChangeAddress
+    class EventChangeNameOrPhone
 }

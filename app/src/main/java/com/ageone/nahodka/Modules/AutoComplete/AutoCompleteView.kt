@@ -5,10 +5,14 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Handler
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
+import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -16,6 +20,9 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.SearchView.BaseSearchView
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.Models.RxEvent
+import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.AutoComplete.rows.ResultViewHolder
 import com.ageone.nahodka.Modules.AutoComplete.rows.initialize
 import io.reactivex.Observable
@@ -40,7 +47,7 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         searchView.isAlwaysExpand = true
         searchView.queryHint = "Начните ввод..."
         searchView.cornerRadius = 8.dp
-        searchView.backgroundColor = Color.argb(64, 128,128,128)
+        searchView.backgroundColor = Color.argb(50, 128,128,128)
         searchView.onActionViewExpanded()
         searchView.requestFocus()
         searchView.requestFocusFromTouch()
@@ -52,13 +59,13 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         val textView = BaseTextView()
         textView.textSize = 17F
         textView.text = "Отменить"
-        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.typeface = Typeface.DEFAULT
         textView.textColor = Color.parseColor("#333333")
         textView
     }
 
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         backgroundColor = Color.WHITE
 
@@ -71,6 +78,10 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
         renderUIO()
         bindUI()
+
+        buttonCancel.setOnClickListener {
+            router.onBackPressed()
+        }
 
         // Set up the query listener that executes the search
         Observable.create(ObservableOnSubscribe<String> { subscriber ->
@@ -98,19 +109,33 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             }
     }
 
+    fun setCallbackOnItemSelected(type: TypeCallback) = when(type){
+        TypeCallback.back -> {
+
+        }
+
+        TypeCallback.substitution -> {
+
+        }
+    }
+
+    enum class TypeCallback {
+        back, substitution
+    }
+
     fun bindUI() {
-        /*compositeDisposable.addAll(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {
+        compositeDisposable.addAll(
+            RxBus.listen(EventComplete.EventChangeCompleteVariants::class.java).subscribe {
                 bodyTable.adapter?.notifyDataSetChanged()
             }
-        )*/
+        )
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val ResultType = 0
 
-        override fun getItemCount() = 10//viewModel.realmData.size
+        override fun getItemCount() = viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             else -> ResultType
@@ -141,7 +166,16 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
             when (holder) {
                 is ResultViewHolder -> {
-                    holder.initialize(" Ленинский Проспект ", " Ленинский Проспект,Москва,Россия ")
+                    if (position in viewModel.realmData.indices) {
+                        val answer = viewModel.realmData[position]
+                        holder.initialize(answer.primaryText, answer.secondaryText)
+                        holder.constraintLayout.setOnClickListener {
+                            user.info.address = answer.primaryText
+                            RxBus.publish(RxEvent.EventChangeAddress())
+                            router.onBackPressed()
+                        }
+                    }
+
                 }
 
             }
@@ -161,14 +195,14 @@ fun AutoCompleteView.renderUIO() {
 
     searchView
         .constrainTopToTopOf(innerContent, 8)
-        .constrainLeftToLeftOf(innerContent, 8)
+        .constrainLeftToLeftOf(innerContent, 16)
         .height(40)
         .width(utils.variable.displayWidth * .7F)
 
     buttonCancel
         .constrainTopToTopOf(searchView)
         .constrainBottomToBottomOf(searchView)
-        .constrainLeftToRightOf(searchView, 5)
+        .constrainLeftToRightOf(searchView)
         .constrainRightToRightOf(innerContent)
 
     bodyTable

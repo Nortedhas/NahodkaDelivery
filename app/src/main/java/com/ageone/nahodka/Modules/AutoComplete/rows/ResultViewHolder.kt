@@ -20,17 +20,17 @@ class ResultViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(
         view
     }
 
-    val  primaryText by lazy {
+    val primaryText by lazy {
         val textView = BaseTextView()
-        textView.textSize = 15F
-        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.textSize = 16F
+        textView.typeface = Typeface.DEFAULT
         textView.textColor = Color.parseColor("#333333")
         textView
     }
 
-    val  secondaryText by lazy {
+    val secondaryText by lazy {
         val textView = BaseTextView()
-        textView.textSize = 15F
+        textView.textSize = 14F
         textView.typeface = Typeface.DEFAULT
         textView.textColor = Color.parseColor("#AFAFB4")
         textView

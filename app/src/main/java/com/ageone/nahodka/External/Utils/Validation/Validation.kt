@@ -17,5 +17,9 @@ fun String.isValidEmail() : Boolean {
     return emailRegex.matcher(this).matches()
 }
 
-
 fun String.toCorrectPhone() = Regex("\\D+").replace(this, "")
+
+fun String.toBeautifulPhone(): String = if (length > 10) {
+    ("+" + this[0] + " (" + this[1] + this[2] + this[3] + ") " +
+            this[4] + this[5] + this[6] + "-" + this[7] + this[8] + "-" + this[9] + this[10])
+} else this

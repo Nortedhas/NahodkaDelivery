@@ -1,9 +1,18 @@
 package com.ageone.nahodka.Network.Socket
 
+import com.ageone.nahodka.Application.api
+import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.single
+import com.ageone.nahodka.SCAG.DataBase
+import io.socket.client.IO
 import io.socket.client.Manager
 import io.socket.client.Socket
 import io.socket.engineio.client.Transport
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import timber.log.Timber
 
@@ -13,48 +22,61 @@ class WebSocket {
 
     fun initialize() {
         try {
-//            socket = IO.socket("${DataBase.url}:80")
+            socket = IO.socket("${DataBase.url}:80")
             socket.connect()
+
             val body = JSONObject()
             body.put("token", utils.variable.token)
             socket.emit("registration", body)
+
+            subscribeOrderCheck()
+            subscribePaymentFail()
+
         } catch (e: Exception) {
             Timber.e("Socket connect error: ${e.message}")
         }
     }
 
-    fun connect() {
+    fun subscribeOrderCheck() {
+        socket.on("orderCheck") { order ->
+            Timber.i("Pay succes!")
+            runBlocking {
+                launch {
+                    api.handshake()
+                }.join()
 
-
-        socket.io().on(Manager.EVENT_TRANSPORT) { args ->
-            val transport = args[0] as Transport
-
-            transport.on(Transport.EVENT_REQUEST_HEADERS) { args ->
-                val headers = args[0] as MutableMap<String, List<String>>
-                Timber.i("set access UserHandshake")
-                // modify request headers
-                headers["x-access-UserHandshake"] = listOf(utils.variable.token)
+                launch {
+                    api.mainLoad()
+                }.join()
             }
 
-            transport.on(Transport.EVENT_RESPONSE_HEADERS) { args ->
-                val headers = args[0] as Map<String, List<String>>
-                // access response headers
-                val cookie = headers["Set-Cookie"]?.get(0)
+            currentActivity?.runOnUiThread {
+                alertManager.single("Ваш заказ создан",
+                    "С вами свяжется курьер, как только заказ будет доставлен") {_,_ ->
+                    router.onBackPressed()
+                }
             }
 
         }
+    }
 
-        socket.connect()
-            .on("orderCheck") {
-                Timber.i("Socket Order check")
+    fun subscribePaymentFail() {
+        socket.on("paymentFail") { order ->
+            Timber.i("Pay succes!")
+            runBlocking {
+                launch {
+                    api.handshake()
+                }.join()
+
+                launch {
+                    api.mainLoad()
+                }.join()
             }
 
-        socket.connect()
-            .on(Socket.EVENT_CONNECT) {
-                Timber.i("connected")
+            currentActivity?.runOnUiThread {
+                router.onBackPressed()
             }
-            .on(Socket.EVENT_DISCONNECT) { println("disconnected") }
 
-
+        }
     }
 }

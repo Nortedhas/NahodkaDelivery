@@ -2,22 +2,34 @@ package com.ageone.nahodka.SCAG
 
 class Enums {
 
+	// MARK: Enum CategoryType
+
+	enum class CategoryType {
+		flowers, food
+	}
+
 	// MARK: Enum PaymentType
 
 	enum class PaymentType {
-		cardtocourier, applepay, cash, card
+		card, cash, applepay, cardtocourier
 	}
 
 	// MARK: Enum OrderType
 
 	enum class OrderType {
-		delivered, aborted, cooked, created, paid, cooking, accepted
+		aborted, cooking, delivered, paid, accepted, cooked, created
 	}
 
-	// MARK: Enum ShopType
+	// MARK: Enum UserType
 
-	enum class ShopType {
+	enum class UserType {
 		food, flowers
+	}
+
+	// MARK: Enum DocumentType
+
+	enum class DocumentType {
+		faq, regular
 	}
 
 	// MARK: Enum ProductType
@@ -26,21 +38,9 @@ class Enums {
 		food, flowers
 	}
 
-	// MARK: Enum CategoryType
+	// MARK: Enum ShopType
 
-	enum class CategoryType {
-		flowers, food
-	}
-
-	// MARK: Enum DocumentType
-
-	enum class DocumentType {
-		regular, faq
-	}
-
-	// MARK: Enum UserType
-
-	enum class UserType {
+	enum class ShopType {
 		food, flowers
 	}
 

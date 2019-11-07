@@ -1,9 +1,11 @@
 package com.ageone.nahodka.Modules.ProfileOrderList
 
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -24,7 +26,7 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
     }
 
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
 
@@ -35,7 +37,7 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
         bindUI()
@@ -52,15 +54,15 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val ProfileListEmptyType = 0
-
         private val ProfileListTextType = 1
 
-        override fun getItemCount() = 5//viewModel.realmData.size
+        override fun getItemCount() = viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
-            when (itemCount) {
-                1 -> ProfileListEmptyType
-                else -> ProfileListTextType
+            if (viewModel.realmData.isEmpty()) {
+                ProfileListEmptyType
+            } else {
+                ProfileListTextType
             }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -93,13 +95,17 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                     holder.initialize("У Вас пока ещё нет \nсозданных заказов", R.drawable.dribbble)
                 }
                 is ProfileListTextViewHolder -> {
-                    holder.initialize(
-                        "24.02.19",
-                        "Находка",
-                        "ул. Темирязевская, д 155, кв. 210",
-                        "Tokio City",
-                        "1536.00"
-                    )
+                    if (position in viewModel.realmData.indices) {
+                        val order = viewModel.realmData[position]
+                        val company = utils.realm.user.getObjectById(order.companyHashId)
+                        holder.initialize(
+                            order.created,
+                            order.address,
+                            company?.name ?: "",
+                            "1536.00"
+                        )
+                    }
+
                 }
             }
         }

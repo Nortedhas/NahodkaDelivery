@@ -118,9 +118,9 @@ fun RestaurantCardViewHolder.renderUI() {
         .constrainBottomToBottomOf(viewBack, 16)
 }
 
-fun RestaurantCardViewHolder.initialize(image: Int, dishName: String, dishPrice: String, dishDescription: String) {
+fun RestaurantCardViewHolder.initialize(image: String, dishName: String, dishPrice: Int, dishDescription: String) {
     textViewName.text = dishName
     textViewPrice.text = "$dishPrice руб."
     textViewDescription.text = dishDescription
-    addImageFromGlide(imageViewPhoto,image,0)
+    addImageFromGlide(imageViewPhoto, image,0)
 }

@@ -13,6 +13,8 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 
 import yummypets.com.stevia.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
@@ -70,7 +72,7 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
         view
     }
 
-    var dishList = listOf("Сушими с лосося 3 шт.", "Удон с курицей 2 шт.","Сушими с лосося 3 шт.", "Удон с курицей 2 шт.")
+    var dishList = listOf("Сушими с лосося 3 шт.", "Удон с курицей 2 шт.","Сушими с лосося 3 шт.", "Удон с курицей 2 шт.")//todo: change
 
     init {
         recyclerViewHolder.adapter = viewAdapter
@@ -83,6 +85,8 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
 
         renderUI()
     }
+
+    val format = SimpleDateFormat("dd.MM.yyyy")
 
     inner class Factory: RecyclerView.Adapter<ProfileListTextItemViewHolder>(){
         override fun onCreateViewHolder(
@@ -146,9 +150,10 @@ fun ProfileListTextViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun ProfileListTextViewHolder.initialize(date: String, city: String, address: String, restaurantName: String, amount: String) {
-    textViewOrderDate.text = "Заказ от $date"
-    textViewCity.text = "Адрес доставки: г. $city"
+fun ProfileListTextViewHolder.initialize(date: Int, address: String, restaurantName: String, amount: String) {
+
+    textViewOrderDate.text = "Заказ от ${format.format(Date(date.toLong() * 1000))}"
+    textViewCity.text = "Адрес доставки:"
     textViewAddress.text = address
     textViewRestaurant.text = restaurantName
     textViewAmount.text = "Сумма заказа: $amount руб."

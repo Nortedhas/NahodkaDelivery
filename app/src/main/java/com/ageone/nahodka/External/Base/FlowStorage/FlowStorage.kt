@@ -9,8 +9,6 @@ import yummypets.com.stevia.fillHorizontally
 import yummypets.com.stevia.fillVertically
 import yummypets.com.stevia.subviews
 
-//TODO: replace in base
-
 class FlowStorage: FlowStorageInterface {
     override fun displayFlow(index: Int) {
         if (index in 0..root.childCount) {

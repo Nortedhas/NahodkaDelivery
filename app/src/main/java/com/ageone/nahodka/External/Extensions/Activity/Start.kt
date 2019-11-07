@@ -40,16 +40,18 @@ private fun BaseActivity.startChecks() {
     }
 
     //if Google API success - start flow
-    checkGoogleAPI()
+    checkGoogleAPI {
+        coordinator.start()
+    }
 
     setFirebaseToken()
 }
 
-private fun BaseActivity.checkGoogleAPI() {
+private fun BaseActivity.checkGoogleAPI(completionOnSuccess: ()->Unit) {
     val googleApiAvailability = GoogleApiAvailability.getInstance()
     when (val result = googleApiAvailability.isGooglePlayServicesAvailable(currentActivity)) {
         ConnectionResult.SUCCESS -> {
-            coordinator.start()
+            completionOnSuccess.invoke()
         }
         else -> {
             googleApiAvailability.showErrorNotification(currentActivity, result)
@@ -68,6 +70,7 @@ private fun BaseActivity.setFirebaseToken() {
             // set fcm token if it exists
             task.result?.token?.let { token ->
                 DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
+                user.fcmToken = token
             }
         })
 }

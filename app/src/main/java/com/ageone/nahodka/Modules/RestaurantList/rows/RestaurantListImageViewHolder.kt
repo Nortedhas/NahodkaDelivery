@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.RecyclerView.NonscrollRecylerView
 import com.ageone.nahodka.R
+import com.ageone.nahodka.SCAG.Banner
 import com.ageone.nahodka.UIComponents.ViewHolders.RestaurantImageItemViewHolder
 import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import timber.log.Timber
@@ -31,16 +33,16 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
         viewAdapter
     }
 
-    var list = listOf(
-        R.drawable.pic_sales1,
-        R.drawable.pic_sales2
-        )
+    var list = listOf<Banner>()
 
-    var foodList = listOf(list.last()) + list + listOf(list.first())
+    var foodList = listOf<Banner>()
 
     var onTap: ((Int) -> (Unit))? = null
 
-    init {
+    init {//todo
+
+        list = utils.realm.banner.getAllObjects().toList()
+        foodList = listOf(list.last()) + list + listOf(list.first())
 
         recyclerViewImage.adapter = viewAdapter
         recyclerViewImage.layoutManager =
@@ -52,11 +54,11 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(recyclerViewImage)
 
-        foodList.size
+        list.size
             .takeIf { size -> size > 1 }
             ?.apply {
                 recyclerViewImage.addOnScrollListener(
-                    OnScrollListener(foodList.size, recyclerViewImage.layoutManager as LinearLayoutManager))
+                    OnScrollListener(list.size, recyclerViewImage.layoutManager as LinearLayoutManager))
                 var position = 1
                 recyclerViewImage.scrollToPosition(position)
 
@@ -66,9 +68,9 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
                     position++
 
                     currentActivity?.runOnUiThread {
-                        recyclerViewImage.smoothScrollToPosition(position % (foodList.size - 1) + 1)
+                        recyclerViewImage.smoothScrollToPosition(position % (list.size - 1) + 1)
                     }
-                    if (position % (foodList.size - 1) == 0) {
+                    if (position % (list.size - 1) == 0) {
                         position++
                     }
                 }
@@ -93,12 +95,17 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
         override fun getItemCount(): Int = foodList.size
 
         override fun onBindViewHolder(holder: RestaurantImageItemViewHolder, position: Int) {
-            val food = foodList[position]
+            if (position in foodList.indices) {
+                val banner = foodList[position]
 
-            holder.initialize(utils.variable.displayWidth,food)
-            holder.constraintLayout.setOnClickListener {
+                holder.initialize(banner.image?.original ?: "")
+
+                holder.constraintLayout.setOnClickListener {
+                    rxData.currentCompany = banner.company
                     onTap?.invoke(position)
+                }
             }
+
         }
     }
 

@@ -2,6 +2,7 @@ package com.ageone.nahodka.UIComponents.ViewHolders
 
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
@@ -34,14 +35,14 @@ fun RestaurantImageItemViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun RestaurantImageItemViewHolder.initialize(width: Int, image: Int) {
+fun RestaurantImageItemViewHolder.initialize(image: String) {
 
     constraintLayout
-        .width(width)
+        .width(utils.variable.displayWidth)
 
     imageViewFood
-        .width(width)
-        .height(width*.402F)
+        .width(utils.variable.displayWidth)
+        .height(utils.variable.displayWidth * .402F)
 
-    addImageFromGlide(imageViewFood,image,1)
+    addImageFromGlide(imageViewFood, image,1)
 }

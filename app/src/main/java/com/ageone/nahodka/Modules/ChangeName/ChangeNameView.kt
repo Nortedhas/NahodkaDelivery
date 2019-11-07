@@ -18,6 +18,9 @@ import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.single
+import com.ageone.nahodka.External.Utils.Validation.toBeautifulPhone
+import com.ageone.nahodka.External.Utils.Validation.toCorrectPhone
+import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.ChangeName.rows.ChangeNameTextInputViewHolder
 import com.ageone.nahodka.Modules.ChangeName.rows.initialize
 import yummypets.com.stevia.*
@@ -56,7 +59,7 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         innerContent.setButtonAboveKeyboard(nextButton)
         setBackgroundResource(R.drawable.back_white)
 
-        toolbar.title = "Смена имени"
+        toolbar.title = "Изменение данных"
         toolbar.textColor = Color.WHITE
         toolbar.setBackgroundColor(Color.parseColor("#09D0B8"))
 
@@ -114,6 +117,8 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     when (position % 2) {
                         0 -> {
                             holder.initialize("Номер телефона", InputEditTextType.PHONE)
+                            holder.textInputChange.editText?.setText(user.data.phone.toBeautifulPhone())
+                            viewModel.model.phone = user.data.phone.toBeautifulPhone()
 
                             holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.phone = text.toString()
@@ -123,6 +128,8 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                         }
                         1 -> {
                             holder.initialize("Как к Вам обращаться", InputEditTextType.TEXT)
+                            holder.textInputChange.editText?.setText(user.data.name)
+                            viewModel.model.name = user.data.name
 
                             holder.textInputChange.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.name = text.toString()

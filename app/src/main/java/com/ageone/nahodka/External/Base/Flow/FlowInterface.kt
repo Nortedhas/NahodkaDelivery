@@ -3,8 +3,6 @@ package com.ageone.nahodka.External.Base.Flow
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.External.Base.Module.ModuleInterface
 
-//TODO: replace in base
-
 interface FlowInterface {
     //modules in flow
     val stack: MutableList<Int>

@@ -181,6 +181,8 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = {event ->
             when(ChangeNameViewModel.EventType.valueOf(event)){
                 ChangeNameViewModel.EventType.OnNextPressed -> {
+                    models.modelChangeSMS.name = models.modelChangeName.name
+                    models.modelChangeSMS.phone = models.modelChangeName.phone
                     runModuleChangeSMS()
                 }
             }

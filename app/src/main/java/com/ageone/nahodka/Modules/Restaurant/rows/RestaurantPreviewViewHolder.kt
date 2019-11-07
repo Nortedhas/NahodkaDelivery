@@ -174,9 +174,10 @@ fun RestaurantPreviewViewHolder.renderUI() {
         backRectangleStar,
         imageViewStar,
         textViewRating,
-        backRectangleComment,
-        imageViewComment,
-        textViewComment,
+        backRectangleComment.subviews(
+            imageViewComment,
+            textViewComment
+        ),
         textViewReview
     )
 
@@ -253,7 +254,7 @@ fun RestaurantPreviewViewHolder.renderUI() {
         .constrainLeftToRightOf(imageViewStar,6)
 
     backRectangleComment
-        .width(64)
+//        .width(64)
         .height(24)
         .constrainTopToBottomOf(textViewTruck,10)
         .constrainLeftToRightOf(backRectangleStar,14)
@@ -267,13 +268,14 @@ fun RestaurantPreviewViewHolder.renderUI() {
     textViewComment
         .constrainLeftToRightOf(imageViewComment,6)
         .constrainTopToTopOf(backRectangleComment,4)
+        .constrainRightToRightOf(backRectangleComment,8)
 
     textViewReview
         .constrainBottomToBottomOf(backRectangleComment)
         .constrainRightToRightOf(constraintLayout,16)
 }
 
-fun RestaurantPreviewViewHolder.initialize(image: Int, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String, rating: String, commentCount: String) {
+fun RestaurantPreviewViewHolder.initialize(image: String, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String, rating: String, commentCount: String) {
 
     addImageFromGlideWithGradient(imageViewPreview, image, Color.TRANSPARENT, Color.argb(0x88, 0,0,0))
 

@@ -3,6 +3,7 @@ package com.ageone.nahodka.External.Extensions.Activity
 import android.location.Location
 import android.widget.Toast
 import com.ageone.nahodka.Application.AppActivity
+import com.ageone.nahodka.Models.User.locationBase
 import com.ageone.nahodka.Models.User.user
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -13,9 +14,6 @@ import com.google.android.gms.tasks.Tasks
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-
-val locationBase
-    get() = LatLng(42.8138, 132.873)
 
 
 fun AppActivity.fetchLastLocation(): Location? = fusedLocationClient?.let { fusedLocationClient ->

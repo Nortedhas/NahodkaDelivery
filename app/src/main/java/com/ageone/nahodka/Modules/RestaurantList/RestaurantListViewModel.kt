@@ -4,6 +4,8 @@ import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 import com.ageone.nahodka.SCAG.Product
+import com.ageone.nahodka.SCAG.User
+import timber.log.Timber
 
 class RestaurantListViewModel : InterfaceViewModel{
     var model = RestaurantListModel()
@@ -14,9 +16,14 @@ class RestaurantListViewModel : InterfaceViewModel{
         OnBannerPressed
     }
 
-    var realmData = listOf<Product>()
+    var realmData = listOf<User>()
     fun loadRealmData() {
-        realmData = utils.realm.product.getAllObjects()
+        realmData = utils.realm.user.getAllObjects()
+        Timber.i("Load company")
+        utils.realm.user.getAllObjects().forEach {user ->
+            Timber.i("Company: ${user.name} - ${user.averageСheck} - ${user.rating}")
+        }
+
     }
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {

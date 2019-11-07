@@ -91,6 +91,35 @@ fun addImageFromGlideWithGradient(image: ImageView, uri: Int, colorFirst: Int, c
 
 }
 
+//TODO: replace in base
+
+fun addImageFromGlideWithGradient(image: ImageView, uri: String, colorFirst: Int, colorSecond: Int) {
+    val placeholder = createDownloadPlaceholder()
+
+    GlideApp
+        .with(image)
+        .load(uri)
+        .fitCenter()
+        .placeholder(placeholder)
+        .into(object : CustomTarget<Drawable>() {
+            override fun onResourceReady(
+                resource: Drawable,
+                transition: Transition<in Drawable>?
+            ) {
+                val colors = intArrayOf(colorFirst, colorSecond)
+                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors)
+                image.background = LayerDrawable(arrayOf(
+                    resource,
+                    gradientDrawable
+                ))
+            }
+            override fun onLoadCleared(@Nullable placeholder: Drawable?) {}
+
+        }
+        )
+
+}
+
 fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String, cornerRadius: Int = 8) {
     val placeholder = createDownloadPlaceholder()
 
@@ -122,10 +151,13 @@ fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String, cornerRadiu
 
 }
 
+//TODO: replace in base
+
 private fun createDownloadPlaceholder(): LayerDrawable {
     val circularProgressDrawable = CircularProgressDrawable(currentActivity as Context)
-    circularProgressDrawable.strokeWidth = 15f.dp
-    circularProgressDrawable.centerRadius = 100f.dp
+    circularProgressDrawable.strokeWidth = 3f.dp
+    circularProgressDrawable.centerRadius = 35f.dp
+    circularProgressDrawable.setColorSchemeColors(Color.WHITE)
     circularProgressDrawable.start()
 
     val placeholderImage = GradientDrawable()

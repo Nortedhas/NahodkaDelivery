@@ -12,7 +12,9 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.Utils.Validation.toBeautifulPhone
 import com.ageone.nahodka.Models.RxEvent
+import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.Profile.rows.ProfileItemViewHolder
 import com.ageone.nahodka.Modules.Profile.rows.ProfileTextNameViewHolder
 import com.ageone.nahodka.Modules.Profile.rows.initialize
@@ -39,16 +41,22 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
         bindUI()
     }
 
     fun bindUI() {
-        compositeDisposable.add(
+        compositeDisposable.addAll(
             RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { pushCount ->
                 toolbar.countPush = pushCount.count
+            },
+            RxBus.listen(RxEvent.EventChangeAddress::class.java).subscribe {
+                bodyTable.adapter?.notifyDataSetChanged()
+            },
+            RxBus.listen(RxEvent.EventChangeNameOrPhone::class.java).subscribe {
+                bodyTable.adapter?.notifyDataSetChanged()
             }
         )
     }
@@ -91,15 +99,22 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is ProfileTextNameViewHolder -> {
-                    holder.initialize("Матвей", "+7 (999) 888-33-44")
+                    holder.initialize(user.data.name, user.data.phone.toBeautifulPhone())
                     holder.textViewChange.setOnClickListener {
                         rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnChangePressed.name)
                     }
                 }
+
                 is ProfileItemViewHolder -> {
                     when(position) {
                         1 -> {
-                            holder.initialize(R.drawable.ic_location,"Адрес доставки", "Заполните адрес доставки и оформляйте заказ еще быстрее")
+                            val text = if (user.info.address.isBlank()) {
+                                "Заполните адрес доставки и оформляйте заказ еще быстрее"
+                            } else {
+                                user.info.address
+                            }
+
+                            holder.initialize(R.drawable.ic_location,"Адрес доставки", text)
                             holder.constraintLayout.setOnClickListener {
                                 rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnFillAddressPressed.name)
                             }
