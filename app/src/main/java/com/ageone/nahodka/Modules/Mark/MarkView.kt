@@ -4,6 +4,9 @@ import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.router
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -45,7 +48,7 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
     fun bindUI() {
         /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+            RxBus.listen(RxEvent.Event::class.java).subscribe {
                 bodyTable.adapter?.notifyDataSetChanged()
             }
         )*/
@@ -87,7 +90,7 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
             when (holder) {
                 is MarkTextViewHolder -> {
-                    holder.initialize("Ollis Pizza", "Оставьте комментарий", InputEditTextType.TEXT)
+                    holder.initialize(rxData.currentCompany?.name ?: "", "Оставьте комментарий", InputEditTextType.TEXT)
 
                         holder.imageViewRating1.setOnClickListener {
                             when(isRatingPressed){
@@ -165,13 +168,12 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         }
                     }
 
-                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.mark = text.toString()
-                    }
-
                     holder.buttonSend.setOnClickListener{
+                        viewModel.model.mark =  holder.textInputL.editText?.text.toString()
                         viewModel.validate {
-
+                            currentActivity?.runOnUiThread {
+                                router.onBackPressed()
+                            }
                         }
 
                     }

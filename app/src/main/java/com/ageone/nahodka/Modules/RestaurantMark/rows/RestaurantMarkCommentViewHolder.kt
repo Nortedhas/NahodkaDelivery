@@ -9,6 +9,8 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
@@ -54,6 +56,8 @@ class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
         textView.textColor = Color.parseColor("#979797")
         textView
     }
+
+    val format = SimpleDateFormat("dd.MM.yyyy")
 
     init {
         renderUI()
@@ -102,9 +106,9 @@ fun RestaurantMarkCommentViewHolder.renderUI() {
 
 }
 
-fun RestaurantMarkCommentViewHolder.initialize(name: String, rating: String, date: String, comment: String) {
+fun RestaurantMarkCommentViewHolder.initialize(name: String, rating: Int, date: Int, comment: String) {
     textViewName.text = name
-    textViewRating.text = rating
-    textViewDate.text = date
+    textViewRating.text = "$rating.0"
+    textViewDate.text = "${format.format(Date(date.toLong() * 1000))}"
     textViewComment.text = comment
 }

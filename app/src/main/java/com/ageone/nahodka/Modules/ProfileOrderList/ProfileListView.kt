@@ -102,7 +102,7 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                             order.created,
                             order.address,
                             company?.name ?: "",
-                            "1536.00"
+                            order.total
                         )
                     }
 

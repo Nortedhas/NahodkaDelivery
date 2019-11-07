@@ -3,6 +3,7 @@ package com.ageone.nahodka.Modules.RestaurantInfo
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -81,7 +82,7 @@ class RestaurantInfoView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
             when (holder) {
                 is RestaurantInfoTextViewHolder -> {
-                    holder.initialize(" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ")
+                    holder.initialize(rxData.currentCompany?.txtLegalInfo ?: "")
                 }
             }
         }

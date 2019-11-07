@@ -150,7 +150,7 @@ fun ProfileListTextViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun ProfileListTextViewHolder.initialize(date: Int, address: String, restaurantName: String, amount: String) {
+fun ProfileListTextViewHolder.initialize(date: Int, address: String, restaurantName: String, amount: Int) {
 
     textViewOrderDate.text = "Заказ от ${format.format(Date(date.toLong() * 1000))}"
     textViewCity.text = "Адрес доставки:"

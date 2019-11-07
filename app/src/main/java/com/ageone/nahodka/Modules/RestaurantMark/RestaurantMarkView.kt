@@ -1,9 +1,11 @@
 package com.ageone.nahodka.Modules.RestaurantMark
 
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
@@ -24,7 +26,7 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     }
 
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
 
@@ -35,7 +37,7 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
         bindUI()
@@ -54,7 +56,7 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         private val RestaurantMarkTextType = 0
         private val RestaurantMarkCommentType = 1
 
-        override fun getItemCount() = 6//viewModel.realmData.size
+        override fun getItemCount() = 1 + viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> RestaurantMarkTextType
@@ -84,35 +86,32 @@ class RestaurantMarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            var isStarPressed = false
 
             when (holder) {
                 is RestaurantMarkTextViewHolder -> {
-                    holder.initialize("Ollis Pizza", "4.0", itemCount)
-                    holder.imageViewStar.setOnClickListener {
-                        if(!isStarPressed) {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
-                            isStarPressed = true
-                        }else {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
-                            isStarPressed = false
-                        }
-                    }
+                    holder.initialize(
+                        rxData.currentCompany?.name ?: "",
+                        rxData.currentCompany?.rating ?: .0,
+                        rxData.currentCompany?.commentsNum ?: 0
+                    )
+
                     holder.imageViewComment.setOnClickListener {
                         rootModule.emitEvent?.invoke(RestaurantMarkViewModel.EventType.OnCommentPressed.name)
                     }
                 }
                 is RestaurantMarkCommentViewHolder -> {
-                    holder.initialize("Анастасия", "4.0", "7 мая 2019", "Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан Все очень понравилось, теперь это мой любимый ресторан")
-                    holder.imageViewStar.setOnClickListener {
-                        if(!isStarPressed) {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star_fill)
-                            isStarPressed = true
-                        }else {
-                            holder.imageViewStar.setImageResource(R.drawable.ic_star)
-                            isStarPressed = false
-                        }
+                    val pos = position - 1
+                    if (pos in viewModel.realmData.indices) {
+                        val comment = viewModel.realmData[pos]
+
+                        holder.initialize(
+                            comment.userName,
+                            comment.rate,
+                            comment.created,
+                            comment.text
+                        )
                     }
+
                 }
             }
         }

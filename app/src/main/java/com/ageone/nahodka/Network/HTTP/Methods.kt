@@ -3,6 +3,7 @@ package com.ageone.nahodka.Network.HTTP
 import com.ageone.nahodka.External.HTTP.API.API
 import com.ageone.nahodka.SCAG.CartItem
 import com.ageone.nahodka.SCAG.Enums
+import com.ageone.nahodka.SCAG.parseComment
 import com.ageone.nahodka.SCAG.parseOrder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -107,8 +108,8 @@ suspend fun API.addComment(
             )
         }
 
-//        parser.parseAnyObject(json, DataBase.)
+        json ?: return@withContext null
 
-//        json.optJSONObject("")?.let { obj -> }
+        json.parseComment()
 
     }

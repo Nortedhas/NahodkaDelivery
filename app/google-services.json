@@ -1,43 +1,42 @@
 {
   "project_info": {
-    "project_number": "593616075747",
-    "firebase_url": "https://nahodka-31f76.firebaseio.com",
-    "project_id": "nahodka-31f76",
-    "storage_bucket": "nahodka-31f76.appspot.com"
+    "project_number": "105367683653",
+    "firebase_url": "https://nahodka-4a15e.firebaseio.com",
+    "project_id": "nahodka-4a15e",
+    "storage_bucket": "nahodka-4a15e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:593616075747:android:af46af06bd3414a3777ed6",
+        "mobilesdk_app_id": "1:105367683653:android:19aa52c7b274b01d8e592c",
         "android_client_info": {
           "package_name": "com.ageone.nahodka"
         }
       },
       "oauth_client": [
         {
-          "client_id": "593616075747-nuv0kok99tmp011im1m81vg3fiarkl9g.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ageone.nahodka",
-            "certificate_hash": "2ba705d32aae95e5c87d3ead01b6d13d934894f1"
-          }
-        },
-        {
-          "client_id": "593616075747-0qbh1plsvvfbavsuamf5cv6jd0vhr5u8.apps.googleusercontent.com",
+          "client_id": "105367683653-utr587bu2njk2l9ftchgvbhdt89na6ih.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDgMuCVKUJEJLuRqBtoGYb7VuewmSL1oIo"
+          "current_key": "AIzaSyDckmLNPovRGzhOMQHl4wecWQW1Ng15-ZI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "593616075747-0qbh1plsvvfbavsuamf5cv6jd0vhr5u8.apps.googleusercontent.com",
+              "client_id": "105367683653-utr587bu2njk2l9ftchgvbhdt89na6ih.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "105367683653-jm880afb0qr7fkfs1jlom3604rbdct67.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.ageone.nahodka"
+              }
             }
           ]
         }

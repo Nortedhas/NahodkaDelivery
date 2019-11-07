@@ -104,8 +104,8 @@ fun RestaurantMarkTextViewHolder.renderUI() {
 
 }
 
-fun RestaurantMarkTextViewHolder.initialize(name: String, rating: String, commentCount: Int) {
+fun RestaurantMarkTextViewHolder.initialize(name: String, rating: Double, commentCount: Int) {
     textViewName.text = name
-    textViewRating.text = rating
-    textViewComment.text = "Комментарии (${commentCount.toString()})"
+    textViewRating.text = "$rating"
+    textViewComment.text = "Комментарии ($commentCount)"
 }
