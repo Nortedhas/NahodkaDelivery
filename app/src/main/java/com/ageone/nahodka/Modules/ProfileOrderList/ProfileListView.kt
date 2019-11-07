@@ -62,17 +62,11 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         override fun getItemCount() = if (viewModel.realmData.isEmpty()) 1 else viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
-            when(itemCount) {
-                1 -> ProfileListEmptyType
-                else -> ProfileListTextType
+            if (viewModel.realmData.isEmpty()) {
+                ProfileListEmptyType
+            } else {
+                ProfileListTextType
             }
-//            }
-//            if (itemCount == 0/*viewModel.realmData.isEmpty()*/) {
-//                ProfileListEmptyType
-//            } else {
-//                ProfileListTextType
-//
-//            }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
