@@ -2,9 +2,11 @@ package com.ageone.nahodka.Modules.Mark.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.view.View
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -12,6 +14,9 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.ageone.nahodka.Modules.Mark.MarkView
+import com.ageone.nahodka.Modules.Mark.MarkViewModel
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
@@ -171,3 +176,94 @@ fun MarkTextViewHolder.initialize(name:String, hint: String, type: InputEditText
     textInputL.hint = hint
     textInputL.defineType(type)
 }
+
+//fun MarkTextViewHolder.selectStar(star1: BaseImageView, star2:BaseImageView, star3:BaseImageView, star4:BaseImageView, star5:BaseImageView){
+//
+//    var isRatingPressed = false
+//
+//    var rating = 0
+//    star1.setOnClickListener {
+//        when(isRatingPressed){
+//            false -> {
+//                star1.setImageResource(R.drawable.ic_star_fill)
+//                MarkView().viewModel.model.starCount = 1
+//                isRatingPressed = true
+//            }
+//            true -> {
+//                star2.setImageResource(R.drawable.ic_star)
+//                star3.setImageResource(R.drawable.ic_star)
+//                star4.setImageResource(R.drawable.ic_star)
+//                star5.setImageResource(R.drawable.ic_star)
+//                isRatingPressed = false
+//            }
+//        }
+//    }
+//
+//    star2.setOnClickListener {
+//        when(isRatingPressed){
+//            false -> {
+//                star1.setImageResource(R.drawable.ic_star_fill)
+//                star2.setImageResource(R.drawable.ic_star_fill)
+//                rating = 2
+//                isRatingPressed = true
+//            }
+//            true -> {
+//                star3.setImageResource(R.drawable.ic_star)
+//                star4.setImageResource(R.drawable.ic_star)
+//                star5.setImageResource(R.drawable.ic_star)
+//                isRatingPressed = false
+//            }
+//        }
+//    }
+//
+//    star3.setOnClickListener {
+//        when(isRatingPressed){
+//            false -> {
+//                star1.setImageResource(R.drawable.ic_star_fill)
+//                star2.setImageResource(R.drawable.ic_star_fill)
+//                star3.setImageResource(R.drawable.ic_star_fill)
+//                rating = 3
+//                isRatingPressed = true
+//            }
+//            true -> {
+//                star4.setImageResource(R.drawable.ic_star)
+//                star5.setImageResource(R.drawable.ic_star)
+//                isRatingPressed = false
+//            }
+//        }
+//    }
+//
+//    star4.setOnClickListener {
+//        when(isRatingPressed){
+//            false -> {
+//                star1.setImageResource(R.drawable.ic_star_fill)
+//                star2.setImageResource(R.drawable.ic_star_fill)
+//                star3.setImageResource(R.drawable.ic_star_fill)
+//                star4.setImageResource(R.drawable.ic_star_fill)
+//                rating = 4
+//                isRatingPressed = true
+//            }
+//            true -> {
+//                star5.setImageResource(R.drawable.ic_star)
+//                isRatingPressed = false
+//            }
+//        }
+//    }
+//
+//    star5.setOnClickListener {
+//        when(isRatingPressed){
+//            false -> {
+//                star1.setImageResource(R.drawable.ic_star_fill)
+//                star2.setImageResource(R.drawable.ic_star_fill)
+//                star3.setImageResource(R.drawable.ic_star_fill)
+//                star4.setImageResource(R.drawable.ic_star_fill)
+//                star5.setImageResource(R.drawable.ic_star_fill)
+//                isRatingPressed = true
+//            }
+//            true -> {
+//                isRatingPressed = false
+//            }
+//        }
+//    }
+//
+//}

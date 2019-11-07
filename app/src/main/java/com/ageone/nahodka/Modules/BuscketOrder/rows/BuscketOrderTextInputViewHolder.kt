@@ -7,6 +7,7 @@ import androidx.core.view.updateMargins
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
+import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import yummypets.com.stevia.*
 
 class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
@@ -25,6 +26,7 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+        textInput.defineType(InputEditTextType.NUMERIC)
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
@@ -48,6 +50,7 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+        textInput.defineType(InputEditTextType.NUMERIC)
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
@@ -71,6 +74,7 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+        textInput.defineType(InputEditTextType.NUMERIC)
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
@@ -94,6 +98,7 @@ class BuscketOrderTextInputViewHolder(val constraintLayout: ConstraintLayout) :
 
         textInput.boxStrokeColor = Color.parseColor("#D7D7D7")
         textInput.setInactiveUnderlineColor(Color.rgb(215, 215, 215))
+        textInput.defineType(InputEditTextType.NUMERIC)
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")

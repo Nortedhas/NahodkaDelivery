@@ -26,17 +26,11 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-    val textViewCity by lazy {
-        val textView = BaseTextView()
-        textView.textSize = 14F
-        textView.textColor = Color.BLACK
-        textView
-    }
-
     val textViewAddress by lazy {
         val textView = BaseTextView()
         textView.textSize = 14F
         textView.textColor = Color.BLACK
+        textView.setLineSpacing(1.2F,1.2F)
         textView
     }
 
@@ -47,14 +41,13 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-    val recyclerViewHolder by lazy {
-        val recyclerView = BaseRecyclerView()
-        recyclerView
-    }
-
-    val viewAdapter by lazy {
-        val viewAdapter = Factory()
-        viewAdapter
+    val textViewFood by lazy {
+        val textView = BaseTextView()
+        textView.textSize = 14F
+        textView.textColor = Color.parseColor("#979797")
+        textView.backgroundColor = Color.TRANSPARENT
+        textView.setLineSpacing(1.5F,1.5F)
+        textView
     }
 
     val textViewAmount by lazy {
@@ -72,51 +65,20 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
         view
     }
 
-    var dishList = listOf("Сушими с лосося 3 шт.", "Удон с курицей 2 шт.","Сушими с лосося 3 шт.", "Удон с курицей 2 шт.")//todo: change
-
     init {
-        recyclerViewHolder.adapter = viewAdapter
-        recyclerViewHolder.layoutManager =
-            LinearLayoutManager(
-                currentActivity,
-                LinearLayoutManager.VERTICAL, false)
-
-        recyclerViewHolder.overScrollMode = View.OVER_SCROLL_NEVER
-
         renderUI()
     }
 
     val format = SimpleDateFormat("dd.MM.yyyy")
 
-    inner class Factory: RecyclerView.Adapter<ProfileListTextItemViewHolder>(){
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): ProfileListTextItemViewHolder {
-
-            val layout = ConstraintLayout(parent.context)
-            layout.width(matchParent)
-                  .height(wrapContent)
-
-            return ProfileListTextItemViewHolder(layout)
-        }
-
-        override fun getItemCount(): Int = dishList.size
-
-        override fun onBindViewHolder(holder: ProfileListTextItemViewHolder, position: Int) {
-            var dish = dishList[position]
-            holder.initialize(dish)
-        }
-    }
 }
 
 fun ProfileListTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewOrderDate,
-        textViewCity,
         textViewAddress,
         textViewRestaurant,
-        recyclerViewHolder,
+        textViewFood,
         textViewAmount,
         separatop
     )
@@ -125,24 +87,20 @@ fun ProfileListTextViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout,24)
         .constrainLeftToLeftOf(constraintLayout,20)
 
-    textViewCity
+    textViewAddress
         .constrainTopToBottomOf(textViewOrderDate,15)
         .constrainLeftToLeftOf(constraintLayout,20)
 
-    textViewAddress
-        .constrainTopToBottomOf(textViewCity,8)
-        .constrainLeftToLeftOf(constraintLayout,20)
-
     textViewRestaurant
-        .constrainTopToBottomOf(textViewAddress,20)
+        .constrainTopToBottomOf(textViewAddress,16)
         .constrainLeftToLeftOf(constraintLayout,20)
 
-    recyclerViewHolder
-        .constrainTopToBottomOf(textViewRestaurant)
+    textViewFood
+        .constrainTopToBottomOf(textViewRestaurant,6)
         .constrainLeftToLeftOf(constraintLayout,20)
 
     textViewAmount
-        .constrainTopToBottomOf(recyclerViewHolder,15)
+        .constrainTopToBottomOf(textViewFood,15)
         .constrainLeftToLeftOf(constraintLayout,20)
 
     separatop
@@ -150,11 +108,10 @@ fun ProfileListTextViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun ProfileListTextViewHolder.initialize(date: Int, address: String, restaurantName: String, amount: Int) {
-
+fun ProfileListTextViewHolder.initialize(date: Int, address: String, food: String, restaurantName: String, amount: Int) {
     textViewOrderDate.text = "Заказ от ${format.format(Date(date.toLong() * 1000))}"
-    textViewCity.text = "Адрес доставки:"
-    textViewAddress.text = address
+    textViewAddress.text = "Адрес доставки: \n $address"
+    textViewFood.text = food
     textViewRestaurant.text = restaurantName
     textViewAmount.text = "Сумма заказа: $amount руб."
 }

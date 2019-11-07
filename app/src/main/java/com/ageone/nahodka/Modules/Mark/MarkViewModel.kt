@@ -29,8 +29,15 @@ class MarkViewModel : InterfaceViewModel {
     }
 
     fun validate(completion: () -> Unit) {
-        if (model.mark.length > 3) {
+        if (model.mark.length < 3) {
             alertManager.single("Ошибка", "Напишите отзыв", button = "OK") { _, position ->
+
+            }
+            return
+        }
+
+        if(model.starCount == 0){
+            alertManager.single("Ошибка", "Поставьте рейтинг", button = "OK") { _, position ->
 
             }
             return
@@ -54,4 +61,5 @@ class MarkViewModel : InterfaceViewModel {
 
 class MarkModel : InterfaceModel {
     var mark = ""
+    var starCount = 0
 }
