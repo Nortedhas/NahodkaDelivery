@@ -10,8 +10,8 @@ class Enums {
 
 	// MARK: Enum PaymentType
 
-	enum class PaymentType {
-		card, cash, applepay, cardtocourier
+	enum class PaymentType(val value: String) {
+		card("По карте"), cash("Наличные"), cardToCourier("Картой курьеру")
 	}
 
 	// MARK: Enum OrderType

@@ -1,15 +1,19 @@
 package com.ageone.nahodka.Modules.Buscket
 
 import android.graphics.Color
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.rxData
+import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.Buscket.rows.*
@@ -21,15 +25,6 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
     val viewModel = BuscketViewModel()
 
-    var dishImage = listOf(
-        R.drawable.dish1,
-        R.drawable.dish2,
-        R.drawable.dish3,
-        R.drawable.dish1,
-        R.drawable.dish2,
-        R.drawable.dish3
-    )
-
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -37,7 +32,7 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
 
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
 
@@ -48,7 +43,7 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
 
         renderUIO()
@@ -70,16 +65,16 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         private val BuscketBottomType = 2
         private val BuscketEmptyType = 3
 
-        override fun getItemCount() = 3 + dishImage.size //viewModel.realmData.size
+        override fun getItemCount() = if (viewModel.realmData.isEmpty()) 1 else 2 + viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int =
-            if(itemCount == 1) {
+            if(viewModel.realmData.isEmpty()) {
                 BuscketEmptyType
             } else {
                 when (position) {
-                    in dishImage.indices -> BuscketRecyclerType
-                    dishImage.size -> BuscketAppliancesType
-                    dishImage.size + 1 -> BuscketBottomType
+                    in viewModel.realmData.indices -> BuscketRecyclerType
+                    viewModel.realmData.size -> BuscketAppliancesType
+                    viewModel.realmData.size + 1 -> BuscketBottomType
                     else -> -1
                 }
             }
@@ -113,45 +108,78 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            var count = 1
 
             when (holder) {
                 is BuscketItemViewHolder -> {
-                    var dish = dishImage[position]
-                    holder.initialize(dish,"Сушими из лосося", 300, "Tokyo city", 450)
-                    holder.textViewCount.text = "Количество порций: ${count.toString()}"
-                    holder.imageViewPlus.setOnClickListener {
-                        holder.textViewCount.text = "Количество порций: ${count.toString()}"
-                    }
-                    holder.imageViewMinus.setOnClickListener {
-                        if(count>0){
-                            count--
-                            holder.textViewCount.text = "Количество порций: ${count.toString()}"
+                    if (position in viewModel.realmData.indices) {
+                        val product = viewModel.realmData[position].product
+                        var count = viewModel.realmData[position].count
+                        var priceWithSale = viewModel.realmData[position].priceWithSale
+                        val company = utils.realm.user.getObjectById(product.ownerHashId)
+
+
+                        holder.initialize(
+                            product.image?.original ?: "",
+                            product.name,
+                            company?.name ?: "",
+                            priceWithSale
+                        )
+
+                        holder.textViewCount.text = "Количество порций: $count"
+
+                        holder.imageViewPlus.setOnClickListener {
+                            viewModel.realmData[position].count = count + 1
+                            notifyDataSetChanged()
+                        }
+
+                        holder.imageViewMinus.setOnClickListener {
+                            if(count > 0) {
+                                viewModel.realmData[position].count = count - 1
+                                notifyDataSetChanged()
+                            }
                         }
                     }
                 }
+
                 is BuscketAppliancesViewHolder -> {
+                    holder.initialize(viewModel.model.appliancesCount)
+
                     holder.imageViewPlus.setOnClickListener {
-                        holder.appliancesCount++
+                        viewModel.model.appliancesCount++
                         notifyDataSetChanged()
                     }
+
                     holder.imageViewMinus.setOnClickListener {
-                        if(holder.appliancesCount > 0) {
-                            holder.appliancesCount--
+                        if(viewModel.model.appliancesCount > 0) {
+                            viewModel.model.appliancesCount--
                             notifyDataSetChanged()
                         }
                     }
-                    holder.initialize()
                 }
+
                 is BuscketBottomViewHolder -> {
-                    holder.initialize(162)
+                    holder.initialize(viewModel.getOrderPrice())
+
                     holder.buttonCheckout.setOnClickListener {
-                        rootModule.emitEvent?.invoke(BuscketViewModel.EventType.OnCheckPressed.name)
+                        viewModel.setItemList()
+                        if (viewModel.model.orderPrice > (rxData.productInBucketCompany?.deliveryFrom ?: 0)) {
+                            rootModule.emitEvent?.invoke(BuscketViewModel.EventType.OnCheckPressed.name)
+                        } else {
+                            alertManager.single(
+                                "Невозможно оформить заказ!",
+                                "В данном заведении минимальная стоимость заказа " +
+                                        "для осуществления доставки составляет " +
+                                        "${rxData.productInBucketCompany?.deliveryFrom ?: 0} " +
+                                        "рублей"
+                                )
+                        }
+
                     }
                 }
+
                 is BuscketEmptyViewHolder -> {
-                    setBackgroundColor(Color.parseColor("#eeece8"))
                     holder.initialize(R.drawable.dribbble)
+                    setBackgroundColor(Color.parseColor("#eeece8"))
                 }
             }
         }

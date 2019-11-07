@@ -25,13 +25,11 @@ class RxData {
     var selectedItems: List<Product> by Delegates.observable(emptyList()) {property, oldValue, newValue ->
         if (oldValue.size == newValue.size) return@observable
 
-        if(newValue.size > oldValue.size) {
+        if(newValue.size != oldValue.size) {
             RxBus.publish(RxEvent.EventChangePushCount(newValue.size))
         }
-        //todo: other cases
-
     }
-    }
+}
 
 class RxEvent {
     class EventChangeComment

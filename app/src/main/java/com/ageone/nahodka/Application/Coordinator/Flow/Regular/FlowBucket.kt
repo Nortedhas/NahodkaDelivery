@@ -91,17 +91,20 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
             )
         )
 
+        module.viewModel.initialize(models.modelBuscket) {module.reload()}
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
         module.emitEvent = { event ->
             when(BuscketViewModel.EventType.valueOf(event)){
                 BuscketViewModel.EventType.OnCheckPressed -> {
+                    models.modelBuscketOrder.appliancesCount = models.modelBuscket.appliancesCount
+                    models.modelBuscketOrder.itemList = models.modelBuscket.itemList
+                    models.modelBuscketOrder.orderPrice = models.modelBuscket.orderPrice
                     runModuleBuscketOrder()
                 }
             }
         }
-
-        module.viewModel.initialize(models.modelBuscket) {module.reload()}
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
 
         push(module)
     }
@@ -120,7 +123,7 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
                     runModuleFrame()
                 }
                 BuscketOrderViewModel.EventType.OnPayOrderPressed -> {
-                    runModulePayOrder("")
+                    runModulePayOrder(models.modelBuscketOrder.url)
                 }
             }
         }

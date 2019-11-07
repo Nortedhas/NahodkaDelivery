@@ -3,6 +3,7 @@ package com.ageone.nahodka.Modules.BuscketOrder
 import android.graphics.Color
 import android.os.Handler
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
@@ -17,9 +18,14 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.list
 import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.External.Utils.Validation.toBeautifulPhone
+import com.ageone.nahodka.External.Utils.Validation.toCorrectPhone
 import com.ageone.nahodka.Models.RxEvent
+import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.BuscketOrder.rows.*
 import com.ageone.nahodka.R
+import com.ageone.nahodka.SCAG.Enums
+import timber.log.Timber
 import yummypets.com.stevia.height
 import yummypets.com.stevia.matchParent
 import yummypets.com.stevia.width
@@ -47,7 +53,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
         bindUI()
@@ -71,7 +77,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         private val BuscketOrderBottomType = 5
         private val BuscketOrderButtonType = 6
 
-        override fun getItemCount() = 7//viewModel.realmData.size
+        override fun getItemCount() = 7 //viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> BuscketOrderEditTextType
@@ -129,6 +135,11 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.initialize("Адрес доставки")
                     innerContent.dismissFocus(holder.textInputAddress.editText)
 
+                    if (user.info.address.isNotBlank()) {
+                        holder.textInputAddress.editText?.setText(user.info.address)
+                        viewModel.model.address = user.info.address
+                    }
+
                     holder.textInputAddress.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.address = text.toString()
                     }
@@ -137,7 +148,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     holder.initialize("Кв/офис", "Домофон", "Подъезд", "Этаж")
 
                     holder.textInputOffice.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.office = text.toString()
+                        viewModel.model.room = text.toString()
                     }
 
                     holder.textInputHome.editText?.doOnTextChanged { text, start, count, after ->
@@ -161,22 +172,17 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is BuscketOrderPhoneViewHolder -> {
                     holder.initialize("Телефон")
 
+                    holder.editTextPhone.editText?.setText(user.data.phone.toBeautifulPhone())
+                    viewModel.model.phone = user.data.phone
+
                     holder.editTextPhone.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.phone = text.toString()
+                        viewModel.model.phone = text.toString().toCorrectPhone()
                     }
 
                     innerContent.dismissFocus(holder.editTextPhone.editText)
                 }
                 is BuscketOrderMarkViewHolder -> {
                     holder.initialize("Комментарий к заказу")
-
-                    /*compositeDisposable.add(RxBus.listen(RxEvent.EventChangeMark::class.java).subscribe { changeMarkEvent ->
-                        holder.textInputComment.editText?.setText(changeMarkEvent.mark)
-                    })
-
-                    holder.textInputComment.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.mark = text.toString()
-                    }*/
 
                     if (rxData.comment.isNotBlank()) {
                         holder.textInputComment.editText?.setText(rxData.comment)
@@ -191,56 +197,47 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
                 is BuscketOrderTextInputPayViewHolder -> {
                     holder.initialize("Способ оплаты")
-                    //innerContent.setScrollableView(holder.textInputPay,bodyTable)
+
                     innerContent.dismissFocus(holder.textInputPay.editText)
+
+                    holder.textInputPay.editText?.setText(Enums.PaymentType.cash.value)
 
                     holder.textInputPay.editText?.setOnTouchListener { v, event ->
                         if (event.action == MotionEvent.ACTION_DOWN) {
+                            val variantPay = Enums.PaymentType.values()
+                            val variantPayWords = Enums.PaymentType.values().map { it.value }.toTypedArray()
 
                             Handler().postDelayed({
                                 currentActivity?.hideKeyboard()
                             }, 300)
                             alertManager.list(
                                 "Выберите способ оплаты",
-                                arrayOf("Картой", "Картой курьеру", "Наличными")
-                            ) {_,index ->
-                                when(index){
-                                    0 -> holder.textInputPay.editText?.setText("Картой")
-                                    1 -> holder.textInputPay.editText?.setText("Картой курьеру")
-                                    2 -> holder.textInputPay.editText?.setText("Наличными")
-                                }
+                                variantPayWords
+                            ) {_, index ->
+                                holder.textInputPay.editText?.setText(variantPay[index].value)
+                                viewModel.model.payVariant = variantPay[index]
+                                Timber.i("order type pay: ${viewModel.model.payVariant}")
                             }
                         }
                         false
                     }
+                }
 
-                    holder.textInputPay.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.payVariant = text.toString()
-                    }
-                }
                 is BuscketOrderTotalViewHolder -> {
-                    holder.initialize(162,50)
+                    holder.initialize(
+                        viewModel.model.orderPrice,
+                        rxData.productInBucketCompany?.deliveryPrice ?: 0,
+                        viewModel.model.totalPrice
+                    )
                 }
+
                 is BuscketOrderButtonViewHolder -> {
                     holder.initialize()
                     holder.buttonCheckout.setOnClickListener {
 
                         viewModel.validate {
                             rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnPayOrderPressed.name)
-
                         }
-                       /* if( viewModel.model.address.count() == 0 ||
-                            viewModel.model.office.count() == 0 ||
-                            viewModel.model.homePhone.count() == 0 ||
-                            viewModel.model.porch.count() == 0 ||
-                            viewModel.model.floor.count() == 0 ||
-                            viewModel.model.phone.count() == 0 ||
-                            viewModel.model.payVariant.count() == 0){
-                            alertManager.single("Ошибка","Заполните все поля",null,"OK") {_, position ->
-                            }
-                        } else {
-                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnPayOrderPressed.name)
-                        }*/
 
                     }
                 }

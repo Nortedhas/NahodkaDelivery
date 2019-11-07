@@ -107,14 +107,14 @@ fun BuscketOrderTotalViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout,16)
 }
 
-fun BuscketOrderTotalViewHolder.initialize(amountPrice: Int, deliveryPrice: Int) {
-    textViewAmountPrice.text = "${amountPrice.toString()} р."
+fun BuscketOrderTotalViewHolder.initialize(orderPrice: Int, deliveryPrice: Int, totalPrice: Int) {
+    textViewAmountPrice.text = "$orderPrice р."
 
-    if(deliveryPrice == 0){
+    if (deliveryPrice == 0) {
         textViewDeliveryPrice.text = "Бесплатно"
     } else {
-        textViewDeliveryPrice.text = "${deliveryPrice.toString()} р."
+        textViewDeliveryPrice.text = "$deliveryPrice р."
     }
 
-    textViewTotalPrice.text = "${(amountPrice+deliveryPrice).toString()} р."
+    textViewTotalPrice.text = "$totalPrice р."
 }

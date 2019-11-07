@@ -54,6 +54,7 @@ class WebSocket {
                 alertManager.single("Ваш заказ создан",
                     "С вами свяжется курьер, как только заказ будет доставлен") {_,_ ->
                     router.onBackPressed()
+                    router.onBackPressed()
                 }
             }
 
@@ -62,18 +63,8 @@ class WebSocket {
 
     fun subscribePaymentFail() {
         socket.on("paymentFail") { order ->
-            Timber.i("Pay succes!")
-            runBlocking {
-                launch {
-                    api.handshake()
-                }.join()
-
-                launch {
-                    api.mainLoad()
-                }.join()
-            }
-
             currentActivity?.runOnUiThread {
+                router.onBackPressed()
                 router.onBackPressed()
             }
 

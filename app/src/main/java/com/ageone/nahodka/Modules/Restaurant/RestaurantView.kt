@@ -12,6 +12,9 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.Toolbar.BaseToolbar
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.double
+import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.Restaurant.rows.*
@@ -137,7 +140,40 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                         )
 
                         holder.buttonAdd.setOnClickListener {
-                            rxData.selectedItems += product
+                            if (rxData.selectedItems.isEmpty()) {
+                                //add first item
+                                rxData.productInBucketCompany = rxData.currentCompany
+                                rxData.selectedItems += product
+
+
+                            } else {
+
+                                rxData.productInBucketCompany?.let { company ->
+                                    if (company.hashId != rxData.currentCompany?.hashId) {
+                                        //if items from other company
+
+                                        alertManager.double(
+                                            "Очистить корзину?",
+                                            "В вашей корзине уже добавлены товары из другого заведения",
+                                            button = "Нет",
+                                            completion = {_,_ ->
+                                                //dont clear
+                                            },
+
+                                            buttonCancel = "Очистить",
+                                            completionCancel = {_,_ ->
+                                                //clear and add item
+                                                rxData.productInBucketCompany = rxData.currentCompany
+                                                rxData.selectedItems = emptyList()
+                                                rxData.selectedItems += product
+                                            })
+                                    } else {
+                                        //if add item from the same company
+                                        rxData.selectedItems += product
+                                    }
+                                }
+                            }
+
                         }
                     }
 

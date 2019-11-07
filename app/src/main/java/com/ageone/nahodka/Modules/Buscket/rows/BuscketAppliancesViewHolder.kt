@@ -12,8 +12,6 @@ import yummypets.com.stevia.*
 class BuscketAppliancesViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    var appliancesCount = 1
-
     val separatorTop by lazy {
         val view = BaseView()
         view.backgroundColor = Color.parseColor("#D9D9D9")
@@ -103,6 +101,6 @@ fun BuscketAppliancesViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun BuscketAppliancesViewHolder.initialize() {
-    textViewCount.text = appliancesCount.toString()
+fun BuscketAppliancesViewHolder.initialize(count: Int) {
+    textViewCount.text = "$count"
 }

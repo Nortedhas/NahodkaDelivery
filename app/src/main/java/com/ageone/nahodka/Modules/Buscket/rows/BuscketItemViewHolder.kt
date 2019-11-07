@@ -124,7 +124,7 @@ fun BuscketItemViewHolder.renderUI() {
         .constrainRightToLeftOf(imageViewPlus,10)
 }
 
-fun BuscketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, restaurant: String, price: Int) {
+fun BuscketItemViewHolder.initialize(image: String, dishName: String, restaurant: String, price: Int) {
 
     addImageFromGlide(imageViewDish, image,0)
 
@@ -133,7 +133,6 @@ fun BuscketItemViewHolder.initialize(image: Int, dishName: String, weight: Int, 
         .height(utils.tools.getActualSizeFromDes(101))
 
     textViewDishName.text = dishName
-    textViewWeight.text = "$weight г"
     textViewRestaurant.text = restaurant
     textViewCount.text = "Количество порций: $count"
     textViewPrice.text = "$price руб."

@@ -7,6 +7,13 @@ import com.ageone.nahodka.SCAG.parseComment
 import com.ageone.nahodka.SCAG.parseOrder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.json.JSONObject
+
+data class ItemForOrder(
+    val count: Int,
+    val productHashId: String
+)
 
 suspend fun API.createOrder(
     companyHashId: String,
@@ -21,7 +28,7 @@ suspend fun API.createOrder(
     orderPrice: Int,
     deliveryPrice: Int,
     total: Int,
-    items: List<CartItem>) =
+    items: List<ItemForOrder>) =
     withContext(Dispatchers.Default) {
         val json = withContext(Dispatchers.Default) {
             request(
@@ -39,7 +46,7 @@ suspend fun API.createOrder(
                     "orderPrice" to orderPrice,
                     "deliveryPrice" to deliveryPrice,
                     "total" to total,
-                    "items" to items
+                    "items" to items.toJSON()
                 )
             )
         }
@@ -49,6 +56,19 @@ suspend fun API.createOrder(
         json.parseOrder()
 
     }
+
+fun List<ItemForOrder>.toJSON(): JSONArray {
+    val array = JSONArray()
+
+    this.forEach { item ->
+        array.put(JSONObject().apply {
+            put("count", item.count)
+            put("productHashId", item.productHashId)
+        })
+    }
+
+    return array
+}
 
 suspend fun API.createOrderWithCard(
     companyHashId: String,
@@ -63,7 +83,7 @@ suspend fun API.createOrderWithCard(
     orderPrice: Int,
     deliveryPrice: Int,
     total: Int,
-    items: List<CartItem>) =
+    items: List<ItemForOrder>) =
     withContext(Dispatchers.Default) {
         val json = withContext(Dispatchers.Default) {
             request(
@@ -81,7 +101,7 @@ suspend fun API.createOrderWithCard(
                     "orderPrice" to orderPrice,
                     "deliveryPrice" to deliveryPrice,
                     "total" to total,
-                    "items" to items
+                    "items" to items.toJSON()
                 )
             )
         }
