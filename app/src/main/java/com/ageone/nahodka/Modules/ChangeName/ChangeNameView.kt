@@ -74,7 +74,7 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
     fun bindUI() {
         /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+            RxBus.listen(RxEvent.Event::class.java).subscribe {
                 bodyTable.adapter?.notifyDataSetChanged()
             }
         )*/

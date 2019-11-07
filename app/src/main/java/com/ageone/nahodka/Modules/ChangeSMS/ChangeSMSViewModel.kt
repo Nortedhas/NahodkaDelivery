@@ -23,7 +23,7 @@ class ChangeSMSViewModel : InterfaceViewModel {
 
     /*var realmData = listOf<>()
     fun loadRealmData() {
-        realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+        realmData = utils.realm.product.getAllObjects()
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
@@ -39,7 +39,7 @@ class ChangeSMSViewModel : InterfaceViewModel {
             return
         }
 
-        api.request(//todo: check
+        api.request(
             mapOf(
                 "router" to "codeCheck",
                 "name" to model.name,

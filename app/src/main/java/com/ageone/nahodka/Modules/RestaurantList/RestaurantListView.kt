@@ -130,8 +130,8 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
                         holder.initialize(
                             company.image?.original ?: "",
                             company.name,
-                            "Итальянская, Мексиканская, Кавказ...",//todo: add tags
-                            "Заказ от ${company.deliveryFrom} руб.",//todo: check in create order
+                            company.tags.joinToString(),
+                            "Заказ от ${company.deliveryFrom} руб.",
                             R.drawable.ic_star,
                             company.rating
                         )

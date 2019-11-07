@@ -79,7 +79,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
     fun bindUI() {
         /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+            RxBus.listen(RxEvent.Event::class.java).subscribe {
                 bodyTable.adapter?.notifyDataSetChanged()
             }
         )*/

@@ -58,8 +58,6 @@ class AppActivity: BaseActivity() {
 
         }
 
-
-//        user.isAuthorized = false//todo: delete
         // MARK: start UI & request work
 
         start()
