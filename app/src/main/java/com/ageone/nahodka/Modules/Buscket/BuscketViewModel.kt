@@ -19,7 +19,10 @@ class BuscketViewModel : InterfaceViewModel {
     var realmData = mutableListOf<ProductForBucket>()
     fun loadRealmData() {
 
+
+        Timber.i("Prodict item : ${rxData.selectedItems}")
         val setProducts = rxData.selectedItems.toSet()
+
         setProducts.forEach { product ->
             var priceWithSale = product.price
 
@@ -32,8 +35,9 @@ class BuscketViewModel : InterfaceViewModel {
             realmData.add(
                 ProductForBucket(
                     product,
-                    rxData.selectedItems.count{ product ->
-                        product.hashId == product.hashId
+                   // count,
+                    rxData.selectedItems.count{ currentProduct ->
+                        currentProduct.hashId == product.hashId
                     },
                     priceWithSale
                 )

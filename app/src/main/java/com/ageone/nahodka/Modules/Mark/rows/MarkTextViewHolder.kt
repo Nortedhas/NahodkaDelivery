@@ -2,11 +2,9 @@ package com.ageone.nahodka.Modules.Mark.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.view.View
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
-import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -14,9 +12,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.BaseTextInputLayout
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
-import com.ageone.nahodka.Modules.Mark.MarkView
-import com.ageone.nahodka.Modules.Mark.MarkViewModel
-import timber.log.Timber
+import com.ageone.nahodka.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
 class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
@@ -106,6 +102,41 @@ class MarkTextViewHolder(val constraintLayout: ConstraintLayout) :
         button
     }
 
+    val viewStar1 by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.WHITE
+        view.initialize()
+        view
+    }
+
+    val viewStar2 by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.WHITE
+        view.initialize()
+        view
+    }
+
+    val viewStar3 by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.WHITE
+        view.initialize()
+        view
+    }
+
+    val viewStar4 by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.WHITE
+        view.initialize()
+        view
+    }
+
+    val viewStar5 by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.WHITE
+        view.initialize()
+        view
+    }
+
     init {
         renderUI()
     }
@@ -115,6 +146,11 @@ fun MarkTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewEstimate,
         textViewName,
+        viewStar1,
+        viewStar2,
+        viewStar3,
+        viewStar4,
+        viewStar5,
         imageViewRating1,
         imageViewRating2,
         imageViewRating3,
@@ -132,35 +168,65 @@ fun MarkTextViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewEstimate, 26)
         .constrainLeftToLeftOf(constraintLayout,15)
 
+    viewStar1
+        .width(24)
+        .height(24)
+        .constrainTopToBottomOf(textViewName, 15)
+        .constrainLeftToLeftOf(constraintLayout,18)
+
     imageViewRating1
         .width(18)
         .height(18)
+        .constrainCenterXToCenterXOf(viewStar1)
+        .constrainCenterYToCenterYOf(viewStar1)
+
+    viewStar2
+        .width(24)
+        .height(24)
         .constrainTopToBottomOf(textViewName, 15)
-        .constrainLeftToLeftOf(constraintLayout,15)
+        .constrainLeftToRightOf(viewStar1,15)
 
     imageViewRating2
         .width(18)
         .height(18)
-        .constrainCenterYToCenterYOf(imageViewRating1)
-        .constrainLeftToRightOf(imageViewRating1,15)
+        .constrainCenterXToCenterXOf(viewStar2)
+        .constrainCenterYToCenterYOf(viewStar2)
+
+    viewStar3
+        .width(24)
+        .height(24)
+        .constrainTopToBottomOf(textViewName, 15)
+        .constrainLeftToRightOf(viewStar2,15)
 
     imageViewRating3
         .width(18)
         .height(18)
-        .constrainCenterYToCenterYOf(imageViewRating2)
-        .constrainLeftToRightOf(imageViewRating2,15)
+        .constrainCenterXToCenterXOf(viewStar3)
+        .constrainCenterYToCenterYOf(viewStar3)
+
+    viewStar4
+        .width(24)
+        .height(24)
+        .constrainTopToBottomOf(textViewName, 15)
+        .constrainLeftToRightOf(viewStar3,15)
 
     imageViewRating4
         .width(18)
         .height(18)
-        .constrainCenterYToCenterYOf(imageViewRating3)
-        .constrainLeftToRightOf(imageViewRating3,15)
+        .constrainCenterXToCenterXOf(viewStar4)
+        .constrainCenterYToCenterYOf(viewStar4)
+
+    viewStar5
+        .width(24)
+        .height(24)
+        .constrainTopToBottomOf(textViewName, 15)
+        .constrainLeftToRightOf(viewStar4,15)
 
     imageViewRating5
         .width(18)
         .height(18)
-        .constrainCenterYToCenterYOf(imageViewRating4)
-        .constrainLeftToRightOf(imageViewRating4,15)
+        .constrainCenterXToCenterXOf(viewStar5)
+        .constrainCenterYToCenterYOf(viewStar5)
 
     textInputL
         .constrainTopToBottomOf(imageViewRating1,18)
@@ -177,93 +243,3 @@ fun MarkTextViewHolder.initialize(name:String, hint: String, type: InputEditText
     textInputL.defineType(type)
 }
 
-//fun MarkTextViewHolder.selectStar(star1: BaseImageView, star2:BaseImageView, star3:BaseImageView, star4:BaseImageView, star5:BaseImageView){
-//
-//    var isRatingPressed = false
-//
-//    var rating = 0
-//    star1.setOnClickListener {
-//        when(isRatingPressed){
-//            false -> {
-//                star1.setImageResource(R.drawable.ic_star_fill)
-//                MarkView().viewModel.model.starCount = 1
-//                isRatingPressed = true
-//            }
-//            true -> {
-//                star2.setImageResource(R.drawable.ic_star)
-//                star3.setImageResource(R.drawable.ic_star)
-//                star4.setImageResource(R.drawable.ic_star)
-//                star5.setImageResource(R.drawable.ic_star)
-//                isRatingPressed = false
-//            }
-//        }
-//    }
-//
-//    star2.setOnClickListener {
-//        when(isRatingPressed){
-//            false -> {
-//                star1.setImageResource(R.drawable.ic_star_fill)
-//                star2.setImageResource(R.drawable.ic_star_fill)
-//                rating = 2
-//                isRatingPressed = true
-//            }
-//            true -> {
-//                star3.setImageResource(R.drawable.ic_star)
-//                star4.setImageResource(R.drawable.ic_star)
-//                star5.setImageResource(R.drawable.ic_star)
-//                isRatingPressed = false
-//            }
-//        }
-//    }
-//
-//    star3.setOnClickListener {
-//        when(isRatingPressed){
-//            false -> {
-//                star1.setImageResource(R.drawable.ic_star_fill)
-//                star2.setImageResource(R.drawable.ic_star_fill)
-//                star3.setImageResource(R.drawable.ic_star_fill)
-//                rating = 3
-//                isRatingPressed = true
-//            }
-//            true -> {
-//                star4.setImageResource(R.drawable.ic_star)
-//                star5.setImageResource(R.drawable.ic_star)
-//                isRatingPressed = false
-//            }
-//        }
-//    }
-//
-//    star4.setOnClickListener {
-//        when(isRatingPressed){
-//            false -> {
-//                star1.setImageResource(R.drawable.ic_star_fill)
-//                star2.setImageResource(R.drawable.ic_star_fill)
-//                star3.setImageResource(R.drawable.ic_star_fill)
-//                star4.setImageResource(R.drawable.ic_star_fill)
-//                rating = 4
-//                isRatingPressed = true
-//            }
-//            true -> {
-//                star5.setImageResource(R.drawable.ic_star)
-//                isRatingPressed = false
-//            }
-//        }
-//    }
-//
-//    star5.setOnClickListener {
-//        when(isRatingPressed){
-//            false -> {
-//                star1.setImageResource(R.drawable.ic_star_fill)
-//                star2.setImageResource(R.drawable.ic_star_fill)
-//                star3.setImageResource(R.drawable.ic_star_fill)
-//                star4.setImageResource(R.drawable.ic_star_fill)
-//                star5.setImageResource(R.drawable.ic_star_fill)
-//                isRatingPressed = true
-//            }
-//            true -> {
-//                isRatingPressed = false
-//            }
-//        }
-//    }
-//
-//}

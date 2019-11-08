@@ -46,7 +46,7 @@ fun ChangeNameTextInputViewHolder.renderUI() {
     )
 
     textInputChange
-        .constrainTopToTopOf(constraintLayout)
+        .constrainTopToTopOf(constraintLayout,16)
         .fillHorizontally(14)
 }
 

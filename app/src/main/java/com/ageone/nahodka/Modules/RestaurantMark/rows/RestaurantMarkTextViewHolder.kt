@@ -93,8 +93,8 @@ fun RestaurantMarkTextViewHolder.renderUI() {
         .constrainBottomToBottomOf(constraintLayout,20)
 
     imageViewComment
-        .height(18.dp)
-        .width(18.dp)
+        .height(36.dp)
+        .width(36.dp)
         .constrainBottomToTopOf(textViewEstimate,1)
         .constrainCenterXToCenterXOf(textViewEstimate)
 

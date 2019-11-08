@@ -3,7 +3,6 @@ package com.ageone.nahodka.Modules.Mark
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doOnTextChanged
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.Application.rxData
@@ -14,11 +13,8 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.nahodka.External.InitModuleUI
-import com.ageone.nahodka.External.Libraries.Alert.alertManager
-import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.Modules.Mark.rows.MarkTextViewHolder
 import com.ageone.nahodka.Modules.Mark.rows.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -94,7 +90,94 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 is MarkTextViewHolder -> {
                     holder.initialize(rxData.currentCompany?.name ?: "", "Оставьте комментарий", InputEditTextType.TEXT)
 
-                    selectStar(holder.imageViewRating1,holder.imageViewRating2,holder.imageViewRating3,holder.imageViewRating4,holder.imageViewRating5)
+                    //selectStar(holder.imageViewRating1,holder.imageViewRating2,holder.imageViewRating3,holder.imageViewRating4,holder.imageViewRating5)
+                    var isRatingPressed = false
+
+                    holder.viewStar1.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                viewModel.model.starCount = 1
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+
+                    holder.viewStar2.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                viewModel.model.starCount = 1
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+
+                    holder.viewStar3.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                                viewModel.model.starCount = 1
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+
+                    holder.viewStar4.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
+                                viewModel.model.starCount = 1
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+
+                    holder.viewStar5.setOnClickListener {
+                        when(isRatingPressed){
+                            false -> {
+                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
+                                holder.imageViewRating5.setImageResource(R.drawable.ic_star_fill)
+                                viewModel.model.starCount = 1
+                                isRatingPressed = true
+                            }
+                            true -> {
+                                isRatingPressed = false
+                            }
+                        }
+                    }
+
 
                     holder.buttonSend.setOnClickListener{
                         viewModel.model.mark =  holder.textInputL.editText?.text.toString()
@@ -113,94 +196,3 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 fun MarkView.renderUIO() {
     renderBodyTable()
 }
-
-fun MarkView.selectStar(star1: BaseImageView, star2: BaseImageView, star3: BaseImageView, star4: BaseImageView, star5: BaseImageView){
-
-    var isRatingPressed = false
-    star1.setOnClickListener {
-        when(isRatingPressed){
-            false -> {
-                star1.setImageResource(R.drawable.ic_star_fill)
-                viewModel.model.starCount = 1
-                isRatingPressed = true
-            }
-            true -> {
-                star2.setImageResource(R.drawable.ic_star)
-                star3.setImageResource(R.drawable.ic_star)
-                star4.setImageResource(R.drawable.ic_star)
-                star5.setImageResource(R.drawable.ic_star)
-                isRatingPressed = false
-            }
-        }
-    }
-
-    star2.setOnClickListener {
-        when(isRatingPressed){
-            false -> {
-                star1.setImageResource(R.drawable.ic_star_fill)
-                star2.setImageResource(R.drawable.ic_star_fill)
-                viewModel.model.starCount = 2
-                isRatingPressed = true
-            }
-            true -> {
-                star3.setImageResource(R.drawable.ic_star)
-                star4.setImageResource(R.drawable.ic_star)
-                star5.setImageResource(R.drawable.ic_star)
-                isRatingPressed = false
-            }
-        }
-    }
-
-    star3.setOnClickListener {
-        when(isRatingPressed){
-            false -> {
-                star1.setImageResource(R.drawable.ic_star_fill)
-                star2.setImageResource(R.drawable.ic_star_fill)
-                star3.setImageResource(R.drawable.ic_star_fill)
-                viewModel.model.starCount = 3
-                isRatingPressed = true
-            }
-            true -> {
-                star4.setImageResource(R.drawable.ic_star)
-                star5.setImageResource(R.drawable.ic_star)
-                isRatingPressed = false
-            }
-        }
-    }
-
-    star4.setOnClickListener {
-        when(isRatingPressed){
-            false -> {
-                star1.setImageResource(R.drawable.ic_star_fill)
-                star2.setImageResource(R.drawable.ic_star_fill)
-                star3.setImageResource(R.drawable.ic_star_fill)
-                star4.setImageResource(R.drawable.ic_star_fill)
-                viewModel.model.starCount = 4
-                isRatingPressed = true
-            }
-            true -> {
-                star5.setImageResource(R.drawable.ic_star)
-                isRatingPressed = false
-            }
-        }
-    }
-
-    star5.setOnClickListener {
-        when(isRatingPressed){
-            false -> {
-                star1.setImageResource(R.drawable.ic_star_fill)
-                star2.setImageResource(R.drawable.ic_star_fill)
-                star3.setImageResource(R.drawable.ic_star_fill)
-                star4.setImageResource(R.drawable.ic_star_fill)
-                star5.setImageResource(R.drawable.ic_star_fill)
-                isRatingPressed = true
-                viewModel.model.starCount = 5
-            }
-            true -> {
-                isRatingPressed = false
-            }
-        }
-    }
-}
-
-
