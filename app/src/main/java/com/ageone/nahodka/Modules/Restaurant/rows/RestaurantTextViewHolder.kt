@@ -86,8 +86,10 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
                 holder.initialize(category.name,position == selectedCategory)
                 holder.constraintLayout.setOnClickListener {
                     textViewCurrentCategory.text = category.name
+
                     selectedCategory = position
                     notifyDataSetChanged()
+
                     RxBus.publish(RxEvent.EventChangeCategory(selectedCategory))//todo: add onTap
                 }
             }

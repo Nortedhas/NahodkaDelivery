@@ -14,7 +14,6 @@ import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.RestaurantList.rows.RestaurantListImageViewHolder
-import com.ageone.nahodka.Modules.RestaurantList.rows.initialize
 import com.example.ageone.Modules.Restaurant.rows.RestaurantListItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
 import yummypets.com.stevia.*
@@ -121,7 +120,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
             when (holder) {
                 is RestaurantListImageViewHolder -> {
-                    holder.initialize()
+//                    holder.initialize()
 
                     holder.onTap = {
                         rootModule.emitEvent?.invoke(RestaurantListViewModel.EventType.OnBannerPressed.name)
