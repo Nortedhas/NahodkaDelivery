@@ -85,6 +85,10 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             when (holder) {
                 is FilterTextViewHolder -> {
                     holder.initialize()
+                    when(rxData.currentFilter){
+                        Filter.distance -> holder.checkPrice.isChecked = true
+                        Filter.price -> holder.checkAround.isChecked = true
+                    }
 
                     holder.checkPrice.setOnClickListener {
 

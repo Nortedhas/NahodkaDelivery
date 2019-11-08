@@ -85,11 +85,9 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
 
                 holder.initialize(category.name,position == selectedCategory)
                 holder.constraintLayout.setOnClickListener {
-                    textViewCurrentCategory.text = category.name
-
+                    //textViewCurrentCategory.text = kitchenList[position].name
                     selectedCategory = position
                     notifyDataSetChanged()
-
                     RxBus.publish(RxEvent.EventChangeCategory(selectedCategory))//todo: add onTap
                 }
             }
@@ -120,6 +118,6 @@ fun RestaurantTextViewHolder.initialize(categories: List<Category>) {
     recyclerViewKitchen.adapter?.notifyDataSetChanged()
 
     if (kitchenList.isNotEmpty()) {
-        textViewCurrentCategory.text = kitchenList[0].name
+        textViewCurrentCategory.text = kitchenList[selectedCategory].name
     }
 }

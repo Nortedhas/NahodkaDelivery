@@ -44,7 +44,7 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView.textSize = 14F
         textView.textColor = Color.parseColor("#979797")
         textView.backgroundColor = Color.TRANSPARENT
-        textView.setLineSpacing(1.5F,1.5F)
+        textView.setLineSpacing(1.3F,1.3F)
         textView
     }
 
@@ -98,7 +98,7 @@ fun ProfileListTextViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,20)
 
     textViewAmount
-        .constrainTopToBottomOf(textViewFood,15)
+        .constrainTopToBottomOf(textViewFood,8)
         .constrainLeftToLeftOf(constraintLayout,20)
 
     separatop
@@ -111,8 +111,12 @@ fun ProfileListTextViewHolder.initialize(date: Int, address: String, food: Realm
     textViewAddress.text = "Адрес доставки: $address"
     var foodText = ""
     if(food.isNotEmpty()) {
-      for (i in 0 until food.count()){
-          foodText +="${food[i]?.productName} ${food[i]?.count}шт.\n"
+      for (i in 0 until food.count()) {
+          if (i == food.count() - 1) {
+              foodText += "${food[i]?.productName} ${food[i]?.count}шт."
+          }else {
+              foodText += "${food[i]?.productName} ${food[i]?.count}шт.\n"
+          }
       }
     }
     textViewFood.text = foodText
