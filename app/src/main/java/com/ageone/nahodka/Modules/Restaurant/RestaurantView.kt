@@ -132,7 +132,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
 
                 is RestaurantTextViewHolder -> {
                     Timber.i("Bind categories - ${viewModel.model.categories.joinToString()}")
-                    holder.initialize(viewModel.model.categories)
+                    holder.initialize(rxData.currentCompany?.createCategoriesFromCompany() ?: listOf())
                 }
 
                 is RestaurantCardViewHolder -> {//todo: change with filter

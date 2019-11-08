@@ -7,6 +7,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.SCAG.CartItem
 import io.realm.RealmList
+import timber.log.Timber
 
 import yummypets.com.stevia.*
 import java.text.SimpleDateFormat
@@ -108,13 +109,13 @@ fun ProfileListTextViewHolder.renderUI() {
 fun ProfileListTextViewHolder.initialize(date: Int, address: String, food: RealmList<CartItem>, restaurantName: String, amount: Int) {
     textViewOrderDate.text = "Заказ от ${format.format(Date(date.toLong() * 1000))}"
     textViewAddress.text = "Адрес доставки: $address"
-
+    var foodText = ""
     if(food.isNotEmpty()) {
-        for (i in 0..food.size) {
-            val text = "${food[i]?.productName ?: ""} ${food[i]?.count ?: 0} шт.\n"
-            textViewFood.text = text
-        }
+      for (i in 0 until food.count()){
+          foodText +="${food[i]?.productName} ${food[i]?.count}шт.\n"
+      }
     }
+    textViewFood.text = foodText
 
     textViewRestaurant.text = restaurantName
     textViewAmount.text = "Сумма заказа: $amount руб."

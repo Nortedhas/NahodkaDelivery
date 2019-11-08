@@ -47,6 +47,8 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
+    var onTap: ((Int) -> Unit)? = null
+
     init {
         recyclerViewKitchen.adapter = viewAdapter
         recyclerViewKitchen.layoutManager =
