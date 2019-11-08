@@ -1,13 +1,7 @@
 package com.ageone.nahodka.Modules.ProfileOrderList.rows
 
 import android.graphics.Color
-import android.view.View
-import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.External.Base.RecyclerView.BaseRecyclerView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
@@ -114,8 +108,11 @@ fun ProfileListTextViewHolder.renderUI() {
 fun ProfileListTextViewHolder.initialize(date: Int, address: String, food: RealmList<CartItem>, restaurantName: String, amount: Int) {
     textViewOrderDate.text = "Заказ от ${format.format(Date(date.toLong() * 1000))}"
     textViewAddress.text = "Адрес доставки: $address"
-    for(i in 0..food.size)
-        textViewFood.text = "${food[i]?.productName} ${food[i]?.count}шт.\n"
+
+    if(food.isNotEmpty()) {
+        for (i in 0..food.size)
+            textViewFood.text = "${food[i]?.productName} ${food[i]?.count}шт.\n"
+    }
 
     textViewRestaurant.text = restaurantName
     textViewAmount.text = "Сумма заказа: $amount руб."

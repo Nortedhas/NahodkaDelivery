@@ -112,21 +112,22 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is BuscketItemViewHolder -> {
+
+                    Timber.i("Realm data : ${viewModel.realmData}")
+
                     if (position in viewModel.realmData.indices) {
                         val product = viewModel.realmData[position].product
                         var count = viewModel.realmData[position].count
                         var priceWithSale = viewModel.realmData[position].priceWithSale
                         val company = utils.realm.user.getObjectById(product.ownerHashId)
 
-
                         holder.initialize(
                             product.image?.original ?: "",
                             product.name,
                             company?.name ?: "",
+                            count,
                             priceWithSale
                         )
-
-                        holder.textViewCount.text = "Количество порций: $count"
 
                         holder.imageViewPlus.setOnClickListener {
                             viewModel.realmData[position].count = count + 1
@@ -152,7 +153,6 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                                 //add first item
                                 rxData.productInBucketCompany = rxData.currentCompany
                                 rxData.selectedItems -= product
-                                Timber.i("minus product: ${rxData.selectedItems}")
                             } else {
                                 //if add item from the same company
                                 rxData.selectedItems -= product
