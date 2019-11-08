@@ -26,33 +26,19 @@ class BuscketViewModel : InterfaceViewModel {
         setProducts.forEach { product ->
             var priceWithSale = product.price
 
-            var count = 1
-
             utils.realm.sale.getAllObjects().forEach { sale ->
                 if (sale.product?.hashId == product.hashId) {
                     priceWithSale = product.price * (100 - sale.discount) / 100
                 }
             }
 
-            for (element in rxData.selectedItems) {
-                Timber.i("Prodict product :${product.about}")
-                Timber.i("Prodict element :${element.about}")
-                if (product == element) {
-                    count++
-                    Timber.i("Prodict count : $count")
-                } else if(product!=element){
-                    Timber.i("Prodict BREAK~~~~~~~~~~~~")
-                    break
-                }
-            }
-
             realmData.add(
                 ProductForBucket(
                     product,
-                    count,
-                    /*rxData.selectedItems.count{ product ->
-                        product.hashId == product.hashId
-                    },*/
+                   // count,
+                    rxData.selectedItems.count{ currentProduct ->
+                        currentProduct.hashId == product.hashId
+                    },
                     priceWithSale
                 )
             )
