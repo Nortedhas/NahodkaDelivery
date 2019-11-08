@@ -184,7 +184,7 @@ fun MarkTextViewHolder.renderUI() {
         .width(32)
         .height(32)
         .constrainTopToBottomOf(textViewName, 4)
-        .constrainLeftToRightOf(viewStar1,4)
+        .constrainLeftToRightOf(viewStar1)
 
     imageViewRating2
         .width(18)
@@ -196,7 +196,7 @@ fun MarkTextViewHolder.renderUI() {
         .width(32)
         .height(32)
         .constrainTopToBottomOf(textViewName, 4)
-        .constrainLeftToRightOf(viewStar2,4)
+        .constrainLeftToRightOf(viewStar2)
 
     imageViewRating3
         .width(18)
@@ -208,7 +208,7 @@ fun MarkTextViewHolder.renderUI() {
         .width(32)
         .height(32)
         .constrainTopToBottomOf(textViewName, 4)
-        .constrainLeftToRightOf(viewStar3,4)
+        .constrainLeftToRightOf(viewStar3)
 
     imageViewRating4
         .width(18)
@@ -220,7 +220,7 @@ fun MarkTextViewHolder.renderUI() {
         .width(32)
         .height(32)
         .constrainTopToBottomOf(textViewName, 4)
-        .constrainLeftToRightOf(viewStar4,4)
+        .constrainLeftToRightOf(viewStar4)
 
     imageViewRating5
         .width(18)
