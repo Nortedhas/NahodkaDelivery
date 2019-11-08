@@ -6,6 +6,7 @@ import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 import com.ageone.nahodka.Network.HTTP.ItemForOrder
 import com.ageone.nahodka.SCAG.Product
+import timber.log.Timber
 
 class BuscketViewModel : InterfaceViewModel {
     var model = BuscketModel()
@@ -31,7 +32,7 @@ class BuscketViewModel : InterfaceViewModel {
             realmData.add(
                 ProductForBucket(
                     product,
-                    rxData.selectedItems.count { product ->
+                    rxData.selectedItems.count{ product ->
                         product.hashId == product.hashId
                     },
                     priceWithSale
