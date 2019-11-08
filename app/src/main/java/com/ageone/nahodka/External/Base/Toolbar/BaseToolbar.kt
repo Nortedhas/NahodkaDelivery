@@ -246,16 +246,18 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
     var countPush: Int by Delegates.observable(0) {property, oldValue, newValue ->
         if (oldValue == newValue) return@observable
 
-        if(newValue > oldValue){
-            pushIcon.visibility = View.VISIBLE
-            pushTextView.visibility = View.VISIBLE
-            pushTextView.text = newValue.toString()
-        }
 
-        else if(newValue == 0) {
-            pushIcon.visibility = View.GONE
-            pushTextView.visibility = View.GONE
+        if( newValue != oldValue ){
+                if(newValue == 0){
+                    pushIcon.visibility = View.GONE
+                    pushTextView.visibility = View.GONE
+                } else {
+                    pushIcon.visibility = View.VISIBLE
+                    pushTextView.visibility = View.VISIBLE
+                    pushTextView.text = newValue.toString()
+                }
+            }
         }
     }
-}
+
 

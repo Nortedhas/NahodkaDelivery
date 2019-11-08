@@ -169,10 +169,10 @@ fun MarkTextViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout,15)
 
     viewStar1
-        .width(24)
-        .height(24)
-        .constrainTopToBottomOf(textViewName, 15)
-        .constrainLeftToLeftOf(constraintLayout,18)
+        .width(32)
+        .height(32)
+        .constrainTopToBottomOf(textViewName, 4)
+        .constrainLeftToLeftOf(constraintLayout,7)
 
     imageViewRating1
         .width(18)
@@ -181,10 +181,10 @@ fun MarkTextViewHolder.renderUI() {
         .constrainCenterYToCenterYOf(viewStar1)
 
     viewStar2
-        .width(24)
-        .height(24)
-        .constrainTopToBottomOf(textViewName, 15)
-        .constrainLeftToRightOf(viewStar1,15)
+        .width(32)
+        .height(32)
+        .constrainTopToBottomOf(textViewName, 4)
+        .constrainLeftToRightOf(viewStar1)
 
     imageViewRating2
         .width(18)
@@ -193,10 +193,10 @@ fun MarkTextViewHolder.renderUI() {
         .constrainCenterYToCenterYOf(viewStar2)
 
     viewStar3
-        .width(24)
-        .height(24)
-        .constrainTopToBottomOf(textViewName, 15)
-        .constrainLeftToRightOf(viewStar2,15)
+        .width(32)
+        .height(32)
+        .constrainTopToBottomOf(textViewName, 4)
+        .constrainLeftToRightOf(viewStar2)
 
     imageViewRating3
         .width(18)
@@ -205,10 +205,10 @@ fun MarkTextViewHolder.renderUI() {
         .constrainCenterYToCenterYOf(viewStar3)
 
     viewStar4
-        .width(24)
-        .height(24)
-        .constrainTopToBottomOf(textViewName, 15)
-        .constrainLeftToRightOf(viewStar3,15)
+        .width(32)
+        .height(32)
+        .constrainTopToBottomOf(textViewName, 4)
+        .constrainLeftToRightOf(viewStar3)
 
     imageViewRating4
         .width(18)
@@ -217,10 +217,10 @@ fun MarkTextViewHolder.renderUI() {
         .constrainCenterYToCenterYOf(viewStar4)
 
     viewStar5
-        .width(24)
-        .height(24)
-        .constrainTopToBottomOf(textViewName, 15)
-        .constrainLeftToRightOf(viewStar4,15)
+        .width(32)
+        .height(32)
+        .constrainTopToBottomOf(textViewName, 4)
+        .constrainLeftToRightOf(viewStar4)
 
     imageViewRating5
         .width(18)
@@ -229,7 +229,7 @@ fun MarkTextViewHolder.renderUI() {
         .constrainCenterYToCenterYOf(viewStar5)
 
     textInputL
-        .constrainTopToBottomOf(imageViewRating1,18)
+        .constrainTopToBottomOf(imageViewRating1,4)
         .fillHorizontally(14)
 
     buttonSend

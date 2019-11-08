@@ -35,7 +35,6 @@ class BuscketViewModel : InterfaceViewModel {
             realmData.add(
                 ProductForBucket(
                     product,
-                   // count,
                     rxData.selectedItems.count{ currentProduct ->
                         currentProduct.hashId == product.hashId
                     },
