@@ -145,7 +145,7 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                         }
 
                     holder.imageViewMinus.setOnClickListener {
-                       // if (count > 0) {
+                        if (count > 0) {
                             viewModel.realmData[position].count = count - 1
                             notifyDataSetChanged()
 
@@ -157,7 +157,7 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                                 //if add item from the same company
                                 rxData.selectedItems -= product
                             }
-                        //}
+                        }
                     }
                 }
             }
