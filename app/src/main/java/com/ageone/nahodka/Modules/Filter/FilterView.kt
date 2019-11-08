@@ -3,11 +3,13 @@ package com.ageone.nahodka.Modules.Filter
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
+import com.ageone.nahodka.Models.Filter
 import com.ageone.nahodka.Modules.Filter.rows.FilterTextViewHolder
 import com.ageone.nahodka.Modules.Filter.rows.initialize
 import yummypets.com.stevia.*
@@ -83,28 +85,39 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             when (holder) {
                 is FilterTextViewHolder -> {
                     holder.initialize()
+
                     holder.checkPrice.setOnClickListener {
+
                         holder.checkAround.isChecked = false
                         holder.checkPrice.isChecked = true
                         isPressedAround = false
 
-                        if(isPressedPrice){
+                        if(isPressedPrice) {
                             holder.checkPrice.isChecked = false
                             isPressedPrice = false
-                        }else if(!isPressedPrice) {
+
+                            rxData.currentFilter = Filter.none
+                        } else if(!isPressedPrice) {
                             isPressedPrice = true
+
+                            rxData.currentFilter = Filter.distance
                         }
                     }
+
                     holder.checkAround.setOnClickListener {
                         holder.checkPrice.isChecked = false
                         holder.checkAround.isChecked = true
                         isPressedPrice = false
 
-                        if(isPressedAround){
+                        if(isPressedAround) {
                             holder.checkAround.isChecked = false
                             isPressedAround = false
-                        }else if(!isPressedAround){
-                        isPressedAround = true
+
+                            rxData.currentFilter = Filter.none
+                        } else if(!isPressedAround) {
+                            isPressedAround = true
+
+                            rxData.currentFilter = Filter.price
                         }
                     }
                 }

@@ -71,10 +71,15 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     }
 
     fun bindUI() {
-        compositeDisposable.add(
-            RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { pushCount ->
-                toolbar.countPush = pushCount.count
+        compositeDisposable.addAll(
+            RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { event ->
+                toolbar.countPush = event.count
+            },
+            RxBus.listen(RxEvent.EventChangeFilter::class.java).subscribe { event ->
+                viewModel.loadRealmData()
+                bodyTable.adapter?.notifyDataSetChanged()
             }
+
         )
     }
 

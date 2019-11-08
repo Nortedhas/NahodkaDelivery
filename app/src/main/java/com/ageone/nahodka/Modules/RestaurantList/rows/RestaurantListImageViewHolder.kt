@@ -41,7 +41,9 @@ class RestaurantListImageViewHolder(val constraintLayout: ConstraintLayout) :
 
     init {//todo
 
-        list = utils.realm.banner.getAllObjects().toList()
+        list = utils.realm.banner.getAllObjects().sort("loadPosition").toList().filter { banner ->
+            banner.isActive
+        }
         foodList = listOf(list.last()) + list + listOf(list.first())
 
         recyclerViewImage.adapter = viewAdapter

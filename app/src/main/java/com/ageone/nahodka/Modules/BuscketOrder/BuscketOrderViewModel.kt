@@ -20,7 +20,8 @@ class BuscketOrderViewModel : InterfaceViewModel {
 
     enum class EventType {
         OnCommentPressed,
-        OnPayOrderPressed
+        OnPayOrderPressed,
+        OnFillAddressPressed
     }
 
     /*var realmData = listOf<>()
@@ -66,6 +67,7 @@ class BuscketOrderViewModel : InterfaceViewModel {
                     model.payVariant,
                     model.orderPrice,
                     rxData.productInBucketCompany?.deliveryPrice ?: 0,
+                    model.appliancesCount,
                     model.totalPrice,
                     model.itemList
                 )
@@ -78,6 +80,8 @@ class BuscketOrderViewModel : InterfaceViewModel {
                         "Ваш заказ создан",
                         "С вами свяжется курьер, как только заказ будет доставлен"
                     ) {_,_->
+                        rxData.selectedItems = emptyList()
+                        rxData.productInBucketCompany = null
                         router.onBackPressed()
                         router.onBackPressed()
                     }
@@ -96,6 +100,7 @@ class BuscketOrderViewModel : InterfaceViewModel {
                     model.payVariant,
                     model.orderPrice,
                     rxData.productInBucketCompany?.deliveryPrice ?: 0,
+                    model.appliancesCount,
                     model.totalPrice,
                     model.itemList
                 )

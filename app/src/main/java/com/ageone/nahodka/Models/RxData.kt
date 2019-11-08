@@ -1,7 +1,5 @@
 package com.ageone.nahodka.Models
 
-import com.ageone.nahodka.External.Base.Toolbar.BaseToolbar
-import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.SCAG.Product
 import com.ageone.nahodka.SCAG.User
@@ -21,13 +19,19 @@ class RxData {
     var productInBucketCompany: User? = null
     var currentCompany: User? = null
 
-
     var selectedItems: List<Product> by Delegates.observable(emptyList()) {property, oldValue, newValue ->
         if (oldValue.size == newValue.size) return@observable
 
         if(newValue.size != oldValue.size) {
             RxBus.publish(RxEvent.EventChangePushCount(newValue.size))
         }
+    }
+
+    var currentFilter: Filter by Delegates.observable(Filter.none) {property, oldValue, newValue ->
+        if (oldValue == newValue) return@observable
+
+        Timber.i("Filter new value: $newValue")
+        RxBus.publish(RxEvent.EventChangeFilter())
     }
 }
 
@@ -37,4 +41,9 @@ class RxEvent {
     data class EventChangePushCount(var count: Int)
     class EventChangeAddress
     class EventChangeNameOrPhone
+    class EventChangeFilter
+}
+
+enum class Filter{
+    none, price, distance
 }

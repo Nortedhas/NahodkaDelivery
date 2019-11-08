@@ -179,11 +179,13 @@ fun JSONObject.parseOrder(): Order {
 			)
 		}
 	}
+	some.total = optInt("cutleryNum", 0)
 	some.total = optInt("total", 0)
 	some.intercomCode = optString("intercomCode", "")
 	some.updated = optInt("updated", 0)
 	some.deliveryPrice = optInt("deliveryPrice", 0)
 	some.floor = optString("floor", "")
+
 	return some
 }
 

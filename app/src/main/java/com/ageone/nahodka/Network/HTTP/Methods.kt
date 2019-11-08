@@ -27,6 +27,7 @@ suspend fun API.createOrder(
     payMethod: Enums.PaymentType,
     orderPrice: Int,
     deliveryPrice: Int,
+    cutleryNum: Int,
     total: Int,
     items: List<ItemForOrder>) =
     withContext(Dispatchers.Default) {
@@ -45,6 +46,7 @@ suspend fun API.createOrder(
                     "payMethod" to payMethod.name,//PaymentType
                     "orderPrice" to orderPrice,
                     "deliveryPrice" to deliveryPrice,
+                    "cutleryNum" to cutleryNum,
                     "total" to total,
                     "items" to items.toJSON()
                 )
@@ -82,6 +84,7 @@ suspend fun API.createOrderWithCard(
     payMethod: Enums.PaymentType,
     orderPrice: Int,
     deliveryPrice: Int,
+    cutleryNum: Int,
     total: Int,
     items: List<ItemForOrder>) =
     withContext(Dispatchers.Default) {
@@ -100,6 +103,7 @@ suspend fun API.createOrderWithCard(
                     "payMethod" to payMethod.name,//PaymentType
                     "orderPrice" to orderPrice,
                     "deliveryPrice" to deliveryPrice,
+                    "cutleryNum" to cutleryNum,
                     "total" to total,
                     "items" to items.toJSON()
                 )

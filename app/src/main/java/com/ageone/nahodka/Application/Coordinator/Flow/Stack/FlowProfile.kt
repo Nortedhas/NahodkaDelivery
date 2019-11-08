@@ -4,6 +4,7 @@ package com.ageone.nahodka.Application.Coordinator.Flow.Stack
 import android.graphics.Color
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
+import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowAddress
 import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
@@ -97,7 +98,8 @@ class FlowProfile : BaseFlow() {
                     runModuleProfileList()
                 }
                 ProfileViewModel.EventType.OnFillAddressPressed -> {
-                    runModuleAutoComplete()
+                    coordinator.runFlowAddress(this)
+//                    runModuleAutoComplete()
                 }
                 ProfileViewModel.EventType.OnContactPressed -> {
                     runModuleQuestion()
@@ -112,7 +114,11 @@ class FlowProfile : BaseFlow() {
     
 
     fun runModuleAutoComplete() {
-        val module = AutoCompleteView(InitModuleUI(isToolbarHidden = true))
+        val module = AutoCompleteView(
+            InitModuleUI(
+                isToolbarHidden = true
+            )
+        )
         module.viewModel.initialize(models.modelAutoComplete) { module.reload() }
     
         settingsCurrentFlow.isBottomNavigationVisible = true

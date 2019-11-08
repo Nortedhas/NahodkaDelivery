@@ -6,6 +6,7 @@ import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
+import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
@@ -20,6 +21,7 @@ import com.ageone.nahodka.Modules.BuscketOrder.BuscketOrderViewModel
 import com.ageone.nahodka.Modules.Frame.FrameModel
 import com.ageone.nahodka.Modules.Frame.FrameViewModel
 import com.ageone.nahodka.Modules.Frame.Frameiew
+import com.ageone.nahodka.Modules.Profile.ProfileViewModel
 import com.ageone.nahodka.Modules.WebView
 import com.ageone.nahodka.R
 import timber.log.Timber
@@ -124,6 +126,10 @@ class FlowBucket(previousFlow: BaseFlow? = null) : BaseFlow() {
                 }
                 BuscketOrderViewModel.EventType.OnPayOrderPressed -> {
                     runModulePayOrder(models.modelBuscketOrder.url)
+                }
+                BuscketOrderViewModel.EventType.OnFillAddressPressed -> {
+                    coordinator.runFlowAddress(this)
+//                    runModuleAutoComplete()
                 }
             }
         }

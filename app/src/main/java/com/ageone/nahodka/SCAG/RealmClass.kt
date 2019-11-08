@@ -94,6 +94,7 @@ open class Order (
 	open var total: Int = 0,
 	open var created: Int = 0,
 	open var payMethod: String = "",
+	open var cutleryNum: Int = 0,
 	open var orderPrice: Int = 0,
 	open var items: RealmList<CartItem> = RealmList(),
 	open var companyHashId: String = "",

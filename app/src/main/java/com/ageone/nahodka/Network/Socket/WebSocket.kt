@@ -1,9 +1,6 @@
 package com.ageone.nahodka.Network.Socket
 
-import com.ageone.nahodka.Application.api
-import com.ageone.nahodka.Application.currentActivity
-import com.ageone.nahodka.Application.router
-import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.Application.*
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.SCAG.DataBase
@@ -53,8 +50,12 @@ class WebSocket {
             currentActivity?.runOnUiThread {
                 alertManager.single("Ваш заказ создан",
                     "С вами свяжется курьер, как только заказ будет доставлен") {_,_ ->
+
                     router.onBackPressed()
                     router.onBackPressed()
+
+                    rxData.selectedItems = emptyList()
+                    rxData.productInBucketCompany = null
                 }
             }
 
@@ -63,6 +64,7 @@ class WebSocket {
 
     fun subscribePaymentFail() {
         socket.on("paymentFail") { order ->
+            Timber.i("Pay fail!")
             currentActivity?.runOnUiThread {
                 router.onBackPressed()
                 router.onBackPressed()

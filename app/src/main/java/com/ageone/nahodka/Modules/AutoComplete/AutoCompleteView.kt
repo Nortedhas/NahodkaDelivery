@@ -55,6 +55,7 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         searchView.initialize()
         searchView
     }
+
     val buttonCancel by lazy {
         val textView = BaseTextView()
         textView.textSize = 17F
@@ -169,7 +170,7 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     if (position in viewModel.realmData.indices) {
                         val answer = viewModel.realmData[position]
                         holder.initialize(answer.primaryText, answer.secondaryText)
-                        holder.constraintLayout.setOnClickListener {
+                        holder.constraintLayout.setOnClickListener {//todo: change to 2 functions
                             user.info.address = answer.primaryText
                             RxBus.publish(RxEvent.EventChangeAddress())
                             router.onBackPressed()

@@ -63,6 +63,9 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         compositeDisposable.addAll(
             RxBus.listen(RxEvent.EventChangeComment::class.java).subscribe {
                 bodyTable.adapter?.notifyDataSetChanged()
+            },
+            RxBus.listen(RxEvent.EventChangeAddress::class.java).subscribe {
+                bodyTable.adapter?.notifyDataSetChanged()
             }
         )
     }
@@ -140,8 +143,15 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                         viewModel.model.address = user.info.address
                     }
 
-                    holder.textInputAddress.editText?.doOnTextChanged { text, start, count, after ->
+                    /*holder.textInputAddress.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.address = text.toString()
+                    }*/
+
+                    holder.textInputAddress.editText?.setOnTouchListener { v, event ->
+                        if (event.action == MotionEvent.ACTION_DOWN) {
+                            rootModule.emitEvent?.invoke(BuscketOrderViewModel.EventType.OnFillAddressPressed.name)
+                        }
+                        false
                     }
                 }
                 is BuscketOrderTextInputViewHolder -> {

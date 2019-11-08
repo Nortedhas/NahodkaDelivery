@@ -29,9 +29,11 @@ class API {
 
     fun handshake(completion: () -> Unit){
         Fuel.post(Routes.Handshake.path)
-            .jsonBody(createBody(mapOf(
-                "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
-            )).toString())
+            .jsonBody(
+                createBody(mapOf(
+                    "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
+                ))
+            )
             .responseString { request, response, result ->
                 result.fold({ result ->
                     Timber.i("API Handshake: $request $response")
