@@ -9,7 +9,7 @@
         <bitmap
                 android:src="@drawable/back_loading"
 
-                android:scaleType="fitCenter"
+                android:scaleType="fitStart"
 
                 />
 
