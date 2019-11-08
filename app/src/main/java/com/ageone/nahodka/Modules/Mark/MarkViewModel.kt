@@ -47,7 +47,7 @@ class MarkViewModel : InterfaceViewModel {
             val comment = api.addComment(
                 rxData.currentCompany?.hashId ?: "",
                 model.mark,
-                4//todo: change
+                model.starCount//todo: change
             )
 
             if (comment != null) {
