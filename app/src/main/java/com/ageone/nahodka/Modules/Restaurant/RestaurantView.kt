@@ -32,6 +32,11 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
     }
 
     init {
+        viewModel.model.categoties = rxData.currentCompany?.createCategoriesFromCompany() ?: listOf()
+        viewModel.model.categoties.forEach { category ->
+            Timber.i("Category: ${category.name}")
+        }
+
         viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
@@ -50,9 +55,14 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
     }
 
     fun bindUI() {
-        compositeDisposable.add(
-            RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { pushCount ->
-                toolbar.countPush = pushCount.count
+        compositeDisposable.addAll(
+            RxBus.listen(RxEvent.EventChangePushCount::class.java).subscribe { event ->
+                toolbar.countPush = event.count
+            },
+            RxBus.listen(RxEvent.EventChangeCategory::class.java).subscribe { event ->
+                viewModel.model.currentCategory = event.category
+                viewModel.loadRealmData()
+                bodyTable.adapter?.notifyDataSetChanged()
             }
         )
     }
@@ -121,11 +131,8 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
 
                 is RestaurantTextViewHolder -> {
-                    rxData.currentCompany?.createCategoriesFromCompany()?.forEach {category ->
-                        Timber.i("Category: ${category.name}")
-                    }
 
-                    holder.initialize(rxData.currentCompany?.createCategoriesFromCompany() ?: listOf())
+                    holder.initialize(rxData.currentCompany?.createCategoriesFromCompany() ?: listOf()/*viewModel.model.categoties*/)
                 }
 
                 is RestaurantCardViewHolder -> {//todo: change with filter
@@ -144,7 +151,6 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                                 //add first item
                                 rxData.productInBucketCompany = rxData.currentCompany
                                 rxData.selectedItems += product
-
 
                             } else {
 

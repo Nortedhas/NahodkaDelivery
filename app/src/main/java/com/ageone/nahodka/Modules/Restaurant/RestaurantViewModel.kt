@@ -18,7 +18,15 @@ class RestaurantViewModel : InterfaceViewModel {
 
     var realmData = listOf<Product>()
     fun loadRealmData() {
-        realmData = rxData.currentCompany?.products ?: emptyList()
+        realmData = rxData.currentCompany?.products?.filter { product ->
+            product.category?.let {currentCategory ->
+                if (model.currentCategory in model.categoties.indices) {
+                    currentCategory.hashId == model.categoties[model.currentCategory].hashId
+                } else {
+                    false
+                }
+            } ?: false
+        } ?: emptyList()
     }
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
@@ -30,7 +38,8 @@ class RestaurantViewModel : InterfaceViewModel {
 }
 
 class RestaurantModel : InterfaceModel {
-
+    var categoties = listOf<Category>()
+    var currentCategory = 0
 }
 
 fun User.createCategoriesFromCompany(): List<Category> {

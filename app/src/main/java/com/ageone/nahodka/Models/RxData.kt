@@ -33,6 +33,7 @@ class RxData {
 
 class RxEvent {
     class EventChangeComment
+    class EventChangeCategory(val category: Int)
     data class EventChangePushCount(var count: Int)
     class EventChangeAddress
     class EventChangeNameOrPhone

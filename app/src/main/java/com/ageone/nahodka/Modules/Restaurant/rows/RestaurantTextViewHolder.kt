@@ -16,26 +16,16 @@ import com.ageone.nahodka.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 import com.ageone.nahodka.External.Base.RecyclerView.HorizontalSpacesItemDecoration
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
+import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.SCAG.Category
 
 class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
-    /*var kitchenList = listOf(
-        "Фастфуд",
-        "Пицца",
-        "Суши",
-        "Китайская",
-        "Европейская",
-        "Грузинская",
-        "Русская",
-        "Узбекская",
-        "Шаурма",
-        "Кондитерские изделия"
-    )*/
     var kitchenList = listOf<Category>()
 
-    private var selectedCategory = 0
+    var selectedCategory = 0
 
     val recyclerViewKitchen by lazy {
         val recyclerView = BaseRecyclerView()
@@ -52,7 +42,6 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView.textSize = 18F
         textView.typeface = Typeface.DEFAULT_BOLD
         textView.textColor = Color.BLACK
-//        textView.text = kitchenList[0].name
         textView.initialize()
         textView
     }
@@ -96,6 +85,7 @@ class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
                     textViewCurrentCategory.text = holder.textViewKitchen.text.toString()
                     selectedCategory = position
                     notifyDataSetChanged()
+                    RxBus.publish(RxEvent.EventChangeCategory(selectedCategory))//todo: add onTap
                 }
             }
 
