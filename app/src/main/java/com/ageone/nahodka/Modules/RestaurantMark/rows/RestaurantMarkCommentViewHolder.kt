@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Modules.RestaurantMark.rows
 
 import android.graphics.Color
+import android.os.Build
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -10,6 +11,9 @@ import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.R
 import yummypets.com.stevia.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
@@ -57,7 +61,7 @@ class RestaurantMarkCommentViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-    val format = SimpleDateFormat("dd.MM.yyyy")
+    val format = SimpleDateFormat("dd MMMM yyyy",Locale("ru"))
 
     init {
         renderUI()

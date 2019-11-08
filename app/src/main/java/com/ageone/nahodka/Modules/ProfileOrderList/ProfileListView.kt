@@ -105,7 +105,7 @@ class ProfileListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                         holder.initialize(
                             order.created,
                             order.address,
-                            "Сушими с лосося 3 шт.\nУдон с курицей 2 шт.\nСушими с лосося 3 шт.\nУдон с курицей 2 шт.",
+                            order.items,
                             company?.name ?: "",
                             order.total
                         )

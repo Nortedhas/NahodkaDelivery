@@ -13,6 +13,7 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
+import com.ageone.nahodka.External.Libraries.Alert.double
 import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
@@ -130,16 +131,36 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                         holder.imageViewPlus.setOnClickListener {
                             viewModel.realmData[position].count = count + 1
                             notifyDataSetChanged()
-                        }
 
-                        holder.imageViewMinus.setOnClickListener {
-                            if(count > 0) {
-                                viewModel.realmData[position].count = count - 1
-                                notifyDataSetChanged()
+                            if (rxData.selectedItems.isEmpty()) {
+                                //add first item
+                                rxData.productInBucketCompany = rxData.currentCompany
+                                rxData.selectedItems += product
+
+                            } else {
+                                //if add item from the same company
+                                rxData.selectedItems += product
                             }
                         }
+
+                    holder.imageViewMinus.setOnClickListener {
+                       // if (count > 0) {
+                            viewModel.realmData[position].count = count - 1
+                            notifyDataSetChanged()
+
+                            if (rxData.selectedItems.isNotEmpty()) {
+                                //add first item
+                                rxData.productInBucketCompany = rxData.currentCompany
+                                rxData.selectedItems -= product
+                                Timber.i("minus product: ${rxData.selectedItems}")
+                            } else {
+                                //if add item from the same company
+                                rxData.selectedItems -= product
+                            }
+                        //}
                     }
                 }
+            }
 
                 is BuscketAppliancesViewHolder -> {
                     holder.initialize(viewModel.model.appliancesCount)
