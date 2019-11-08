@@ -11,6 +11,8 @@ import com.ageone.nahodka.External.Base.RecyclerView.BaseRecyclerView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
+import com.ageone.nahodka.SCAG.CartItem
+import io.realm.RealmList
 
 import yummypets.com.stevia.*
 import java.text.SimpleDateFormat
@@ -31,6 +33,7 @@ class ProfileListTextViewHolder(val constraintLayout: ConstraintLayout) :
         textView.textSize = 14F
         textView.textColor = Color.BLACK
         textView.setLineSpacing(1.2F,1.2F)
+        textView.maxLines = 2
         textView
     }
 
@@ -108,10 +111,12 @@ fun ProfileListTextViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun ProfileListTextViewHolder.initialize(date: Int, address: String, food: String, restaurantName: String, amount: Int) {
+fun ProfileListTextViewHolder.initialize(date: Int, address: String, food: RealmList<CartItem>, restaurantName: String, amount: Int) {
     textViewOrderDate.text = "Заказ от ${format.format(Date(date.toLong() * 1000))}"
-    textViewAddress.text = "Адрес доставки: \n $address"
-    textViewFood.text = food
+    textViewAddress.text = "Адрес доставки: $address"
+    for(i in 0..food.size)
+        textViewFood.text = "${food[i]?.productName} ${food[i]?.count}шт.\n"
+
     textViewRestaurant.text = restaurantName
     textViewAmount.text = "Сумма заказа: $amount руб."
 }
