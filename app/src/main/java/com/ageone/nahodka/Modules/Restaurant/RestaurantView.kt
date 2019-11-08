@@ -1,7 +1,6 @@
 package com.ageone.nahodka.Modules.Restaurant
 
 import android.graphics.Color
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -10,14 +9,13 @@ import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.nahodka.External.Base.Toolbar.BaseToolbar
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.Libraries.Alert.alertManager
 import com.ageone.nahodka.External.Libraries.Alert.double
-import com.ageone.nahodka.External.Libraries.Alert.single
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.Restaurant.rows.*
+import kotlinx.coroutines.runBlocking
 import timber.log.Timber
 import yummypets.com.stevia.*
 
@@ -32,12 +30,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
     }
 
     init {
-        viewModel.model.categoties = rxData.currentCompany?.createCategoriesFromCompany() ?: listOf()
-        viewModel.model.categoties.forEach { category ->
-            Timber.i("Category: ${category.name}")
+        bindUI()
+        runBlocking {
+            viewModel.loadRealmData()
         }
-
-        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.back_white)
 
@@ -51,7 +47,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
-        bindUI()
+
     }
 
     fun bindUI() {
@@ -62,6 +58,10 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
             RxBus.listen(RxEvent.EventChangeCategory::class.java).subscribe { event ->
                 viewModel.model.currentCategory = event.category
                 viewModel.loadRealmData()
+                bodyTable.adapter?.notifyDataSetChanged()
+            },
+            RxBus.listen(RxEvent.EventLoadCategories::class.java).subscribe { event ->
+                Timber.i("Set categories")
                 bodyTable.adapter?.notifyDataSetChanged()
             }
         )
@@ -131,8 +131,8 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
 
                 is RestaurantTextViewHolder -> {
-
-                    holder.initialize(rxData.currentCompany?.createCategoriesFromCompany() ?: listOf()/*viewModel.model.categoties*/)
+                    Timber.i("Bind categories - ${viewModel.model.categories.joinToString()}")
+                    holder.initialize(viewModel.model.categories)
                 }
 
                 is RestaurantCardViewHolder -> {//todo: change with filter

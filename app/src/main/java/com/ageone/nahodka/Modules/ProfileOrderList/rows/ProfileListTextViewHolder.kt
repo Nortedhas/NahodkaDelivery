@@ -110,8 +110,10 @@ fun ProfileListTextViewHolder.initialize(date: Int, address: String, food: Realm
     textViewAddress.text = "Адрес доставки: $address"
 
     if(food.isNotEmpty()) {
-        for (i in 0..food.size)
-            textViewFood.text = "${food[i]?.productName} ${food[i]?.count}шт.\n"
+        for (i in 0..food.size) {
+            val text = "${food[i]?.productName ?: ""} ${food[i]?.count ?: 0} шт.\n"
+            textViewFood.text = text
+        }
     }
 
     textViewRestaurant.text = restaurantName

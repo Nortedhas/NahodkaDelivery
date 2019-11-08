@@ -19,6 +19,7 @@ import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.SCAG.Category
+import timber.log.Timber
 
 class RestaurantTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
@@ -109,7 +110,9 @@ fun RestaurantTextViewHolder.renderUI() {
 }
 
 fun RestaurantTextViewHolder.initialize(categories: List<Category>) {
+    Timber.i("Categories in init: ${categories.size}")
     kitchenList = categories
+    Timber.i("kitchenList in init: ${kitchenList.size}")
     recyclerViewKitchen.adapter?.notifyDataSetChanged()
 
     if (kitchenList.isNotEmpty()) {

@@ -42,6 +42,8 @@ class RxEvent {
     class EventChangeAddress
     class EventChangeNameOrPhone
     class EventChangeFilter
+
+    class EventLoadCategories
 }
 
 enum class Filter{
