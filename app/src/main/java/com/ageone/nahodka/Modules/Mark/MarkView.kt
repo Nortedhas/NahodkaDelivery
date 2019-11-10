@@ -90,94 +90,50 @@ class MarkView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 is MarkTextViewHolder -> {
                     holder.initialize(rxData.currentCompany?.name ?: "", "Оставьте комментарий", InputEditTextType.TEXT)
 
-                    //selectStar(holder.imageViewRating1,holder.imageViewRating2,holder.imageViewRating3,holder.imageViewRating4,holder.imageViewRating5)
-                    var isRatingPressed = false
-
                     holder.viewStar1.setOnClickListener {
-                        when(isRatingPressed){
-                            false -> {
-                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
-                                viewModel.model.starCount = 1
-                                isRatingPressed = true
-                            }
-                            true -> {
-                                holder.imageViewRating2.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
-                                isRatingPressed = false
-                            }
-                        }
+                        holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating2.setImageResource(R.drawable.ic_star)
+                        holder.imageViewRating3.setImageResource(R.drawable.ic_star)
+                        holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                        holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                        viewModel.model.starCount = 1
                     }
 
                     holder.viewStar2.setOnClickListener {
-                        when(isRatingPressed){
-                            false -> {
-                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
-                                viewModel.model.starCount = 1
-                                isRatingPressed = true
-                            }
-                            true -> {
-                                holder.imageViewRating3.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
-                                isRatingPressed = false
-                            }
-                        }
+                        holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating3.setImageResource(R.drawable.ic_star)
+                        holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                        holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                        viewModel.model.starCount = 2
                     }
 
                     holder.viewStar3.setOnClickListener {
-                        when(isRatingPressed){
-                            false -> {
-                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
-                                viewModel.model.starCount = 1
-                                isRatingPressed = true
-                            }
-                            true -> {
-                                holder.imageViewRating4.setImageResource(R.drawable.ic_star)
-                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
-                                isRatingPressed = false
-                            }
-                        }
+                        holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating4.setImageResource(R.drawable.ic_star)
+                        holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                        viewModel.model.starCount = 3
                     }
 
                     holder.viewStar4.setOnClickListener {
-                        when(isRatingPressed){
-                            false -> {
-                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
-                                viewModel.model.starCount = 1
-                                isRatingPressed = true
-                            }
-                            true -> {
-                                holder.imageViewRating5.setImageResource(R.drawable.ic_star)
-                                isRatingPressed = false
-                            }
-                        }
+                        holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating5.setImageResource(R.drawable.ic_star)
+                        viewModel.model.starCount = 4
                     }
 
                     holder.viewStar5.setOnClickListener {
-                        when(isRatingPressed){
-                            false -> {
-                                holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
-                                holder.imageViewRating5.setImageResource(R.drawable.ic_star_fill)
-                                viewModel.model.starCount = 1
-                                isRatingPressed = true
-                            }
-                            true -> {
-                                isRatingPressed = false
-                            }
-                        }
+                        holder.imageViewRating1.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating2.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating3.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating4.setImageResource(R.drawable.ic_star_fill)
+                        holder.imageViewRating5.setImageResource(R.drawable.ic_star_fill)
+                        viewModel.model.starCount = 5
                     }
-
 
                     holder.buttonSend.setOnClickListener{
                         viewModel.model.mark =  holder.textInputL.editText?.text.toString()
