@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.ViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.ageone.nahodka.Application.currentActivity
 import io.github.armcha.coloredshadow.ShadowImageView
+import nl.komponents.kovenant.Kovenant.context
 import yummypets.com.stevia.dp
 
 @GlideModule
@@ -155,13 +156,13 @@ fun addImageFromGlideWithShadow(image: ShadowImageView, uri: String, cornerRadiu
 
 private fun createDownloadPlaceholder(): LayerDrawable {
     val circularProgressDrawable = CircularProgressDrawable(currentActivity as Context)
-    circularProgressDrawable.strokeWidth = 3f.dp
-    circularProgressDrawable.centerRadius = 35f.dp
-    circularProgressDrawable.setColorSchemeColors(Color.WHITE)
+    circularProgressDrawable.strokeWidth = 2f.dp
+    circularProgressDrawable.centerRadius = 7f.dp
+    circularProgressDrawable.setColorSchemeColors(Color.GRAY)
     circularProgressDrawable.start()
 
     val placeholderImage = GradientDrawable()
-    placeholderImage.setColor(Color.GRAY)
+    placeholderImage.setColor(Color.WHITE)
 
     val placeholder = LayerDrawable(
         arrayOf(
