@@ -295,7 +295,7 @@ fun RestaurantPreviewViewHolder.initialize(image: String, name:String, check: St
     textViewTimeDelivery.text = "Время доставки: $time"
     textViewName.text = name
     textViewOrder.text = "Заказ от $orderPrice руб."
-    textViewTruck.text = "Доставка: $deliveryPrice"
+    textViewTruck.text = "Доставка: $deliveryPrice руб."
     textViewRating.text = rating
     textViewComment.text = commentCount
 }

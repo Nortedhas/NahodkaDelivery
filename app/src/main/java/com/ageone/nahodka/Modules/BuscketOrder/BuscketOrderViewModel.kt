@@ -44,9 +44,6 @@ class BuscketOrderViewModel : InterfaceViewModel {
     fun validate(completion: () -> Unit){
         if(model.address.isBlank()||
             model.room.isBlank()||
-            model.homePhone.isBlank() ||
-            model.porch.isBlank() ||
-            model.floor.isBlank() ||
             model.phone.isBlank()
         ){
             alertManager.single("Ошибка","Не все поля заполнены") { _, _ -> }
