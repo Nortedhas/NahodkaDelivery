@@ -146,16 +146,11 @@ fun MarkTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textViewEstimate,
         textViewName,
-        viewStar1,
-        viewStar2,
-        viewStar3,
-        viewStar4,
-        viewStar5,
-        imageViewRating1,
-        imageViewRating2,
-        imageViewRating3,
-        imageViewRating4,
-        imageViewRating5,
+        viewStar1.subviews(imageViewRating1),
+        viewStar2.subviews(imageViewRating2),
+        viewStar3.subviews(imageViewRating3),
+        viewStar4.subviews(imageViewRating4),
+        viewStar5.subviews(imageViewRating5),
         textInputL,
         buttonSend
     )
@@ -229,7 +224,7 @@ fun MarkTextViewHolder.renderUI() {
         .constrainCenterYToCenterYOf(viewStar5)
 
     textInputL
-        .constrainTopToBottomOf(imageViewRating1,4)
+        .constrainTopToBottomOf(viewStar1,4)
         .fillHorizontally(14)
 
     buttonSend
