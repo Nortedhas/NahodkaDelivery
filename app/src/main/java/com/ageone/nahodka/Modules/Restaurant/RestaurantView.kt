@@ -131,18 +131,18 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                 }
 
                 is RestaurantTextViewHolder -> {
-                    Timber.i("Bind categories - ${viewModel.model.categories.joinToString()}")
                     holder.initialize(rxData.currentCompany?.createCategoriesFromCompany() ?: listOf())
                 }
 
                 is RestaurantCardViewHolder -> {//todo: change with filter
                     val pos = position - 2
                     if (pos in viewModel.realmData.indices) {
-                        val product = viewModel.realmData[pos]
+                        val product = viewModel.realmData[pos].product
+                        val price = viewModel.realmData[pos].priceWithSale
                         holder.initialize(
                             product.image?.original ?: "",
                             product.name,
-                            product.price,
+                            price,
                             product.about
                         )
 
