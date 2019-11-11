@@ -10,7 +10,7 @@ import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.Base.View.BaseView
-import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlideWithGradient
+import com.ageone.nahodka.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
 class RestaurantPreviewViewHolder(val constraintLayout: ConstraintLayout) :
@@ -18,9 +18,16 @@ class RestaurantPreviewViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewPreview by lazy {
         val imageView = BaseImageView()
-        imageView.gradient = Color.BLACK
-        imageView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
         imageView.setBackgroundColor(Color.GRAY)
+        imageView.initialize()
+        imageView
+    }
+
+    val imageViewGradient by lazy {
+        val imageView = BaseImageView()
+        val colors = intArrayOf(Color.TRANSPARENT,  Color.argb(0x88, 0,0,0))
+        val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors)
+        imageView.setImageDrawable(gradientDrawable)
         imageView.initialize()
         imageView
     }
@@ -161,6 +168,7 @@ class RestaurantPreviewViewHolder(val constraintLayout: ConstraintLayout) :
 fun RestaurantPreviewViewHolder.renderUI() {
     constraintLayout.subviews(
         imageViewPreview,
+        imageViewGradient,
         textViewName,
         imageViewClock,
         textViewTimeDelivery,
@@ -183,7 +191,11 @@ fun RestaurantPreviewViewHolder.renderUI() {
 
     imageViewPreview
         .constrainTopToTopOf(constraintLayout)
-        .fillHorizontally()
+        .width(utils.variable.displayWidth)
+        .height(utils.variable.displayWidth * .423F)
+
+    imageViewGradient
+        .constrainTopToTopOf(constraintLayout)
         .width(utils.variable.displayWidth)
         .height(utils.variable.displayWidth * .423F)
 
@@ -277,7 +289,7 @@ fun RestaurantPreviewViewHolder.renderUI() {
 
 fun RestaurantPreviewViewHolder.initialize(image: String, name:String, check: String, time: String, orderPrice: String, deliveryPrice: String, rating: String, commentCount: String) {
 
-    addImageFromGlideWithGradient(imageViewPreview, image, Color.TRANSPARENT, Color.argb(0x88, 0,0,0))
+    addImageFromGlide(imageViewPreview, image,0)
 
     textViewCheck.text = "Средний чек: $check руб."
     textViewTimeDelivery.text = "Время доставки: $time"
