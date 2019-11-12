@@ -23,6 +23,8 @@ import com.ageone.nahodka.R
 import com.ageone.nahodka.SCAG.DataBase
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy
+import com.github.pwittchen.reactivenetwork.library.rx2.network.observing.strategy.LollipopNetworkObservingStrategy
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -74,15 +76,12 @@ class App: Application()  {
 
         ReactiveNetwork
             .observeNetworkConnectivity(applicationContext)
-            .flatMapSingle<Any> { connectivity -> ReactiveNetwork.checkInternetConnectivity() }
+            .flatMapSingle{ ReactiveNetwork.checkInternetConnectivity()}
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { isConnected ->
+            .subscribe{isConnected ->
                 Timber.i("Internet: $isConnected")
-                if (isConnected is Boolean) {
-                    utils.isNetworkReachable = isConnected
-                }
-
+                utils.isNetworkReachable = isConnected
             }
 
 

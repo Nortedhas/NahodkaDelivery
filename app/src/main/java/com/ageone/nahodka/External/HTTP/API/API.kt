@@ -167,7 +167,7 @@ class API {
 
     }
 
-    suspend fun mainLoad(){
+    suspend fun mainLoad() {
         val jsonObject = api.request(mapOf(
             "router" to "mainLoad",
             "cashTime" to api.cashTime

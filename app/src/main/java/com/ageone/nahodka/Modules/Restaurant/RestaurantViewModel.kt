@@ -25,6 +25,8 @@ class RestaurantViewModel : InterfaceViewModel {
     fun loadRealmData() {
         runBlocking {
             launch {
+                realmData.clear()
+
                 model.categories = rxData.currentCompany?.createCategoriesFromCompany() ?: listOf()
                 model.categories.forEach { category ->
                     Timber.i("Category: ${category.name}")

@@ -147,7 +147,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is RegistrationTextViewHolder -> {
                     holder.initialize()
                     holder.textView.setOnClickListener {
-                        startBrowserWithUri("https://en.wikipedia.org/wiki/Rickrolling",context)
+                        startBrowserWithUri("http://195.133.48.131/Documents/license.pdf",context)
                     }
                 }
             }

@@ -22,6 +22,8 @@ class WebSocket {
             socket = IO.socket("${DataBase.url}:80")
             socket.connect()
 
+            Timber.i("Socket init token: ${utils.variable.token}")
+
             val body = JSONObject()
             body.put("token", utils.variable.token)
             socket.emit("registration", body)
@@ -36,7 +38,7 @@ class WebSocket {
 
     fun subscribeOrderCheck() {
         socket.on("orderCheck") { order ->
-            Timber.i("Pay succes!")
+            Timber.i("Socket Pay succes!")
             runBlocking {
                 launch {
                     api.handshake()
@@ -64,7 +66,7 @@ class WebSocket {
 
     fun subscribePaymentFail() {
         socket.on("paymentFail") { order ->
-            Timber.i("Pay fail!")
+            Timber.i("Socket Pay fail!")
             currentActivity?.runOnUiThread {
                 router.onBackPressed()
                 router.onBackPressed()
