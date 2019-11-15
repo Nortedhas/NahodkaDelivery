@@ -36,9 +36,7 @@ class FlowStorage: FlowStorageInterface {
     }
 
     override fun displayFlow(flow: View) {
-        Timber.i("Flow: display")
         val indexCurrentFlow = root.indexOfChild(flow)
-        Timber.i("Flow: $indexCurrentFlow")
         if (indexCurrentFlow in 0..root.childCount) {
             root.children.forEach { flowView ->
                 flowView.visibility = View.GONE

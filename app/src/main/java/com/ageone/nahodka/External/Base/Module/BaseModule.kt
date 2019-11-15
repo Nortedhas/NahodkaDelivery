@@ -121,7 +121,7 @@ open class BaseModule(override var initModuleUI: InitModuleUI = InitModuleUI()):
         )
 
         bodyTable
-            .fillHorizontally(8)//TODO: change!
+            .fillHorizontally(8)
             .fillVertically()
             .constrainTopToTopOf(innerContent)
             .updatePadding(bottom = 24.dp)

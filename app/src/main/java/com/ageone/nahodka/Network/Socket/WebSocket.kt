@@ -17,12 +17,21 @@ class WebSocket {
 
     lateinit var socket: Socket
 
+    var isStarted: Boolean = false
+
     fun initialize() {
         try {
             socket = IO.socket("${DataBase.url}:80")
             socket.connect()
 
-            Timber.i("Socket init token: ${utils.variable.token}")
+            isStarted = true
+
+            socket
+                .on(Socket.EVENT_CONNECT) {
+                    Timber.i("Socket connect")
+                }.on(Socket.EVENT_DISCONNECT) {
+                    Timber.i("Socket disconnect")
+                }
 
             val body = JSONObject()
             body.put("token", utils.variable.token)

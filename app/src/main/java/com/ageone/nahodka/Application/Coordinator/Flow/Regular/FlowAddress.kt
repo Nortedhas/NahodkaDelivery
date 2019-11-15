@@ -1,6 +1,5 @@
 package com.ageone.nahodka.Application.Coordinator.Flow.Regular
 
-
 import androidx.core.view.children
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
@@ -8,6 +7,7 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
 import com.ageone.nahodka.External.Base.Module.BaseModule
+import com.ageone.nahodka.External.Base.Module.ModuleInterface
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.AutoComplete.AutoCompleteView
 import com.ageone.nahodka.Modules.AutoComplete.AutoCompleteModel
@@ -16,7 +16,7 @@ import timber.log.Timber
 
 fun FlowCoordinator.runFlowAddress(previousFlow: BaseFlow) {
 
-    var flow: FlowAddress? = FlowAddress(previousFlow)//todo: change template!
+    var flow: FlowAddress? = FlowAddress(previousFlow)
 
     flow?.let { flow ->
         flowStorage.addFlow(flow.viewFlipperModule)
@@ -28,8 +28,8 @@ fun FlowCoordinator.runFlowAddress(previousFlow: BaseFlow) {
     }
 
     flow?.onFinish = {
-        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->//todo: add to others flows
-            if (view is BaseModule) {
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is ModuleInterface) {
                 Timber.i("Delete module in flow finish")
                 view.onDeInit?.invoke()
             }
@@ -45,7 +45,7 @@ fun FlowCoordinator.runFlowAddress(previousFlow: BaseFlow) {
 
 }
 
-class FlowAddress(previousFlow: BaseFlow? = null) : BaseFlow() {
+class FlowAddress(previousFlow: BaseFlow? = null): BaseFlow() {
 
     private var models = FlowAddressModels()
 

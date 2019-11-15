@@ -46,7 +46,8 @@ var webSocket = WebSocket()
 var intent = Intent()
 
 val currentActivity: BaseActivity?
-    get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as BaseActivity?
+    get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as? BaseActivity
+
 var placesClient: PlacesClient? = null
 
 class App: Application()  {

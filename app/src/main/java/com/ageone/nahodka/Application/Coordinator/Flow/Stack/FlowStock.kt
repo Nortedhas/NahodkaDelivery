@@ -2,6 +2,7 @@ package com.ageone.nahodka.Application.Coordinator.Flow.Stack
 
 
 import android.graphics.Color
+import androidx.core.view.children
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
@@ -10,6 +11,7 @@ import com.ageone.nahodka.Application.Coordinator.Router.DataFlow
 import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.Mark.MarkModel
@@ -28,6 +30,7 @@ import com.ageone.nahodka.Modules.Sales.SalesModel
 import com.ageone.nahodka.Modules.Sales.SalesView
 import com.ageone.nahodka.Modules.Sales.SalesViewModel
 import com.ageone.nahodka.R
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowStock() {
 
@@ -37,8 +40,6 @@ fun FlowCoordinator.runFlowStock() {
         setStatusBarColor(Color.parseColor("#09D0B8"))
         flowStorage.addFlow(flow.viewFlipperModule)
         flowStorage.displayFlow(flow.viewFlipperModule)
-//        flowStorage.addView(flow.viewFlipperModule)
-//        flowStorage.displayedChild = flowStorage.indexOfChild(flow.viewFlipperModule)
 
         flow.settingsCurrentFlow = DataFlow(flowStorage.size - 1)
         flow.colorStatusBar = Color.parseColor("#21D5BF")
@@ -47,8 +48,14 @@ fun FlowCoordinator.runFlowStock() {
     }
 
     flow?.onFinish = {
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is BaseModule) {
+                Timber.i("Delete module in flow finish")
+                view.onDeInit?.invoke()
+            }
+        }
+
         flowStorage.deleteFlow(flow?.viewFlipperModule)
-//        flowStorage.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
     }

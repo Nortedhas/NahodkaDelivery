@@ -2,6 +2,7 @@ package com.ageone.nahodka.Application.Coordinator.Flow.Stack
 
 
 import android.graphics.Color
+import androidx.core.view.children
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowAddress
@@ -11,6 +12,7 @@ import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.Modules.AutoComplete.AutoCompleteModel
@@ -32,6 +34,7 @@ import com.ageone.nahodka.Modules.Profile.ProfileViewModel
 import com.ageone.nahodka.Modules.ProfileOrderList.ProfileListViewModel
 import com.ageone.nahodka.Modules.Question.QuestionViewModel
 import com.ageone.nahodka.R
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowProfile() {
 
@@ -48,6 +51,13 @@ fun FlowCoordinator.runFlowProfile() {
     }
 
     flow?.onFinish = {
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is BaseModule) {
+                Timber.i("Delete module in flow finish")
+                view.onDeInit?.invoke()
+            }
+        }
+
         flowStorage.deleteFlow(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
@@ -68,7 +78,7 @@ class FlowProfile : BaseFlow() {
     }
 
     inner class FlowProfileModels {
-        val modelProfile = ProfileModel()//todo: change all to val
+        val modelProfile = ProfileModel()
         val modelProfileList = ProfileListModel()
         val modelQuestion= QuestionModel()
         val modelChangeName = ChangeNameModel()

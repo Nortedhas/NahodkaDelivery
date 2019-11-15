@@ -87,8 +87,12 @@ class AppActivity: BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+
         if (user.permission.geo) {
             startLocationUpdates()
+        }
+        if (webSocket.isStarted && !webSocket.socket.connected()) {
+            webSocket.initialize()
         }
     }
 

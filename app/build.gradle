@@ -106,12 +106,8 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'         //Crashlythics
 
     implementation 'com.github.kittinunf.fuel:fuel:2.2.0'                   //fuel
-    implementation 'com.github.kittinunf.fuel:fuel-moshi:2.2.0'
     implementation 'com.github.kittinunf.fuel:fuel-android:2.2.0'           //for Android
-    implementation "com.squareup.moshi:moshi:1.8.0"                         //moshi
-    implementation 'com.squareup.moshi:moshi-adapters:1.8.0'
-    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
+
 
 }
 

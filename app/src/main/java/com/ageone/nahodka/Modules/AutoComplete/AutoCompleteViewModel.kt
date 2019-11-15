@@ -1,13 +1,14 @@
 package com.ageone.nahodka.Modules.AutoComplete
 
-import android.util.Log
 import com.ageone.nahodka.Application.placesClient
+import com.ageone.nahodka.Application.router
+import com.ageone.nahodka.External.Base.SearchView.BaseSearchView
 import com.ageone.nahodka.External.Extensions.Activity.startLocation
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
 import com.ageone.nahodka.External.RxBus.RxBus
+import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Models.User.user
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.RectangularBounds
@@ -23,6 +24,11 @@ class AutoCompleteViewModel : InterfaceViewModel {
 
     }
 
+    var callbackOnItemSelected = TypeCallback.Back
+    enum class TypeCallback {
+        Back, Substitution
+    }
+
     var realmData: MutableList<Answer> = mutableListOf<Answer>()
     fun loadRealmData() {
         realmData.clear()
@@ -35,9 +41,8 @@ class AutoCompleteViewModel : InterfaceViewModel {
         }
     }
 
+    val token = AutocompleteSessionToken.newInstance()
     fun getComplete(query: String) {
-
-        val token = AutocompleteSessionToken.newInstance()
 
         // Create a RectangularBounds object.
         val bounds = RectangularBounds.newInstance(
@@ -76,6 +81,20 @@ class AutoCompleteViewModel : InterfaceViewModel {
                     realmData.clear()
                     RxBus.publish(EventComplete.EventChangeCompleteVariants())
                 }
+        }
+    }
+
+    fun setCallback(answer: Answer, searchView: BaseSearchView){
+        when (callbackOnItemSelected) {
+            TypeCallback.Back -> {
+                user.info.address = answer.primaryText
+                RxBus.publish(RxEvent.EventChangeAddress())
+                router.onBackPressed()
+            }
+            TypeCallback.Substitution -> {
+                user.info.address = answer.primaryText
+                searchView.setQuery(user.info.address, true)
+            }
         }
     }
 }

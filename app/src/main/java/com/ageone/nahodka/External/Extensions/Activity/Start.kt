@@ -16,8 +16,8 @@ import com.swarmnyc.promisekt.Promise
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
-
-//TODO: replace in base
+import java.util.*
+import kotlin.concurrent.schedule
 
 fun BaseActivity.start() {
     coordinator.setLaunchScreen()
@@ -28,11 +28,14 @@ fun BaseActivity.start() {
 }
 
 private fun BaseActivity.startChecks() {
-    runBlocking {
-        async {
-            api.handshake()
-        }.join()
-    }
+    //repeat handshake every N = 6 hours
+    Timer().schedule(0, 60_000 * 60 * 6) {
+        runBlocking {
+            async {
+                api.handshake()
+            }.join()
+        }
+    }.run()
 
     //check if server return empty user
     if (!isValidUser(KeyParameterValidation.phone)) {

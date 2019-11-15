@@ -1,11 +1,14 @@
 package com.ageone.nahodka.Modules
 
+import com.ageone.nahodka.Application.AppActivity
 import com.ageone.nahodka.Application.api
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.webSocket
+import com.ageone.nahodka.External.Extensions.Activity.fetchLastLocation
 import com.ageone.nahodka.External.Interfaces.InterfaceModel
 import com.ageone.nahodka.External.Interfaces.InterfaceViewModel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import com.ageone.nahodka.Models.User.user
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 class LoadingViewModel : InterfaceViewModel {
@@ -24,9 +27,15 @@ class LoadingViewModel : InterfaceViewModel {
 
     suspend fun startLoading() {
         runBlocking {
-            launch {
+            val mainload = async {
                 api.mainLoad()
-            }.join()
+            }
+
+            if (user.permission.geo) {
+                user.location.currentLocation = (currentActivity as? AppActivity)?.fetchLastLocation()
+            }
+
+            mainload.join()
         }
 
         webSocket.initialize()

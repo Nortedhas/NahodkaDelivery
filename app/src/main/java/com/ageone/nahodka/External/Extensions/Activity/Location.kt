@@ -1,7 +1,6 @@
 package com.ageone.nahodka.External.Extensions.Activity
 
 import android.location.Location
-import android.widget.Toast
 import com.ageone.nahodka.Application.AppActivity
 import com.ageone.nahodka.Models.User.locationBase
 import com.ageone.nahodka.Models.User.user
@@ -11,12 +10,11 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Tasks
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
-fun AppActivity.fetchLastLocation(): Location? = fusedLocationClient?.let { fusedLocationClient ->
+fun AppActivity.fetchLastLocation(): Location? =
+    fusedLocationClient?.let { fusedLocationClient ->
     Tasks.await(fusedLocationClient.lastLocation)
 }
 
