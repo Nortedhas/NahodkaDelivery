@@ -1,10 +1,14 @@
 package com.example.ageone.Modules.Restaurant
 
 import android.graphics.Color
+import android.os.Handler
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
+import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.rxData
+import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Base.FlowView.BaseFlowView
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
@@ -36,6 +40,13 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         R.drawable.pic_food2
     )
 
+    val flowView by lazy {
+        val view = BaseFlowView()
+        view.backgroundColor = Color.BLACK
+        view.initialize()
+        view
+    }
+
     val imageViewFAB by lazy {
         val imageView = BaseImageView()
         imageView.setBackgroundColor(Color.TRANSPARENT)
@@ -59,7 +70,8 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
 
         imageViewFAB.setOnClickListener {
-            emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
+            flowView.slideAbove(flowView)
+            //emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
         }
 
         bodyTable.adapter = viewAdapter
@@ -155,7 +167,8 @@ fun RestaurantListView.renderUIO() {
 
     innerContent.subviews(
         bodyTable,
-        imageViewFAB
+        imageViewFAB,
+        flowView
     )
 
     bodyTable
@@ -171,6 +184,22 @@ fun RestaurantListView.renderUIO() {
         .constrainRightToRightOf(innerContent,5)
         .constrainBottomToBottomOf(innerContent,30)
 
+    flowView
+        .constrainBottomToBottomOf(innerContent)
+        .fillHorizontally()
+        .height(200)
+        .setOnTouchListener(object : BaseFlowView.OnSwipeTouchListener(currentActivity){
+            override fun onSwipeBottom() {
+                super.onSwipeBottom()
+                flowView.slideBottom(flowView)
+                Handler().postDelayed({flowView.constrainTopToBottomOf(innerContent,200)},1000)
+            }
+
+            override fun onSwipeTop() {
+                super.onSwipeTop()
+                flowView.slideAbove(flowView)
+            }
+        })
 }
 
 
