@@ -6,15 +6,24 @@ import android.graphics.drawable.GradientDrawable
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.ageone.nahodka.Application.currentActivity
+import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Base.Button.BaseButton
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
+import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import timber.log.Timber
 import kotlin.math.abs
 
-class BaseFlowView() : View(currentActivity) {
+class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivity) {
 
+    //for set place in ConstraintLayout
+    val innerContent = constraintLayout
     var gradientDrawable = GradientDrawable()
 
     var cornerRadius: Int? = null
@@ -25,6 +34,9 @@ class BaseFlowView() : View(currentActivity) {
 
     var borderColor: Int? = null
     var borderWidth: Int? = null
+
+    //button for slide view up
+    var button: View? = null
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -52,7 +64,88 @@ class BaseFlowView() : View(currentActivity) {
             gradientDrawable.orientation = orientation
         }
 
+        button?.let{ baseButton ->
+
+            baseButton.setOnClickListener {
+
+                //for animation in ConstraintLayout we need use ConstraintSet
+                val constraintSet = ConstraintSet()
+                //clone current layout
+                constraintSet.clone(innerContent)
+                //unlink view in innerContent
+                constraintSet.clear(this.id)
+
+                //set new place in innerContent
+                constraintSet.connect(this.id,
+                    ConstraintSet.TOP,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.TOP, (utils.variable.displayHeight * 0.7).toInt())
+                constraintSet.connect(this.id,
+                    ConstraintSet.BOTTOM,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM, 0)
+                constraintSet.connect(this.id,
+                    ConstraintSet.LEFT,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.LEFT,0)
+                constraintSet.connect(this.id,
+                    ConstraintSet.RIGHT,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.RIGHT,0)
+
+                //transition need for animation
+                val transition = AutoTransition()
+                transition.duration = 600
+                transition.interpolator = AccelerateDecelerateInterpolator()
+
+                //start transition
+                TransitionManager.beginDelayedTransition(innerContent,transition)
+
+                //apply changes in inner content
+                constraintSet.applyTo(innerContent)
+            }
+
+        }
+
         background = gradientDrawable
+
+        this.let { baseFlowView ->
+
+            baseFlowView.setOnTouchListener(object : BaseFlowView.OnSwipeTouchListener(currentActivity){
+                override fun onSwipeBottom() {
+                    super.onSwipeBottom()
+
+                    val constraintSet = ConstraintSet()
+                    constraintSet.clone(innerContent)
+                    constraintSet.clear(baseFlowView.id)
+
+                    constraintSet.connect(baseFlowView.id,
+                        ConstraintSet.TOP,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.BOTTOM,0)
+                    constraintSet.connect(baseFlowView.id,
+                        ConstraintSet.BOTTOM,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.BOTTOM, 0)
+                    constraintSet.connect(baseFlowView.id,
+                        ConstraintSet.LEFT,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.LEFT,0)
+                    constraintSet.connect(baseFlowView.id,
+                        ConstraintSet.RIGHT,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.RIGHT,0)
+
+                    val transition = AutoTransition()
+                    transition.duration = 600
+                    transition.interpolator = AccelerateDecelerateInterpolator()
+
+                    TransitionManager.beginDelayedTransition(innerContent,transition)
+
+                    constraintSet.applyTo(innerContent)
+                }
+            })
+        }
 
     }
 
@@ -60,56 +153,21 @@ class BaseFlowView() : View(currentActivity) {
         return super.onTouchEvent(event)
     }
 
-    fun slideBottom(view: View) {
-        val slide = TranslateAnimation(
-            Animation.RELATIVE_TO_SELF,
-            0.0F,
-            Animation.RELATIVE_TO_SELF,
-            0.0f,
-            Animation.RELATIVE_TO_SELF,
-            0.0F,
-            Animation.RELATIVE_TO_SELF,
-            1.0F
-        )
-
-        slide.duration = 1000
-        //slide.fillAfter = true
-        slide.isFillEnabled = true
-
-        view.startAnimation(slide)
-
-    }
-
-    fun slideAbove(view: View) {
-        val slide = TranslateAnimation(
-            Animation.RELATIVE_TO_SELF,
-            0.0F,
-            Animation.RELATIVE_TO_SELF,
-            0.0f,
-            Animation.RELATIVE_TO_SELF,
-            0.0f,
-            Animation.RELATIVE_TO_PARENT,
-            -0.41F
-        )
-
-        slide.duration = 500
-        slide.fillAfter = true
-        slide.isFillEnabled = false
-
-        view.startAnimation(slide)
-    }
-
+    //class for handle swipe
     open class OnSwipeTouchListener(ctx: Context?) : View.OnTouchListener {
 
         private val gestureDetector: GestureDetector
 
         companion object {
 
+            //if swipe < 100 don't handle this event
             private val SWIPE_THRESHOLD = 100
+            //if velocity < 100 don't handle this event
             private val SWIPE_VELOCITY_THRESHOLD = 100
         }
 
         init {
+            //for handle user swipe we need GestureDetector
             gestureDetector = GestureDetector(ctx, GestureListener())
         }
 
@@ -120,10 +178,12 @@ class BaseFlowView() : View(currentActivity) {
         private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
 
 
+            //when finger touch screen
             override fun onDown(e: MotionEvent): Boolean {
                 return true
             }
 
+            //in this method we calculate swipe direction
             override fun onFling(
                 e1: MotionEvent,
                 e2: MotionEvent,
@@ -132,6 +192,7 @@ class BaseFlowView() : View(currentActivity) {
             ): Boolean {
                 var result = false
                 try {
+                    //difference between start and end point
                     val diffY = e2.y - e1.y
                     val diffX = e2.x - e1.x
                     if (Math.abs(diffX) > Math.abs(diffY)) {
@@ -155,12 +216,14 @@ class BaseFlowView() : View(currentActivity) {
                     exception.printStackTrace()
                 }
 
+                //if handle swipe return true
                 return result
             }
 
 
         }
 
+        //open function fow override
         open fun onSwipeRight() {}
 
         open fun onSwipeLeft() {}

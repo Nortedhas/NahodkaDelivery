@@ -3,11 +3,19 @@ package com.example.ageone.Modules.Restaurant
 import android.graphics.Color
 import android.os.Handler
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AnticipateInterpolator
+import android.view.animation.BounceInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updatePadding
+import androidx.transition.AutoTransition
+import androidx.transition.ChangeBounds
+import androidx.transition.TransitionManager
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.Application.utils
+import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.FlowView.BaseFlowView
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
@@ -20,6 +28,7 @@ import com.ageone.nahodka.Models.RxEvent
 import com.ageone.nahodka.Modules.RestaurantList.rows.RestaurantListImageViewHolder
 import com.example.ageone.Modules.Restaurant.rows.RestaurantListItemViewHolder
 import com.example.ageone.Modules.Restaurant.rows.initialize
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -41,8 +50,9 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
     )
 
     val flowView by lazy {
-        val view = BaseFlowView()
+        val view = BaseFlowView(innerContent)
         view.backgroundColor = Color.BLACK
+        view.button = imageViewFAB
         view.initialize()
         view
     }
@@ -68,10 +78,8 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
         renderToolbar()
 
-
         imageViewFAB.setOnClickListener {
-            flowView.slideAbove(flowView)
-            //emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
+            //emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name) //TODO : remove comment
         }
 
         bodyTable.adapter = viewAdapter
@@ -185,21 +193,9 @@ fun RestaurantListView.renderUIO() {
         .constrainBottomToBottomOf(innerContent,30)
 
     flowView
-        .constrainBottomToBottomOf(innerContent)
+        .constrainTopToBottomOf(innerContent)
         .fillHorizontally()
-        .height(200)
-        .setOnTouchListener(object : BaseFlowView.OnSwipeTouchListener(currentActivity){
-            override fun onSwipeBottom() {
-                super.onSwipeBottom()
-                flowView.slideBottom(flowView)
-                Handler().postDelayed({flowView.constrainTopToBottomOf(innerContent,200)},1000)
-            }
 
-            override fun onSwipeTop() {
-                super.onSwipeTop()
-                flowView.slideAbove(flowView)
-            }
-        })
 }
 
 
