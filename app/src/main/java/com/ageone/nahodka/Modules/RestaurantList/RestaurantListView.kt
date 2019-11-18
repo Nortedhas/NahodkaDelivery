@@ -51,8 +51,9 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
     val flowView by lazy {
         val view = BaseFlowView(innerContent)
-        view.backgroundColor = Color.BLACK
+        view.backgroundColor = Color.parseColor("#dd09D0B8")
         view.button = imageViewFAB
+        view.alpha = 0.5F
         view.initialize()
         view
     }
@@ -190,7 +191,8 @@ fun RestaurantListView.renderUIO() {
 
     imageViewFAB
         .constrainRightToRightOf(innerContent,5)
-        .constrainBottomToBottomOf(innerContent,30)
+        //.constrainBottomToBottomOf(innerContent,30) //TODO : remove comment
+        .constrainTopToTopOf(innerContent,30)
 
     flowView
         .constrainTopToBottomOf(innerContent)
