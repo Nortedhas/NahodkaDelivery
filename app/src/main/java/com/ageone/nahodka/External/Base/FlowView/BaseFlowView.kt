@@ -13,15 +13,23 @@ import androidx.transition.TransitionManager
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
+import timber.log.Timber
 import kotlin.math.abs
 
 
-class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivity){
+class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivity) {
 
 
     //for set place in ConstraintLayout
     val innerContent = constraintLayout
     var gradientDrawable = GradientDrawable()
+
+    var heightInPercent: Float = 0.5F
+
+    //for animation in ConstraintLayout we need use ConstraintSet
+    val constraintSet = ConstraintSet()
+
+    val transition = AutoTransition()
 
     var isShow = false
 
@@ -62,62 +70,93 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
             gradientDrawable.orientation = orientation
         }
 
-        button?.let{ baseButton ->
+        button?.let { baseButton ->
 
             baseButton.setOnClickListener {
-                slideView()
+                transition.duration = 500
+                if (!isShow) {
+                    isShow = true
+                    slideView((innerContent.height * 0.5).toFloat())
+                    //slideView((utils.variable.displayHeight * 0.7).toFloat())
+                } else {
+                    isShow = false
+                    slideView(0.0F)
+                }
             }
         }
 
         background = gradientDrawable
 
-        this.let { baseFlowView ->
 
-            baseFlowView.setOnTouchListener(object : BaseFlowView.OnSwipeTouchListener(currentActivity){
-                override fun onSwipeBottom() {
-                    super.onSwipeBottom()
-                    slideView()
+        /*this.setOnTouchListener(object : BaseFlowView.OnSwipeTouchListener(currentActivity){
+            override fun onSwipeBottom() {
+                super.onSwipeBottom()
+                slideView()
+            }
+        })*/
+
+        this.setOnTouchListener(View.OnTouchListener { view, event ->
+
+            var margin = 0.0F
+
+
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
+
                 }
-            })
-        }
+                MotionEvent.ACTION_MOVE -> {
+
+                    transition.duration = 0
+
+                    margin =
+                        abs(event.rawY - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
+
+                    Timber.i("Margin : $margin")
+
+                    Timber.i("Inner content :${innerContent.height}")
+
+                    slideView(margin)
+
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    margin =
+                        abs(event.rawY - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
+                    Timber.i("Margin : $margin")
+                    if (margin < innerContent.height) {
+                        transition.duration = 500
+                        slideView((innerContent.height * 0.5).toFloat())
+                    } else {
+                        transition.duration = 500
+                        slideView(0.0F)
+                    }
+                }
+                else -> { // Note the block
+
+                    return@OnTouchListener false
+                }
+            }
+
+            true
+        })
+
     }
 
-    fun slideView(){
-        //for animation in ConstraintLayout we need use ConstraintSet
-        val constraintSet = ConstraintSet()
+    fun slideView(place: Float) {
+
         //clone current layout
         constraintSet.clone(innerContent)
         //unlink view in innerContent
         constraintSet.clear(this.id)
 
-        if(isShow){
-            constraintSet.connect(this.id,
-                ConstraintSet.TOP,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.BOTTOM,0)
-            constraintSet.connect(this.id,
-                ConstraintSet.BOTTOM,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.BOTTOM, 0)
-            constraintSet.connect(this.id,
-                ConstraintSet.LEFT,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.LEFT,0)
-            constraintSet.connect(this.id,
-                ConstraintSet.RIGHT,
-                ConstraintSet.PARENT_ID,
-                ConstraintSet.RIGHT,0)
-
-            isShow = false
-
-        } else {
+        if (place >= (innerContent.height * 0.5).toInt() && place <= (innerContent.height).toFloat()) {
 
             //set new place in innerContent
             constraintSet.connect(
                 this.id,
                 ConstraintSet.TOP,
                 ConstraintSet.PARENT_ID,
-                ConstraintSet.TOP, (utils.variable.displayHeight * 0.7).toInt()
+                ConstraintSet.TOP, place.toInt()
             )
             constraintSet.connect(
                 this.id,
@@ -138,97 +177,45 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                 ConstraintSet.RIGHT, 0
             )
 
-            isShow = true
+        } else if (place >= innerContent.height || place == 0.0F) {
+            transition.duration = 500
+
+            constraintSet.connect(
+                this.id,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM, 0
+            )
+            constraintSet.connect(
+                this.id,
+                ConstraintSet.BOTTOM,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM, 0
+            )
+            constraintSet.connect(
+                this.id,
+                ConstraintSet.LEFT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.LEFT, 0
+            )
+            constraintSet.connect(
+                this.id,
+                ConstraintSet.RIGHT,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.RIGHT, 0
+            )
+
+            isShow = false
         }
 
         //transition need for animation
-        val transition = AutoTransition()
-        transition.duration = 600
+
         transition.interpolator = AccelerateDecelerateInterpolator()
 
         //start transition
-        TransitionManager.beginDelayedTransition(innerContent,transition)
+        TransitionManager.beginDelayedTransition(innerContent, transition)
 
         //apply changes in inner content
         constraintSet.applyTo(innerContent)
-    }
-
-    //class for handle swipe
-    open class OnSwipeTouchListener(ctx: Context?) : View.OnTouchListener {
-
-        private val gestureDetector: GestureDetector
-
-        companion object {
-
-            //if swipe < 100 don't handle this event
-            private val SWIPE_THRESHOLD = 100
-            //if velocity < 100 don't handle this event
-            private val SWIPE_VELOCITY_THRESHOLD = 100
-        }
-
-        init {
-            //for handle user swipe we need GestureDetector
-            gestureDetector = GestureDetector(ctx, GestureListener())
-        }
-
-        override fun onTouch(v: View, event: MotionEvent): Boolean {
-            return gestureDetector.onTouchEvent(event)
-        }
-
-        private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
-
-            //when finger touch screen
-            override fun onDown(e: MotionEvent): Boolean {
-                return true
-            }
-
-            //in this method we calculate swipe direction
-            override fun onFling(
-                e1: MotionEvent,
-                e2: MotionEvent,
-                velocityX: Float,
-                velocityY: Float
-            ): Boolean {
-                var result = false
-                try {
-                    //difference between start and end point
-                    val diffY = e2.y - e1.y
-                    val diffX = e2.x - e1.x
-                    if (abs(diffX) > abs(diffY)) {
-                        if (abs(diffX) > SWIPE_THRESHOLD && abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                            if (diffX > 0) {
-                                onSwipeRight()
-                            } else {
-                                onSwipeLeft()
-                            }
-                            result = true
-                        }
-                    } else if (abs(diffY) > SWIPE_THRESHOLD && abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffY > 0) {
-                            onSwipeBottom()
-                        } else {
-                            onSwipeTop()
-                        }
-                        result = true
-                    }
-                } catch (exception: Exception) {
-                    exception.printStackTrace()
-                }
-
-                //if handle swipe return true
-                return result
-            }
-
-
-        }
-
-        //open function for override
-        open fun onSwipeRight() {}
-
-        open fun onSwipeLeft() {}
-
-        open fun onSwipeTop() {}
-
-        open fun onSwipeBottom() {}
     }
 }
