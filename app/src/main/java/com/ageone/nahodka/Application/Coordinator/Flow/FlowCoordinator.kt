@@ -52,7 +52,6 @@ class FlowCoordinator {
 
     private fun renderUI() {
 
-//        router.layout.removeAllViews()
         router.layout.removeAllViewsInLayout()
         router.layout.subviews(
             flowStorage.asView(),

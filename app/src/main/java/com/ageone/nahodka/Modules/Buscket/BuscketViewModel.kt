@@ -18,8 +18,7 @@ class BuscketViewModel : InterfaceViewModel {
 
     var realmData = mutableListOf<ProductForBucket>()
     fun loadRealmData() {
-
-
+        realmData = mutableListOf()
         Timber.i("Prodict item : ${rxData.selectedItems}")
         val setProducts = rxData.selectedItems.toSet()
 
