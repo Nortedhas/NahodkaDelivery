@@ -220,6 +220,7 @@ class BuscketOrderView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                             Handler().postDelayed({
                                 currentActivity?.hideKeyboard()
                             }, 300)
+
                             alertManager.list(
                                 "Выберите способ оплаты",
                                 variantPayWords

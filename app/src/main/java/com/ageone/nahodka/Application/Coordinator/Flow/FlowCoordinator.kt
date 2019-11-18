@@ -85,6 +85,7 @@ class FlowCoordinator {
     val blockConstraint by lazy {
         val constraint = BaseConstraintLayout()
         constraint.setBackgroundColor(Color.argb(180, 0,0,0))
+        constraint.elevation = 10F.dp
         constraint
     }
 
