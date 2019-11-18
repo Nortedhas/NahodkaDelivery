@@ -1,5 +1,6 @@
 package com.ageone.nahodka.Modules
 
+import android.graphics.Color
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.InitModuleUI
@@ -13,7 +14,7 @@ class LoadingView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     val viewModel = LoadingViewModel()
 
     init {
-        setBackgroundResource(R.drawable.back_loading)
+        setBackgroundColor(Color.TRANSPARENT)
 
         innerContent.subviews(
         )
