@@ -1,21 +1,10 @@
 package com.example.ageone.Modules.Restaurant
 
 import android.graphics.Color
-import android.os.Handler
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnticipateInterpolator
-import android.view.animation.BounceInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updatePadding
-import androidx.transition.AutoTransition
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionManager
-import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.rxData
-import com.ageone.nahodka.Application.utils
-import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.FlowView.BaseFlowView
 import com.ageone.nahodka.External.Base.FlowView.setOnlyTopRoundedCorners
 import com.ageone.nahodka.R
@@ -52,10 +41,11 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
 
     val flowView by lazy {
         val view = BaseFlowView(innerContent)
-        view.backgroundColor = Color.parseColor("#dd09D0B8")
+        view.backgroundColor = Color.WHITE//Color.parseColor("#09D0B8")
         view.button = imageViewFAB
         view.alpha = 0.5F
         view.heightInPercent = 0.6F
+        view.elevation = 16F.dp
         view.setOnlyTopRoundedCorners(16F.dp)
         view.initialize()
         view
@@ -198,7 +188,7 @@ fun RestaurantListView.renderUIO() {
         .constrainTopToTopOf(innerContent,30)
 
     flowView
-        .constrainTopToBottomOf(innerContent)
+        .constrainTopToBottomOf(innerContent,30)
         .fillHorizontally()
 
 }

@@ -1,6 +1,7 @@
 package com.ageone.nahodka.External.Base.FlowView
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
 import android.view.MotionEvent
@@ -14,10 +15,15 @@ import androidx.transition.TransitionManager
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
+import com.ageone.nahodka.External.Base.ImageView.BaseImageView
+import com.ageone.nahodka.External.Base.View.BaseView
+import timber.log.Timber
+import yummypets.com.stevia.*
 import kotlin.math.abs
 
 
 class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivity) {
+
 
     //for set place in ConstraintLayout
     val innerContent = constraintLayout
@@ -81,7 +87,7 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                     slideView((innerContent.height * heightInPercent))
                 } else {
                     isShow = false
-                    slideView(0.0F)
+                    slideView(innerContent.height.toFloat())
                 }
             }
         }
@@ -111,11 +117,12 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                     margin =
                         abs(event.rawY - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
 
+                    transition.duration = 500
+
                     if (margin < innerContent.height) {
-                        transition.duration = 500
                         slideView((innerContent.height * heightInPercent))
                     } else {
-                        slideView(0.0F)
+                        slideView(innerContent.height.toFloat())
                     }
                 }
                 else -> {
@@ -134,7 +141,7 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
         //unlink view in innerContent
         constraintSet.clear(this.id)
 
-        if (margin >= (innerContent.height * heightInPercent).toInt() && margin <= (innerContent.height).toFloat()) {
+        if(margin < innerContent.height){
 
             //set new margin in innerContent
             constraintSet.connect(
@@ -162,7 +169,9 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                 ConstraintSet.RIGHT, 0
             )
 
-        } else if (margin >= innerContent.height || margin == 0.0F) {
+            isShow = true
+
+        } else {
             transition.duration = 500
 
             constraintSet.connect(
