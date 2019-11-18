@@ -17,6 +17,7 @@ import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.ageone.nahodka.External.Base.FlowView.BaseFlowView
+import com.ageone.nahodka.External.Base.FlowView.setOnlyTopRoundedCorners
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
@@ -55,6 +56,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         view.button = imageViewFAB
         view.alpha = 0.5F
         view.heightInPercent = 0.6F
+        view.setOnlyTopRoundedCorners(16F.dp)
         view.initialize()
         view
     }

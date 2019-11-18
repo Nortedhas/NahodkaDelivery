@@ -1,10 +1,13 @@
 package com.ageone.nahodka.External.Base.FlowView
 
 import android.annotation.SuppressLint
+import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewOutlineProvider
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
@@ -199,4 +202,19 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
         //apply changes in inner content
         constraintSet.applyTo(innerContent)
     }
+
+}
+
+fun BaseFlowView.setOnlyTopRoundedCorners(radius: Float) {
+
+    outlineProvider = object : ViewOutlineProvider() {
+
+        @RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
+        override fun getOutline(view: View?, outline: Outline?) {
+            outline?.setRoundRect(0, 0, width, (height + radius).toInt(), radius)
+        }
+    }
+
+    clipToOutline = true
+
 }
