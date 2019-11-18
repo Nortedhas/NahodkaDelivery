@@ -54,6 +54,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         view.backgroundColor = Color.parseColor("#dd09D0B8")
         view.button = imageViewFAB
         view.alpha = 0.5F
+        view.heightInPercent = 0.6F
         view.initialize()
         view
     }

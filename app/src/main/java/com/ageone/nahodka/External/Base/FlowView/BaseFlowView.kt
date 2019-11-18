@@ -1,9 +1,7 @@
 package com.ageone.nahodka.External.Base.FlowView
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -13,12 +11,10 @@ import androidx.transition.TransitionManager
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
-import timber.log.Timber
 import kotlin.math.abs
 
 
 class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivity) {
-
 
     //for set place in ConstraintLayout
     val innerContent = constraintLayout
@@ -27,9 +23,9 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
     var heightInPercent: Float = 0.5F
 
     //for animation in ConstraintLayout we need use ConstraintSet
-    val constraintSet = ConstraintSet()
+    private val constraintSet = ConstraintSet()
 
-    val transition = AutoTransition()
+    private val transition = AutoTransition()
 
     var isShow = false
 
@@ -47,6 +43,9 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
 
     @SuppressLint("ClickableViewAccessibility")
     fun initialize() {
+
+        heightInPercent = 1.0F - heightInPercent
+
         gradientDrawable.shape = GradientDrawable.RECTANGLE
 
         cornerRadius?.let { cornerRadius ->
@@ -76,8 +75,7 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                 transition.duration = 500
                 if (!isShow) {
                     isShow = true
-                    slideView((innerContent.height * 0.5).toFloat())
-                    //slideView((utils.variable.displayHeight * 0.7).toFloat())
+                    slideView((innerContent.height * heightInPercent))
                 } else {
                     isShow = false
                     slideView(0.0F)
@@ -87,76 +85,60 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
 
         background = gradientDrawable
 
+        this.setOnTouchListener(OnTouchListener { _, event ->
 
-        /*this.setOnTouchListener(object : BaseFlowView.OnSwipeTouchListener(currentActivity){
-            override fun onSwipeBottom() {
-                super.onSwipeBottom()
-                slideView()
-            }
-        })*/
-
-        this.setOnTouchListener(View.OnTouchListener { view, event ->
-
-            var margin = 0.0F
-
+            var margin: Float
 
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
 
                 }
                 MotionEvent.ACTION_MOVE -> {
-
+                    //set duration 0 for delay was equals 0 when animate
                     transition.duration = 0
 
+                    //calculate margin from innerContent.TOP
                     margin =
                         abs(event.rawY - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
 
-                    Timber.i("Margin : $margin")
-
-                    Timber.i("Inner content :${innerContent.height}")
-
                     slideView(margin)
-
                 }
 
                 MotionEvent.ACTION_UP -> {
                     margin =
                         abs(event.rawY - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
-                    Timber.i("Margin : $margin")
+
                     if (margin < innerContent.height) {
                         transition.duration = 500
-                        slideView((innerContent.height * 0.5).toFloat())
+                        slideView((innerContent.height * heightInPercent))
                     } else {
-                        transition.duration = 500
                         slideView(0.0F)
                     }
                 }
-                else -> { // Note the block
-
+                else -> {
                     return@OnTouchListener false
                 }
             }
-
             true
         })
 
     }
 
-    fun slideView(place: Float) {
+    private fun slideView(margin: Float) {
 
         //clone current layout
         constraintSet.clone(innerContent)
         //unlink view in innerContent
         constraintSet.clear(this.id)
 
-        if (place >= (innerContent.height * 0.5).toInt() && place <= (innerContent.height).toFloat()) {
+        if (margin >= (innerContent.height * heightInPercent).toInt() && margin <= (innerContent.height).toFloat()) {
 
-            //set new place in innerContent
+            //set new margin in innerContent
             constraintSet.connect(
                 this.id,
                 ConstraintSet.TOP,
                 ConstraintSet.PARENT_ID,
-                ConstraintSet.TOP, place.toInt()
+                ConstraintSet.TOP, margin.toInt()
             )
             constraintSet.connect(
                 this.id,
@@ -177,7 +159,7 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                 ConstraintSet.RIGHT, 0
             )
 
-        } else if (place >= innerContent.height || place == 0.0F) {
+        } else if (margin >= innerContent.height || margin == 0.0F) {
             transition.duration = 500
 
             constraintSet.connect(
@@ -209,7 +191,6 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
         }
 
         //transition need for animation
-
         transition.interpolator = AccelerateDecelerateInterpolator()
 
         //start transition
