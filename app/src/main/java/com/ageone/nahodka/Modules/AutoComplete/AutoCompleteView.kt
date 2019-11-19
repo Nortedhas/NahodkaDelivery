@@ -1,17 +1,11 @@
 package com.ageone.nahodka.Modules.AutoComplete
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Handler
-import android.view.KeyEvent
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.RecyclerView
-import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.router
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.Module.BaseModule
@@ -21,8 +15,6 @@ import com.ageone.nahodka.External.Base.SearchView.BaseSearchView
 import com.ageone.nahodka.External.Base.TextView.BaseTextView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
-import com.ageone.nahodka.Models.RxEvent
-import com.ageone.nahodka.Models.User.user
 import com.ageone.nahodka.Modules.AutoComplete.rows.ResultViewHolder
 import com.ageone.nahodka.Modules.AutoComplete.rows.initialize
 import io.reactivex.Observable
@@ -85,7 +77,19 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         }
 
         // Set up the query listener that executes the search
-        Observable.create(ObservableOnSubscribe<String> { subscriber ->
+        createObservableQuery()
+            .map { text -> text.toLowerCase().trim() }
+            .debounce(250, TimeUnit.MILLISECONDS)
+            .distinct()
+            .filter { text -> text.isNotBlank() }
+            .subscribe { text ->
+                Timber.i("Search: $text")
+                viewModel.getComplete(text)
+            }
+    }
+
+    private fun createObservableQuery(): Observable<String> {
+        return Observable.create(ObservableOnSubscribe<String> { subscriber ->
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextChange(newText: String?): Boolean {
                     newText ?: return false
@@ -100,28 +104,6 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
             })
         })
-            .map { text -> text.toLowerCase().trim() }
-            .debounce(250, TimeUnit.MILLISECONDS)
-            .distinct()
-            .filter { text -> text.isNotBlank() }
-            .subscribe { text ->
-                Timber.i("Search: $text")
-                viewModel.getComplete(text)
-            }
-    }
-
-    fun setCallbackOnItemSelected(type: TypeCallback) = when(type){
-        TypeCallback.back -> {
-
-        }
-
-        TypeCallback.substitution -> {
-
-        }
-    }
-
-    enum class TypeCallback {
-        back, substitution
     }
 
     fun bindUI() {
@@ -170,10 +152,9 @@ class AutoCompleteView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                     if (position in viewModel.realmData.indices) {
                         val answer = viewModel.realmData[position]
                         holder.initialize(answer.primaryText, answer.secondaryText)
-                        holder.constraintLayout.setOnClickListener {//todo: change to 2 functions
-                            user.info.address = answer.primaryText
-                            RxBus.publish(RxEvent.EventChangeAddress())
-                            router.onBackPressed()
+
+                        holder.constraintLayout.setOnClickListener {
+                            viewModel.setCallback(answer, searchView)
                         }
                     }
 

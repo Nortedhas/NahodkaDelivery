@@ -3,12 +3,11 @@
 
     <!-- Цвет фона -->
     <item android:drawable="@android:color/white"/>
-    <!--"clip_vertical|fill_horizontal"--><!--android:gravity="top|fill_horizontal"-->
+
     <item>
 
         <bitmap
                 android:src="@drawable/back_loading"
-
                 android:scaleType="fitStart"
 
                 />

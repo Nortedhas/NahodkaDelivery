@@ -131,32 +131,39 @@ class BuscketView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
                         holder.imageViewPlus.setOnClickListener {
                             viewModel.realmData[position].count = count + 1
+                            rxData.selectedItems += product
                             notifyDataSetChanged()
 
-                            if (rxData.selectedItems.isEmpty()) {
+                            /*if (rxData.selectedItems.isEmpty()) {
                                 //add first item
                                 rxData.productInBucketCompany = rxData.currentCompany
-                                rxData.selectedItems += product
+
 
                             } else {
                                 //if add item from the same company
                                 rxData.selectedItems += product
-                            }
+                            }*/
                         }
 
                     holder.imageViewMinus.setOnClickListener {
                         if (count > 0) {
                             viewModel.realmData[position].count = count - 1
-                            notifyDataSetChanged()
+                            rxData.selectedItems -= product
+//                            notifyDataSetChanged()
 
-                            if (rxData.selectedItems.isNotEmpty()) {
+                            if (viewModel.realmData[position].count == 0) {
+                                viewModel.loadRealmData()
+
+                            }
+                            notifyDataSetChanged()
+                            /*if (rxData.selectedItems.isNotEmpty()) {
                                 //add first item
                                 rxData.productInBucketCompany = rxData.currentCompany
-                                rxData.selectedItems -= product
+
                             } else {
                                 //if add item from the same company
                                 rxData.selectedItems -= product
-                            }
+                            }*/
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package com.ageone.nahodka.Application.Coordinator.Flow.Stack
 
 import android.graphics.Color
+import androidx.core.view.children
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.nahodka.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.flowStorage
 import com.ageone.nahodka.Application.Coordinator.Flow.Regular.runFlowBucket
@@ -10,6 +11,7 @@ import com.ageone.nahodka.Application.coordinator
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.External.Base.Flow.BaseFlow
+import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Extensions.Activity.clearLightStatusBar
 import com.ageone.nahodka.External.Icon
 import com.ageone.nahodka.External.InitModuleUI
@@ -31,6 +33,7 @@ import com.ageone.nahodka.R
 import com.example.ageone.Modules.Restaurant.RestaurantListModel
 import com.example.ageone.Modules.Restaurant.RestaurantListView
 import com.example.ageone.Modules.Restaurant.RestaurantListViewModel
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -50,6 +53,13 @@ fun FlowCoordinator.runFlowMain() {
     }
 
     flow?.onFinish = {
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is BaseModule) {
+                Timber.i("Delete module in flow finish")
+                view.onDeInit?.invoke()
+            }
+        }
+
         flowStorage.deleteFlow(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null

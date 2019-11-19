@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
+import com.ageone.nahodka.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.nahodka.External.Base.Activity.BaseActivity
 import com.ageone.nahodka.External.Extensions.Activity.*
 import com.ageone.nahodka.External.Extensions.FlowCoordinator.logout
@@ -87,13 +88,23 @@ class AppActivity: BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+
         if (user.permission.geo) {
             startLocationUpdates()
+        }
+        if (webSocket.isStarted && !webSocket.socket.connected()) {
+            webSocket.initialize()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+
+        router.layout.removeAllViews()
+        Stack.flows.forEach {flow ->
+            flow.onFinish?.invoke()
+        }
+        Stack.flows.clear()
     }
 
     override fun onRequestPermissionsResult(

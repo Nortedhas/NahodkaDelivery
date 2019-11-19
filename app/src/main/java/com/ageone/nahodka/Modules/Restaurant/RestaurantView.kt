@@ -134,7 +134,7 @@ class RestaurantView(initModuleUI: InitModuleUI = InitModuleUI()) :
                     holder.initialize(rxData.currentCompany?.createCategoriesFromCompany() ?: listOf())
                 }
 
-                is RestaurantCardViewHolder -> {//todo: change with filter
+                is RestaurantCardViewHolder -> {
                     val pos = position - 2
                     if (pos in viewModel.realmData.indices) {
                         val product = viewModel.realmData[pos].product

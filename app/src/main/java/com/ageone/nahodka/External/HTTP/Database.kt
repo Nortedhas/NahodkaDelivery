@@ -34,8 +34,6 @@ fun DataBase.request(params: Map<String, Any>, completion: (JSONObject) -> (Unit
         }
 }
 
-//TODO: replace in base
-
 fun DataBase.update(objectID: String, objectStruct: Map<String, Any>) {
     request(
         mapOf(

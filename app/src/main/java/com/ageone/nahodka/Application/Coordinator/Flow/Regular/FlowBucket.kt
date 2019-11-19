@@ -42,7 +42,7 @@ fun FlowCoordinator.runFlowBucket(previousFlow: BaseFlow) {
 
     flow?.onFinish = {
 
-        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->//todo: add to others flows
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
             if (view is BaseModule) {
                 Timber.i("Delete module in flow finish")
                 view.onDeInit?.invoke()

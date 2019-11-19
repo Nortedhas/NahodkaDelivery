@@ -23,8 +23,6 @@ import com.ageone.nahodka.R
 import com.ageone.nahodka.SCAG.DataBase
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
-import com.github.pwittchen.reactivenetwork.library.rx2.internet.observing.strategy.SocketInternetObservingStrategy
-import com.github.pwittchen.reactivenetwork.library.rx2.network.observing.strategy.LollipopNetworkObservingStrategy
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -46,7 +44,8 @@ var webSocket = WebSocket()
 var intent = Intent()
 
 val currentActivity: BaseActivity?
-    get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as BaseActivity?
+    get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as? BaseActivity
+
 var placesClient: PlacesClient? = null
 
 class App: Application()  {

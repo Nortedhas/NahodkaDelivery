@@ -241,8 +241,6 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         }
     }
 
-    //TODO: replace in base
-
     var countPush: Int by Delegates.observable(0) {property, oldValue, newValue ->
         if (oldValue == newValue) return@observable
 

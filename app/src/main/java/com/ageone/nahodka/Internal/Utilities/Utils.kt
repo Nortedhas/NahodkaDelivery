@@ -15,7 +15,7 @@ class Utils {
     var realm = RealmUtilities
     val config = ConfigDefault
     val googleApiKey = "AIzaSyCDfj5ZoL0kncxgH8ja-julymHYjFR3Av0"
-//todo: replace
+
     var isNetworkReachable: Boolean by Delegates.observable(true) {property, oldValue, newValue ->
         if (oldValue == newValue) return@observable
 

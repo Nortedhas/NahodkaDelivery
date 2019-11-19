@@ -52,7 +52,6 @@ class FlowCoordinator {
 
     private fun renderUI() {
 
-//        router.layout.removeAllViews()
         router.layout.removeAllViewsInLayout()
         router.layout.subviews(
             flowStorage.asView(),
@@ -85,6 +84,7 @@ class FlowCoordinator {
     val blockConstraint by lazy {
         val constraint = BaseConstraintLayout()
         constraint.setBackgroundColor(Color.argb(180, 0,0,0))
+        constraint.elevation = 10F.dp
         constraint
     }
 
