@@ -12,6 +12,7 @@ import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
 import com.ageone.nahodka.External.Base.RecyclerView.BaseAdapter
 import com.ageone.nahodka.External.Base.RecyclerView.BaseViewHolder
+import com.ageone.nahodka.External.Base.View.BaseView
 import com.ageone.nahodka.External.InitModuleUI
 import com.ageone.nahodka.External.RxBus.RxBus
 import com.ageone.nahodka.Models.RxEvent
@@ -38,6 +39,15 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         R.drawable.pic_food1,
         R.drawable.pic_food2
     )
+
+    val viewLabel by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.RED
+        view.cornerRadius = 16.dp
+        //view.setBackgroundColor(Color.RED)
+        view.initialize()
+        view
+    }
 
     val flowView by lazy {
         val view = BaseFlowView(innerContent)
@@ -170,7 +180,10 @@ fun RestaurantListView.renderUIO() {
     innerContent.subviews(
         bodyTable,
         imageViewFAB,
-        flowView
+        flowView.subviews(
+            //or can add view in this place
+            viewLabel
+        )
     )
 
     bodyTable
@@ -188,8 +201,17 @@ fun RestaurantListView.renderUIO() {
         .constrainTopToTopOf(innerContent,30)
 
     flowView
-        .constrainTopToBottomOf(innerContent,30)
-        .fillHorizontally()
+        .constrainTopToBottomOf(innerContent)
+        .fillHorizontally(16)
+
+    viewLabel
+        .width(40)
+        .height(40)
+        .constrainCenterXToCenterXOf(flowView)
+        .constrainTopToTopOf(flowView, 30)
+        .setOnClickListener {
+            Timber.e("On bottom sheet pressed")
+        }
 
 }
 
