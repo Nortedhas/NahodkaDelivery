@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.rxData
 import com.ageone.nahodka.External.Base.FlowView.BaseFlowView
-import com.ageone.nahodka.External.Base.FlowView.setOnlyTopRoundedCorners
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
@@ -56,7 +55,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         view.alpha = 0.5F
         view.heightInPercent = 0.6F
         view.elevation = 16F.dp
-        view.setOnlyTopRoundedCorners(16F.dp)
+        view.cornerRadius = 16.dp
         view.initialize()
         view
     }

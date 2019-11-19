@@ -26,7 +26,6 @@ import kotlin.math.abs
 class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayout(currentActivity) {
 
     //for set place in ConstraintLayout
-    //val innerContent = constraintLayout
     var gradientDrawable = GradientDrawable()
 
     var heightInPercent: Float = 0.5F
@@ -37,6 +36,11 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
     private val transition = AutoTransition()
 
     private var isShow = false
+
+    private val displayHeight = currentActivity?.resources?.displayMetrics?.heightPixels
+
+    //I remember about !!, but no understand how fix this
+    private val bottomBarHeight = displayHeight!! - constraintLayout.height - utils.variable.actionBarHeight - utils.variable.statusBarHeight
 
     var cornerRadius: Int? = null
     var backgroundColor: Int? = null
@@ -62,12 +66,10 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
     fun initialize() {
 
         //because calculate from top to bottom
-        heightInPercent = 1.0F - heightInPercent
-
         gradientDrawable.shape = GradientDrawable.RECTANGLE
 
         cornerRadius?.let { cornerRadius ->
-            gradientDrawable.cornerRadius = cornerRadius.toFloat()
+            setOnlyTopRoundedCorners(cornerRadius.toFloat())
         }
 
         borderWidth?.let { borderWidth ->
@@ -93,7 +95,7 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
                 transition.duration = 500
                 if (!isShow) {
                     isShow = true
-                    slideView((constraintLayout.height * heightInPercent))
+                    slideView(displayHeight!! - (displayHeight!! * heightInPercent) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
                 } else {
                     isShow = false
                     slideView(constraintLayout.height.toFloat())
@@ -115,14 +117,7 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
                     //set duration 0 for delay was equals 0 when animate
                     transition.duration = 0
 
-                    //calculate margin from innerContent.TOP
-                    val displayHeight = currentActivity?.resources?.displayMetrics?.heightPixels
-
-                    //I remember about !!, but no understand how fix this
-                    val bottomBarHeight = displayHeight!! - constraintLayout.height - utils.variable.actionBarHeight - utils.variable.statusBarHeight
-
-                    margin =
-                        abs(event.rawY - (utils.variable.actionBarHeight - utils.variable.statusBarHeight) - bottomBarHeight)
+                    margin = event.rawY - utils.variable.statusBarHeight - utils.variable.actionBarHeight - (displayHeight!! - bottomBarHeight)
 
                     slideView(margin)
                 }
@@ -136,11 +131,11 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
 
                     Handler().postDelayed({
                         if (margin < constraintLayout.height) {
-                            slideView((constraintLayout.height * heightInPercent))
+                            slideView(displayHeight!! - (displayHeight!! * heightInPercent) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
                         } else {
                             slideView(constraintLayout.height.toFloat())
                         }
-                    },10)
+                    },50)
                 }
                 else -> {
                     return@OnTouchListener false
@@ -159,7 +154,6 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
         constraintSet.clear(this.id)
 
         if(margin < constraintLayout.height){
-
             //set new margin in innerContent
             constraintSet.connect(
                 this.id,
@@ -190,8 +184,6 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
             isShow = true
 
         } else {
-            transition.duration = 500
-
             constraintSet.connect(
                 this.id,
                 ConstraintSet.TOP,
@@ -244,19 +236,18 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
 
     }
 
+    private fun setOnlyTopRoundedCorners(radius: Float) {
 
-}
+        outlineProvider = object : ViewOutlineProvider() {
 
-fun BaseFlowView.setOnlyTopRoundedCorners(radius: Float) {
-
-    outlineProvider = object : ViewOutlineProvider() {
-
-        @RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
-        override fun getOutline(view: View?, outline: Outline?) {
-            outline?.setRoundRect(0, 0, width, (height + radius).toInt(), radius)
+            @RequiresApi(android.os.Build.VERSION_CODES.LOLLIPOP)
+            override fun getOutline(view: View?, outline: Outline?) {
+                outline?.setRoundRect(0, 0, width, (height + radius).toInt(), radius)
+            }
         }
+
+        clipToOutline = true
+
     }
-
-    clipToOutline = true
-
 }
+
