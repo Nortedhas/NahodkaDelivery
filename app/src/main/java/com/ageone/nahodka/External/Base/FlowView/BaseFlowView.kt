@@ -4,29 +4,29 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
+import android.os.Handler
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewOutlineProvider
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.ageone.nahodka.Application.currentActivity
 import com.ageone.nahodka.Application.utils
 import com.ageone.nahodka.External.Base.ConstraintLayout.BaseConstraintLayout
-import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.View.BaseView
 import timber.log.Timber
 import yummypets.com.stevia.*
 import kotlin.math.abs
 
 
-class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivity) {
-
+class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayout(currentActivity) {
 
     //for set place in ConstraintLayout
-    val innerContent = constraintLayout
+    //val innerContent = constraintLayout
     var gradientDrawable = GradientDrawable()
 
     var heightInPercent: Float = 0.5F
@@ -36,7 +36,7 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
 
     private val transition = AutoTransition()
 
-    var isShow = false
+    private var isShow = false
 
     var cornerRadius: Int? = null
     var backgroundColor: Int? = null
@@ -50,9 +50,18 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
     //button for slide view up
     var button: View? = null
 
+    val viewLabel by lazy {
+        val view = BaseView()
+        view.backgroundColor = Color.GRAY
+        view.cornerRadius = 16.dp
+        view.initialize()
+        view
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     fun initialize() {
 
+        //because calculate from top to bottom
         heightInPercent = 1.0F - heightInPercent
 
         gradientDrawable.shape = GradientDrawable.RECTANGLE
@@ -84,10 +93,10 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                 transition.duration = 500
                 if (!isShow) {
                     isShow = true
-                    slideView((innerContent.height * heightInPercent))
+                    slideView((constraintLayout.height * heightInPercent))
                 } else {
                     isShow = false
-                    slideView(innerContent.height.toFloat())
+                    slideView(constraintLayout.height.toFloat())
                 }
             }
         }
@@ -96,7 +105,7 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
 
         this.setOnTouchListener(OnTouchListener { _, event ->
 
-            var margin: Float
+            val margin: Float
 
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -107,23 +116,31 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                     transition.duration = 0
 
                     //calculate margin from innerContent.TOP
+                    val displayHeight = currentActivity?.resources?.displayMetrics?.heightPixels
+
+                    //I remember about !!, but no understand how fix this
+                    val bottomBarHeight = displayHeight!! - constraintLayout.height - utils.variable.actionBarHeight - utils.variable.statusBarHeight
+
                     margin =
-                        abs(event.rawY - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
+                        abs(event.rawY - (utils.variable.actionBarHeight - utils.variable.statusBarHeight) - bottomBarHeight)
 
                     slideView(margin)
                 }
 
                 MotionEvent.ACTION_UP -> {
+
                     margin =
                         abs(event.rawY - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
 
                     transition.duration = 500
 
-                    if (margin < innerContent.height) {
-                        slideView((innerContent.height * heightInPercent))
-                    } else {
-                        slideView(innerContent.height.toFloat())
-                    }
+                    Handler().postDelayed({
+                        if (margin < constraintLayout.height) {
+                            slideView((constraintLayout.height * heightInPercent))
+                        } else {
+                            slideView(constraintLayout.height.toFloat())
+                        }
+                    },10)
                 }
                 else -> {
                     return@OnTouchListener false
@@ -131,17 +148,17 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
             }
             true
         })
-
+        renderUI()
     }
 
     private fun slideView(margin: Float) {
 
         //clone current layout
-        constraintSet.clone(innerContent)
+        constraintSet.clone(constraintLayout)
         //unlink view in innerContent
         constraintSet.clear(this.id)
 
-        if(margin < innerContent.height){
+        if(margin < constraintLayout.height){
 
             //set new margin in innerContent
             constraintSet.connect(
@@ -150,6 +167,7 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
                 ConstraintSet.PARENT_ID,
                 ConstraintSet.TOP, margin.toInt()
             )
+
             constraintSet.connect(
                 this.id,
                 ConstraintSet.BOTTOM,
@@ -206,11 +224,26 @@ class BaseFlowView(constraintLayout: BaseConstraintLayout) : View(currentActivit
         transition.interpolator = AccelerateDecelerateInterpolator()
 
         //start transition
-        TransitionManager.beginDelayedTransition(innerContent, transition)
+        TransitionManager.beginDelayedTransition(constraintLayout, transition)
 
         //apply changes in inner content
-        constraintSet.applyTo(innerContent)
+        constraintSet.applyTo(constraintLayout)
     }
+
+    //we can add view this place
+    private fun renderUI(){
+        this.subviews(
+            viewLabel
+        )
+
+        viewLabel
+            .width(16)
+            .height(8)
+            .constrainCenterXToCenterXOf(this)
+            .constrainTopToTopOf(this, 6)
+
+    }
+
 
 }
 
