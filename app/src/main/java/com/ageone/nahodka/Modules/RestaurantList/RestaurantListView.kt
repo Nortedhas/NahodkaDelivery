@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import com.ageone.nahodka.Application.rxData
-import com.ageone.nahodka.External.Base.FlowView.BaseFlowView
-import com.ageone.nahodka.External.Base.FlowView.setOnlyTopRoundedCorners
 import com.ageone.nahodka.R
 import com.ageone.nahodka.External.Base.ImageView.BaseImageView
 import com.ageone.nahodka.External.Base.Module.BaseModule
@@ -40,27 +38,6 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         R.drawable.pic_food2
     )
 
-    val viewLabel by lazy {
-        val view = BaseView()
-        view.backgroundColor = Color.RED
-        view.cornerRadius = 16.dp
-        //view.setBackgroundColor(Color.RED)
-        view.initialize()
-        view
-    }
-
-    val flowView by lazy {
-        val view = BaseFlowView(innerContent)
-        view.backgroundColor = Color.WHITE//Color.parseColor("#09D0B8")
-        view.button = imageViewFAB
-        view.alpha = 0.5F
-        view.heightInPercent = 0.6F
-        view.elevation = 16F.dp
-        view.setOnlyTopRoundedCorners(16F.dp)
-        view.initialize()
-        view
-    }
-
     val imageViewFAB by lazy {
         val imageView = BaseImageView()
         imageView.setBackgroundColor(Color.TRANSPARENT)
@@ -83,7 +60,7 @@ class RestaurantListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModu
         renderToolbar()
 
         imageViewFAB.setOnClickListener {
-            //emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name) //TODO : remove comment
+            emitEvent?.invoke(RestaurantListViewModel.EventType.OnFilterPressed.name)
         }
 
         bodyTable.adapter = viewAdapter
@@ -179,11 +156,7 @@ fun RestaurantListView.renderUIO() {
 
     innerContent.subviews(
         bodyTable,
-        imageViewFAB,
-        flowView.subviews(
-            //or can add view in this place
-            viewLabel
-        )
+        imageViewFAB
     )
 
     bodyTable
@@ -197,21 +170,7 @@ fun RestaurantListView.renderUIO() {
 
     imageViewFAB
         .constrainRightToRightOf(innerContent,5)
-        //.constrainBottomToBottomOf(innerContent,30) //TODO : remove comment
-        .constrainTopToTopOf(innerContent,30)
-
-    flowView
-        .constrainTopToBottomOf(innerContent)
-        .fillHorizontally(16)
-
-    viewLabel
-        .width(40)
-        .height(40)
-        .constrainCenterXToCenterXOf(flowView)
-        .constrainTopToTopOf(flowView, 30)
-        .setOnClickListener {
-            Timber.e("On bottom sheet pressed")
-        }
+        .constrainBottomToBottomOf(innerContent,30)
 
 }
 
