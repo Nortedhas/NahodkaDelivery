@@ -71,7 +71,7 @@ class BaseFlowView(val parent: BaseConstraintLayout) : ConstraintLayout(currentA
                 MotionEvent.ACTION_UP -> { //touch out
 
                     val height = if (abs(event.rawY - utils.variable.actionBarHeight -
-                                utils.variable.statusBarHeight) < parent.height) {
+                                utils.variable.statusBarHeight) < height * 0.7) {
                         maxHeight
                     } else {
                         parent.height.toFloat()
