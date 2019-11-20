@@ -19,7 +19,9 @@ object Tools {
 
 object Variable {
     var statusBarHeight = 0
+    //in DP
     var displayWidth = 0
+    //in DP
     var displayHeight = 0
     var actionBarHeight = 0
     var token: String by Delegates.observable(""){property, oldValue, newValue ->

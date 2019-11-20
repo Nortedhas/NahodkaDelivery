@@ -27,11 +27,12 @@ class BaseFlowView(val parent: BaseConstraintLayout) : ConstraintLayout(currentA
     //for set place in ConstraintLayout
     var gradientDrawable = GradientDrawable()
 
-    var heightInPercent: Int = 50
+    var heightInPercent: Int = 90
     //position finger in view
     private var touchPosition = 0.0F
 
-    private val heightInRelative: Float = heightInPercent.toFloat() / 100.0F
+    /*private val heightInRelative: Float
+        get() = heightInPercent / 100.0F*/
 
     //for animation in ConstraintLayout we need use ConstraintSet
     private val constraintSet = ConstraintSet()
@@ -40,7 +41,12 @@ class BaseFlowView(val parent: BaseConstraintLayout) : ConstraintLayout(currentA
 
     private var isShow = false
 
-    private val displayHeight = currentActivity?.resources?.displayMetrics?.heightPixels
+    private val maxHeight: Float
+        get() {
+            val displayHeight = currentActivity?.resources?.displayMetrics?.heightPixels ?: 0
+            val heightInRelative = heightInPercent / 100.0F
+            return displayHeight * (1 - heightInRelative) /*- utils.variable.actionBarHeight - utils.variable.statusBarHeight*/
+        }
 
     var cornerRadius: Int? = null
     var backgroundColor: Int? = null
@@ -95,7 +101,7 @@ class BaseFlowView(val parent: BaseConstraintLayout) : ConstraintLayout(currentA
                 transition.duration = 500
                 if (!isShow) {
                     isShow = true
-                    slideView(displayHeight!! - (displayHeight!! * heightInRelative) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
+                    slideView(maxHeight)
                 } else {
                     isShow = false
                     slideView(parent.height.toFloat())
@@ -134,7 +140,7 @@ class BaseFlowView(val parent: BaseConstraintLayout) : ConstraintLayout(currentA
 
                     Handler().postDelayed({
                         if (margin < parent.height) {
-                            slideView(displayHeight!! - (displayHeight!! * heightInRelative) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
+                            slideView(maxHeight)
                         } else {
                             slideView(parent.height.toFloat())
                         }
