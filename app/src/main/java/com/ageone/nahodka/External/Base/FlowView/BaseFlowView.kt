@@ -28,7 +28,9 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
     //for set place in ConstraintLayout
     var gradientDrawable = GradientDrawable()
 
-    var heightInPercent: Float = 0.5F
+    var heightInPercent: Int = 50
+
+    private val heightInRelative: Float = heightInPercent.toFloat() / 100.0F
 
     //for animation in ConstraintLayout we need use ConstraintSet
     private val constraintSet = ConstraintSet()
@@ -95,7 +97,7 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
                 transition.duration = 500
                 if (!isShow) {
                     isShow = true
-                    slideView(displayHeight!! - (displayHeight!! * heightInPercent) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
+                    slideView(displayHeight!! - (displayHeight!! * heightInRelative) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
                 } else {
                     isShow = false
                     slideView(constraintLayout.height.toFloat())
@@ -131,7 +133,7 @@ class BaseFlowView(val constraintLayout: BaseConstraintLayout) : ConstraintLayou
 
                     Handler().postDelayed({
                         if (margin < constraintLayout.height) {
-                            slideView(displayHeight!! - (displayHeight!! * heightInPercent) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
+                            slideView(displayHeight!! - (displayHeight!! * heightInRelative) - utils.variable.actionBarHeight - utils.variable.statusBarHeight)
                         } else {
                             slideView(constraintLayout.height.toFloat())
                         }
